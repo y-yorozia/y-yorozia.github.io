@@ -1,0 +1,3199 @@
+#+title:      Data Analysis with R Specialization Summary Notes
+#+date:       [2022-10-31 Mon 17:15]
+#+filetags:   :dataanalysis:math:note:summary:
+#+identifier: 20221031T171547
+
+#+OPTIONS: ^:nil
+#+OPTIONS: \n:t
+#+OPTIONS: tex:t
+#+OPTIONS: H:6
+#+LATEX_HEADER: \usepackage{svg}
+#+LATEX_HEADER: \usepackage{tikz,pgfplots,amsmath}
+#+LATEX_HEADER: \usetikzlibrary{positioning}
+#+LATEX_HEADER: \usepackage[margin=2cm]{geometry}
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
+#+begin_src emacs-lisp :results value silent :exports none :session 
+  (setq lfignumber 0)
+  (setq lformat ".svg")
+  (setq lpath "tikz/DAwRSs")
+#+end_src
+
+#+begin_src emacs-lisp :results value silent :exports none :session 
+  (setq fignumber 0)
+  (setq format ".svg")
+  (setq path "ggplot/dawrss-plot")
+#+end_src
+
+#+begin_src R :results value silent :exports none :session 
+  library(tidyverse)
+  library(tigerstats)
+  theme_set(theme_classic())
+  library(DAAG)
+  library(palmerpenguins)
+  library(ggpubr)
+  library(GGally)
+  data("allbacks")
+  data("penguins")
+  data("crickets")
+#+end_src
+
+* Introduction to probability and data
+** About
+** Introduction to data
+*** Data basics
+- Data can be organized in a matrix where each *row is an observation* and each *column is a variable*.
+- In exploratory data analysis, we investigate the *relationship between variables* to determine whether they are *dependent* on one another.
+- Type of variables
+  - *Quantitative*: Values that are sensible to do arithmetic with.
+    - *Continuous(measured)*: Values that can take an infinite amount of values within a range.
+      - A precise length measurement can look something like this: 7.2410215397 kilometers (4.4993621871396 Miles). However, for ease of use, we usually  rounded it up or down to 7 Kilometers (4.5 Miles).
+      - *PS*: rounded continuous values are often mistaken for discrete values
+    - *Discrete(counted)*:Values that can take a finite amount of values within a range. 
+      A discrete value can be interpreted as values without a decimal point.
+      Example: you can only say"I have 1 laptop", and not "I have 1.5 laptops".
+      But, if a range and decimal place is predetermined, *values with decimal point can be considered as discrete values*.
+      Example: diving scores can be 8.5 and still consider a discrete value.
+  - *Qualitative*: Values that are *not* sensible to do arithmetic with.
+    - *Nominal*: Values with an inherit order
+    - *Ordinal*: Values without an inherit order
+- Levels of mesurement
+  The important part is to know if the variable have a true zero to use multiplication and division.
+*** Introduction
+- A conclusion, that came from analysis of sample data, that only be generalized if the sample is representative of the population.
+- When analyzing a sample data, there are questions that need to be asked:
+  - What question are we trying to answer?
+  - Who is the population of interest?
+  - Does the sample represent the population of interest?
+- Study example:
+  - *Study*: Alcohol brad use and injuries in the emergency department
+  - *Research question*: are consumers of an alcohol brand more likely to end up in the emergency room with injuries than others?
+  - *Population of interest*: Everyone
+  - *Sample*: ER patients at the Johns Hopkins Hospital in Baltimore in the US.
+  - *Result can be generalized to*: Resident of Baltimore (since some brand might be more easily available in Baltimore only)
+
+*** Statistica studys
+In statistic, we collect, organize, analyze data to determing relaitonship between variables.
+
+- Data can be collected by conducting a study. types of statistical studys are:
+  - *Experimental study*: in it, we divide people into groups, control the amount or presence of a *variable (independent/explanatory)* that is provided to each group, and collect data on its effect on another *variable (dependent/response)*.
+    It is only by conducting an experiment and test all possible variables that can possibly effect an outcome that we can *conclude a causation*.
+  - *Observational study*: in it, we collects data by simply observing, asking, or recording rather than controlling the amount or presence of a variable.
+    An observational study's data can only be used to estimate averages or correlations between variables, *not to determine causation*.
+    - Observational studys types:
+      - *Retrospective*: analyzing a past observatinal study data
+      - *Survey*: analyzing a present observational data
+      - *Prospective*: analyzing a still collected observatinal study data
+
+*** Experimental design
+- Experiment terminology
+  - placebo: Fake treatment.
+  - placebo effect: Showing a change after taking a fake treatment.
+  - blinding: Experimental units don't know the group's assignment.
+  - double-blind: Both experimental units and researchers don't know the groups assignment.
+
+When we design an experiment, we are trying to determine if a thing affects another thing.
+
+The thing that *affect* is called the *explanatory or independent variable*.
+The thing that *get affected* is called the *response or dependent variable*.
+The *characrteristic* of a unit is called *block variable*
+An extraneous variable that is related to the explanatory and response variables and that prevents us from deducing causal relationships based on observational studies is called Lurking or *Confounding Variables*
+
+Afterward, we make groups and subgroups if needed base on characteristics, and then we assign treatment to each group at random.
+
+To avoid influencing a psychological change on a person in the experiment, we conduct a double-blind experiment.
+
+If we are in the medical field, and we have a treatment, it will always be accompanied by a placebo that is giving to the control group.
+
+Always keep a lookout for other explanatory variables that might affect the result, if found, make new groups, preferable using stratified sampling, to block them to determine their effect.
+
+The experiment need to be documented so that other will be able to replicate it and validate the results.    
+
+- Conclusion type base on sampling and assignment
+  |                    | Random assignment                            | No random assignment                                    |
+  | Random sampling    | casual and generelized (ideal experiment)    | not casual but generelized (most observational studies) |
+  | No random sampling | casual but not generelized (most experiment) | neither casual norgenerelized (bad observational studies) |
+*** Sampling
+Studying the entire population is time-consuming, expensive, and nearly impossible to be precise due to population change. This is why we chose sampling.
+
+Sampling is about having enough people to conduct a study so that the results can be generalized to the entire population.
+Before starting with sampling, we should determine a sample size, a sampling method, and avoid sampling bias.
+- Determining the sample *size*:
+- Determining the sampling *method*:
+  - *Simple random sampling*: randomly pick poeple
+  - *Stratified sampling*: Dividing the population into groups based on characteristics of interest, and then randomly pick people from each group equaly.
+  - *Cluster sampling*: In case of a pre-existing cluster, a school for example, we randomly choose a cluster and pick all the people in it
+  - *Multistage sampling*: In case of a pre-existing cluster, a school for example, we randomly choose a cluster, and then we randomly pick people from it.
+- Avoinding sampling *bias*:
+  - *Conveniece sampling*: Sampling only from individuals who are more accessible. (no random sample)
+  - *Non-response*: Not getting a response from a group of individuals with a shared characteristic. (random sampling, no population representation)
+  - *Voluntary response*: Sampling only from individuals who volunteer to respond because they have a strong opinion. (no random sampling)
+
+** Exploratory data analysisand introduction no inference
+*** Visualizing Numerical Data
+- Visualizing one numerical variable
+  - Histogram
+    Histogram present the distribution of a variable, depending on shape of the distribution, skewness and modality, we can culclude characteristic of a variable.
+    - Skewness
+      - No skewness: also known as normaly distributed, it mean that data near the mean is the most frequant to accure
+      - Left skewed: shows that there is a natural limit in the right, meaning that data near the mean is not the most frequant to accure
+      - Right skewed: shows that there is a natural limit in the left, meaning that data near the mean is not the most frequant to accure
+    - Modality
+      - Unimodal
+      - Bimodal
+      - Multimodal
+      - Uniform
+  - Boxplot
+    Box plot is an usfull plot to highlight outlier, median and IQR
+- Visualizing two numerical variables
+  - Scatterplot
+    Eachpoint represnt an observation and its coordinance it represented by two variables.
+    The x-axis should represent the explanatory variable, and y-axis should represent the response variable.
+    - We evaluate the relationship between two numerical variables by:
+      - Direction: positive (when x increase y increase), or negative (when x increase y decrease)
+      - Shape: linear or curved
+      - Strenght: strong correlation or weak correlation
+      - Outliers
+    *Note:* Depending on the type of study that was used to collect the data we analyse, either experimental or observational, we evaluate the relationship between two numerical variables with either correlation or causation.
+*** Measures of Center
+- mean: arithmetic average
+- median: midpoint of the distribution ( 50th percentile)
+- mode: most frequant observation
+- Skewness and measure of center
+  - in left skewed destributions the mean is smaller then the meadian
+  - in right skewed destributions the mean is bigger then the median
+  - in symetric destributions the mean is equal to the meadian
+*** Measures of Spread
+- range(max - min): unreliable in the present of outliers
+- standard diviation: measure how the data is spread from the mean, one standard deviation from the mean tells use that from the mean value to the standard deviation value, there lies $34\%$ of the data, assuming the data is normally distributed. unreliable in the present of outliers.
+- inter-quartile-range (IQR): the distance between one quarter of the data and 3 quarterd of the data (25th and 75th percentile).
+
+***  Symbols
+when working with population we use greek alphabet and when working with sample we use latin alphabet
+|                    | Population | Sample    |
+| Mean               | $\mu$      | $\bar{x}$ |
+| Standard deviation | $\sigma$   | $s$       |
+*** Robust Statistics
+robust statistic are measures where extreme observation have little effect
+|        | Robust | Non-robust |
+| Center | Median | Mean       |
+| Spread | IQR    | SD, range  |
+*** Transforming Data
+- some statistical models lite z-test, t-test, and ANOVA asumes normality in the data, this is why non normaly distributed data is often transformed.
+- type of transformation
+  - log transformation
+    - applyed when alot of the data is cluster near zero and all the observations are positive
+  - square root
+  - invert
+*** Exploring Categorical Variables
+Example used: https://www.surveyusa.com/client/PollReport.aspx?g=473bae83-4de2-4016-8f5e-e69064a6e31a
+- When analsyzing one ot two catogorical variables we need to statistacly transform the data to either frequancy or contengency table
+*frequancy table*
+| Difficulty saving money | Count |
+|-------------------------+-------|
+| Very                    |   231 |
+| Somewhat                |   196 |
+| Not very                |    58 |
+| Not at all              |    14 |
+| Not sure                |     1 |
+*Contengency table*
+| Difficulty saving money\Income | <$40k | $40-80k | >$80k | Refused | Total |
+|--------------------------------+-------+---------+-------+---------+-------|
+| Very                           |   128 |      63 |    31 |       9 |   231 |
+| Somewhat                       |    54 |      71 |    61 |      10 |   196 |
+| Not very                       |    17 |       7 |    27 |       7 |    58 |
+| Not at all                     |     3 |       6 |     5 |       0 |    14 |
+| Not sure                       |     0 |       1 |     0 |       0 |     1 |
+|--------------------------------+-------+---------+-------+---------+-------|
+| Total                          |   202 |     148 |   124 |      26 |   500 |
+- In a contengency table we can anamyse three types of distributions.
+  1) Marginal distribution:
+     - Can be a number or a percantage
+     - We are intrested in the distribution of a categorical variable
+     - Example: How many or what is the percentage of people answering "Somewhat"
+       196 answer "Somewhat"
+       $\frac{196}{500}=0.392$,  $39.2\%$ answer "Somewhat"
+     - Plot: barplot
+     - Table type: frequancy or contenfency
+  2) Joint distribution:
+     - Can be a number or a percentage
+     - We are intrestend in knowing about two values, from two diffirent categorical variables, hapend at the same time.
+     - Example:  How many people or what is the probabillity answer "Somewhat" and have an income ">$80k"
+       61 people answer "somewhat" and report ">$80k" in income
+       $\frac{61}{500}=0.122$,  $12.2\%$ of the people answer "somewhat" and report ">$80k" in income
+     - Table type: contengency
+  3) Conditional distribution:
+     - Can *only* be a percentage
+     - We are intrested in the distribution of a categorical variable (response) based on only one value from another categorical variable (explanatory)
+     - Example: What is the probability of someone answeering "Somewhat" knowing that his income is ">$80k"
+       $\frac{61}{124}=0.49$,  $49\%$ is the probability of someone answeering "Somewhat" knowing that his income is ">$80k"
+     - Plot: moseic
+     - Table type: contengency
+
+Transforming a contengency table with probabilitys
+| Difficulty saving money\Income | <$40k | $40-80k | >$80k | Refused |
+|--------------------------------+-------+---------+-------+---------|
+| Very                           |  0.63 |    0.43 |  0.25 |    0.35 |
+| Somewhat                       |  0.27 |    0.48 |  0.49 |    0.38 |
+| Not very                       |  0.08 |    0.05 |  0.22 |    0.27 |
+| Not at all                     |  0.01 |    0.04 |  0.04 |       0 |
+| Not sure                       |     0 |    0.01 |     0 |       0 |
+|--------------------------------+-------+---------+-------+---------|
+| Total                          |     1 |       1 |     1 |       1 |
+- Looking at the disribution of the response variable "dificulty saving money" base on one value from the explanatory variable "income", example ">$80k", we observe a diffirene in frequency.
+  if income and answer werent related we would se a 0.2 across all observation, sicne this is a survey we can safely conclude a correlation o a relationship between the income and how a person will answer in this question "is it difficult to save money".
+
+- relationship between a categorical and numerical variable
+  - How a numerical variable is distributed across each value in a categorical value
+  - plot: boxplot
+*** Introduction to Inference
+- hypothesis testing
+  - Null hypothesis
+  - alternative hypothesis
+  - presenting evidence
+  - judge the evidence: could this data possible happend by chance if the null hypothesis is tru
+  - If yes: faild to reject the null hypothesis, meaning the the null hypothesis is true
+  - If no: the null hypothesis, meaning the the null hypothesis is false
+** Introduction to probability
+*** Introduction
+- A probability is a value between zero and one $\left(0 \leq P(condition) \leq 1\right)$, made this way to ease arithmetic, that gives an idea about how often an event that meet a condition happen.
+
+  
+There is two types of probability, theoratical and experimental.
+- theoratical probability is based on, you guessed it, math.
+  $$P(condition) = \frac{\text{Number of possibilities that meet the condition}}{\text{Number of all possibilities}}$$
+- exparimental probability is base results from experiments, where is it hard to calculate the theoratical probablity.
+  $$P(condition)=\frac{\text{The number of cases where the condition occurred}}{\text{The number of all cases}}$$
+*** theoratical probablity vs experimental probablity
+A classic example of theoratical vs experimental probablity would be coin toss.
+- Theoraticly:
+  \begin{equation*}
+  \begin{split}
+  P(Head) &= \frac{\text{Number of possibilities to toss a head}}{\text{Number of all possibilities}}\\
+  &= \frac{1}{2}\\
+  &= 0.5
+  \end{split}
+  \end{equation*}
+- Experimantaly
+  We can conduct an experimantal study and toss coins out self, note after each toss how $P(Head)$ changes, or we can use an app by Mcmillanusa http://digfir-published.macmillanusa.com/stats_applet/stats_applet_10_prob.html.
+  If you toss *only one time*, you will either get: $$P(Head)=0 \text{ or } P(Head)=1$$
+  It is only by tossing the coin/conducting the experiment multiple times, even thousands of times, that you can get close to the theoretical probability that seems reasonable.
+  
+  With this classic example we can clearly deduce that we need more experiments or just stick with theoretical probability because it can be calculated.
+But what if we cannot calculate the theoretical probability?.
+
+  If experimental probability is out only option, how sure are we that the probablity we got from one or two experiment is the correct one.
+
+  An example of doing an experiment is easiyer to find a probability:
+
+  Pascale Ricketss has invented a game called "3 rolls to ten". you roll a fair 6-sided die three rimes. if the sum of the rolls is 10 or greater, you win.
+What is the probability of winning "3 Rolls to ten"?
+  Best way yo find it is by condicting an experiment where a machine generate cases at random, and then devide the number of cases where you won by the total number of all cases.
+*** common probability sumbols
+- Here are some probability symbols and definitions
+  | Symbol        | Symbol name                        | Meaning                                       |
+  |---------------+------------------------------------+-----------------------------------------------|
+  | $P(A)$        | Probability function               | Probability of event A                        |
+  | $P(A \cap B)$ | Probability of events intersection | Probability that events A and B occurs        |
+  | $P(A \cup B)$ | Probability of events union        | Probability that events A or B occurs         |
+  | $P(A \mid B)$ | conditional probability function   | probability of event A given event B occurred |
+
+*** Probability of an event A
+- The probabiliy of an event A can be calculated either by:
+  - Theoretical probability
+    $$P(A)=\frac{\text{The number of possibilities to get event A}}{\text{Number of all possibilities}}$$
+  - Experimental - Frequancy/contengency table
+    $$P(A)=\frac{\text{The number of cases where the event A occurred}}{\text{The number of all cases}}$$
+*** Probability of A and B
+- The probabiliy of an event A and B occure together can be calculated either by:
+  - Experimental - Contengency table
+    $$P(A \cap B)=\frac{\text{The number of cases where the event A and B occurred together}}{\text{The number of all cases}}$$
+  - Formula
+    Before calculating it using a formula we need to determing the nature of the events, whether they are dependent or indendent.
+    - Independent: meaning that if the result of event A is known, the probability of event B dosen't change from its original
+      $$P(A \cap B)=P(A)*P(B)$$
+      Example: Coint toss
+      If event A is tossing head and event B is also tossing head, whet is the probability of tossing a coind and getting head twice knowing that $P(Head)=0.5$
+      \begin{equation*}
+      \begin{split}
+      
+      P(Head \cap Head)&=P(Head)*P(Head)\\
+      &=0.5*0.5\\
+      &=0.25
+      
+      \end{split}
+      \end{equation*}
+    - Dependent: meaning that if the result event A is known, the probablility of event B change from its original.
+      $$P(A \cap B)=P(A)*P(B \mid A)$$
+      Example
+      In a competition, you win by choosing the right box, there is only two boxes out of five that guaranties the win.
+      We have two contestant, Carl and Sara.
+      Let A be the event where Carl wins, and B the event where Sara wins.
+      Before determining who is going to choose a box first, let's calculate $P(A)$ and $P(B)$.
+      $$P(A)=\frac{2}{5}=0.4$$
+      $$P(B)=\frac{2}{5}=0.4$$
+
+      It was decided that Carl will pick first, assuming that Carl had won and now we have less boxes, will the probability of B say the same? will it event be called $P(B)$?
+      Now that we have a new knowledge, only one box left out of four guarantees the win, not only the probability will change, but also the notation.
+      $$\Delta P(B) = P(B \mid A)= \frac{1}{4}=0.25$$
+
+      Now that we know what is the probability for Sara to pick the right box to win, what is the probability for both Carl and Sara to win.
+      
+      \begin{equation*}
+      \begin{split}
+      
+      P(A \cap B)&=P(A)*P(B \mid A)\\
+      &=0.4*0.25\\
+      &=0.1
+      
+      \end{split}
+      \end{equation*}      
+*** Probability of event B giving A
+- The probabiliy of an event A can be calculated either by:
+  - Formula
+    $$P(B \mid A)=\frac{P(A \cap B)}{P(A)} = \frac{P(B \cap A)}{P(A)}$$
+  - Experimental - Contengency table
+    $$P(B \mid A)=\frac{\text{The number of cases where the event A and B occurred together}}{\text{The number of cases where the event A occurred}}$$
+- $P(A \mid B)$ can be calculated using conditional distribution, formulas
+
+*** Probability of events A or B
+- The probability of event A or B can be calculated using one formula:
+  $$P(A \cup B) = P(A) + P(B) - P(A \cap B)$$
+  Sometimes events A and B can accure together, as seen in the image below.
+  To avoid double counting we substract the probability of A and B accuring together.
+  In joint event $P(A \cap B) \neq 0$, in dijoint event $P(A \cap B)=0$
+  #+BEGIN_SRC latex :exports results :imagemagick yes :fit yes :iminoptions -density 600 :imoutoptions -resize 800x640 :results output graphics file :file (concat lpath (number-to-string (cl-incf lfignumber)) lformat)
+  \begin{tikzpicture}
+  \coordinate (C1) at (1.5,1.25);
+  \coordinate (C2) at (2.5,1.25);
+  \coordinate (R1) at (-0.1,0);
+  \coordinate (R2) at (4.1,2.5);
+  \coordinate (C3) at (5.45,1.25);
+  \coordinate (C4) at (7.55,1.25);
+  \coordinate (R3) at (4.4,0);
+  \coordinate (R4) at (8.6,2.5);
+
+  \draw (C1) circle (1);
+  \draw (C2) circle (1);
+  \node at (0.05,2.1) {$A$};
+  \node at (3.95,2.1) {$B$};
+  \draw (R1) rectangle (R2);
+  \draw (C3) circle (1);
+  \draw (C4) circle (1);
+  \node at (4.55,2.1) {$A$};
+  \node at (8.45,2.1) {$B$};
+  \draw (R3) rectangle (R4);
+
+  \begin{scope}
+  \clip (C1) circle (1);
+  \fill[blue!50,opacity=0.8] (C2) circle (1);
+  \end{scope}
+  \begin{scope}
+  \clip (C1) circle (1);
+  \fill[blue!50,opacity=0.5] (C1) circle (1);
+  \end{scope}
+  \begin{scope}
+  \clip (C2) circle (1);
+  \fill[blue!50,opacity=0.5] (C2) circle (1);
+  \end{scope}
+  \begin{scope}
+  \clip (C3) circle (1);
+  \fill[blue!50,opacity=0.5] (C3) circle (1);
+  \end{scope}
+  \begin{scope}
+  \clip (C4) circle (1);
+  \fill[blue!50,opacity=0.5] (C4) circle (1);
+  \end{scope}
+
+  \node at (2,1.25) {$A\cap B$};
+  \node at (2,-0.2) {$Joint$};
+  \node at (6.6,-0.2) {$Disjoint$};
+
+  \end{tikzpicture}
+  #+END_src
+
+  #+RESULTS:
+  [[file:tikz/DAwRS1.png]]
+
+*** Example1
+- Example study: https://www.surveyusa.com/client/PollReport.aspx?g=a5f460ef-bba9-484b-8579-1101ea26421b
+  The question that was asked is "Does widespread gun ownership protect law abiding citizens from crime? Or make society more dangerous?"
+  | *Answer\Race*           | White | Black | Hispanic | Asian | *Total* |
+  |-------------------------+-------+-------+----------+-------+---------|
+  | Protects Citizens       |   230 |    28 |       22 |    10 |     290 |
+  | Makes Society Dangerous |    86 |    60 |       12 |    10 |     168 |
+  | Not Sure                |    26 |    14 |        0 |     2 |      42 |
+  |-------------------------+-------+-------+----------+-------+---------|
+  | *Total*                 |   324 |   102 |       34 |    22 |     500 |
+  - First lets determing the stype of study and the explanatory and response variable.
+    - Study type is a survey, meaning that not causation can be deduced from any analysis
+    - Since this is a survey, the answer is the resposne variable and the race is the explanatory varaible, meaning that in conditional probability, the appropriate notation would be $P(Answer \mid Race)$
+  - There are alot of question that can be asked, but they atll fall into those general quation
+    - Marginal probability or the probability of one event $P(\text{Unique value in the resposne variable})$ or $P(\text{Unique value in the expalanatory})$
+      \begin{equation*}
+      \begin{split}
+      P( \text{Answer-Protects citizens}) &= \frac{290}{500} \\
+      &= 0.58
+      \end{split}
+      \end{equation*}
+    - Joint probability or the probability of two events hapening at the same time $P( \text{Unique value in the resposne variable} \cap \text{Unique value in the expalanatory variable})$
+      \begin{equation*}
+      \begin{split}
+      P( \text{Answer-Protects citizens} \cap \text{Race-Asian}) &= \frac{10}{500} \\
+      &= 0.02
+      \end{split}
+      \end{equation*}
+    - Conditional probability or the probability of an event happening giving that one had ocured $P( \text{Unique value in the resposne variable} \mid \text{Unique value in the expalanatory variable})$
+      \begin{equation*}
+      \begin{split}
+      P( \text{Answer-Protects citizens} \mid \text{Race-Asian}) &= \frac{10}{22} \\
+       &= 0.\overline{45}
+      \end{split}
+      \end{equation*}
+  - The final question might be is the answer really dependent on race.
+    To find out lets calculate the condetional probablity of one answer giving each race.
+    \begin{equation*}
+    \begin{split}
+    P( \text{Answer-Protects citizens} \mid \text{Race-White}) &=  0.71 \\
+    P( \text{Answer-Protects citizens} \mid \text{Race-Black}) &=  0.27 \\
+    P( \text{Answer-Protects citizens} \mid \text{Race-Hispanic}) &=  0.65 \\
+    P( \text{Answer-Protects citizens} \mid \text{Race-Asian}) &=  0.\overline{45}
+    \end{split}
+    \end{equation*}
+    From this table, the variability of the conditional probability of answering "Protects citizens" across all races proves that there is a dependency variables.
+
+*** Sample space
+- Sample space is a collection of all the possible outcome of a process
+  Example: What are all the possible outcomes that can result on tossing a coin two times.
+  $$S=\{\text{HH,HT,TH,TT}\}$$
+*** Probability distribution
+- Probability distribution is a list of the sample space and the probablity with which they accure
+  | S |   HH |   HT |   TH |   TT |
+  | P | 0.25 | 0.25 | 0.25 | 0.25 |
+  - the probability distribution neeed some rules:
+    - the events must be disjoint
+    - each probability must be between 0 and 1
+    - the sum of all probability must be 1
+  - Example of its uses:
+    Let \text{X} be the number of heads after 2 flips of a coin.
+    What is the probability that we get: 0 head $P(X=0)$, 1 head $P(X=1)$, and 2 heads $P(X=2)$.
+    From the probability distribution table there is one event where there was zero heads (TT), two where there was one head (HT,TH), and one where there was two heads (HH)
+    \begin{equation*}
+    \begin{split}
+    P(X=0)&=0.25\\
+    P(X=1)&=0.50\\
+    P(X=2)&=0.25
+    \end{split}
+    \end{equation*}
+*** Complementary event
+A complementary event is the probability of all possible outputs except the one we are interested in.
+$$P(A')=\frac{\text{The number all possible events except event A}}{\text{Number of all possibilities}}$$
+If the event are disjoint event we can apply this rule:
+$$P(A)+P(A')=1$$
+- Example
+  By flipping a coin twice, what is the probability to get enything except two heads
+  \begin{equation*}
+  \begin{split}
+  P(HH)+P(HH')&=1\\
+  &=1-P(HH)\\
+  &=1-0.25\\
+  &=0.75
+  \end{split}
+  \end{equation*}  
+*** Example 2
+The world Values Survey is an ongoing worldwide survey that pools the world population about perceptions of life, work, family, politics, etc.
+The most recent phase of the survey that polled 77882 people from 57 countries estimated that $36.2\%$ of the world's population agree with the statment "Men should have more right to a job that women."
+The survey alse estimates that $13.8\%$ of people have a university degree or higher, and that $3.6\%$ of people fit both criteria.
+\begin{equation*}
+\begin{split}
+P(\text{Agree}) &= 0.362\\
+P(\text{Uni-Deg}) &= 0.138\\
+P(\text{Agree} \cap \text{Uni-Deg}) &= 0.036
+\end{split}
+\end{equation*}
+1) Are agreeing with the statment "Men should have more right to a job than a women" and having a university degree or higher a disjoint events?
+   - It is a joint event because there is the case where both criteria is fitted
+2) define other probabilityes
+   - people who agree and having *no* university degree:
+     \begin{equation*}
+     \begin{split}
+     P(\text{Agree} \cap \text{Uni-Deg'}) &= P(\text{Agree}) - P(\text{Agree} \cap \text{Uni-Deg}) \\
+     &= 0.362 - 0.036 \\
+     &= 0.326
+     \end{split}
+     \end{equation*}
+   - people who *didn't* agree and have a university degree:
+     \begin{equation*}
+     \begin{split}
+     P(\text{Agree'} \cap \text{Uni-Deg}) &= P(\text{Uni-Deg}) - P(\text{Agree} \cap \text{Uni-Deg}) \\
+     &= 0.138 - 0.036 \\
+     &= 0.102
+     \end{split}
+     \end{equation*}
+3) What is the probability that a randomly drawn person has a university degree or agrees with the statment?
+     \begin{equation*}
+     \begin{split}
+     P(\text{Agree} \cup \text{Uni-Deg}) &= P(\text{Agree}) + P(\text{Uni-Deg}) - P(\text{Agree} \cap \text{Uni-Deg}) \\
+     &= 0.362 + 0.138 - 0.036 \\
+     &= 0.464
+     \end{split}
+     \end{equation*}
+4) What is the probability that some one will agree giving that he have a university degree
+     \begin{equation*}
+     \begin{split}
+     P(\text{Agree} \mid \text{Uni-Deg}) &= \frac{P(\text{Agree} \cap \text{Uni-Deg})}{P(\text{Uni-deg})} \\
+     &= \frac{0.036}{0.138} \\
+     &= 0.26
+     \end{split}
+     \end{equation*}
+5) What percent of the world population do not have a university degree and diagree with the statement?
+     \begin{equation*}
+     \begin{split}
+     P(\text{Agree'} \cap \text{Uni-Deg'}) &= 1 - P(\text{Agree} \cup \text{Uni-Deg})\\
+     &= 1 - 0.464 \\
+     &= 0.536
+     \end{split}
+     \end{equation*}
+6) is agreesing with the statment and having a degree independent
+   - for independenct we need to check if $P(\text{Agree} \cap \text{Uni-Deg}) = P(\text{Agree}) * P(\text{Uni-Deg})$
+     \begin{equation*}
+     \begin{split}
+     P(\text{Agree} \cap \text{Uni-Deg}) &= 0.036\\
+     P(\text{Agree}) * P(\text{Uni-Deg}) &= 0.05
+     \end{split}
+     \end{equation*}
+     $P(\text{Agree} \cap \text{Uni-Deg}) \neq P(\text{Agree}) * P(\text{Uni-Deg})$, there for agrring with the statment and the education is not indepedent.
+7) what is the peobability that at least one of five randomly selected people will agree with the statment?
+   - we can try a sample space to visualize the posible combinations. A for agree and D for disagree
+     $$S = \{DDDDD,DDDDA,DDDAD,DDADD,DADDD,ADDDD,DDDAA, \ldots,AAAAA\}$$
+     we can notice that all posibilities, other than one $\{DDDDD\}$, validate out criteria. calculating the provbablity of all five rendome poeple disagreeing cal help us with out answer, for the five people diasgriging is a complementary event
+     \begin{equation*}
+     \begin{split}
+     P(\text{at least one out of five agree}) &= 1 - P(\text{all five disagree}) \\
+                                       &= 1 - P(\text{Disagree}) * P(\text{Disagree}) * P(\text{Disagree}) * P(\text{Disagree}) * P(\text{Disagree}) \\
+				       &= 1 - P(\text{Disagree})^5 \\
+				       &= 1 - (1 - P(\text{Agree}))^5 \\
+				       &= 1 - (0.638)^5 \\
+				       &= 1 - 0.106 \\
+				       &= 0.894 
+     \end{split}
+     \end{equation*}
+     
+*** (Spotlight) Disjoint vs. Independent
+A disjoin probability means that $P(A \cap B) = 0$, while independency mean that $P(A \mid B) = P(A)$
+*** Probability Trees
+Probability tree is a method that is useful to solve for a conditional probability giving the oposide
+**** Example (working with counts):
+  you have 100 emails in your inbox: 60 are spam, 40 are not spam. out of the 60 spam emails, 35 contain the word "free". of the rest, 3 contain the word "free".
+  if an email contain the word free, what is the probability thar it is a spam?
+
+
+#+BEGIN_SRC latex :exports results :imagemagick yes :fit yes :iminoptions -density 600 :imoutoptions -resize 800x400 :results output graphics file :file (concat lpath (number-to-string (cl-incf lfignumber)) lformat)
+  \begin{tikzpicture}[line cap=round,line join=round,x=0.6cm,y=0.5cm]
+  \coordinate (O) at (2,-1);
+  \begin{scope}[every node/.style={rectangle,draw=black,fill=black!5}]
+   \node (A) at (9,2) {$Spam$};
+   \node (B) at (9,-4) {$Spam'$};
+   \node (C) at (16,4) {$Free$};
+   \node (D) at (16,0) {$Free'$};
+   \node (E) at (16,-2) {$Free$};
+   \node (F) at (16,-6) {$Free'$}; 
+  \end{scope}
+
+  \draw (O) -- (A) -- (C)
+	       (A) -- (D)
+	(O) -- (B) -- (E)
+	       (B) -- (F);
+
+  \begin{scope}[every node/.style={font=\scriptsize}]
+  \node at (1,-1) {$Email$};
+  \node at (5,1.5) {$60$};
+  \node at (5,-3.5) {$40$};
+  \node at (12,3.8){$35$};
+  \node at (12,0) [black!60]{$25$};
+  \node at (12,-2) {$3$};
+  \node at (12,-6)[black!60]{$37$};
+  \end{scope}
+  \end{tikzpicture}
+#+END_src
+
+\begin{equation*}
+\begin{split}
+P(\text{spam} \mid \text{free}) &= \frac{P(\text{spam} \cap \text{free})}{P(\text{free})} \\
+                 &= \frac{35}{35+3} \\
+		 &= 0.92
+\end{split}
+\end{equation*}
+**** Example (working with probabilites):
+As of 2009, Swaziland had the highest HIV prevalence in the world. $25.9\%$ of this country's population is infected with HIV. The ELISA test in one of the first and most accurate tests for HIV. For those who carry HIV, The ELISA test is $99.7\%$ accurate. For those who do not carrt HIV, the test is $92.6\%$ accurate. If an individual from Swaziland has tested positive, what is the probabilirt that he carries HIV?
+
+$P( \text{HIV} \mid + ) = \frac{P( \text{HIV} \cap + )}{P( + )}$, we need $P( \text{HIV} \cap + )$ and $P(+)$.
+since $P( \text{A} \cap \text{B} ) = P( \text{B} \cap \text{A}), P( \text{HIV} \cap + ) = P( + \cap \text{HIV})$
+  
+  - Making the probability tree
+
+#+BEGIN_SRC latex :exports results :imagemagick yes :fit yes :iminoptions -density 600 :imoutoptions -resize 800x400 :results output graphics file :file (concat lpath (number-to-string (cl-incf lfignumber)) lformat)
+  \begin{tikzpicture}[line cap=round,line join=round,x=0.6cm,y=0.5cm]
+  \coordinate (O) at (2,-1);
+  \begin{scope}[every node/.style={recrangle,draw=black,fill=black!5}]
+   \node (A) at (9,2) {$HIV$};
+   \node (B) at (9,-4) {$HIV'$};
+   \node (C) at (16,4) {$+$};
+   \node (D) at (16,0) {$-$};
+   \node (E) at (16,-2) {$+$};
+   \node (F) at (16,-6) {$-$}; 
+  \end{scope}
+
+  \draw (O) -- (A) -- (C)
+	       (A) -- (D)
+	(O) -- (B) -- (E)
+	       (B) -- (F);
+
+  \begin{scope}[every node/.style={font=\scriptsize}]
+  \node at (1,-1) {$Person$};
+  \node at (5,1.5) {$P(HIV)=0.259$};
+  \node at (5,-3.5) [black!60]{$P(HIV')=0.741$};
+  \node at (12,3.8){$P(+|HIV)=0.997$};
+  \node at (12,0) [black!60]{$P(-|HIV)=0.003$};
+  \node at (12,-2) [black!60]{$P(+|HIV')=0.074$};
+  \node at (12,-6){$P(-|HIV')=0.926$};
+  \end{scope}
+  \end{tikzpicture}
+#+END_src
+
+To calculate the probability of someone having HIV giving that he tested positive we can apply bayes therom
+
+\begin{equation*}
+\begin{split}
+  P( + \cap \text{HIV} ) &= P( + \mid \text{HIV} ) * P(\text{HIV}) \\
+                         &= 0.997 * 0.259 \\
+		         &= 0.258
+\end{split}
+\end{equation*}
+
+
+$P( + )$ is all the probability of having a positive whether a person have HIV or not, it equal the some of all joint probabilitys that have a positive result in them $P( + \cap \text{HIV} )$ and $P( + \cap \text{HIV'} )$
+\begin{equation*}
+\begin{split}
+P( + \cap \text{HIV'} ) &= P( + \mid \text{HIV'} ) * P(\text{HIV'})\\
+                        &= 0.741 * 0.074\\
+		        &= 0.054
+\end{split}
+\end{equation*}
+\begin{equation*}
+\begin{split}
+P( + ) &=  P( + \cap \text{HIV} ) + P( + \cap \text{HIV'})\\
+       &=  0.258 + 0.054\\
+       &=  0.312
+\end{split}
+\end{equation*}
+\begin{equation*}
+\begin{split}
+P( \text{HIV} \mid + ) &= \frac{P( \text{HIV} \cap + )}{P( + )} \\
+                       &= \frac{P( + \cap \text{HIV})}{P( + )} \\
+                       &= \frac{0.258}{0.312}\\
+                       &= 0.82 
+\end{split}
+\end{equation*}
+\begin{equation*}
+\begin{split}
+  P( \text{HIV} \mid + ) &= \frac{P( \text{HIV} \cap + )}{P( + )} \\
+                         &= \frac{P( + \cap \text{HIV} )}{P( + )} \\
+                         &= \frac{0.258}{0.312} \\
+                         &= 0.82
+\end{split}
+\end{equation*}
+
+there is an $82\%$ chance that someone have HIV giving that he tested positive.
+  $$P(\text{HIV} \mid +) = \frac{P(\text{HIV} \cap +)}{P( + )}$$
+*** Bayesian Inference
+- bayesian approach to infrence
+- the set up: we have two dice, one of them is a six sided dice, and the other is a 12 sided dice
+  - you make your friend held a dice in each hand, chose on hand to roll the dice in it, and your friend in only allowed to tell you whether you roll a number bigger than or smaller than four
+  - your task is to determin which hand have the which dice
+- Probabilitys:
+  - probability of rolling number greater or eaqual four with a six sided dice is: 0.5
+  - probability of rolling number greater or eaqual four with a 12 sided dice is: 0.75
+- what is the probability of 12 sided dice is the one rolled givin that the number was bigger than 4
+\begin{equation*}
+\begin{split}
+P(\text{12S} \mid \geq 4) &= \frac{P(\text{12S } \cap \geq 4)}{P( \geq 4)}\\
+               &= \frac{P(\geq 4 \mid \geq \text{12S })*P(\text{12S})}{P(4 \mid \text{12S})*P(\text{12S})+P(\geq 4 \mid \text{4S})*P(\text{4S})}\\
+               &= \frac{0.75*0.5}{0.75*0.5+0.5*0.5}\\
+               &=0.6
+\end{split}
+\end{equation*}
+
+*** Examples of Bayesian Inference
+** Probability distribution
+*** Normal Distribution
+probability for continus variables
+- The normal probability distribution is a distribution where most of frequent variable values are near the mean, so the mean tells us a good estimate about the data.
+- 68-95-99% rule for a normal distribution (assuming the data is a sample)
+  With $\bar{x}$ as the sample mean and $s$ as the sample standard deviation...
+  - All values in the variable between $\left [ \bar{x}-1s,\bar{x}+1s \right ]$ represent $68\%$ of the data.
+  - All values in the variable between $\left [ \bar{x}-2s,\bar{x}+2s \right ]$ represent $95\%$ of the data.
+  - All values in the variable between $\left [ \bar{x}-3s,\bar{x}+3s \right ]$ represent $99\%$ of the data.
+- The normal probability distribution function:
+  $$f(x)=\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}$$
+  In simple turms, this function turn a histogram plot, of continuis values, into a curve where we can calculate the probability of observing a value $x$ either biger or smalelr than a value $x_i$ using integrals.
+  $$P(x \lt x_i)=\frac{1}{\sigma\sqrt{2\pi}} \int_{-\infty}^{x_i}e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2} dx$$
+
+- The standard normal probability distribution:
+  - It is just like the normal probability distribution but with a mean $\mu=0$ and standard deviation $\sigma=1$
+    $$f(x)=N(\mu=0,\sigma=1) \Rightarrow \frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}(x)^2}$$
+  - Back in the day when there was no computation power, people used this standard normal distribution to calculate all the probability using the function above and calcules, with the goal of figiring out the probability of distributoin with any values of $\mu$and$\sigma$ by transforming/standarizing the target value $x_i$ to a z-value $z_{x_i}$ where:
+    $$z_{x_i}=\frac{x_i-\mu}{\sigma}$$
+    After calculating $z_{x_i}$ we look in the table for the corisponding value.
+    - In summary, instead of looking for the probability of observing a value $x$ bieng less than a value $x_i$ in the normal distribution and calculating integral, wee look for the probability of observing a value $z$ bieng less than a value $z_{x_i}$ in the standard normal distribution.
+      $$P(x \lt x_i)=P(z \lt z_{x_i})$$
+- calculating probability $P$ based on $x_i,\mu,\sigma$ in R using *pnorm*, also called *p-value*:
+  - $P(x \lt x_i)$
+    #+BEGIN_src R :exports both :results output
+      pnorm(q=1.96, mean=0, sd=1, lower.tail=TRUE)
+    #+END_src
+    #+begin_src R :session :exports both :results output graphics file :file (concat path (number-to-string (cl-incf fignumber)) format)
+      pnormGC(1.96, region="below", mean=0, sd=1,graph=TRUE)
+    #+end_src
+  - $P(x \gt x_i)=1-$P(x \lt x_i)$$
+    #+BEGIN_src R :exports both :results output
+      pnorm(q=1.96, mean=0, sd=1, lower.tail=FALSE)
+    #+END_src
+    #+begin_src R :session :exports both :results output graphics file :file (concat path (number-to-string (cl-incf fignumber)) format)
+      pnormGC(1.96, region="above", mean=0, sd=1,graph=TRUE)
+    #+end_src
+  - $P(x_1 \lt x \lt x_2)=P(x \lt x_2)-P(x \lt x_1)$ with $x_2 \gt x_1$
+    #+BEGIN_src R :exports both :results output
+      pnorm(q=1.96, mean=0, sd=1, lower.tail=TRUE)-pnorm(q=-1.96, mean=0, sd=1, lower.tail=TRUE)
+    #+END_src
+    #+begin_src R :session :exports both :results output graphics file :file (concat path (number-to-string (cl-incf fignumber)) format)
+      pnormGC(bound=c(-1.96,1.96),region="between",mean=0,sd=1,graph=TRUE)
+    #+end_src
+  - $P(x_2 \lt x \lt x_1)=P(x \gt x_2)+P(x \lt x_1)=1-P(x \lt x_2)+P(x \lt x_1)$ with $x_2 \gt x_1$
+    #+BEGIN_src R :exports both :results output
+      pnorm(q=1.96, mean=0, sd=1, lower.tail=FALSE)+pnorm(q=-1.96, mean=0, sd=1, lower.tail=TRUE) 
+    #+END_src
+    #+begin_src R :session :exports both :results output graphics file :file (concat path (number-to-string (cl-incf fignumber)) format)
+      pnormGC(bound=c(-1.96,1.96),region="outside",mean=0,sd=1,graph=TRUE)
+    #+end_src
+- calculating value $x_i$ based on $P,\mu,\sigma$ in R using *qnorm*:
+  #+BEGIN_src R :exports both :results output
+    qnorm(p=0.975,mean=0,sd=1,lower.tail = TRUE)
+  #+END_src
+  #+begin_src R :session :exports both :results output graphics file :file (concat path (number-to-string (cl-incf fignumber)) format)
+    qnormGC(0.975, region="below", mean=0,sd=1,graph=TRUE)
+  #+end_src
+*** Working with the Normal Distribution
+**** Problem 1
+Suppose weights of checked baggage of airlines passangers follow a nearly normal distribution with mean 45 pounds and standard deviation 3.2 pounds. Most airlines charge a fee for baggage that weigh in excess of 50 punds.
+What percent of airlines passangers are expected to incur this fee?
+
+Availible information:
+\begin{align*}
+\bar{x}&=45\\
+s&=3.2\\
+x_i&=50
+\end{align*}
+We what is the percentage of the data that fall above the value 50, using normal calculation like:
+- Computing
+  #+BEGIN_src R :exports both :results output
+  pnorm(q=50, mean=45, sd=3.2,lower.tail=TRUE)
+  #+END_src
+- Visualizing
+  #+begin_src R :session :exports both :results output graphics file :file (concat path (number-to-string (cl-incf fignumber)) format)
+  pnormGC(50, region="below", mean=45,sd=3.2,graph=TRUE)
+  #+end_src
+Just pluging the numbers in the fucntions gave us the oposide of what we want
+- In computing, we need to substract one
+  #+BEGIN_src R :exports both :results output
+  1-pnorm(q=50, mean=45, sd=3.2)
+  #+END_src
+- In vusialization we need to change the region from "below" to "above"
+  #+begin_src R :session :exports both :results output graphics file :file (concat path (number-to-string (cl-incf fignumber)) format)
+  pnormGC(50, region="above", mean=45,sd=3.2,graph=TRUE)
+  #+end_src
+**** Problem 2
+The average daily hight temperature in June in LA is 77 ${^\circ}$F with a standard deviation if 5$^{\circ}$F. Suppose that the temperature in June closely follow a normal distribution.
+How cold are the coldest 20$\%$ of the days durring June in LA?
+
+Availible information:
+\begin{align*}
+\bar{x}&=77\\
+s&=5\\
+p&=0.2
+\end{align*}
+
+What is the values of which 20% of the data fall below it.
+- Computing
+  #+BEGIN_src R :exports both :results output
+  qnorm(p=0.2, mean=77, sd=5,lower.tail=TRUE)
+  #+END_src
+- Visualizing
+  #+begin_src R :session :exports both :results output graphics file :file (concat path (number-to-string (cl-incf fignumber)) format)
+  qnormGC(0.2, region="below", mean=77,sd=5,graph=TRUE)
+  #+end_src
+*** Evaluating the Normal Distribution
+The purpose of the QQ plot is to give us a visual confirmation about the data normality.
+If the data points fall into a line, this mean that the data is normally distributed.
+#+begin_src R :session :exports both :results output graphics file :file (concat path (number-to-string (cl-incf fignumber)) format)
+ggplot(mtcars, aes(sample = mpg)) +
+  stat_qq() +
+  stat_qq_line()
+#+end_src
+*** Binomial Distribution
+Probability for discrete variables
+- Bernouli random variable is a case of binomian distribution where each *trial* (can be a person) have only two possible outcomes, we define what outcome is a *sucess* and a *failure*, and when calculating probability we say *probability of sucess*
+- It answer the question, what is the probaability to see $x_i$ sucesses within $n$ trials giving a probability $p$ due to random chance.
+  The smaller the probability, the more it indicate that this event happend due to chance
+- Example: The Milgram experiment
+  In breif, we have a observer/scientist that gives order to a person to shock an actor if he answed wrong. the experiment found that the probability that someone obey the order is 65$\%$. $P( \text{Shock}) = 0.65$
+  Suppose we randomly select four individuals to participate in this experiment. What is the probability that exactly 1 of them will refule to administer the shock?.
+  - Solution:
+    let's name the four individuals A, B, C, and D.
+    What are the scenarios where exactly 1 refuses
+    | Scenario 1 | Scenario 2 | Scenario 3 | Scenario 4 |
+    | (A) Refuse | (B) Shock  | (C) Shock  | (D) Shock  |
+    | (A) Shock  | (B) Refuse | (C) Shock  | (D) Shock  |
+    | (A) Shock  | (B) Shock  | (C) Refuse | (D) Shock  |
+    | (A) Shock  | (B) Shock  | (C) Shock  | (D) Refuse |
+    From past experiment we know that $P( \text{Shock}) = 0.65$, and its complementary $P( \text{Refuse}) = 0.35$, and since the probabilities of those events are independent, we can multiply the probability of events in each scenario together to determine the probability of the whole scenario
+    | Scenario 1 | Scenario 2 | Scenario 3 | Scenario 4 |
+    |       0.35 |       0.65 |       0.65 |       0.65 |
+    |       0.65 |       0.35 |       0.65 |       0.65 |
+    |       0.65 |       0.65 |       0.35 |       0.65 |
+    |       0.65 |       0.65 |       0.65 |       0.35 |
+    |------------+------------+------------+------------|
+    |     0.0962 |     0.0962 |     0.0962 |     0.0962 |
+    Each scenario have a probability of 0.0962, and since only one event can happend, meaning the events are disjoints, we can use the addition rule to calculate the probabilityof either one of them happend.
+    We note Scenario 1 as S1
+    \begin{equation*}
+    \begin{split}
+     P( \text{S1} \cup \text{S2} \cup \text{S3} \cup \text{S4}) &= P( \text{S1}) + P(\text{S2}) + P( \text{S3}) + P( \text{S4}) \\
+     &= 0.0962 + 0.0962 + 0.0962 + 0.0962 \\
+     &= 0.3844
+    \end{split}
+    \end{equation*}
+    The probability that exactly one of the four people will refuse to shock is 38.44$\%$
+    #+begin_src R :session :exports both :results output graphics file :file (concat path (number-to-string (cl-incf fignumber)) format)
+    pbinomGC(bound=c(1,1),region="between",size=4,prob=0.35,graph=TRUE)
+    #+end_src
+- Binomial distribution describes the probability of having exactly k sucesses in n independet bernouli trials with probability of sucess p
+  the short formula for binomial disrtibution is:
+  \text{Number of scenarios} * P(\text{single scenario})$$
+  where:
+  \begin{equation*}
+  \begin{split}
+  \text{Number of scenarios} &= \frac{n!}{x_i!(n-x_i)!}\\
+  P(\text{single scenario}) &= \underbrace{p^{x_i}}_{\text{product of all sucess}} \overbrace{(1-p)^{n-x_i}}^{\text{product of all failures}}
+  \end{split}
+  \end{equation*}
+  
+- the long formulas:
+  $$P(X=x_i \mid n,p) = \frac{n!}{x_i!(n-x_i)!} p^{x_i} (1-p)^{n-x_i} $$
+  - Where:
+    - $x_i$ is the number of sucess
+    - $n$ is the number of the trials
+    - $p$ is the probability of sucess
+  - Trials must be independent
+- in r you can calculate number of scenarios with the choose function : choose(n , k or $x_i$)
+  #+BEGIN_src R :exports both :results output
+  choose(4,1)
+  #+END_src
+
+  #+RESULTS:
+  : [1] 4
+- Binomial expected value or mean
+  $$E(X \mid n,p)=np$$
+- Binomial standard deviation
+  $$s=\sqrt{np(1-p)}$$
+**** Example:
+According to a pool done in 2013, 13$\%$ of employees are engaged at work, among a sample of 10 empleyees
+- lets reorganize the information it is given:
+  - $x_i=8$
+  - $n=10$
+  - $p=0.13$
+- Q1:What is the probability that 8 of them are engaged at work?
+  1) Solution
+     - Using the bernouli formula:
+       \begin{equation*}
+       \begin{split}
+       P(X=x_i \mid n,p) &= \frac{n!}{x_i!(n-x_i)!} p^{x_i} (1-p)^{n-x_i} \\
+       &= \frac{10!}{8!(10-8)!} 0.13^{8} (1-0.13)^{10-8} \\
+       &\approx 0
+       \end{split}
+       \end{equation*}
+     - Using R code
+       #+BEGIN_src R :exports both :results output
+       dbinom(8,size=10,p=0.13) 
+       #+END_src
+     - Using visualiaztion
+       #+begin_src R :session :exports both :results output graphics file :file (concat path (number-to-string (cl-incf fignumber)) format)
+       pbinomGC(bound=c(8,8),region="between",size=10,prob=0.13,graph=TRUE)
+       #+end_src
+- Q2:Among a random sample of 100 employees, how many would you expect to be engages at work?
+  - Solution
+    Expected value(mean) of binomial distribution:
+    \begin{equation*}
+    \begin{split}
+     E(X \mid n,p) \text{ or } \bar{x} &=np\\
+     &=100*0.13\\
+     &=13
+    \end{split}
+    \end{equation*}
+- Q3:we cannot always expect to find 13 engalges empleyee out of a 100, we need a to know how much we can expect this value to vary
+  - Solution
+    \begin{equation*}
+    \begin{split}
+    s&=\sqrt{np(1-p)}\\
+    &=\sqrt{100*0.13(1-0.13)}\\
+    &=3.36
+    \end{split}
+    \end{equation*}
+*** Normal Approximation to Binomial
+- Adjusting $n$ and $p$ can make a binomial distribution resembel a normal distribution and make easiyer to use z-score to get the probabilit of a range
+
+**** Example:
+If the probability of someone bieng a facebook power user is 25$\%$, what is the probability of someone who have 245 friends have 70 power user or more.
+- lets reorganize the information it is given:
+  - $x_i=70$
+  - $n=245$
+  - $p=0.25$
+  - $P(X \geq x_i)=?$
+- Solution: 
+  A manual solution is to sum all binomial probabilities from $X=70$ to $X=245$
+  $$P(X>=70)=P(X=70)+P(X=71)+P(X=72)+P(X=73)+P(X=74)+\ldots+P(X=245)$$
+  If the shape of the binomial distribution resemble a normal curve, we can cheat by using zscore to calculate the sum of probabilites
+  \begin{equation*}
+  \begin{split}
+  \bar{x}&=n*p\\
+  &=245*0.25\\
+  &=61.25
+  \end{split}
+  \end{equation*}
+
+  \begin{equation*}
+  \begin{split}
+  s&=\sqrt{np(1-p)}\\
+  &=\sqrt{245*0.25(1-0.25)}\\
+  &=6.78
+  \end{split}
+  \end{equation*}
+
+  \begin{equation*}
+  \begin{split}
+  z_{X=x_i}&=\frac{x_i-\bar{x}}{s}\\
+  &=\frac{70-61.25}{6.78}\\
+  &=1.29\\
+  P(z_{X=70})&=0.9015\\
+  P(X \geq x_i) &=1-9015\\
+  &=0.0958
+  \end{split}
+  \end{equation*}
+  - Using R code
+    #+BEGIN_src R :exports both :results output
+      sum(dbinom(70:245,size=245,p=0.25))
+    #+END_src
+
+  - Using visualiaztion note( to calculate starting from 70 we need to substract one)
+    #+begin_src R :session :exports both :results output graphics file :file (concat path (number-to-string (cl-incf fignumber)) format)
+    pbinomGC(bound=70-1,region="above",size=245,prob=0.25,graph=TRUE)
+    #+end_src  
+
+  - The result from manual calculation and R diffre, the shaded area of x is not included. we can fix the problem by adjusting x by 0.5
+  \begin{equation*}
+  \begin{split}
+  z_{X=x_i}&=\frac{x_i-0.5-\bar{x}}{s}\\
+  &=\frac{70-0.5-61.25}{6.78}\\
+  &=1.22\\
+  P(z_{X=70})&=0.888\\
+  P(X \geq x_i) &=1-0.888\\
+  &=0.111
+  \end{split}
+  \end{equation*}  
+
+*** determinig trial size
+- to determin whether the number of trial and the probability of sucess is large enough for the data to be close to a norman distribution we can follow the role that say: a binomial sitribution with at least 10 expected sucess and 10 expected falier will clossly follow a normal distribution
+\begin{equation*}
+\left\{  
+\begin{split}
+    np     &\geq 10\\
+    n(1-p) &\geq 10
+\end{split}
+\right.
+\end{equation*}
+if the sucess to failier hold, we can say:
+  $$B(n,p) \approx N(\bar{x},s)$$
+**** Example:
+What is the minimim required $n$ for a binomial distribution with $p=0.25$ to closely follow a normal distribution?
+- Solution:
+  we solve for n in the two equasions and take the maximum n as the mimimum required as number of trials
+  \begin{equation*}
+  \left\{  
+  \begin{split}
+  n &\geq\frac{10}{p}\\
+  n &\geq \frac{10}{1-p}
+  \end{split}
+  \right.
+  \end{equation*}
+  \\
+  \begin{equation*}
+  \left\{  
+  \begin{split}
+  n &\geq 40\\
+  n &\geq 13\\
+  \end{split}
+  \right.
+  \end{equation*}
+$n$ should be at least 13 for the binomial distribution resemble a normal one.
+*** Working with the Binomial Distribution
+*** t-distribution
+- the t-distribution is useful for describing the distribution of the sample mean $s$ when the population standard deviation, $\sigma$, is unknown, which is almost always.
+- What is the purpuse does a large sample serve?
+  As long as observations are independent, and the population distribution is not sxtremely skewed, a large sample would ensure that:
+  - The sampling distribution of the mean is nearly normal
+  - The estimation of the standard error is reliable: $\frac{s}{\sqrt{n}}$, where $s$ is the best estimate we have for $\sigma$.
+- In centrain area, outside of tech and auto data colleting, data might be hard to get and will have to deal with small samples like in a lab experiment or a study that follows a near extinct mammal species. *we need a method that work well with small and large samples*
+- The T-distribution solve the uncertenty of the standard error
+- The T-distribution tail are ticker, therefor if there isent strong evidence with small sample data it is hard to reject the null hypthotesis
+- in T-distribution observation are more likely to fall beyonf 2 SD from the mean
+- T-distibution is always centred at zero with one parameter: degrees of freedom $(df)$ - determines thickness of tails.
+  - As the degrees of freedom $(df)$ increases the t-distribution curve approach the normal curve
+  #+begin_src R :session :exports both :results output graphics file :file (concat path (number-to-string (cl-incf fignumber)) format)
+    #create density plots
+    curve(dt(x, df=60), from=-5, to=5, col='red',xlab = " ",ylab = " ") 
+    curve(dt(x, df=10), from=-5, to=5, col='blue', add=TRUE)
+    curve(dt(x, df=5), from=-5, to=5, col='green', add=TRUE)
+    
+    #add legend
+    legend(-5, .4, legend=c("Normal","df=10","df=5" ),
+           col=c("red","blue", "green"), lty=1, cex=1.2)
+  #+end_src
+- t-statistic calculation
+  $$T=\frac{observation-null \ value}{SE}$$
+  or using pt() function in R
+- Example:
+  - Find the following probabilities
+    - $P(\mid Z \mid \gt2)$
+      #+begin_src R :session :exports both :results output
+      pnorm(2, lower.tail = FALSE)*2
+      #+end_src
+
+      #+RESULTS:
+      : [1] 0.04550026
+    - $P(\mid t_{df=50} \mid \gt2)$
+      #+begin_src R :session :exports both :results output
+      pt(2, df=50, lower.tail = FALSE)*2
+      #+end_src
+    - $P(\mid t_{df=10} \mid \gt2)$
+      #+begin_src R :session :exports both :results output
+      pt(2, df=10, lower.tail = FALSE)*2
+      #+end_src
+  - Assuming we have a significance level of $\alpha=0.05$, what are the cases where $H_0$ will be rejected
+    - using the z-statistic with enough sample size we get a value of $0.0455$ that makes us to reject $H_0$.
+    - using the t-statistic with degree of freedom $df=50$ we get a value of $0.0509$ that makes us to barrly failing to reject $H_0$.
+    - using the t-statistic with degree of freedom $df=20$ we get a value of $0.0734$ that makes us to failing to reject $H_0$.
+      - the t distribution makes it hard to reject the numm hypothesis if the sample size is small
+* Inferential Statistic
+Inferential statistic is a field of statistic that helps us estimate the population parameter from one or multiple samples.
+- There are three popular methods that can be used to estimate the population parameter accross all variable types.
+  Most of the methods are base on the central limit thoerom.
+  - Methods to estimate population parameter:
+    - Confidence interval
+    - Hypothesis testing
+    - Bootstraping/Simulation base
+  - Types of variables:
+    - numerical
+      - one numerical variable mean
+      - two numerical variable means/diffirence between two numerical variables
+	- Two independent numerical variables
+	- Two dependent numerical variables
+      - three or more numerical variable means
+    - Categorical
+      - one categorical variable proportion
+	- one categorical variable proportion with two levels.
+	- one categorical variable proportion with three or more levels.
+      - two categorical variable proportions
+	- two categorical variable proportions with two levels.
+	- two categorical variable proportions with three or more levels.
+- introductuary study
+  - Study link: https://www.pewresearch.org/social-trends/2012/02/09/young-underemployed-and-optimistic/
+    - *Young adults hit hard by the recession*
+      A plurality of the public (41%) believes young adults, rather than middle-aged or older adults, are having the toughest time in today’s economy.
+    - *Tough economic times altering young adults’ daily lives, long-term plans*
+      While negative trends in the labor market have been felt most acutely by the youngest workers, many adults in their late 20s and early 30s have also felt the impact of the weak economy.
+      Among all 18- to 34-year-olds, fully half (49%) say they have taken a job they didn’t want just to pay the bills, with 24% saying they have taken an unpaid job to gain work experience.
+    - *About the data*
+      The general public survey is based on telephone interviews conducted Dec. 6-19, 2011, with a nationally representative sample of 2,048 adults ages 18 and older living in the continental United States.
+      *Margin of sampling error* is plus or minus 2.9 percentage points for results based on the total sample and 4.4 percentage points for adults ages 18-34 at the *95% confidence level*.
+  - Study summary and interputation
+    - 41% $\pm$ 2.9: WE are 95% confident that 38.1% to 43.9% of the public believes young adults, rather than middle-aged or older adults, are having the toughest time in today’s economy.
+    - 49% $\pm$ 4.4: WE are 95% confident that 44.6% to 53.4% of 18- to 34-year-olds are taken a job they didn’t want just to pay the bills.
+  Since we cannot survey the whole population, we use sample statistics as a point estimate to the unknown population parameter by finding the sample mean and determine how that mean can vary.
+** The central limit theorom
+*** Summary
+**** terminology
+- Before going into the result of the central limit theorem, let's set some terminologies.
+  - *sample distribution*: It is a set of multiple samples taken from the population.
+  - *sampling distribution*: It is a set of multiple point estimate, mostly the mean value, where each mean value is obtained from one sample in the *sample distribution*.
+**** The formula
+- The central limit theorom tells us that the *sampling distribution*, that is gotten from any population, is similar to a normal distribution, therefore, we can use its parameters, $\mu_{\bar{X}}$ and $\sigma_{\bar{X}}$, to estimate the mean of the population and how much that mean can vary. As long as some conditions are met.
+  $$\bar{X} \sim N (\mu_{\bar{X}}=\mu, SE=\sigma_{\bar{X}}=\frac{\sigma}{\sqrt{n}})$$
+  - $\mu_{\bar{X}}$ is the mean of the *sampling distribution*
+  - $\sigma_{\bar{X}}$ is the standard deviation of the *sampling distribution*, also called the *standard error* $SE$
+    *Note*: The standard error is describing the variability of the observation in the *sampling distribution*, it does not describe the variability of observation within the population.
+**** using the CLT with only one sample
+- We won't be always able to collect multiple samples, nor having the population parameters at hand. A solution is to collect one sample and use its parameter as the population parameter.
+  - A replacment for the mean of the *sampling distribution* $\mu_{\bar{X}}$ is the mean from one sample $\bar{x}$
+  - A replacment for the standard error $\sigma_{\bar{x}}$ would be:
+    - A standard deviation $s$ from a previous study.
+    - A standard deviation $s$ from the current sample.
+  The central limit theoerem formula become:
+  $$\bar{X} \sim N (\bar{x}\approx\mu, SE\approx\frac{s}{\sqrt{n}})$$
+**** CLT conditions
+- The central limit theorom conditions:
+  - The sample isent bias (Cheking the quality of the data):
+    - The sample size is less than 10$\%$ of the population if we are *sampling with replacment*. $n \lt 10\%$
+    - The observations are independent from each other.
+    - The variables are independent from each other. (If we have multiple variables)
+  - There is enough observation in the sample(Cheking the normality of the data):
+    - Numerical variables: the number of observation should be at least 30. $n \geq 30$
+    - Categorical variables: the number of sucess and failuires shoulbe be at least 10. $np\geq10$, $n(1-p)\geq10$
+**** The standard error
+  The formula of the standard error change base on the number of variables and their types.
+  |               | Numerical                                       | Categorical                                           |
+  | One variable  | $SE=\sqrt{\frac{s^2}{n}}=\frac{s}{\sqrt{n}}$    | $SE=\sqrt{\frac{p(1-p)}{n}}$                          |
+  | Two variables | $SE=\sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}$ | $SE=\sqrt{\frac{p_1(1-p_1)}{n}+\frac{p_2(1-p_2)}{n}}$ |
+  *Note*: for the proportion, we use the notation $p$ we are using hypothesis testing and the notation $\hat{p}$ when we are usign confidence interbal method
+  More details in the Methods section.
+*** Details
+**** Sampling Variability and CLT
+Our goal is to estimate the population parameters when the population distribution is unknown or not normal. usualy we estimate the mean.
+- There are two main method to do so:
+  - Bootstrapping (a new method that well be covered later)
+  - Central limit theorem.
+- Terminology
+  - *Sample distribution* is a list of multiple samples taken from a population. $[X_0,X_1,\dots,X_{n-1},X_n]$, each sample set $X_n$ contains multiple observations, $X_n=[x_0,x_1,\dots,x_{n-1},x_n]$.
+  - *Sampling distribution* is a list of values, where each value is a statistical measurement calculated from each sample. $[\bar{x}_{X_0}, \bar{x}_{X_1}, \dots, \bar{x}_{X_{n-1}}, \bar{x}_{X_n}]$
+- Central limit theorem
+  The central limit theorem tell us that
+  - The mean of the sampling distribution is approximate to the population mean.
+    $$\bar{x}_{[ \bar{x}_{X_0},\dots,\bar{x}_{X_n}]} \approx \mu$$
+  - The standard deviation/error of the sampling distribution is equal to the standard deviation of the population divided by the square root of the number of observation in the sample.
+    - *Note:* The standard deviation of sampling distribution,$s_{[ \bar{x}_{X_0},\dots,\bar{x}_{X_n}]}$, is called standard error $SE$.
+    $$s_{[ \bar{x}_{X_0},\dots,\bar{x}_{X_n}]}=SE = \frac{\sigma}{\sqrt{n}}$$
+    The formula:
+    $$\bar{X} \sim N \left (\bar{x}_{[ \bar{x}_{X_0},\dots,\bar{x}_{X_n}]} \approx \mu, \ s_{[ \bar{x}_{X_0},\dots,\bar{x}_{X_n}]} = SE = \frac{\sigma}{\sqrt{n}} \right )$$
+  - Central limit therom in some cases:
+    - When we dont have the ability to conduct multiple samples to get a sample distribution. We use the mean of one sample, replacing $\bar{x}_{[ \bar{x}_{X_0},\dots,\bar{x}_{X_n}]}$ with $\bar{x}_{X_0}$:
+      $$\bar{x}_{X_0}\approx\mu$$
+    - When wo dont know the population standard deviation $\sigma$. We use either a standard deviation $s$ from a prevuis study or a standard deviation from the current sample $s_{X_0}$.
+      $$SE=\frac{s_{X_0}}{\sqrt{n}}$$
+  - The final formula becomes:
+    $$\bar{X} \sim N \left (\bar{x}_{X_0} \approx \mu, \ SE = \frac{s_{X_0}}{\sqrt{n}} \right )$$
+- Example: US women height
+  In this example we will be sampeling 1000 women from each state in the US.
+  The order of the states is alphabetic, for the ease of reading only the first and the sale stae will be shown.
+  - The population parameters
+    - $N$ is the population size
+    - $\mu$ is the population mean
+    - $\sigma$ is the population standard deviation
+  - We took samples from all US states from Alabama (AL) to Wyoming (WY).
+    The collection of all samples from AL to WY is called *sample distributions*.
+    - $X_{\text{AL}}$: $\left [ x_{\text{AL_1}}, x_{\text{AL_2}}, \dots, x_{\text{AL_1000}} \right ]$
+    - $\dots$
+    - $X_{\text{WY}}$: $\left [ x_{\text{WY_1}}, x_{\text{WY_2}}, \dots, x_{\text{WY_1000}} \right ]$
+  - We calculate a sample statistic for each sample, in this case the mean $\bar{x}$.
+    The collection of all sample statistics from AL to WY is called *sampling distributions*.
+    - $\left [ \bar{x}_{X_{\text{AL}}},\dots,\bar{x}_{X_{\text{WY}}} \right ]$
+  - *Central limit theorom*
+    What the central limit theorom tells us is that the mean of means in the sampling destribution is close to the population mean.
+    And the standard deviation, that is now caleed standard error, tell us how much variablitiy we can expect the sampling destribution mean to be from the population mean.
+    \begin{equation*}
+    \begin{split}
+    \bar{x}_{[ \bar{x}_{X_\text{AL}},\dots,\bar{x}_{X_\text{WY}} ]} &\approx \mu \\
+    s_{[\bar{x}_{X_\text{AL}},\dots,\bar{x}_{X_\text{WY}}]}=SE &= \frac{\sigma}{\sqrt{n}}
+    \end{split}
+    \end{equation*}
+- Central limit theorom and condition
+  - Independence:
+    - Sampling observation shouldn't have any bias
+    - If sampling without replacment, the sample size $n$ need to be less thant $10\%$ of the population, $n \lt 10\%$.
+  - Sampling size/skew:
+    - For the data to be approximatly normal we need to have at least 30 observation, $n \geq 30$.
+- Calculating z-score and probability:
+  
+If those condition are true, we can use z-score formula to calculate the probability and replace the formula to be:
+$$z_{x_i}=\frac{x_i-\bar{x}_{\left \{ \bar{x}_{X_0},\dots,\bar{x}_{X_n}  \right \}}}{s_{\left \{ \bar{x}_{X_0},\dots,\bar{x}_{X_n}  \right \}}}$$
+**** CLT (for the mean) examples
+Let's assume we have data about 3000 songs duration with a mean of 3.45 minutes and a standard deviation of 1.63 minutes.
+in this case we can consider this data as a population. $\mu =3.45$ and $\sigma =1.63$
+- Data:
+| Song duration | count |
+|             0 |   250 |
+|             1 |   300 |
+|             2 |   600 |
+|             3 |   800 |
+|             4 |   550 |
+|             5 |   350 |
+|             6 |   100 |
+|             7 |    25 |
+|             8 |    20 |
+|             9 |     5 |
+- Quastion:
+  - What is the probability that a randomly selected song will last more than five minute?
+    From the nature of the data, it is clear that there is a natural limit, a song cannot be less than zero second.
+    Since the data is right skewed, we cannot use z-score to calculate $P(X\geq 5)$.
+    But we can use frequancy statistic to do so.
+    \begin{equation*}
+    \begin{split}
+    P(X \geq 5)&=\frac{N(X=5)+N(X=6)+N(X=7)+N(X=8)+N(X=9)}{N}\\
+    &=\frac{350+100+25+20+5}{3000}\\
+    &\approx 0.17
+    \end{split}
+    \end{equation*}
+  - What is the probability that a list of 100 randomly selected song will last for six hours?
+    To rephrase the question, what is the probability that the duration sum of 100 randomly selected songs' length is greater than 360 minute.
+    $$P([X_1+X_2+X_3+\dots+X_{100}] \gt 360\text{min})=?$$
+    - What would the average song lenght be fot his specific case?
+      \begin{equation*}
+      \begin{split}
+      \bar{x}&=\frac{\text{Sum of all songs duration}}{\text{Number of songs}}\\
+      &=\frac{360}{100}\\
+      &=3.6
+      \end{split}
+      \end{equation*}
+    With the CTA we can rephrase the question to, what is the pobability that the sample have a mean of 3.6 or more
+    $$P( \bar{x} \gt 3.6)=?$$
+    What the CTA tells us is:
+    $$\bar{X} \sim N \left ( \bar{x}_\text{means}=\mu=3.45, \ SE=s_\text{means}=\frac{s_\text{sample}}{\sqrt{n}}=\frac{1.63}{\sqrt{100}}=0.163 \right )$$
+    - Calculation manually
+      \begin{equation*}
+      \begin{split}
+      z_{\bar{x}_{i=3.6}}&=\frac{\bar{x}_i-\bar{x}_\text{means}}{SE}=0.92\\
+      &=\frac{3.6-3.45}{0.163}=0.92\\
+      P(z_{\bar{x}_{i=3.6}} \geq 0.92)&\approx0.179
+      \end{split}
+      \end{equation*}
+    - With R
+      #+begin_src R :session :exports both :results output graphics file :file (concat path (number-to-string (cl-incf fignumber)) format)
+	pnormGC(3.6, region="above", mean=3.45,sd=0.163,graph=TRUE)
+      #+end_src
+      
+** Methods of inference
+*** Confidence interval
+**** Summary
+The confidence interval CI is a range consisting of two values, x1 and x2, where a random observation has a certain probability to be within.
+***** The confidence interval formula
+  $$CI=\text{point estimate} \pm \text{margin of error}$$
+  - *point estimate* can be a:
+    - $\bar{x}$ a mean
+    - $\bar{x_2}-\bar{x_1}$ a diffirence between means
+    - $p$ a proportion
+    - $p_2-p_1$ a diffirence between proportions
+  - *margin of error* is the variablity in the data:
+    $$ME=z^{1-\frac{\alpha}{2}} SE$$
+    Where $SE$ formula differe base on the type of variable and how many of them.
+    And $\alpha$ is the significant level that is the complementary event of the confidence level. example, if the confidence level $\gamma=0.95$, $\alpha =1-\gamma=0.05$
+    - Example:
+      $$CI=\bar{x}\pm z^{1-\frac{\alpha}{2}} SE$$
+***** Calculating CI with R
+ #+begin_src R :session :exports both :results output graphics file :file (concat path (number-to-string (cl-incf fignumber)) format)
+ qnormGC(0.95,region="between",graph=TRUE,mean=0,sd=1)
+ #+end_src
+***** Accuracy vs. Precision
+- Accuracy describe if the CI contain the population parameter
+- Precision relate to the width of the CI, and weither it is informative
+  Example: saying that a package witll arive withnin 2 to 90 days isent informative
+- We can both increase Accuracy and precision by increasing the sample size
+***** Calculating the sample size
+  requirment:
+  - The confidence level and its complementary event $\alpha$
+  - The margin or error $ME$
+  n = \left ( \frac{z^{1-\frac{\alpha}{2}}*s}{ME} \right )^2
+**** Details
+- The confidence interval $CI$ is a range consisting of two values, $x_1$ and $x_2$, where a random observation has a certain probability to be within.
+  That probability is set by a confidence level.
+  We interput the confidence level and interval as such:
+  We are $95\%$ confident that a point estimate/observation is within this range $[x_1, x_2]$
+- When we think of the concept of confidence interval, onthing that should be noticed is that the abselute distance from $x_1$ to $\bar{x}$ should equal the abselute distance from $x_1$ to $\bar{x}$. inother words $\mid x_1-\bar{x} \mid=\mid x_2-\bar{x} \mid$.
+- Calculation of confident interval $CI$, first we need to set a confidence level $\gamma$. let the confidence level be $95\%$
+  - The confidence level of 0.95 leave us with a significance level $\alpha$ of $1-0.95 = 0.05$
+    Dividing the significance level will give us 0.025 in both tails.
+    - Upper tail will cover $\frac{\alpha}{2}$
+    - Lower tail will cover $1-\frac{\alpha}{2}$
+  and knwing that a confidence interval can esentially be writing like this $P(z_{x_1} \lt z \lt z_{x_2})=P(z \lt z_{x_2}) - P(z \lt z_{x_1})$
+  \begin{equation*}
+  \begin{split}
+  0.95&= 0.975-0.250 \\
+  &=P(z \lt z_{x_2}) - P(z \lt z_{x_1})\\
+  \end{split}
+  \end{equation*}
+  Solving the two $x$'s by solving the two $z$'s
+  \begin{equation*}
+  \begin{split}
+  P(z \lt z_{x_1})=0.250= \frac{\alpha}{2}\Leftrightarrow z_{x_1}^{\frac{\alpha}{2}}=-1.96=\frac{x_1-\bar{x}}{SE} &\Leftrightarrow x_1=\bar{x}-1.96SE\\
+  P(z \lt z_{x_2})=0.975=1-\frac{\alpha}{2} \Leftrightarrow z_{x_2}^{1-\frac{\alpha}{2}}=1.96=\frac{x_2-\bar{x}}{SE} &\Leftrightarrow x_2=\bar{x}+1.96SE
+  \end{split}
+  \end{equation*}
+  Puttig it all together:
+  $$95\%CI=[x_1,x_2]=[\bar{x}-1.96SE,\bar{x}+1.96SE]=\bar{x}\pm1.96SE$$
+  *note*: we can deduce that:
+  $$\mid z_{x_1}^{\frac{\alpha}{2}}\mid=\mid z_{x_2}^{1-\frac{\alpha}{2}}\mid$$
+- Required Sample Size for ME
+  - calculating the sample size giving of margine of error and confidance interval/level and a standard deviation (from ols study or from the sample it self)
+    $$ME=z^{1-\frac{\alpha}{2}} \frac{s}{\sqrt{n}} \rightarrow n = \left ( \frac{z^{1-\frac{\alpha}{2}}*s}{ME} \right )^2$$
+  - Example:
+    A group of researchers want to test the possible efffect of an epilepsy medication taken by pregnant mothers on the cognitive development if their children. As evidence, they want to estimate the IQ scores of three-year-old children born to mothers who were on this medication during pregnancy.
+    Previous studies suggest that the SD of IQ scores of three-year-old children is 18 points.
+    How many such children should the researches sample in order to obrain a 90% confidence interval with a margin of error less than or equal to 4 points?
+    - Organization
+      \begin{equation*}
+      \begin{split}
+      s&=18\\
+      \alpha&=1-0.90=0.10\\
+      ME&=4
+      \end{split}
+      \end{equation*}
+    - Solution
+      \begin{equation*}
+      \begin{split}
+      n &= \left ( \frac{z^{1-\frac{\alpha}{2}}*s}{ME} \right )^2\\
+      &= \left ( \frac{z^{1-\frac{\alpha}{2}}*s}{ME} \right )^2\\
+      &= \left ( \frac{1.65*18}{4} \right )^2\\
+      &= 55.13
+      \end{split}
+      \end{equation*}
+      since we want the minimum sample size, we cannot round normaly and have $n=55$, a good rule is to round up. $n=56$
+**** Hypothesis testing
+***** summary
+Hypothesis testing is a series of steps that leads to a conclusion about a hypothesis.
+We either reject or fail to reject a hypothesis at the end of a hypothesis test.
+We cannot say whether the hypothesis is correct or incorrect because we do not have access to the entire population, and even if we do, it may be constantly changing.
+The black swan is a well-known example. People hold the belief that "all swans are white" until they discover a black swan in Australia.
+Because of this incident, they devised a method for scientifically determining whether or not to accept a hypothesis without claiming truth.
+****** Terminologie
+  - *Observed value*: is the point estimate from the variable we are intresting is studying, it can be a mean $\bar{x}$, proportion $p$, diffirence between two mean $\bar{x_1}-\bar{x_2}$, diffirence between two proportion $p_1-p_2$
+  - *Population parameter*: is the parameter of the variable we are intresting is studying, it can be a mean $\mu$, proportion $\hat{p}$, diffirence between two mean $\mu_1-\mu_2$, diffirence between two proportion $\hat{p_1}-\hat{p_2}$
+  - *Null value*: is the value that we think the population is equal to.
+    - If we are working with two variables, the null value usualy set to zero since we say that there is no diffirence between the two variables
+    - If we are worling with one variable, the null value is usualy set to be what ever value is consider normal or common.
+  - *Null hypothesis $H_0$*: is a hypothesis that state that the *population parameter* is equal to the *null value*
+    $$H_0:\mu=\text{Null value}$$
+  - *Alternative hypothesis $H_A$*: is a hypothesis that state that the *population parameter* is either not equal, greater, or less that the *null value*
+    $$H_A:\mu \lt \text{ or }\gt \text{ or } \neq \text{Null value}$$
+  - *p-value*: is the probability of observing the *observed value* giving that the *null hypothesis* is true
+\\
+****** Hypothesis steps
+  - Set the *observed value*, the *population parameter*, the standard error, and significant level $\alpha$.
+  - Set the *null hypothesis* and the *alternative hypothesis*
+  - Checking the central limit theorom conditions
+  - Calculating the statistic test, example:
+    $$z_{\text{Observed value}}=\frac{\text{Observed value}-\text{Null value}}{\text{Standard error}}$$
+  - Calculating the p-value, example with $H_A: \mu \neq \text{Null value}$ and assumming that $z_{\text{Observed value}}$ is positive.
+    \begin{equation*}
+    \begin{split}
+    \text{p-value}&=P(\text{Observed value} \mid H_0:\mu=\text{Null value})\\
+    &=P(-z_{\text{Observed value}} \lt Z \lt z_{\text{Observed value}})
+    \end{split}
+    \end{equation*}
+  - Make a dicesion base on the p-value and the significant level $\alpha$
+    - If p-value$\lt \alpha$, we *reject* the null hypothesis $H_0$, the data provide convincing evidence for $H_A$.
+    - If p-value$\gt \alpha$, we *fail to reject* the null hypothesis $H_0$, the data provide do not convincing evidence for $H_A$.
+****** Power
+- we want to collect enough data to detenc an effect
+- there are some cases where collecting data is expensive.
+- in a clinical case we want to to determin an appropriate sample size, where we can be 80% sure that will will detect and effect of a drug.
+  \begin{equation*}
+  \begin{split}
+  \text{With:}&\\
+  k&=\frac{n_2}{n_1}=1\\
+  n&=\frac{(\frac{\sigma_1^2+\sigma_2^2}{k})(z_{1-\frac{\alpha}{2}}+z_{1-\beta})^2}{\mid \mu_2-\mu_1 \mid^2} \\
+  \text{For: }& \alpha=0.05, \ \beta=0.8 \\
+  n&=\frac{(\frac{\sigma_1^2+\sigma_2^2}{k})(1.96+0.84)^2}{\mid \mu_2-\mu_1 \mid^2}
+  \end{split}
+  \end{equation*}  
+- by determining the power we can know what sample size we need
+- the power is the percentage of the data from the study, $H_A$, that falls below/above the significanece level $\alpha$.
+- Study:
+  Suppose a pharmaceutical company has developed a new drug for lowering blood pressure, and they are preparing a clinical trial to test the drug's effectivness.
+  They recruit people who are taking a particular standard blood pressure medication, half of the subjects were given the new drug (treatment), and the other half were giving continue using the standard one (control).
+  - question: What are the hypotheses for a two sided hypothesis test in this context?
+    \begin{equation*}
+    \begin{split}
+    H_0:\mu_{trmt}-\mu_{ctrl}&=0 \\
+    H_A:\mu_{trmt}-\mu_{ctrl}&\neq0
+    \end{split}
+    \end{equation*}
+  Suppose researchest would like to run the clinical trial on patients with systolic blood pressures between 140 and 180 mmHg.
+  Suppose previous studies suggest that the standard deviation of the patients' blood pressure will be about 12 mmHg and the distribution of patient blood pressures will be approximately symmetric.
+  - Question: If we had 100 patients per group, what would be the approximate standard error for difference in the sample means of the treatment and control groups?
+    \begin{equation*}
+    \begin{split}
+    SE&=\sqrt{\frac{\sigma^2_1}{n_1}+\frac{\sigma^2_2}{n_2}} \\
+      &=\sqrt{\frac{12^2}{100}+\frac{12^2}{100}} \\
+      &=1.7
+    \end{split}
+    \end{equation*}
+  - Question: For what value of the diffirence between the observed average blood pressure in tretment and control groups (*effect size*) would be reject the null hypothesis at the 5$\%$ significant level?
+    \begin{equation*}
+    \begin{split}
+    95\%CI&= \mu_0 \pm z_{1-\alpha/2}*SE\\
+      &=0 \pm 1.96*1.7\\
+      &=[-3.332,3.332]
+    \end{split}
+    \end{equation*}
+    - Visually
+      #+begin_src R :session :exports both :results output graphics file :file (concat path (number-to-string (cl-incf fignumber)) format)
+        pnormGC(bound=c(-3.332,3.332),region="outside",mean=0,sd=1.7,graph=TRUE)
+      #+end_src
+    If the diffirence between the observed average blood pressure in tretment and control groups is a value outside of the $95\%CI [-3.332,3.332]$ interval, we will reject $H_0$
+  - Question: suppose that the company researchers care about finding any effect on blood pressure that is 3 mmHg or larger vs the standard medication. What is the power of the test that can detect his effect?
+    In other words, having only 100 sample size and conducting a study that resuly in a diffirence of 3mmHG $\mu_{trmt}-\mu_{ctrl}=-3$.
+    Using CLT, how many times are we lickley to reject the null hypothesis.
+    \begin{equation*}
+    \begin{split}
+    z&= \frac{\text{lower tail}- (\mu_{trmt}-\mu_{ctrl})}{SE}\\
+      &=\frac{-3.332-(-3)}{1.7}\\
+      &=-0.19\\
+    P(x\lt z)&=0.42\\
+    P(x\gt z)&=0.58
+    \end{split}
+    \end{equation*}
+    #+begin_src R :session :exports both :results output graphics file :file (concat path (number-to-string (cl-incf fignumber)) format)
+      pnormGC(-3.332, region="below", mean=-3,sd=1.7,graph=TRUE)
+    #+end_src
+    With a sample size of 100, we will be rejecting the null $H_0$ $42\%$ of the time if there was indeed a significant result.
+    \\
+    The probability of rejecting the null $H_0$ when the observation is significant is called the *power*.
+    The *power* does not have sypbol, but we describe it as $1-\beta$, where $\beta$ is (1-power) and it mean the probability failing to rejecting $H_0$ when the $H_0$ is false.
+    In the answer above; the *power* $= 0.42$, and $\beta = 0.58$. One is the compliment of the other.
+    \\
+    Usulay we want the power to be at least $80\%$, meaning that we will be able to reject $H_0$ $80\%$ of the times when the observation is a significant.
+    \\
+    With this in mind we can work backword to determin, how many sample size we need, to make out distribution skinier by decreasing the standard error, thus making the tails of each distribution overlap less and increase out *power*.
+    We can do it using a little bit of geometry.
+    \\
+    \\
+    [[file:img/statistical power.svg]]
+
+    \begin{equation*}
+    \begin{split}
+    \mid \mu_{trmt}-\mu_{ctrl} \mid &= z_{1-\frac{\alpha}{2}}*SE + z_{1-\beta}*SE \\
+    &= (z_{1-\frac{\alpha}{2}} + z_{1-\beta}) * SE\\
+    \end{split}
+    \end{equation*}
+    We can use this formula to find a sample size giving $\alpha$, $\beta$, $\sigma$, and a desired diffirence $\mu_{trmt}-\mu_{ctrl}$.
+    \begin{equation*}
+    \begin{split}
+    \mid \mu_{trmt}-\mu_{ctrl} \mid&= (z_{1-\frac{\alpha}{2}} + z_{1-\beta}) * SE \\
+    \iff SE&= \frac{\mid \mu_{trmt}-\mu_{ctrl} \mid}{z_{1-\frac{\alpha}{2}} + z_{1-\beta}} = \sqrt{\frac{\sigma^2_1}{n_1}+\frac{\sigma^2_2}{n_2}}\\
+    \text{if:}& \\
+    k&=\frac{n_2}{n_1}=1\\
+    \iff n&= \frac{(\frac{\sigma_1^2+\sigma_2^2}{k})(z_{1-\frac{\alpha}{2}} + z_{1-\beta})^2}{\mid \mu_{trmt}-\mu_{ctrl} \mid}
+    \end{split}
+    \end{equation*}
+        
+
+****** Desicion error
+  we cannot make a desicion base on a p-value and be a $100\%$ unless we have the whole population, and in most cases we don't.
+  There for there will be some cases where we will make the wrong desicion even if we folowe what the p-value sucegest
+  - terminologie:
+    - $\alpha$: the significant level is the probability of *rejecting* $H_0$, saying that $H_0$ is False, when the $H_0$ is *True* (wrong desicion)
+    - $1-\alpha$: the confidence level is the probability of *failing to reject* $H_0$, saying that $H_0$ is True, when the $H_0$ is indeed *True* (correct desicion)
+    - $\beta$: The beta level is the probability of *failing to reject* $H_0$, saying that $H_0$ is True, when the $H_0$ is *False* (wrong desicion)
+    - $1-\beta$: The statistical power is the probability of *rejecting* $H_0$, saying that $H_0$ is False, when the $H_0$ is indeed *False* (correct desicion)
+      \\
+  |                                                | $H_0$ is True | $H_0$ is False |
+  | Rejecting $H_0$ (saying $H_0$ is False)        | $\alpha$      | $1-\beta$      |
+  | Failing to reject $H_0$ (saying $H_0$ is True) | $1-\alpha$    | $\beta$        |
+****** Calculating the sample size
+  - For Experiment with two groups:
+    we need to determin the:
+    - The confidence level and its complementary event $\alpha$
+    - The statistical power and its complementary event $\beta$
+    - The optimal diffirence result (for clinical experiments) $\mid \mu_2-\mu_1 \mid$
+    $$n=\frac{(\sigma_1^2+\sigma_2^2)(z_{1-\frac{\alpha}{2}}+z_{1-\beta})^2}{\mid \mu_2-\mu_1 \mid^2}$$
+***** Details
+****** Hypothesis Testing (for a mean)
+- Hypotheses
+  - Null - $H_0$: often either a skeptical perspective or a claim to be tested $=$
+  - Alternative - $H_A$: Represents an alternative claim under consideration and is ofter represented by a range of possible parameter values. $<,>,\neq$
+  The specic will not abandon the $H_0$ unless the evidence in favor of the $H_A$ is so strong that shre rejects H_0 in favor of $H_A$.
+- Example:
+  It was calculated from a study that 95% confidence interval for the average number of exlusive relationships college students have been in to be (2.7,3.7).
+  Besed on this confidence interval, do there data support the hypothesis that college students on average have been more than 3 exclisive relationships?
+  - Solution:
+    $H_0:\mu=3$ Collge stident have been in 3 exclusive relationships on average.
+    $H_A:\mu\geq3$ College students have been in more than 3 exclusive relationships, on average.
+    - information from the study:
+      - $n=50$
+      - $\bar{x}=3.2$
+      - $s=1.74$
+      - $SE=0.246$
+    - p-value and one sided test
+      $$P(\text{Observed or more extreme outcome } \mid H_0 \text{ is True})$$
+      $$P(\bar{x}\geq3.2 \mid H_0: \ \mu=3)$$
+      $$\bar{X} \approx N \left (\mu=3, SE=0.246 \right )$$
+      - now we can conduct a test statistic
+	$$Z=\frac{3.2-3}{0.246}=0.81$$
+	$$\text{p-value}=P(Z\geq0.81)=0.209$$
+	- Visually with R
+	  #+begin_src R :session :exports both :results output graphics file :file (concat path (number-to-string (cl-incf fignumber)) format)
+            pnormGC(3.2, region="above", mean=3,sd=0.246,graph=TRUE)
+          #+end_src
+	p-values tell us that the probability of viewing a sample with $\bar{x}=3.2$ giving that $\mu=3$ is $20.9\%$
+    - Decision based p-value:
+      - The result of p-values isent significant for us to reject the $H_0$, we say that we failed to reject the $H_0$. and $\mu$ od the population might indeed be 3.
+      - If the probability of the event occuring was so low we could reject the null hypothesis, meaning rejecting $H_0:\mu=3$ ans say that indeed $\mu$ might be greater than 3.
+      - the values that the p-values need to be to be significantly low and reject the $H_0$ is called the *significance level* $\alpha$.
+    - p-values and two sided test.
+      $$P(\bar{x}\geq3.2 \text{ or } \bar{x}\leq2.8 \mid H_0: \ \mu=3)$$
+      $$\text{p-value}=P(Z\geq0.81)+P(Z\leq0.81)=0.418$$
+      - Visually with R
+        #+begin_src R :session :exports both :results output graphics file :file (concat path (number-to-string (cl-incf fignumber)) format)
+	  pnormGC(bound=c(2.8,3.2),region="outside",mean=3,sd=0.246,graph=TRUE)
+        #+end_src
+- Hypothesis testin for a single mean:
+  - Set the hypotheses:
+    \begin{equation*}
+    \begin{split}
+    H_0&:\mu = \ null \ value\\
+    H_A&:\mu \lt \text{ or } \gt \text{ or } \neq \ null \ value
+    \end{split}
+    \end{equation*}
+  - Calculate the point estimate: $\bar{x}$
+  - Check conditions:
+    - Independence: Sampled obsrvation must be independent (random sample/assignment & in sampling wihtout replacment, $n \lt 10\%$)
+    - Sample size/skew: $n\geq30$, is larger if the population distribution is very skewed.
+  - Draw sampling distribution, shade p-value, calculate test statistic:
+    $$Z=\frac{\bar{x}-\mu}{SE}, \ SE=\frac{s}{\sqrt{n}}$$
+  - Make a decision, and interpret it in context of the research question:
+    - If $\text{p-value} \lt \alpha$, *reject* $H_0$; the data provide convincing evidence for $H_A$.
+    - If $\text{p-value} \gt \alpha$, *fail to reject* $H_0$; the data do not provide convincing evidence for $H_A$
+****** HT (for the mean) examples
+******* Example1
+Researchers investigating characteristics of gifted children collected data from schools in a large city on a random sample of thirty-six children who were identified as gifted children soon after they reached the age of four.
+In this study along with variables on the children, the researchers alse collected data on their mothers IQ scores.
+| n    |    36 |
+| min  |   101 |
+| mean | 118.2 |
+| sd   |   6.5 |
+| max  |   131 |
+Preform a hypothesis test to evaluate if these data provide convincing evidence of a diffirence between the average IQ score of mothers of gifted children and the average IQ score for the population at large, which is 100. Use a significance level of 0.01.
+- Hypothesis steps:
+  - Set the hypothesis
+    - $\mu=$ average IQ score of mothers of gifted children
+    - $H_0:\mu=100$
+    - $H_A:\mu\neq100$ (Two sided test)
+  - Calculate the point estimate
+    - $\bar{x}=118.2$
+  - Check condition
+    - Independence: random and $36\lt 10\%$ of all gifted children
+    - Nearly normal sample distribution: $n\gt30$ and sample not skewed
+  - Drawing sampling distirubtion, shape p-value, calculate test statistic.
+    $$\bar{X} \sim N \left ( \mu = 100,\ SE = \frac{s}{\sqrt{n}} = \frac{6.5}{\sqrt{36}} \approx 1.083 \right )$$
+    - Observation*: $\bar{x}-\mu=18.2$, it translate to: assuming thet the population mean is 100, the mean of the sample is 18.2 standard error away from the mean... that is fay away.
+      since we are doing two tail distribution, and p-value is about the probability of observing an outcome. the ourcome we are intrested in will be: $\mu-18.2=81.8$ at the lower end, and $\mu-18.2=118.2=\bar{x}$ at the upper end.
+      - Visually with R:
+	#+begin_src R :session :exports both :results output graphics file :file (concat path (number-to-string (cl-incf fignumber)) format)
+	  pnormGC(bound=c(100-18.2,100+18.2),region="outside",mean=100,sd=6.5/sqrt(36),graph=TRUE)
+        #+end_src
+  - Make a decision, and interpret it in contect of the research question.
+    The p-values is null p-value$=0\lt0.01$.
+    Therefor we reject the null hypothesis.
+    The mean of IQ score of mothers that have a gifted child is not the same as the mean IQ score of the whole population of mothers, therefor there is a significance of Is scoring between mothers with a gifted child and other mothers.
+    (We can tell if a mother have higher than everage IQ score among wemens giving whether she have a gifted id or not)
+******* Example 2
+A statistics student intrested in sleep habit of domestic cats took a random sample of 144 cats and monitored their sleep.
+The cats sleps an average of 16 hours per day. According to online resources, sleep, on average, 14 hours per day.
+We want to find out if these data provide convincing evidence of diffirent sleeping habits for domestic cats and dogs with respect to how much they sleep.
+The test statistic is 1.73
+
+- Soluction:
+  What the question suggest is that there is no diffirence between cats and dogs sleeping time. which translate to:
+  - $\bar{x}=16$
+  - $H_0:\mu=14$
+  - $H_A:\mu\neq14$ (Two sided test)
+  - Test statistic = 1.73
+    The test statistic result can be visualize and calculated in R, using a normal distribution with mean of 0 and sd of 1.
+    #+begin_src R :session :exports both :results output graphics file :file (concat path (number-to-string (cl-incf fignumber)) format)
+      pnormGC(bound=c(-1.73,1.73),region="outside",mean=0,sd=1,graph=TRUE)
+    #+end_src
+  - interputation
+    The probability of observing cats sleeping 16 hours on average if they only sleep 14 hours on average is $8\%$
+****** Decision Errors
+- There are two scenarios regarding making a wrong desicion
+  - Rejecting the $H_0$ when $H_0$ is *True* - *Type 1 error*
+  - Failing to reject the $H_0$ when $H_0$ is *False* - *Type 2 error*
+- Example:
+  In a trial, the defendent is innocent untill proven guilty
+  - Posibilitys
+    - $H_0$: the defendent is innocent
+    - $H_A$: the defendent is guitly
+  - Decision errors
+    - Deciding that the defendent is innocent, even tho he is guilty. *Type 2 error*
+    - Deciding that the defendent is guilty, even tho he is innocent. *Type 1 error*
+  - What error type is worst to make? it is subjective. i this case, some might suggest that Type 1 error is the worst.
+    in general, you try to minimize the rate of one type of error to be made.
+- Error rate and significance level $\alpha$
+  the disnigicance level is a theshhold, where if the calculated p-value is smaller than it, we can decide with an error arte of $\alpha$
+  $$P(\text{Type 1 error} \mid H_0 \text{ is True})=\alpha$$
+- Chosing $\alpha$
+  - To minimise *Type 1 error*, lower the $\alpha$ value (e.g. 0.01)
+  - To minimise *Type 2 error*, increase the $\alpha$ value (e.g. 0.10)
+- table
+  - Type 1 error: rejecting $H_0$ when you shouldn't, the posibility of doing it is $\alpha$
+  - Type 2 error: failing to reject $H_0$ when you shouldn't, the posibility of doing it is $\beta$
+  - Pwer of a test is the probability of correctly rejecting $H_0$, and the probability of doing it is $1-\beta$
+    |             | failt to reject $H_0$ | reject $H_0$          |
+    | $H_0$ true  | $1-\alpha$            | Type 1 error,$\alpha$ |
+    | $H_0$ false | Type 2 error,$\beta$  | $1-\beta$             |
+****** Significance vs. Confidence Level
+****** Statistical vs. Practical Significance
+the higher the sample size, the lower the p-value. but also the higher the chances that the statistical significance is meaningless.
+if rejecting the null hypothesis will result in a change, we need to make sure that that change is meaningfull.
+Effect size
+**** Boostraping/simulation
+Bootstrapping o r the simulation base is a method that uses computing to generate multiple scenarios using one sample to get an idea of how much a point estimate can vary.
+Unlike the central limit theorem, this method can estimate the mean, the proportion, the median, and even a percentile.
+***** Steps
+- bootstraping is made using an algorthitm:
+  - find out the number of observation in the sample, aka the sample size $n$
+  - let the computer randomly chose an observation with replacment $n$ amount of times and store the new sample
+  - do statistic from the new sample, whether calculating the mean, the median or any other statistic.
+  - store the statistic, the meadian for example, in a new variable that will later be our *sampling distribution*
+  - repeat step 2,3, and 4 for 10000 times for example
+  - untill we get a *sampling distirubtion*
+** Inference for numerical variables
+*** one numerical variable mean
+- Study: Playing a computer game during lunch affects fullness, memory for lunch, and later snack intake.
+  In this studdy researches hypothesized that failure to recal food consumed might lead to increased snacking later on.
+- Sample: 44 patients: 22 men and 22 women
+- Study design
+  - Groups:
+    - Group A was asked to *play solitaire while eating* and win as many games as posible
+    - Group B was asked to *eat lunch without distraction* focusing on what they eat
+  - Both groups provided the same amount of lunch
+  - offred biscuits to snack on after lunch
+- Study summery statistic
+  | biscuit intake | $\bar{x}$ | $s$    | $n$ |
+  | Group A        | 52.1 g    | 45.2 g |  22 |
+  | Group B        | 27.1 g    | 26.4 g | 22  |
+- Degrees of freedom for t statistic for inference on one sample mean is:
+  $$df=n-1$$
+- Estimating the mean
+  \begin{equation*}
+  \begin{split}
+  \text{point estimate } &\pm \text{ margin of error} \\
+  \bar{x} &\pm t_{df} \ SE_\bar{x} \\
+  \bar{x} &\pm t_{df} \ \frac{s}{\sqrt{n}} \\
+  \bar{x} &\pm t_{n-1} \ \frac{s}{\sqrt{n}}
+  \end{split}
+  \end{equation*}
+- Finding the critical t score using R
+  Giving that we want a confident level of $95\%$, this mean that the lower tail aread it $2.5\% (0.025)$.
+  #+begin_src R :session :exports both :results output
+  qt(0.025, df=21, lower.tail = FALSE)*2
+  #+end_src
+- Study question 1:
+  Estimate the average after-lunch snack consumption (in grams) of people who eat lunnch distracteg (group A) using 95% confidence interval.
+  \begin{equation*}
+  \begin{split}
+  \bar{x}&=52.1 \ g \\
+  s&= 45.1 \ g \\
+  n&= 22 \\
+  t_{21}&= 2.08
+  \end{split}
+  \end{equation*}
+
+  \begin{equation*}
+  \begin{split}
+  \bar{x} \pm t_{df} \ SE_\bar{x} &= 52.1 \pm 2.08 * \frac{45.1}{\sqrt{22}}\\
+  &=52.1 \pm 2.08 * 9.62\\
+  &=52.1 \pm 20\\
+  &=(32.1, 72.1)
+  \end{split}
+  \end{equation*}
+  We are $95\%$ confident that distracted eaters consume between 32.1 to 72.1 grams of snacks post-meal.
+- Study question 2:
+  Suppose the suggested serving size of those biscuits is 30 g.
+  Do these data provide convincing evidence that the amount of snacks consumes by distracted eaters (group A) post-lunch is diffirenc than the suggested serving size?
+  \begin{equation*}
+  \begin{split}
+  H_0: \mu &= 30 \\
+  H_A: \mu &\neq 30 \\
+  T &= \frac{52.1-30}{9.62} = 2.3 \\
+  \end{split}
+  \end{equation*}
+  - finding the p-value in R
+    #+begin_src R :session :exports both :results output
+      pt(2.3, df=21, lower.tail = FALSE)*2
+    #+end_src
+  - p-values $\approx 0.0318$, so we reject $H_0: \mu =30$
+  - note that we also found a confidance interval of (32.1 g, 72.1 g), and the value 30 is not in that interval
+- Condition
+  - Independet observations
+    - Random assignment
+    - 22 $\lt 10\%$ of all distracted eaters
+  - sample size / skew
+    - since there is a natural limit of 0, not one can eat - grams of biscuit, the data will be left skewed, but if it isent by much, the t-distribution is rebust.
+*** two numerical variable means/diffirence between two numerical variables
+**** Two independent numerical
+- Study: Playing a computer game during lunch affects fullness, memory for lunch, and later snack intake.
+  In this studdy researches hypothesized that failure to recal food consumed might lead to increased snacking later on.
+- Sample: 44 patients: 22 men and 22 women
+- Study design
+  - Groups:
+    - Group A was asked to *play solitaire while eating* and win as many games as posible
+    - Group B was asked to *eat lunch without distraction* focusing on what they eat
+  - Both groups provided the same amount of lunch
+  - offred biscuits to snack on after lunch
+- Study summery statistic
+  | biscuit intake | $\bar{x}$ | $s$    | $n$ |
+  | Group A        | 52.1 g    | 45.2 g |  22 |
+  | Group B        | 27.1 g    | 26.4 g |  22 |
+- Standard error of difference between two independent means:
+  $$SE_{(\bar{x}_1-\bar{x}_2)}=\sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}$$
+- Degree of freedom for t statistic for infrence on two independent means:
+  $$df=min(n_1-1,n_2-1)$$
+- Estimating the difference between independent means
+  \begin{equation*}
+  \begin{split}
+  \text{point estimate } &\pm \text{ margin of error} \\
+  (\bar{x}_1-\bar{x}_2)&\pm t_{df} \ SE_{(\bar{x}_1-\bar{x}_2)} \\
+  (\bar{x}_1-\bar{x}_2)&\pm t_{min(n_1-1,n_2-1)} \ \sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}} \\
+  \end{split}
+  \end{equation*}
+- Conditions for inference for comparing two means:
+  - Independence: within and between groups
+  - SAmple size and skew: the more skewed the larger the sample size is needed
+- Question:
+  Estimate the difference between the average post-meal snack consumption between those who eat with and without distractions.
+  \begin{equation*}
+  \begin{split}
+  (\bar{x}_A-\bar{x}_B) \pm t_{df} \ SE_{(\bar{x}_A-\bar{x}_B)} &= (\bar{x}_A-\bar{x}_B) \pm t_{min(n_A-1,n_B-1)} \ \sqrt{\frac{s_A^2}{n_A} + \frac{s_B^2}{n_B}} \\
+  &= (52.1-27.1)\pm t_{min(22-1,22-1)} \ \sqrt{\frac{45.2^2}{22} + \frac{26.4^2}{22}} \\
+  &= 25 \pm 2.08 * 11.14 \\
+  &= 25 \pm 23.17 \\
+  &= (1.83, 48.17)
+  \end{split}
+  \end{equation*}
+- Question
+  Do these data provide convincing evidence of a diffirence between the average post-meal snack consumption between those who eat with and without distractions?
+  \begin{equation*}
+  \begin{split}
+  H_0: \mu_A-\mu_B &= 0 \\
+  H_A: \mu_A-\mu_B &\neq 0 \\
+  T &= \frac{(\bar{x}_A-\bar{x}_B)-0}{SE_{\bar{x}_A-\bar{x}_B}} \\
+  T &= \frac{25-0}{11.14} = 2.24 \\
+  \end{split}
+  \end{equation*}
+  - finding the p-value in R
+    #+begin_src R :session :exports both :results output
+      pt(2.24, df=21, lower.tail = FALSE)*2
+    #+end_src
+  - p-values $\approx 0.036$, so we reject $\mu_A-\mu_B = 0$ that says "there is no diffirence between destracted and non destracted people
+
+**** Two dependent numerical variables
+- Study: high school and beyond
+  200 observations were randomly sampled from the high school and beyond servey.
+  The same students took a reading and writing test.
+- Data:
+  |     |  ID | read | write |
+  |   1 |  70 |   57 |    52 |
+  |   2 |  86 |   44 |    33 |
+  |   3 | 141 |   63 |    44 |
+  |   4 | 172 |   47 |    52 |
+  | ... | ... |  ... |   ... |
+  | 200 | 137 |   63 |    65 |
+- Box plot summary:
+  - The dirstibution of reading is right skewed and have more variability.
+  - The distribution of writing is left skewed and have less variability.
+- Question:
+  Can the reading and writing scores for a giving student assumed to be independent of each other?
+  - Answer:
+    *No*, this mesurment comes from the same person. the reading and writing scores for a giving student is *not independent*.
+- Analysing paired data:
+  - If two or more mesurment are correspondence to the same observation, we say that they are paired or not independent
+  - To analyze paired data, it is ussuful to look at the diffirense of each observation's mesurments.
+    Example: diff = read - write
+- Data manupilation:
+  |     |  ID | read | write | diff |
+  |   1 |  70 |   57 |    52 |    5 |
+  |   2 |  86 |   44 |    33 |   11 |
+  |   3 | 141 |   63 |    44 |   19 |
+  |   4 | 172 |   47 |    52 |   -5 |
+  | ... | ... |  ... |   ... |  ... |
+  | 200 | 137 |   63 |    65 |   -2 |
+- Statistical summary:
+  \begin{equation*}
+  \begin{split}
+  \bar{x}_{diff}&=-0.545\\
+  s_{diff}&=8.887\\
+  n_{diff}&=200
+  \end{split}
+  \end{equation*}
+- Defigning intrest
+  - parameter of intrest:
+    Average diffirence between the reading and writing scores of *all* high school student. $\mu_{diff}$
+  - point estimate:
+    Average diffirence between the reading and writing scores of *sampled* high school student. $\bar{x}_{diff}$
+- Hyppothesis for paired means
+  \begin{equation*}
+  \begin{split}
+  H_0: \mu_{diff}&=0\\
+  H_A: \mu_{diff}&\neq0\\
+  \end{split}
+  \end{equation*}
+- Calculate the p-value for this hypothesis test
+  \begin{equation*}
+  \begin{split}
+  T&= \frac{\bar{x}_{diff}-null}{SE}=\frac{-0.545-0}{\frac{8.887}{\sqrt{200}}}=-0.87 \\
+  df&= n_{diff}-1=200-1=199 \\
+  \end{split}
+  \end{equation*}
+  - finding the p-value in R: (note: since t-statistic is negative it mean that it is in the lower tail henver the lower.tail parameter is set to TRUE)
+    #+begin_src R :session :exports both :results output
+      pt(-0.87, df=199, lower.tail = TRUE)*2
+    #+end_src
+
+    #+RESULTS:
+    : [1] 0.3853486
+  $$\text{p-value} \approx 0.38 \ : \text{faild to reject } H_0$$
+- P-value interpritation
+  The probabliliy of obtaining a random sample of 200 student where the average diffirence between writing and reading scores is -0.545, if in fact the true average diffirence between writing and reading score is 0, is 38$\%$.
+
+*** three or more numerical variable means
+**** ANOVA
+- $H_0:$ The mean outcome is the same across all categories.
+  $\mu_{1}=\mu_{2}=\dots=\mu_{k-1}=\mu_{k}$
+  - $\mu_{i}$: mean of the outcome for observations in category $i$
+  - $k$: number of groups
+- $H_A:$ At least one pair of means are different from each other. without specifiying which one.
+- Study:
+  Vocabulary score and four social classs
+- Data:
+  |     | wordsum | class         |
+  |   1 |       6 | middle class  |
+  |   2 |       9 | working class |
+  |   3 |       6 | working class |
+  | ... |     ... | ...           |
+  | 795 |       9 | middle class  |
+- Summary
+  |               |   n | mean |   sd |
+  |---------------+-----+------+------|
+  | lower class   |  24 | 5.07 | 2.24 |
+  | working class | 407 | 5.75 | 1.87 |
+  | middle class  | 331 | 6.76 | 1.89 |
+  | upper class   |  16 | 6.19 | 2.34 |
+  |---------------+-----+------+------|
+  | overall       | 795 | 6.14 | 1.98 |
+- Hypothesis:
+  - $H_0:$ The average vocabulary score is the same across all social classes. $\mu_1=\mu_2=\mu_3=\mu_4$
+  - $H_A:$ The average vocabulary score differ between at least one pair of social classes.
+- Variability partitioning: is a way to explain the variability result
+  - Total variability score is devided into two part:
+    - Between group variability: variability attributed to class
+    - Within group variability: variability attributed to other factors
+- ANOVA result table:
+  |       |           |  Df |  Sum Sq | Mean Sq | F value |  $P(x>F)$ |
+  |-------+-----------+-----+---------+---------+---------+---------|
+  | Group | Class     |   3 |  236.56 |  78.885 |  21.735 | <0.0001 |
+  | Error | Residuals | 791 | 2869.80 |   3.628 |         |         |
+  |-------+-----------+-----+---------+---------+---------+---------|
+  |       | Total     | 794 | 3106.36 |         |         |         |
+- ANOVA table explanation
+  - Sum Sq: sum square
+    - Total: sum of square total (SST) is the mesure of the total variability in the response variable, not scaled by the sample size unlike variance
+      Sum of square total (SST):
+      $$SST=\sum_{i=1}^{n}(y_i-\bar{y})^2$$
+      $y_i$: value of the response variable for each observation
+      $\bar{y}$: grand mean of the response variable
+      - application:
+	\begin{equation*}
+	\begin{split}
+	SST&=(6-6.14)^2\\
+	&+(9-6.14)^2\\
+	&+(6-6.14)^2\\
+	&+\dots \\
+	&+(9-6.14)^2\\
+        &=3106.36\\
+	\end{split}
+	\end{equation*}
+    - group: sum of squares groups (SSG) it mesures the variability between groups
+      can be taught of as the variability in the response variable explained by the explanatory variable
+      Sum of squares group (SSG):
+      $$SSG=\sum_{j=1}^{k}n_j(y_j-\bar{y})^2$$
+      $n_j$: number of observations in group $j$
+      $y_j$: mean of response variable for group $j$
+      $\bar{y}$: grand mean of the response variable
+      - application:
+	\begin{equation*}
+	\begin{split}
+	SSG&=(41*(5.07-6.14)^2) \\
+	&+ (407*(5.75-6.14)^2) \\
+	&+ (331*(6.76-6.14)^2) \\
+	&+ (16*(6.19-6.14)^2) \\
+	&\approx 236.56
+	\end{split}
+	\end{equation*}
+	\\
+	The result dosent mean anything, unless it is compared to the SST value.
+	For example, this values of SSG is roughly $7.6\%$ of SST.
+	It mean that roughly $7.6\%$ of variability of vocabulary score is explained by the explanatory variable social class
+    - Error: sum of square error (SSE) it is the mesures of variability within groups
+      Un explained variability; unexplained by the group variable due to oter reasons.
+      Sum of square error (SSE):
+      $$SSE=SST-SSG$$
+      - application
+	$$3106.36-236.56=2869.8$$
+  - Df: Degree of freedom associated with ANOVA
+    - Total:
+      $$df_T=n-1$$
+      - application:
+	$$df_T=795-1=794$$
+    - Group:
+      $$df_G=k-1$$
+      - application:
+	$$df_G=4-1=3$$
+    - Error:
+      $$df_E=df_T-df_G$$
+      - application:
+	$$df_E=794-4=791$$
+  - Mean Sq: using sum square of variability and degree of freadom to get the average variability
+    Mean squares: average variabilty between and within groups calculated as the tital variability scaled by associated defree of freedom.
+    - Group:
+      $$MSG=\frac{SSG}{df_G}$$
+      - application:
+	$$MSG=\frac{236.56}{3}\approx78.855$$
+    - Error:
+      $$MSE=\frac{SSE}{df_E}$$
+      - application:
+	$$MSG=\frac{2869.8}{791}\approx3.628$$
+  - F value: Fstatistic: ration between the average between group and within group variability
+    $$F=\frac{MSG}{MSE}$$
+    - application
+      $$F=\frac{78.885}{3.628}\approx21.735$$
+  - $P(x>F)$: p-value is the probability of at least as large a ration between the "between" and "within" group variabilities if in fact the means of all groups are equal.
+    or, it is the area under the F curve, with degrees of freesom $df_G$ and $df_E$, abive the observed F statistic.
+    - using R
+      #+begin_src R :session :exports both :results output
+      pf(q=21.735,df1=3,df2=791, lower.tail = FALSE)
+      #+end_src
+- Conclusion:
+  $$P(x>F) < \alpha$$
+  There for we reject $H_0$
+**** Conditions for ANOVA
+- There are three main conditions in ANOVA:
+  - Independence:
+    - within groups:
+      - sampled observation must be independent
+    - between groups:
+      - the groups must be independent of each other (non-paired)
+      - if there is not independence between groups we use *repated measures ANOVA*
+  - Approximate normality:
+    - distribution should be approximatly normal between each group
+  - Equal variance:
+    - groups should have roughly equal variability (homoscedastic groups)
+    - espacially important when sample sizes differ between groups
+**** Multiple comparisons
+- ANOVA only tells us that at least one pair is diffirent but not which one.
+- We want to know which means are diffirent?, What should the type 1 error rate, significant level $\alpha$, be?
+- to compare two means we use t-test, doing t-test multiple time with a fixed $\alpha$.
+  - the solution is to use a modify significance level $\alpha^*$, that is lower than $\alpha$, so that the overall value of $\alpha$ from multiple t-tests can still be, for example,at 0.05.
+- We adjsjut out alpha using Bonferroni correction.
+  $$\alpha^*=\frac{\alpha}{K} \qquad K:\text{number of comparisons,} \ K=\frac{k(k-1)}{2}$$
+- Application
+  The social class variables has 4 levels. if $\alpha=0.05$ for the original ANOVA, what should the modified significance level be for two sample t tests for determining which pairs of groups have significantly diffirent means?
+  \begin{equation*}
+  \begin{split}
+  k&=4\\
+  K&=\frac{4*(4-1)}{2}=6\\
+  \alpha^*&=0.05/6\approx0.0083
+  \end{split}
+  \end{equation*}
+- pairwise comparisons
+  - constant variance lead us to rethink standard error and degree of freedom:
+    - use consistent standard error and degree of freedom for all tests
+  - compare the p-values from each test to the modified significance level
+- *Standard error for multiple pairwise comparisons:*
+  $$SE=\sqrt{\frac{MSE}{n_1}+\frac{MSE}{n_2}}$$
+  $MSE$ is a consistande mesure to use through all the tests, instead of using $s_1^2$ and $s_2^2$
+- *Degree of freesom for multiple pairwise comparisons:*
+  $$df=df_E$$
+- Application
+  Is there a diffirence between the average vocabulary score between middle and lower class Americans?
+  - data reminder
+    - Number of lower class is 21
+    - Mean value of lower class is 5.07
+    - Number of middle class is 331
+    - Mean value of middle class is 6.76
+    - Degree of freedom of error is 791
+    - Mean square error is 3.628
+  - The hypothesis
+    - $H_0: \mu_{middle}-\mu_{lower}=0$
+    - $H_A: \mu_{middle}-\mu_{lower}\neq0$
+      \begin{equation*}
+      \begin{split}
+      T&=\frac{(\bar{x}_{middle}-\bar{x}_{lower})-(\mu_{middle}-\mu_{lower})}{\sqrt{\frac{MSE}{n_1}+\frac{MSE}{n_2}}} \\
+      &=\frac{(6.76-5.07)-0}{\sqrt{\frac{3.628}{331}+\frac{3.628}{41}}} \\
+      &=\frac{1.69}{0.315}\\
+      &=5.365
+      \end{split}
+      \end{equation*}
+      - calculating $P(5.365<-T \text{ or } 5.365>T)$ with R
+	#+begin_src R :session :exports both :results output
+        2*pt(5.365,df=791, lower.tail = FALSE)
+        #+end_src
+	- $P(5.365<-T \text{ or } 5.365>T) = 1.063895e^{-07} < \alpha^*=0.0083$ we reject the null hypothesis $H_0$
+
+** Inference for catogorical variables
+*** one categorical variable proportion
+**** one categorical variable proportion with two levels.
+***** Sampling Variability and CLT for Proportions
+- reminder of sample distribution and sampling distribution
+- Case
+  suppose we want to know the proportion of smokers in the whole world, the math will be simple:
+  $$p=\frac{\text{Number of smokers in the world}}{\text{Number of people in the world}}$$
+  But we cant do that obviosly.
+  - hence why we will sample from each cluster (country)
+    - from each country we will get a sample distribution that contain information about individuals (whether they smoke or not)
+    - from each sample distribution wi will get a statistic, in this case preportion, put them all in one distrubution and be named sampling distribution, where the mean of the sampling distributions will approximatly be equalt to the actual population prepportion
+  - taking samples from all countries:
+    - Afghanistan: $[x_{AF,1},x_{AF,1},\dots,x_{AF,1000}]$
+    - $\dots$
+    - Zimbabwe: $[x_{ZW,1},x_{ZW,1},\dots,x_{ZW,1000}]$
+  - calculatin the proportion for each sample distribution
+    - Afghanistan: $\hat{p}_{AF}$
+    - $\dots$
+    - Zimbabwe: $\hat{p}_{ZW}$
+    The distribution that contain proportion from all counterys, $[\hat{p}_{AF},\dots,\hat{p}_{ZW}]$, is called sampling distribution.
+  - The reason why we do this is that the mean of the sampling distribution is out best quest to the whole population parameter
+    $$\bar{x}_{[\hat{p}_{AF},\dots,\hat{p}_{ZW}]} \approx p$$
+- The central limit theorom for preportions: The distribution of sample proportions is nearly normal, centred at the population proportion, and with a standard error inversely proportional to the sampel size.
+  $$\hat{p} \sim N \left( \bar{x}=p, \ SE=\sqrt{\frac{p(1-p)}{n}} \right) $$
+- Conditions for the central limit theorom
+  - Independence: sampled observations must be independent
+    - random sample/assignment
+    - if ampling without replacement, $n<10\%$ of population
+  - Sample size/skew: There should be at least 10 sucesses and 10 failuires in the sample:
+    $np\geq10$ and $n(1-p)\geq10$
+- Examle
+  $90\%$ of all plants species are classified as angiosperms (flowering plants). If we were to randomly sample 200 plants from the list of all known plant species, what is the probability that at least $95\%$ of plants in your sample will be flowering plants.
+  - information:
+    - $p = 0.9$
+    - $n=200$
+    - $P(\hat{p} \g 0.95)=?$
+  - Addressing
+    to canculate this probability, we would need to check if the distribution is normal and to have a standard error to see how spread the probabilities are from the mean
+  - Checking for central limit theorom condition
+    - Independence: 
+      - random sample/assignment : Check
+      - if sampling without replacement, $n<10\%$ of population. $200<10\%$ of all plants : Check
+    - Sample size/skew: There should be at least 10 sucesses and 10 failuires in the sample:
+      - $np\geq10$. $200*0.90 = 180 \geq10$ : Check
+      - $n(1-p)\geq10$. $200(1-0.90)=20 \geq10$: Check
+  - The central limit theorm
+    $$\hat{p} \sim N \left( \bar{x}=0.90, \ SE=\sqrt{\frac{0.90(1-0.90)}{200}}\approx0.0212 \right) $$
+  - Calculating the z score for the quastion, "what is the probability that at least $95\%$ of the plants in your sample will be flowering plants?"
+    $$z=\frac{0.95-0.90}{0.0212}=2.36$$
+  - Calcuating the probability:
+    $$P(Z \gt z)=1-P(Z \lt z)=1-0.9909=0.0091$$
+    - Using R
+      #+begin_src R :session :exports both :results output
+        1-pnorm(0.95,mean=0.90,sd=0.0212)
+      #+end_src
+    - Using r visualization
+      #+begin_src R :session :exports both :results output graphics file :file (concat path (number-to-string (cl-incf fignumber)) format)
+      pnormGC(0.95, region="above", mean=0.90,sd=0.0212,graph=TRUE)
+      #+end_src
+- Answering using Binomial distribution
+  - first we canculate the expected value:
+    $$E(X \mid np)=np=200*0.95=190$$
+  - Using R
+      #+begin_src R :session :exports both :results output
+        sum(dbinom(x=190:200,size=200,prob =0.9))
+      #+end_src
+  - Using r visualization
+    #+begin_src R :session :exports both :results output graphics file :file (concat path (number-to-string (cl-incf fignumber)) format)
+    pbinomGC(bound=c(190,200),region="between",size=200,prob=0.9,graph=TRUE)
+    #+end_src
+- If the sucess to faliure condition is not met, the shape of the distribution will not be normal if the population proportion is closer to 0 or 1.
+  we can devide the sample size by five to see how it effect the distribution.
+  - $n=200/5=40$
+  - $E(X \mid np)=40*0.95=38$
+  - Condition for faluire $n(1-p)=4$ which is less than 10. Not met
+  - Example using r visualization
+    #+begin_src R :session :exports both :results output graphics file :file (concat path (number-to-string (cl-incf fignumber)) format)
+    pbinomGC(bound=c(38,40),region="between",size=40,prob=0.9,graph=TRUE)
+    #+end_src
+***** Confidence Interval for a Proportion
+- standard error of proportion
+  The population proportion $p$ wont be always giving, some times we might use proportion from a study.
+  In the most cases we will use the sample proportion $\hat{p}$
+  $$SE_{\hat{p}}=\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$$
+- Confidance interval for proportion is the point estimate $\pm$ margin of error
+  $$\hat{p}\pm z^**SE_{\hat{p}}$$
+- Study
+  The GSS found that 571 out of 670 $(80\%)$ of Americans answered the question on experimental design correctly. Estimate (using a $95\%$ confidence interval) the proportion of all Americans who have good intuition about experiment design?
+  - condition checking
+    - Independence:
+      - Bias: GSS samples randomly, and the answer of one person desent effect the answer of another
+      - sample size to population size: $670\lt10\%$ of all Americans
+    - sample size / skew:
+      - $n*p\geq10$: $670*0.85=571$
+      - $n*(1-p)\geq10$: $670*(1-0.85)=99$
+	since we have more than 10 sucesses and 10 faluires we can asume that the sampling distribution of the proportion is nearly normal.
+  - Calsulatinf confidence interval
+    \begin{equation*}
+    \begin{split}
+    CI&=\hat{p}\pm z^*SE_{\hat{p}}\\
+    &=0.85\pm 1.96*\sqrt{\frac{0.85(1-0.85)}{670}}\\
+    &=0.85\pm 1.96*0.0138\\
+    &=0.85\pm 0.027\\
+    &=(0.823,0.877)
+    \end{split}
+    \end{equation*}
+    We are $95\%$ confident that $82.3\%$ to $87.7\%$ of all Americans have a good intuition about experimental design
+  - The Margin of error for the previous confidence intervel was $2.7\%$. if, for a new cinfidence intervas based on a new sample, we wanted to reduce the margin of error to $1\%$ while keeping the confidence level the same, at least how many respondent should we sample?
+    \begin{equation*}
+    \begin{split}
+    ME&=z^**SE_{\hat{p}}\\
+    0.01&=1.96*\sqrt{\frac{0.85(1-0.85)}{n}}\\
+    0.01^2&=\frac{1.96^2*0.85(1-0.85)}{n}\\
+    n&=\frac{1.96^2*0.85(1-0.85)}{0.01^2}=4898.04
+    \end{split}
+    \end{equation*}
+    we need to round up the value. $n$ should be at least $4899$
+- When calculating the desire size, we can use sampel proportion instead of population proportion if not availible. But when even the sample proportion isent avalible, use $\hat{p}=0.5$
+  using $\hat{p}=0.5$ gives the highest posible sample size
+***** Hypothesis Test for a Proportion
+- Steps for hypothesis:
+  - Set the hypothesis
+    - $H_0:p=null \ value$
+    - $H_A:p \lt \ or \ \gt \ or \ \neq \ null \ value$
+  - Calculate the point estimate: $\hat{p}$
+  - Check conditions
+    - Independence:
+      - Sampling without bias
+      - if sampling with replacment, $n\leq10\%$ of the population
+    - Sample size/skew: $np\geq10$ and $n(1-p)\geq10$
+  - Draw sampling distribution ,shade p-value, calculate test statistic
+    $$z=\frac{\hat{p}-p}{SE}, \quad SE=\sqrt{\frac{p(1-p)}{n}}$$
+  - Make a decision, and interpret it in context of the research quesion
+    - if p-value $\lt \alpha$, reject $H_0$; the data provide convincing evidence for H_A.
+    - if p-value $\gt \alpha$, fail to reject $H_0$; the data do not provide convincing evidence for H_A.
+- *Note*:
+  - We use $\hat{p}$ when we calculate the *confidence interval*
+  - We use $p$ when we calculate the *hypothesis test*
+- Study:
+  A 2013 Pew Research poll found that $60\%$ of 1983 randomly sampled American adults belive in evolution. Does this provice convincing evidence that majority of Americans believe in evolution?
+  - Hypothesis steps
+    - Set hypothesis
+      - $H_0: p=0.5$ the majority dont belive in evalution
+      - $H_A: p\gt0.5$ the majority belive in evalution
+    - Calculate the point estimate: $\hat{p}=0.6$
+    - Check condition
+      - Independence:
+	- Bias: the pull should have no bias in sampling
+	- if the sampling was indeed with replacment, $1983\leq10\%$ of the population
+      - Sample size, Skew:
+	- Number of sucesss: $1983*0.5=991.5\gt10$
+	- Number of faluires: $1983*0.5=991.5\gt10$
+    - calculating test statistic
+      $$\hat{p} \sim N \left( \bar{x}=p, \ SE=\sqrt{\frac{p(1-p)}{n}} \right) $$
+      \\
+      \begin{equation*}
+      \begin{split}
+      SE&=\sqrt{\frac{p(1-p)}{n}}\\
+      &=\sqrt{\frac{0.5(1-0.5)}{1983}}\\
+      &\approx0.0112\\
+      z&=\frac{\hat{p}-p}{SE}\\
+      &=\frac{0.6-0.5}{0.0112}\\
+      &\approx8.92\\
+      \text{p-value}&=P(Z\gt z)\\
+      &=1-P(Z\lt z)\\
+      &=1-1=0\\
+      \end{split}
+      \end{equation*}
+      p-value$=0$, reject $H_0$; the data provide convincing evidence for $H_A$.
+
+***** Small Sample Proportions
+- When the amount of faluire to sucess, $np\gt10$ and $n(1-p)\gt10$, is not meet we can do simulation base statistic.
+**** one categorical variable proportion with three or more levels.
+***** Chi-Square GOF Test
+- goodness of fit test
+- one categorie variable and two level
+- Conditions for the chi-square test:
+  - Independence
+    - random sample/assignment
+    - if sampling without replacment $n\gt10\%$
+    - each case(observation) only contribute to one cell (level of the categorical variable) in the table
+  - Sample size: Each particular scenario (i.e. cell/level of the categorical variable) must have at least 5 expected cases.
+- Anatomy of a test statistic
+  - General form:
+    $$\frac{\text{point estimate}-\text{null value}}{SE\text{ of point estimate}}$$
+  - our goal is:
+    - Identify the difference between a point estimate and an expected value if the null hypotheses were true
+    - standarizing that difference using the standard error of the point estimate
+- Chi-square statistic 
+  $$\chi^2=\sum_{i=1}^{k}\frac{(O_i-E_i)^2}{E_i}$$
+  Where
+  \begin{split}
+  O&:\text{observed}\\
+  E&:\text{expected}\\
+  k&:\text{number of cells / levels of categorical variable}
+  \end{split}
+- Chi-square distirubtion and degree of freedom
+  Chi-square have only one parameter, it's the degree of freedom
+  $$df=k-1 \qquad k:\text{number of cells / levels of categorical variable}$$
+- Evaluationg the hypotheses
+  - quantify how different the observed counts are from the expected counts
+  - large deviation from what would be expected based on sampling variation (chance) alone provide string evidence for the alternative hypothesis
+  - called a *gppdness of fit* test so,ce we're evaluating how well the pbserved data fit the expected distribution
+- Case study: Jury selection:
+  In a county where jury selection is supporsed to be random, a civil right group sues the county, claiming racial disparities in jury selection.
+  - Distribution of ethnicities of the people in the county who are eligible for jury duty ( based on census results):
+    | ethnicity      |  white |  black | nat. amer. | asian & PI | other |
+    | %in population | 80.29% | 12.06% |      0.79% |      2.92% | 3.94% |
+  - Distribution of *2500* people who were selected for jury duty the previous year:
+    | ethnicity   | white | black | nat. amer. | asian & PI | other |
+    | observer N. |  1920 |   347 |         19 |         84 |   130 |
+  - The court retains you as an independent expert to assess the statistical evidence that there was discrimination. You propose to formulate the issue as an hypthesis test.
+    - $H_0$ (nothing going on): People selected for jury duty are a simple random sample from the population of elijable jurors. the observed counts of jurors from various race/ethnicites *follow the same* ethnicity *distribution* in the population.
+    - $H_A$ (nothing going on): People selected for jury duty are a simple random sample from the population of elijable jurors. the observed counts of jurors from various race/ethnicites *do not follow the same* ethnicity *distribution* in the population.
+  - Expected number of jurrirs from each eitnicity if in fact the jury selection is random
+    | Ethnicity      |  white |  black | nat. amer. | asian & PI | other | Total |
+    | %in population | 80.29% | 12.06% |      0.79% |      2.92% | 3.94% |  100% |
+    | Expected N.    |   2007 |    302 |         20 |         73 |    98 |  2500 |
+  - Putting it all together
+    | Ethnicity      |  white |  black | nat. amer. | asian & PI | other | Total |
+    | %in population | 80.29% | 12.06% |      0.79% |      2.92% | 3.94% |  100% |
+    | Expected N.    |   2007 |    302 |         20 |         73 |    98 |  2500 |
+    | observer N.    |   1920 |    347 |         19 |         84 |   130 |  2500 |
+    - Hypothesis:
+      - $H_0:$ The observed counts of jurors from varuios race/ethnicities follow the same ethnicity distribution in the population.
+      - $H_A:$ The observed counts of jurors from varuios race/ethnicities do not follow the same ethnicity distribution in the population.
+    - Chi-square:
+      \begin{equation*}
+      \begin{split}
+      \chi^2&=\sum_{i=1}^{k}\frac{(O_i-E_i)^2}{E_i}\\
+      &=\sum_{i=1}^{5}\frac{(O_i-E_i)^2}{E_i}\\
+      &=\frac{(1920-2007)^2}{2007}+\frac{(347-302)^2}{302}+\frac{(19-20)^2}{20}+\frac{(84-73)^2}{73}+\frac{(130-98)^2}{98}\\
+      &=22.63\\
+      \quad\\
+      df&=k-1\\
+      &=5-1\\
+      &=4 
+      \end{split}
+      \end{equation*}
+    - P-value for chi-square is define as the area above the calculated statistic
+      - Using R
+	#+begin_src R :session :exports both :results output
+	pchisq(q=22.63,df=4,lower.tail = FALSE)
+	#+end_src
+*** two categorical variable proportions
+**** two categorical variable proportions with two levels.
+***** Estimating the Difference Between Two Proportions
+- Two categorical variables
+- What we will do is calculating the confidence interval for the diffirence between two proportion
+- Estimating the difference between two proportions
+  \begin{equation*}
+  \begin{split}
+  \text{point estimate }&\pm\text{ margin of error}\\
+  (\hat{p}_1-\hat{p}_2)&\pm z^*SE_{(\hat{p}_1-\hat{p}_2)}\\
+  \end{split}
+  \end{equation*}
+- Standard error for difference between two proportions
+  $$SE=\sqrt{\frac{\hat{p}_1(1-\hat{p}_1)}{n_1}+\frac{\hat{p}_2(1-\hat{p}_2)}{n_2}}$$
+- Conditions for infrence for comparing two independent proportions
+  - Independence
+    - Within groups: sampled observations must be independent within each group
+      - random sample/assignment
+      - if sampling without replacement, $n\gt10\%$
+    - Between groups: the two groups must be independent of each other (non-paired)
+  - Sample size/skew: Each sample should meet the success-failure condition:
+    - $n_1p_1 \geq 10$ and $n_1(1-p_1)\geq 10$
+    - $n_2p_2 \geq 10$ and $n_2(1-p_2)\geq 10$
+- Case study:
+  - First poll:
+    In early October 2013, a Gallup pool asked "Do you think there should or should not be a law that would ban the possession of handguns, except by the police and other authorized persons?"
+  - Second poll:
+    We asked the question "Do you think there should or should not be a law that would ban the possession of handguns, except by the police and other authorized persons?" to a group of coursera student.
+  - Study summary: After defining sucess as people answering "Yes, there should be such a law."
+    |          | N. of sucess |  $n$ | $\hat{p}$ |
+    | US       |          257 | 1028 |      0.25 |
+    | Coursera |           59 |   83 |      0.71 |
+  - How do Coursera students and the American public at large compare with respect to their views on laws banning possession of handguns?
+    - Parameter of interest:
+      Difference between the proportions of *all* Coursera sttudents and *all* Americans who belive there should be a ban on possession of handguns. $p_{\text{Coursera}}-p_{\text{US}}$
+    - Point estimate:
+      Difference between the proportions of *sampled* Coursera sttudents and *sampled* Americans who belive there should be a ban on possession of handguns. $\hat{p}_{\text{Coursera}}-\hat{p}_{\text{US}}$
+  - Using a $95\%$ confidence interval, estimate how Coursera students and the American public at large compare with respect to their views on law banning possession of handguns.
+    - Checking for condition
+      - Independence
+	- between groups
+	  There is a low chance that the Coursera poll contain a someone from the Gallup poll, but those two groups are not $100\%$ independent between eachother
+	- within groups
+	  - The sample is random for the Gallup pool
+	  - The sample is not random for the Coursera, since this is a voluntary poll, there is a bias where only people with strong opinion answer
+	  - $n\lt10\%$ of the population condition is meet for bith of them
+	Sampled Americans are independent of each other, but Courserians may not be
+      - Sample size/Skew
+	- US: 257 sucesses, and 771 failures
+	- Coursera: 59 sucesses, and 24 failures
+	We can assume that the sampling distribution of the diffirene between two proportions is nearly normal
+    - Calculating confidence interval
+      \begin{equation*}
+      \begin{split}
+      CI&=(\hat{p}_\text{Coursera}-\hat{p}_\text{US})\pm z^*SE_{(\hat{p}_\text{Coursera}-\hat{p}_\text{US})}\\
+      &=(0.71-0.25)\pm 1.96\sqrt{\frac{0.71(1-0.71)}{83}+\frac{0.25(1-0.25)}{1028}}\\
+      &=0.46 \pm 1.96*0.0516\\
+      &=0.46\pm0.10\\
+      &=(0.36,0.56)
+      \end{split}
+      \end{equation*}
+    - Interputation:
+      We are $95\%$ confident that the proportion of coursera student who answer "yes" is $36\%$ to $56\%$ higher than the proportion of Americans who do.
+    - *Note*: What would happend if we switch the order from $(\hat{p}_\text{Coursera}-\hat{p}_\text{US})$ to $(\hat{p}_\text{US} -\hat{p}_\text{Coursera})$?
+      - The confidence interval will equal to:
+        $$CI=(-0.56,-0.36)$$
+      - What we will change is out *interputation*, we will say that:
+	We are $95\%$ confident that the proportion of Americans who answer "yes" is $56\%$ to $36\%$ lower than the proportion of Coursera students who do.
+    - Beses on the confident interval, should we expect to find a significant diffirence, at the equivalent significance level, between the population proportions of Coursera students and the American public at large who belive there should be a law of banning the possession of handguns?
+      \\
+      $H_0: (p_\text{Coursera}-p_\text{US})=0$
+      $CI_{(\hat{p}_\text{Coursera}-\hat{p}_\text{US})}=(0.36,0.56)$
+      since 0 is outside the confidence interval, we can reject the $H_0$
+***** Hypothesis Test for Comparing Two Proportions
+- Hypothesus setup
+  - $H_0: p_1-p_2=0 \Rightarrow p_1=p_2$
+  - $H_A: p_1-p_2\neq0$
+  In some cases we can set $p_1$ and $p_2$ equal to 0.5, but we tend to calculate it when we have two observed proportion.
+  We called it pooled proportion $\hat{p}_{\text{pool}}$
+  \begin{equation*}
+  \begin{split}
+  \hat{p}_{\text{pool}}&=\frac{\text{total sucesses}}{\text{total }n}\\
+  &=\frac{\text{Number of sucesses}_1+\text{Number of sucesses}_2}{n_1+n_2}\\
+  \end{split}
+  \end{equation*}
+  - *Note* the reason we do not do these calculation for the parameter $\mu$ is because it dosent appear in the standard error equation unlike $p$
+- Conditions for infrence for comparing two independent proportions
+  - Independence
+    - Within groups: sampled observations must be independent within each group
+      - random sample/assignment
+      - if sampling without replacement, $n\gt10\%$
+    - Between groups: the two groups must be independent of each other (non-paired)
+  - Sample size/skew: Each sample should meet the success-failure condition:
+    - $n_1\hat{p}_{\text{pool}} \geq 10$ and $n_1(1-\hat{p}_{\text{pool}})\geq 10$
+    - $n_2\hat{p}_{\text{pool}} \geq 10$ and $n_2(1-\hat{p}_{\text{pool}})\geq 10$
+- Standard Error for expected hypothesis test
+  $$SE=\sqrt{\frac{\hat{p}_{\text{pool}}(1-\hat{p}_{\text{pool}})}{n_1}+\frac{\hat{p}_{\text{pool}}(1-\hat{p}_{\text{pool}})}{n_2}}$$
+- Study:
+  A SurveyUSA pool asked respondents whether any of their children have ever been the victime of bulliying. Also recorded in this servey was the gender of the respondent (the parent).
+- Study summary
+  |        | N. of sucesses | $n$ | $\hat{p}$ |
+  | Male   |             34 |  90 |     0.38 |
+  | Female |             61 | 122 |     0.50 |
+- Hypothesus setup
+  - $H_0: p_{\text{male}}-p_{\text{female}}=0$
+  - $H_A: p_{\text{male}}-p_{\text{female}}\neq0$
+- Calculate the estimated pooled proportion of males and females who said that at least one of their children has been a victim of bullying.
+  \begin{equation*}
+  \begin{split}
+  \hat{p}_{\text{pool}}&=\frac{34+61}{90+122}\\
+  &\approx 0.45
+  \end{split}
+  \end{equation*}
+- Conditions [2/2]
+  - [X] Independence:
+    - [X] Within groups: samples of males are independent of each other, so does the sample of females
+    - [X] Between groups: base on the study sampling method, there is no reason to expect that a maried couple will both be sampled, therefore, there is no dependency between groups.
+  - [X] Sample size / skew:
+    - [X] Group 1 sucess to failure: $90*0.45=40.5$ and $90*(1-0.45)=49.5$, all greater than 10
+    - [X] Group 2 sucess to failure: $122*0.45=54.9$ and $122*(1-0.45)=67.1$, all greater than 10
+  We can asume that the sampling distribution of the difference between two proportion is normaly distributed.
+- The central limit theorom
+  \begin{equation*}
+  \begin{split}
+  (\hat{p}_{\text{male}}-\hat{p}_{\text{female}}) \sim N(\bar{x}=(p_{\text{male}}-p_{\text{female}}),&SE= \sqrt{\frac{\hat{p}_{\text{pool}}(1-\hat{p}_{\text{pool}})}{n_1}+\frac{\hat{p}_{\text{pool}}(1-\hat{p}_{\text{pool}})}{n_2}})\\
+  (\hat{p}_{\text{male}}-\hat{p}_{\text{female}}) \sim N(\bar{x}=0,&SE= \sqrt{\frac{0.45(1-0.45)}{90}+\frac{0.45(1-0.45)}{122}}\approx0.0691)
+  \end{split}
+  \end{equation*}
+- The point estimate $(\hat{p}_{\text{male}}-\hat{p}_{\text{female}})=-0.12$
+- Calculating z-test and p-value
+  \begin{equation*}
+  \begin{split}
+  z&=\frac{(\hat{p}_{\text{male}}-\hat{p}_{\text{female}})-(p_{\text{male}}-p_{\text{female}})}{SE}\\
+  &=\frac{-0.12-0}{0.0691}\\
+  &\approx -1.74\\
+  \text{p-value}&=2*P(Z \gt \mid z \mid)\\
+  &=2*(1-P(Z \lt \mid z \mid))\\
+  &=2*0.04\\
+  &=0.08\\
+  \end{split}
+  \end{equation*}
+  - Using R
+    #+begin_src R :session :exports both :results output
+    2*(1-pnorm(1.74))
+    #+end_src
+  - Using R full sencence
+    #+begin_src R :session :exports both :results output
+    2*(1-pnorm(q=0.12,mean=0,sd=0.0691))
+    #+end_src
+  - Using r visualization
+    #+begin_src R :session :exports both :results output graphics file :file (concat path (number-to-string (cl-incf fignumber)) format)
+    pnormGC(bound=c(-0.12,0.12),region="outside", mean=0,sd=0.0691,graph=TRUE)
+    #+end_src
+- Conclusion: We failed to reject the nulll hypothesis $H_0$ since $\text{p-value}=0.08\gt\alpha=0.05$.
+  The diffirence proportion observe dosent give enough evidence to support $H_A$
+
+***** Comparing Two Small Sample Proportions
+- Study: do people know the back of theire hand as good as the palm of their hand
+- Study summary:
+  |      | N. of sucesses | $n$ | $\hat{p}$ |
+  | Back |             11 |  12 |      0.91 |
+  | Palm |              7 |  12 |      0.58 |
+- Does this data proves that people are good at reconizing the back of their hand better than their palm
+  - $H_0:p_{\text{Back}}-p_{\text{Palm}}=0$
+  - $H_A:p_{\text{Back}}-p_{\text{Palm}}\neq0$
+- Calculatinf pool proportion:
+  $$\hat{p}_{\text{pool}}=\frac{11+7}{12+12}=0.75$$
+- Conditions [0/2]
+  - [-] Independence:
+    - [X] Within groups: we can assume that the guess of one person is independent of the guesse of another
+    - [ ] Between groups: each person gueses twice, one for the bacl hand and the palm picture. the veriable back and palm are not independent.
+  - [ ] Sample size/skew:
+    - [ ] Back variable: $n_{\text{back}}*\hat{p}_{\text{pool}}=9$ and $n_{\text{back}}*(1-\hat{p}_{\text{pool}})=3$. Not meet.
+    - [ ] Palm variable: $n_{\text{palm}}*\hat{p}_{\text{pool}}=9$ and $n_{\text{palm}}*(1-\hat{p}_{\text{pool}})=3$. Not meet.
+- Simulation scheme:
+  - Use 24 index card, where each card represents a subject.
+  - Mark 18 of the cards as "correct" and the remaining 6 as "wrong"
+  - Shuffle the card and split into two groups of size 12, for back and palm
+  - Calculate the difference between the proportion of "correct" in the back and palm decks, and record this number.
+  - Repeat steps (3) and (4) many times to build a randomization distribution of diffirences in simulated proportions.
+
+**** two categorical variable proportions with three or more levels.
+***** The Chi-Square Independence Test
+- two categorical variables with more than two levels
+- Study: Obesity and marital status
+  A study reporeted in the medical journal Obesity in 2009 analyzed data from the National Longitudinal Study of Adolescent Health.
+  Obesity was define as having a BMI of 30 or more.
+  The research subjects were followed from adolescence to adulthood, and all the people in the sample were categorized in terms if whether they were obese and whether they were dating, cohabiting, or married.
+- Study result
+  |           | dating | cohabiting | married | total |
+  | obese     |     81 |        103 |     147 |   331 |
+  | nor obese |    359 |        326 |     277 |   962 |
+  | total     |    440 |        429 |     424 |  1293 |
+  Does there appeart to be a relationshio between weight and relationship status?
+- Hypotheses
+  - $H_0:$ nothing is going on, weight and relationship status are *independent*. Obesity rates *do not* vary by relationship status.
+  - $H_A:$ something is going on, weight and relationship status are *dependent*. Obesity rates *do* vary by relationship status.
+- Evaluating the hypothesis
+  - quantify how different the observed counts are from the epected counts
+  - large deviations from what would be expected based on sampling variation (change) alone provide string evidence for the alternative hypothesis
+  - balled an *independence* test since we are evaluating the relationship between twi categorical variables
+- Chi-square test for independence
+  $$\chi^2=\sum_{i=1}^{k}\frac{(O_i-E_i)^2}{E_i}$$
+  Where
+  \begin{split}
+  O&:\text{observed}\\
+  E&:\text{expected}\\
+  k&:\text{number of cells / levels of categorical variable}\\
+  \quad\\
+  \end{split}
+- Degree of frredom for chi-square test for independence
+  $$df=(R-1)(C-1)$$
+  Where
+  \begin{split}
+  R&:\text{number of rows}\\
+  C&:\text{number of columns}\\
+  \end{split}
+- Conditions for the chi-square test:
+  - Independence
+    - random sample/assignment
+    - if sampling without replacment $n\gt10\%$
+    - each case(observation) only contribute to one cell (level of the categorical variable) in the table
+  - Sample size: Each particular scenario (i.e. cell/level of the categorical variable) must have at least 5 expected cases.
+- Expected values
+  We will calculat e the espected value of each observation that fit into a level from both two veriables.
+  Example: What is the expected value of the number of people that are both BMI = *obese* and marital status=*dating* $E(\text{obese}\cap\text{dating})$
+  $$E(Variable_1,Level_k \cap Variable_2,Level_l)=\frac{\text{Total of }Variable_1,Level_k*\text{Total of }Variable_2,Level_l}{n}$$
+  Where
+  - $k$: is the number of levels in one categorical variable
+  - $l$: is the number of levels in the other categorical variable
+- Calculating the expected values from the study result table
+  Example: Expected value for people that are both BMI = *obese* and marital status= *dating*
+  \begin{equation*}
+  \begin{split}
+  E(\text{obese}\cap\text{dating})&=\frac{\text{Total of obese}*\text{Total of dating}}{n}\\
+  &=\frac{331*440}{1293}\\
+  &\approx113
+  \end{split}
+  \end{equation*}
+  - Estimated table
+    |              | E(dating) | E(cohabiting) | E(married) | total |
+    | E(obese)     |       113 |           110 |        108 |   331 |
+    | E(not obese) |       327 |           319 |        316 |   962 |
+    | total        |       440 |           429 |        424 |  1293 |
+- Updated table
+  |           | dating    | cohabiting | married   | total |
+  | obese     | 81 (113)  | 103 (110)  | 147 (108) |   331 |
+  | nor obese | 359 (327) | 326 (319)  | 277 (316) |   962 |
+  | total     | 440       | 429        | 424       |  1293 |
+- Chi-square:
+  \begin{equation*}
+  \begin{split}
+  \chi^2&=\sum_{i=1,1}^{k,l}\frac{(O_{i,u}-E_{i,u})^2}{E_{i,u}}\\
+  &=\sum_{i=1}^{2,3}\frac{(O_{i,u}-E_{i,u})^2}{E_{i,u}}\\\\
+  &=\frac{(81-113)^2}{113}+\frac{(103-110)^2}{110}+\frac{(147-108)^2}{108}+\frac{(359-327)^2}{327}+\frac{(326-319)^2}{319}+\frac{(277-316)^2}{316}\\
+  &=31.68\\
+  \quad\\
+  df&=(k-1)*(j-1)\\
+  &=1*2\\
+  &=2
+  \end{split}
+  \end{equation*}
+- P-value for chi-square is define as the area above the calculated statistic
+  - Using R
+    #+begin_src R :session :exports both :results output
+    pchisq(q=31.95,df=2,lower.tail = FALSE)
+    #+end_src  
+* Linear regression and modeling
+** Linear Regression
+Linear regression gives us a function to better estimate a value instead of using plain mean value.
+*** Correlation
+- correlation is the mesure of strenght of the linear relationship between two numerical variables
+- When we compare two numerical variables we look for:
+  - The response variable
+  - The explanatory variable
+  - The relashionship between variables, it can be either:
+    - Linear or non-linear
+    - Negative or positive
+    - Strong or weak
+- Correlation describes the strenght of the *linear association* between two variables
+- Correlation is denoted with $R$
+- Correlation propreies:
+  1) The magniture (the abselute values) of the correlation coefficient measures the strenght of the linear association between two numerical variables
+  2) The sign of the correlation coefficient indicates the direction of association
+  3) The correlation coefficient is always between -1 (perfect negative linear association) and 1 (perfect positive linear association), 0 indicates no linear relationship
+  4) The correlation coefficient is unitless, and is not affected by changes in the center or scale of either variable (such as unit conversions)
+  5) The correlation of $X$ with $Y$ is the same as of $Y$ with $X$
+  6) The correlation coefficient is sensitive to outliers
+*** Residuals
+- residuals are leftovers from the model fit
+  $$\text{data}=\text{fit}+\text{residual}$$
+- residuals are the difference btween the observed and predictied y
+  $$e_i=y_i-\hat{y}_i$$
+*** Least Squares Line
+- A measure of the best line
+  - Option 1: Minimize the sum of magnitudes (abselute values) of residuals
+    $$\mid e_1 \mid + \mid e_2 \mid + \dots +\mid e_n \mid$$
+  - Option 2: Minimize the sum of squared residuals - *least squares*
+    $$e_1^2  +  e_2^2  + \dots + e_n^2$$
+- Why least squares?
+  Well, it is easier to compute by hand and using software
+- Least square line
+  $$\hat{y}=\beta_0+\beta_1x$$
+  - Where:
+    - $\hat{y}$: predicted response
+    - $\beta_0$: intercept
+    - $\beta_1$: slope
+    - $x$: explanatory
+  - Notation
+    |           | parameter | point estimate |
+    | intersept | $\beta_0$ | $b_0$          |
+    | slope     | $\beta_1$ | $b_1$          |
+- Estimating the slope
+  - The formula
+    $$b_1=\frac{s_y}{s_x}R$$
+    - Where:
+      - $s_x$: standard deviation of $x$
+      - $s_y$: standard deviation of $y$
+      - $R=cor(x,y)$: correlation between $x$ and $y$
+    - Interputation
+      for each point increase in the explanatory variable, we would expect a increase/decrease in the responce variable by, on average, $b_1$ points.
+  - Example
+    The standard deviation of percentage living in poverty is $3.1\%$, and the standard deviation of percentage high school graduates is $3.73\%$.
+    Giving that the correlation between those variables is $-0.75$, what is the slope of the regression line for predicting $\%$ living poverty from $\%$ high school graduates?
+    - Informations we get from the problem
+      - The two varaibles are poverty and high school garduates
+	- The high school garduates variable is the explanatory variable denoted as $x$
+	- The poverty variable is the response variable denoted as $y$
+      - $s_x=3.73$
+      - $s_y=3.1$
+      - $R=cor(x,y)=-0.75$
+    - Calculating the slope $b_1$
+      \begin{equation*}
+      \begin{split}
+      b_1&=\frac{s_y}{s_x}R\\
+      &=\frac{3.1}{3.73}(-0.75)\\
+      &\approx-0.62
+      \end{split}
+      \end{equation*}
+    - Interputation
+      for each percentage point increase in high school graduate rate, we would expect the percentage liging in poverty to be lower on average by 0.62 percentage points
+- Estimating the intercept
+  - The formula
+    The least squares line always goes through $(\bar{x},\bar{y})$, we can replace $x,\hat{y}$ with mean points
+    $$b_0=\bar{y}-b_1\bar{x}$$
+  - The interputation
+    When the explanatory variable is null, the response variable is expected, on average, to be equal to $b_0$
+    - *Note:* check the context before stating this.
+  - Example
+    Giving that the everage percentage living in poverty is $11.35\%$, and the average $\%$ high school graduate is $86.01\%$, what is the intercept of the regression line for predicting percentage living poverty from percentage high school graduates?
+    - Information we get from the problem
+      - $\bar{x}=86.01$
+      - $\bar{y}=11.35$
+    - Calculating the intecept $b_0$
+      \begin{equation*}
+      \begin{split}
+      b_0&=\bar{y}-b_1\bar{x}\\
+      &=11.35-(-0.62)*86.01\\
+      &\approx64.98
+      \end{split}
+      \end{equation*}
+    - Interputation
+      States with no high school graduates are expected on average to have $64.68\%$ of their residents living below the poverty line.
+      - *Note:* it is very unlickly for a state to have no high school graduate
+    - The geniral predictive model is
+      $$\widehat{\text{% living in poverty}} = 64.68 - 0.62*\text{% high school graduates}$$
+*** Prediction and Extrapolation
+- Prediction:
+  we can predict a value of $\hat{y}$ by pluging the desired values of $x$ in the formula.
+  Example:
+  What is the predicting percentage living in poverty in states where the high school graduate rate is $82\%$
+  \begin{equation*}
+  \begin{split}
+  \widehat{\text{% living in poverty}} &= 64.68 - 0.62*\text{% high school graduates} \\
+  &= 64.68 - 0.62*82\\
+  &= 13.84
+  \end{split}
+  \end{equation*}
+- Extrapolation
+  Sometimes the value of the prediction $\hat{y}$, the response variable, won't make sense in the real world if the value of $x$ is outside the reasonable range of the explanatory variable.
+  Example:
+  What is the predicting percentage living in poverty in states where the high school graduate rate is $20\%$
+  \begin{equation*}
+  \begin{split}
+  \widehat{\text{% living in poverty}} &= 64.68 - 0.62*\text{% high school graduates} \\
+  &= 64.68 - 0.62*20\\
+  &= 52.28
+  \end{split}
+  \end{equation*}
+*** Conditions for Linear Regression
+Most of them can be chechek using plots
+*Note*: in linearitiny condition is not met there is other non-liear regression models
+- Linearity
+  Checking is the data is linear using a scatter plot or a residuals plot
+- Constant variability
+  The data point shouldnt be cluster at one end and scattered in the other.
+  Can be checked using scatter plot or residual plot
+- Nearly normal residuals
+  The resisuals, not the data, should be nearly normal.
+  This can be checked using a histogram or a normal q-q plot
+*** R Squared
+$R^2$ measure the strenght of the fit of a linear model, it value is between 0 and 1.
+$R^2$ tells us what *percent* of variability in the *response variable* is explained by the model.
+The relationship betwen the explanatory and responce variable is accounted for $R^2$ of the variabtion.
+$$R^2=\frac{\text{Explained variability}}{\text{Total variability}}$$
+- Example:
+  Giving that $R^2=0.5625$, we can interput the result as fallowing
+  $56.25\%$ of variability in the percentage living in poverty is explained by the model
+  The relationship betwen the graduation and poverty level is accounted for $56.25\%$ of the variabtion.
+*** Regression with Categorical Explanatory Variables
+When working with a categorical *explanatory* variable, we do a one hot encoding, meaning we replace the levels with numbers where in the formula, the first level in called the reference and is not shown, while the other present and can be either one or zero.
+- Example
+  We use a new region variable with frou levels, [northeast, midwest, west, south], the formula become.
+  $$\widehat{\text{% living in poverty}} = 9.50 + 0.03*\text{region:midsest} + 1.79*\text{region:west} + 4.16*\text{region:south}$$
+  - What percentage of people living in poverty in northeast?
+    $$\widehat{\text{% living in poverty}} = 9.50 + 0.03*0 + 1.79*0 + 4.16*0$$
+  - What percentage of people living in poverty in south?
+    $$\widehat{\text{% living in poverty}} = 9.50 + 0.03*0 + 1.79*0 + 4.16*1$$
+** More about Linear Regression
+*** Outliers in Regression
+Outliers are point that fall away from a cluster of points.
+- Outliers influence the regression line by either:
+  - Making it look like there is linear relashionship where there is non.
+  - Making it look like there is non linear relashionship where there is.
+- There are two types of outliers:
+  - Leverange points: outliers that dosent influence the slope
+  - Influentials point: outliers that influence the slope
+    - In case of one influential point: we can remove it and continue making our linear model
+    - In case of multiple influential points: we can split the data into two clusters and make multiple linear models
+- The best way to know the type of the outliers is to *plot* the regression line with and without the outliers and see if the line change drastically.
+*** Inference for Linear Regression
+- Inference in linear model is done to the slope, we want to know:
+  - Is the explanatory variable a significant predictor of the response variable? (using hypothesis testing)
+    - $H_0:\beta_1=0$
+    - $H_0:\beta_1\neq0$
+    - t-statistic
+      $$T=\frac{b_1-(H_0:\beta_1=0)}{SE_{b_1}} \qquad df=n-2$$
+      The amount the we substract from the degree of fredom is related to how many parameter we are estimating, in this case we are astimating $\beta_0$ and $\beta_1$      
+  - What is out confidence interval for the slope
+    $$b_1\pm t_{df}^*SE_{b_1}$$
+    - Interputation
+      We are $-\%$ confident that for each additional point on the explanatory variable, the response variable is expected on average to be higher/lower by $b_1 - t_{df}^*SE_{b_1}$ to $b_1 + t_{df}^*SE_{b_1}$ points.
+- Case study: nature or nurture?
+  In 1966 Cyril Burt published a paper called "The genetic determination of differences in intelligence: A study of monozygotic twins reared apart?"
+  The data consist of IQ scores for [an assumed random sample of] 27 identical twins, one raised by foster parents, the other by the biological parents.
+  - Results:
+    - Regression output
+      |             | Estimate | Std. Error | t value | $Pr(\gt \mid t \mid)$ |
+      | (Intercept) |   9.2076 |     9.2999 |    0.99 |                0.3316 |
+      | bioIQ       |   0.9014 |      0.963 |    9.36 |                0.0000 |
+    - Linear model:
+      $$\widehat{\text{\% foster IQ}} = 9.2076+0.9014 \text{bioIQ}$$
+    - R²:
+      $$R^2=0.78$$
+  - Testing the slope - hypothesis
+    - $H_0:\beta_1=0$
+    - $H_0:\beta_1\neq0$
+    - t-statistic:
+      \begin{equation*}
+      \begin{split}
+      T&=\frac{0.9014-0}{0.0963}=9.36\\
+      df&=27-2=25\\
+      p-value&=P(\mid T \mid \gt 9.36)\\
+      &\approx 0
+      \end{split}
+      \end{equation*}
+  - Confidence interval for the slope
+    Calculating the $95\%$ interval for the slope
+    \begin{equation*}
+    \begin{split}
+    df&=27-2=25 \\
+    t_{25}^*&=2.06 \\
+    CI&=0.9014 \pm 2.06*0.0963 \\
+    &=[0.7,1.1]
+    \end{split}
+    \end{equation*}
+    We are $95\%$ confident that for each additional point on the biological twins'IQs, the forster twins IQs are expected on average to be higher by 0.7 to 1.1 points.
+- The intercept dosent tell us much about the relationship between the two variables, this is why we dont do infrence on it
+*** Variability Partitioning
+- Doing anova anaylsis will yield this result
+  |           | Df |  Sum Sq | Mean Sq | F value | $Pr( \gt F)$ |
+  |-----------+----+---------+---------+---------+--------------|
+  | bigIQ     |  1 | 5231.13 | 5231.13 |   87.59 |       0.0000 |
+  | Residuals | 25 | 1493.53 |   59.74 |         |              |
+  |-----------+----+---------+---------+---------+--------------|
+  | Total     | 26 | 6724.66 |         |         |              |
+- Table explanation
+  - Sum Sq (sum of squares)
+    - Total (Total variability in $y$): $SS_{Tot}=\sum{(y-\bar{y})^2}=6724.66$
+    - Residuals (Unexplained variability in $y$): $SS_{Res}=\sum{(y-\bar{y})^2}=\sum{e_i^2}=1493.53$
+    - bioIQ (explained variability in $y$): $SS_{Reg}=SS_{Tot}-SS_{Res}$
+  - Df (Degree of freedom)
+    - Total (Total degree of freedom): $df_{Tot}=n-1=27-1=26$
+    - bioIQ (regression degree of freedom): $df_{Reg}=1$    
+    - Residuals (residual degree of freedom): $df_{Res}=26-1=25$
+  - Mean Sq (mean square)
+    - bioIQ (mean square regression): $MS_{Reg}=\frac{SS_{Reg}}{df_{Reg}}=\frac{5231.13}{1}=5231.13$
+    - Residuals (mean square residual): $MS_{Res}=\frac{SS_{Res}}{df_{Res}}=\frac{1493.53}{25}=59.74$
+  - F value (F statistic)
+    - Ratio of explained to unexplained variability: $F_{(1,25)}=\frac{MS_{Reg}}{MS_{Res}}=87.56$
+  - $Pr( \gt F)$
+    Assuming that we set a hypothesis test earlier, with $H_0:\beta_1=0$ and $H_A:\beta_1 \neq 0$
+    If the p-value is small, we can say that the data provide convincing evidence that the slope is significantly different that 0, i.e. the explanatory variable is a significant predictor o fthe response variable.
+- Calculating $R^2$ from ANOVA results:
+  $$R^2=\frac{\text{Explained variability}}{\text{Total variability}}=\frac{SS_{Reg}}{SS_{Tot}}=\frac{5231.13}{6724.66}=0.78$$
+** Multiple Regression
+*** Introduction
+- we will try to predict a response variable from multiple "potential" explanatory variables
+*** Multiple Predictors
+- Case study
+  Data about the physical caracteristic of books, thier volume, type of cover (hardback, paperback), and the area of the hardback cover.
+  make a model to predict a book size from some explanatory variables.
+  - Data
+    #+begin_src R :session :exports both :results output
+    allbacks
+    #+end_src
+  - Ploting to look for trends
+    #+begin_src R :session :exports both :results output graphics file :file (concat path (number-to-string (cl-incf fignumber)) format)
+    ggplot(data = allbacks,mapping = aes(x = volume, y = weight,shape=cover,color=cover)) +
+    geom_point(size=6,alpha=0.8)
+    #+end_src
+    We can conclude that paperback generally weight less thand hardback cover books 
+  - result
+    #+begin_src R :session :exports both :results output
+    book_mlr=lm(weight ~ volume + cover, data=allbacks)
+    summary(book_mlr)
+    #+end_src
+    - *Note*: the model choses coverpb (paper back cover) as the non-reference level.
+    - $R²$ value tell us that $92.75\%$ of the books weight variability can be explained by the book volume in the cover type, seems logical... what else can explain the books weight?
+      Maybe the paper type?
+    - Linear module formula
+      $$\widehat{\text{weight}}= 197.26+0.72*\text{volume}-184.05*\text{cover:pb}$$
+      - *Note*; since cover is a categorical variable
+	- When we have hardback cover book we plug *0* in cover:pb
+	  \begin{equation*}
+	  \begin{split}
+	  \widehat{\text{weight}}&= 197.26+0.72*\text{volume}-184.05*0\\
+	  &= 197.26+0.72*\text{volume}
+	  \end{split}
+	  \end{equation*}
+	- When we have paperback cover book we plug *1* in cover:pb
+	  \begin{equation*}
+	  \begin{split}
+	  \widehat{\text{weight}}&= 197.26+0.72*\text{volume}-184.05*1\\
+	  &= 13.91+0.72*\text{volume}
+	  \end{split}
+	  \end{equation*}
+    - Graph
+     #+begin_src R :session :exports both :results output graphics file :file (concat path (number-to-string (cl-incf fignumber)) format)
+       ggplot(data = allbacks,mapping = aes(x = volume, y = weight,shape=cover,color=cover)) +
+	      geom_point(size=6,alpha=0.8)+
+	      geom_abline(aes(intercept = 197.96284,slope=0.71795,color="hb"),linewidth=1)+
+	      geom_abline(aes(intercept = 197.96284-184.04727,slope=0.71795,color="pb"),linewidth=1)
+     #+end_src
+    - Interputation
+      - Slope of volume:
+	All else held constant, for each point increase in volume, the model predicts the books to weight to increase by 0.72 point
+      - Slope of cover:
+	All else held constant, the model predict that, on average, paperback book (cover:pb) weight is lower by 184.05 point than the hardback book.
+      - Intersept:
+	Hardcover books with no volume are expected on average to beight 197.96.
+	*note* Which dosent make sense to have a book with no volume.
+    - Preditcions
+      Predict the weight of a paperback book that have 600 in volume
+      \begin{equation*}
+      \begin{split}
+      \widehat{\text{weight}}&= 197.26+0.72*\text{volume}-184.05*1\\
+      &= 197.26+0.72*600-184.05*1\\
+      &=445.91
+      \end{split}
+      \end{equation*}
+*** Variable interaction
+It state that the predictiong variable will have a diffirent line for each level, but they wont be parallel to each other
+- No interaction, parallel lines
+  $$\widehat{y}= b_0+b_1x_1+b_2x_2$$
+  \begin{equation*}
+  \widehat{y}=\left\{
+  \begin{aligned}
+      b_0+b_1x_1+b_2x_2 &\Rightarrow b_0+b_1x_1  & \quad \text{for level 1} \ (x_2=0)\\
+      b_0+b_1x_1+b_2x_2 &\Rightarrow b_0+b_2+b_1x_1  & \quad \text{for level 2} \ (x_2=1)
+  \end{aligned}
+  \right.
+  \end{equation*}
+- With interaction, dynamic lines
+  $$\widehat{y}= b_0+b_1x_1+b_2x_2+b_3x_1x_2$$
+  \begin{equation*}
+  \widehat{y} = \left \{
+  \begin{aligned}
+      b_0+b_1x_1+b_2x_2+b_3x_1x_2 &\Rightarrow b_0+b_1x_1  & \quad \text{for level 1} \ (x_2=0)\\
+      b_0+b_1x_1+b_2x_2+b_3x_1x_2 &\Rightarrow b_0+b_2+(b_1+b_3)x_1  & \quad \text{for level 2} \ (x_2=1)
+  \end{aligned}
+  \right.
+  \end{equation*}
+ The line for Level 1 didnt change changing from non to interactive model, the value $b_3$ is added to the slope, this will make the line for the level 2 be more representative and breake from the parallel ligning
+ - Example
+   - Data from penguins dataset
+     #+begin_src R :session :exports both :results output
+       penguins
+     #+end_src
+   - Non-interective linear model
+     #+begin_src R :session :exports both :results output
+       book_mlr=lm(body_mass_g ~ flipper_length_mm + species, data=penguins)
+       summary(book_mlr)
+     #+end_src
+     #+begin_src R :session :exports both :results output graphics file :file (concat path (number-to-string (cl-incf fignumber)) format)
+       ggplot(data = penguins,mapping = aes(x = flipper_length_mm, y = body_mass_g,shape=species,color=species)) +
+	 geom_point(size=3,alpha=0.5)+      
+	 geom_abline(aes(intercept = -4031.477,slope=40.705,color="Adelie"),linewidth=1)+
+	 geom_abline(aes(intercept = -4031.477-206.510,slope=40.705,color="Chinstrap"),linewidth=1)+
+	 geom_abline(aes(intercept = -4031.477+266.810,slope=40.705,color="Gentoo"),linewidth=1)
+     #+end_src
+   - Interactive linear model
+     #+begin_src R :session :exports both :results output
+       book_mlr=lm(body_mass_g ~ flipper_length_mm * species, data=penguins)
+       summary(book_mlr)
+     #+end_src
+     #+begin_src R :session :exports both :results output graphics file :file (concat path (number-to-string (cl-incf fignumber)) format)
+       ggplot(data = penguins,mapping = aes(x = flipper_length_mm, y = body_mass_g,shape=species,color=species)) +
+	 geom_point(size=3,alpha=0.5)+
+	 geom_abline(aes(intercept = -2535.837,slope=32.837,color="Adelie"),linewidth=1,linetype = "dashed")+
+	 geom_abline(aes(intercept = -2535.837-501.359,slope=32.837+1.74,color="Chinstrap"),linewidth=1,linetype = "dashed")+
+	 geom_abline(aes(intercept = -2535.837-4251.444,slope=32.837+21.791,color="Gentoo"),linewidth=1,linetype = "dashed")
+     #+end_src
+   - Comparing the two linear models
+     #+begin_src R :session :exports both :results output graphics file :file (concat path (number-to-string (cl-incf fignumber)) format)
+       ggplot(data = penguins,mapping = aes(x = flipper_length_mm, y = body_mass_g,shape=species,color=species)) +
+	 geom_blank()+
+	 geom_abline(aes(intercept = -4031.477,slope=40.705,color="Adelie"),linewidth=1,alpha=0.8)+
+	 geom_abline(aes(intercept = -2535.837,slope=32.837,color="Adelie"),linewidth=1,linetype = "dashed",alpha=0.8)+
+	 geom_abline(aes(intercept = -4031.477-206.510,slope=40.705,color="Chinstrap"),linewidth=1,alpha=0.8)+
+	 geom_abline(aes(intercept = -2535.837-501.359,slope=32.837+1.74,color="Chinstrap"),linewidth=1,linetype = "dashed",alpha=0.8)+
+	 geom_abline(aes(intercept = -4031.477+266.810,slope=40.705,color="Gentoo"),linewidth=1,alpha=0.8)+
+	 geom_abline(aes(intercept = -2535.837-4251.444,slope=32.837+21.791,color="Gentoo"),linewidth=1,linetype = "dashed",alpha=0.8)
+     #+end_src 
+*** Adjusted R Squared
+R square is:
+$$R^2=\frac{\text{Explained variability}}{\text{Total variability}}$$
+From this formula, and the examples below, we can see that $R^2$ can only go up as we add a new predictor.
+The variability explained by the first predictor will not change, not will the total variability. The variability explained by the new predictor will be subsetited from the total residuals/errors.
+\\
+Hence why we intreduce a new method of figuring out weather a model explains the predictor better than the prevoius one. It is called adjested $R^2$
+Adjusted $R^2$ uses the sum or residuals, since its always decreasing as we add new predictor, and apply a pelanty that depend on the data size and the number of predictors. and we take the comlement of it.
+Why we take the complement? because we want to know what percantage of variability in the response variable is explained by the explanatory variables, not what percentage of variability in the response variable is explained by the residuals/errors.
+$$Adjusted \ R^2=1-\left ( \frac{SSE}{SST} * \frac{n-1}{n-k-1} \right )$$
+- $SSE$: is the sum square of residuals/errors ( can be found from anova table)
+- $SST$: is the sum square of total, it is equat to the sum square of all predictors plus the sum square of residuals/errors
+- $n$: is the data/sample size
+- $k$: is the number of predictors in the model
+- Example
+  - Data: poverty
+    #+begin_src R :session :exports both :results output
+      pv_df=read_csv("https://bit.ly/dasi_states")
+      pv_df=pv_df[,c(1,5,2,3,4,6)]
+      pv_df
+    #+end_src  
+  - Exploratory data analysis
+    #+begin_src R :session :exports both :results output graphics file :file (concat path (number-to-string (cl-incf fignumber)) format)
+      ggpairs(pv_df[,2:6])
+    #+end_src
+  - Calculating $R^2$ and $Adjusted \ R^2$ using "female_house" as a predictor $(k=1)$
+    We can find the value of $R^2$ and $Adjusted \ R^2$ from lm summary, but well calculate it one time.
+    - Fitting the linear model
+      #+begin_src R :session :exports both :results output
+	m = lm(poverty~female_house,data=pv_df)
+	summary(m)
+      #+end_src
+    - Getting anova results
+      #+begin_src R :session :exports both :results output
+	anova(m)
+      #+end_src
+    - Calculating $R^2$
+      \begin{equation*}
+      \begin{split}
+      R^2&=\frac{\text{Explained variability}}{\text{Total variability}}\\
+      &=\frac{132.57}{132.57+347.68}\\
+      &=0.2760437
+      \end{split}
+      \end{equation*}
+    - Calculating $Adjusted \ R^2$
+      \begin{equation*}
+      \begin{split}
+      Adjusted \ R^2&=1-\left ( \frac{SSE}{SST} * \frac{n-1}{n-k-1} \right )\\
+      &=1-\left ( \frac{347.68}{132.57+347.68} * \frac{51-1}{51-1-1} \right )\\
+      &=0.2612691
+      \end{split}
+      \end{equation*}
+  - Calculating $R^2$ and $Adjusted \ R^2$ using "female_house" and "white" as a predictors $(k=2)$
+    We can find the value of $R^2$ and $Adjusted \ R^2$ from lm summary, but well calculate it one time.
+    - Fitting the linear model
+      #+begin_src R :session :exports both :results output
+	m = lm(poverty~female_house+white,data=pv_df)
+	summary(m)
+      #+end_src
+    - Getting anova results
+      #+begin_src R :session :exports both :results output
+	anova(m)
+      #+end_src
+    - Calculating $R^2$
+      \begin{equation*}
+      \begin{split}
+      R^2&=\frac{\text{Explained variability}}{\text{Total variability}}\\
+      &=\frac{132.57+8.21}{132.57+8.21+339.47}\\
+      &=0.293139
+      \end{split}
+      \end{equation*}
+    - Calculating $Adjusted \ R^2$
+      \begin{equation*}
+      \begin{split}
+      Adjusted \ R^2&=1-\left ( \frac{SSE}{SST} * \frac{n-1}{n-k-1} \right )\\
+      &=1-\left ( \frac{339.47}{132.57+8.21+339.47} * \frac{51-1}{51-2-1} \right )\\
+      &=0.2636864
+      \end{split}
+      \end{equation*}
+  - Comparison
+    |                                   |     $R^2$ | $Adjusted \ R^2$ |
+    |-----------------------------------+-----------+------------------|
+    | Model1 poverty~female_house       | 0.2760437 |        0.2612691 |
+    | Model2 poverty~female_house+white | 0.2931390 |        0.2636864 |
+    |-----------------------------------+-----------+------------------|
+    | Difference                        | 0.0170953 |        0.0024173 |
+    We can notice that using $R^2$ is shown as $\approx8.5$ times biger that $Adjusted \ R^2$
+*** Collinearity and Parsimony
+- Collinearity
+  - Two predictors are said to be collinear when thay are correlated with each other.
+  - Collinearity is a sign of dependency, which is bad in a predicrive model.
+- Parsimony
+  - A model with no collinear predictors is called *parsimonious model*.
+- Example from the previous study
+  The model2 include "female_house" predictor and "white" predictor, and there two predictors/variables have a correlation of $R=-0.751$.
+  #+begin_src R :session :exports both :results output graphics file :file (concat path (number-to-string (cl-incf fignumber)) format)
+    ggpairs(pv_df[,2:6])
+  #+end_src
+  The "female_house" and "white" predictors are *collinear*, there for adding the two in the same model wont improve it by much.
+  - The result from Anova:
+    #+begin_src R :session :exports both :results output
+      anova(m)
+    #+end_src
+
+    #+RESULTS:
+    : Analysis of Variance Table
+    : 
+    : Response: poverty
+    :              Df Sum Sq Mean Sq F value    Pr(>F)    
+    : female_house  1 132.57 132.568 18.7447 7.562e-05 ***
+    : white         1   8.21   8.207  1.1605    0.2868    
+    : Residuals    48 339.47   7.072                      
+    : ---
+    : Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    |              | Sum Sq | % Explained |
+    |--------------+--------+-------------|
+    | female_house | 132.57 |       0.276 |
+    | white        |   8.21 |       0.017 |
+    | Residuals    | 339.47 |       0.707 |
+    |--------------+--------+-------------|
+    | Total        | 480.25 |             |
+    Putting those two predictors in the same model, the predictor "female_house" explains $27.6\%$ of the data, while the predictor "white" explains only $1.7\%$ of the data.
+    Adding multiple predictors that are collinear will only complicate the model without any significant benifits.
+*** Inference for MLR
+- Using infrencial technique we can determin which variables in the model are significant predictors, we can find the hypothesis result in the model summary, but will do it by hand the first time.
+  #+begin_src R :session :exports both :results output
+    m = lm(poverty~female_house,data=pv_df)
+    summary(m)
+  #+end_src
+- Inference for the model as a whole
+  - Hypothesis:
+    - $H_0: \beta_1 = \beta_2 = \dots = \beta_k=0$
+    - $H_A:$ At least one $\beta_i$ is different than 0
+  - From the result of the linear model summary, we can read this line and trying to interput it:
+    "*F-statistic: 20.58 on 4 and 46 DF,  p-value: 8.884e-10*"
+  - Interputation:
+    - Since p-value is $\lt$ 0.05, the model *as a whole* is significant.
+    - The F-test yielding a significant result *dosen't mean the model fits the data well*, it jusst mean that there is at least one $\beta_i$ that is diffirent than 0.
+    - The F-test yielding a non-significant result dosen't mean individual variables included in the model are not good predictors of $y$, rather the combination of those variables dosen't yield a good model.
+- Inference for variables in the model
+  We can determin weather a varaible is a significant predictor of renponse variable $y$
+  - Hypothesis:
+    - $H_0: \beta=0$, when all other variables are includekd in the model
+    - $H_A: \beta \neq 0$, when all other variables are includekd in the model
+  - From the result of the linear model summary
+    |         | Estimate | Std .Error | t value | $Pr( \gt \mid t \mid)$ |
+    | hs_grad | -0.55471 |    0.10491 |  -5.288 |               3.33e-06 |
+  - Interputation
+    Since p-value is $\lt$ 0.05, the variable "hs_grad" is significant giving all other variables in the model.
+  - Calculation the t-statistic for the slope
+    \begin{equation*}
+    \begin{split}
+    T&=\frac{b_1-0}{SE_{b_1}} \\
+    &=\frac{-0.55471-0}{0.10491} \\
+    &=-5.287485 \\
+    df&=n-k-1 \\
+    &=51-4-1 \\
+    &=46 \\
+    \end{split}
+    \end{equation*}
+   #+begin_src R :session :exports both :results output
+    pt(q=-5.287485,df = 46,lower.tail = TRUE)*2
+   #+end_src
+   We got the same result from the table.
+- Confidence level for the slope
+  For this we will need to calculate the t-statistic for the $95\%$ confidence interval with a degree of freedom $df=46$
+  #+begin_src R :session :exports both :results output
+    qt(p=0.975, df=46)
+  #+end_src
+  \begin{equation*}
+  \begin{split}
+  CI&=\text{point estimage} \pm \text{margin of error} \\
+  &=b_1 \pm t_{df}^*SE_{b_1} \\
+  &=-0.55471 \pm 2.012896*0.10491 \\
+  &=-0.55471 \pm 0.2111729\\
+  &= [-0.76,-0.34]
+  \end{split}
+  \end{equation*}
+  - Interputation
+    Holding all other variables constand, we are $95\%$ confident that one point increase in "hs_grad" variable is followed by, on average, a deacrease in poverty by 0.34 to 0.76 point.
+*** Model Selection
+- Best model selection can be either with:
+  - Stepwise selection:
+    - Beckwards elimination: we start with a full model, a model that contain all the variables as predictors, and we drop one predictor at a time untill the model is parsimonuis base on a *criteria*.
+    - Forward selection: we start with one variable in the model, and we add one predictor at a time untill the model is parsimonuis base on a *criteria*.
+  - Expert opinion:
+    - We add variables that are know to explain the response variable base on experience.
+- Criterias for selecting a parsimonuis model are; p-value, adjusted $R^2$, AIC, BIC, DIC, Bayes factor, Mallow's $C_p$.
+- Examples
+  - Backward elimination - adjusted $R^2$
+    - Steps:
+      - Start with the full model
+      - Drop one variable at a time and record the adjusted $R^2$ of each model
+      - Pick the model with the highest oncrease in adjusted $R^2$
+      - Repeat untill none of the models yield an oncrease in adjusted $R^2$
+    - Result
+      | step   | variables included                           | removed      | adjusted $R^2$ |
+      |--------+----------------------------------------------+--------------+----------------|
+      | Full   | poverty~female_house+white+hs_grad+metro_res |              |         0.6104 |
+      | Step 1 | poverty~female_house+white+hs_grad           | metro_res    |         0.5499 |
+      |        | poverty~female_house+white+metro_res         | hs_grad      |         0.3869 |
+      |        | poverty~female_house+hs_grad+metro_res       | white        |         0.6011 |
+      |        | poverty~white+hs_grad+metro_res              | female_house |       *0.6183* |
+      |--------+----------------------------------------------+--------------+----------------|
+      | Step 2 | poverty~white+hs_grad                        | metro_res    |         0.5582 |
+      |        | poverty~white+metro_res                      | hs_grad      |         0.1708 |
+      |        | poverty~hs_grad+metro_res                    | white        |         0.5733 |
+      |--------+----------------------------------------------+--------------+----------------|
+    - Conclusion
+      The best parsimonuis model is poverty~white+hs_grad+metro_res
+  - Backward elimination - p-value
+    - Steps:
+      - Start with the full model
+      - Drop the variable with the highest p-value and refit a smaller model
+	- *Note*: in a varaible have multiple levels, and at least one level have a significant p-value it should be droped
+    - Results:
+      since there is multiple p-values for each model to evaluate
+      - Step 1
+       #+begin_src R :session :exports both :results output
+	 m = lm(poverty~female_house+white+hs_grad+metro_res,data=pv_df)
+	 summary(m)
+       #+end_src
+       We need to drop the variable "female_house" since it got a high p-value
+      - Step 2
+       #+begin_src R :session :exports both :results output
+	 m = lm(poverty~white+hs_grad+metro_res,data=pv_df)
+	 summary(m)
+       #+end_src
+       No variable have a significant p-value, therefor we can stop the bachward elimination process
+    - Conclusion
+      The best parsimonuis model is poverty~white+hs_grad+metro_res
+- adjusted $R^2$ vs p-value in selecting the model
+  sometimes the two methods will yield in a diffirent model
+*** Diagnostics for MLR
+- Conditions for the multiple linear model to be mapped valid, These conditions can be checked with a plot
+  - Linear relationship between (numerical) $x$ and $y$
+    - Using residuals plots only, the residuals allows for condering other varaibles in the model and not just ploting a bivaraite relationship like a scatter plot will do.
+      *For the condition to be True, we want a random scatter aroud 0*
+      From out previous model, poverty~white+hs_grad+metro_res, we'll check each varaible
+      - *Not meet* for varaible: white
+       #+begin_src R :session :exports both :results output graphics file :file (concat path (number-to-string (cl-incf fignumber)) format)
+	plot(m$residuals~pv_df$white)     
+      #+end_src
+      - meet for varaible: hs_grad
+       #+begin_src R :session :exports both :results output graphics file :file (concat path (number-to-string (cl-incf fignumber)) format)
+	plot(m$residuals~pv_df$hs_grad)     
+      #+end_src
+      - meet for varaible: metro_res
+       #+begin_src R :session :exports both :results output graphics file :file (concat path (number-to-string (cl-incf fignumber)) format)
+	plot(m$residuals~pv_df$metro_res)     
+      #+end_src    
+  - Nearly normal residuals with mean 0
+    - Histogram plot
+      #+begin_src R :session :exports both :results output graphics file :file (concat path (number-to-string (cl-incf fignumber)) format)
+	hist(m$residuals)
+      #+end_src    
+    - QQ plot (ouff)
+      #+begin_src R :session :exports both :results output graphics file :file (concat path (number-to-string (cl-incf fignumber)) format)
+	qqnorm(m$residuals)
+      #+end_src    
+  - Constant variability of residuals
+    We are looking for a random scatter around 0
+    #+begin_src R :session :exports both :results output graphics file :file (concat path (number-to-string (cl-incf fignumber)) format)
+      plot(m$residuals~m$fitted)
+      #+end_src    
+  - Independence of residuals/observations
+    We need to check how the data is sampled, else, if time series structures is suspeced we can check residuals with order of data collection
+    #+begin_src R :session :exports both :results output graphics file :file (concat path (number-to-string (cl-incf fignumber)) format)
+      plot(m$residuals)
+      #+end_src
+      
+
