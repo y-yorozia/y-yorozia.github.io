@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-03-08 Wed 19:06 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Compressing video with FFMPEG-GPU from Google Drive</title>
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/js/readtheorg.js"></script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Compressing video with FFMPEG-GPU from Google Drive</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org222918c">1. Building FFMPEG with GPU acceleration in google colab instense</a></li>
+<li><a href="#orgb46b2d5">2. Scannig for video files</a></li>
+<li><a href="#orgbb79d41">3. Compression</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org222918c" class="outline-2">
+<h2 id="org222918c"><span class="section-number-2">1.</span> Building FFMPEG with GPU acceleration in google colab instense</h2>
+<div class="outline-text-2" id="text-1">
+<div class="org-src-container">
+<pre class="src src-python">!wget https://gist.githubusercontent.com/ransagy/3f6f1a9e5ede6212425f3b36b136216e/raw/eac1102659ec3dad1ccdb6c8eedf71317e7e3a0e/<span style="color: #8f0075; font-weight: bold;">compile</span>-ffmpeg-nvenc.sh
+!echo | bash /content/<span style="color: #8f0075; font-weight: bold;">compile</span>-ffmpeg-nvenc.sh
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb46b2d5" class="outline-2">
+<h2 id="orgb46b2d5"><span class="section-number-2">2.</span> Scannig for video files</h2>
+<div class="outline-text-2" id="text-2">
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #00538b;">dd</span>=[]
+<span style="color: #00538b;">v_format</span>=[<span style="color: #2544bb;">"mp4"</span>,<span style="color: #2544bb;">"mkv"</span>,<span style="color: #2544bb;">"webm"</span>,<span style="color: #2544bb;">"ts"</span>,<span style="color: #2544bb;">"mov"</span>,<span style="color: #2544bb;">"avi"</span>,<span style="color: #2544bb;">"m4v"</span>]
+<span style="color: #5317ac; font-weight: bold;">for</span> path, subdirs, files <span style="color: #5317ac; font-weight: bold;">in</span> os.walk(<span style="color: #2544bb;">"/content/drive/MyDrive"</span>):
+    <span style="color: #5317ac; font-weight: bold;">for</span> name <span style="color: #5317ac; font-weight: bold;">in</span> <span style="color: #00538b;">files</span>:
+        <span style="color: #5317ac; font-weight: bold;">for</span> <span style="color: #8f0075; font-weight: bold;">format</span> <span style="color: #5317ac; font-weight: bold;">in</span> v_format:
+            <span style="color: #5317ac; font-weight: bold;">if</span> name.lower().endswith(<span style="color: #8f0075; font-weight: bold;">format</span>):
+                dd.append(os.path.join(path, name))
+df=pd.DataFrame(data={<span style="color: #2544bb;">"name"</span>:dd})
+df=df.sort_values(<span style="color: #2544bb;">"name"</span>).reset_index(drop=<span style="color: #0000c0;">True</span>)
+df[<span style="color: #2544bb;">"ext"</span>]=<span style="color: #2544bb;">"."</span>+df[<span style="color: #2544bb;">"name"</span>].<span style="color: #8f0075; font-weight: bold;">apply</span>(<span style="color: #5317ac; font-weight: bold;">lambda</span> x:x.split(<span style="color: #2544bb;">"."</span>)[-1])
+df[<span style="color: #2544bb;">"size"</span>]=df[<span style="color: #2544bb;">"name"</span>].<span style="color: #8f0075; font-weight: bold;">apply</span>(<span style="color: #5317ac; font-weight: bold;">lambda</span> x:<span style="color: #8f0075; font-weight: bold;">round</span>(os.path.getsize(x)/1024/1024))
+</pre>
+</div>
+
+<p>
+Sometimes the instance turn off because I exceeded the time limit, some files would be compressed, some will not.<br />
+If I run the compression code below again, some videos would be compressed twice.<br />
+I thought of adding an Affix at the end of every successfully compressed video, "__ced".<br />
+Now I can eliminate files that have "__ced" in their file name and have a file that is already compressed in my list.<br />
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #00538b;">is_ced</span>=[<span style="color: #0000c0;">False</span>]*<span style="color: #8f0075; font-weight: bold;">len</span>(df)
+<span style="color: #5317ac; font-weight: bold;">for</span> i <span style="color: #5317ac; font-weight: bold;">in</span> <span style="color: #8f0075; font-weight: bold;">range</span>(<span style="color: #8f0075; font-weight: bold;">len</span>(df)):
+  <span style="color: #5317ac; font-weight: bold;">if</span> <span style="color: #2544bb;">'__ced'</span> <span style="color: #5317ac; font-weight: bold;">in</span> df[<span style="color: #2544bb;">"name"</span>].<span style="color: #00538b;">iloc</span>[i]:
+    is_ced[<span style="color: #00538b;">i</span>]=<span style="color: #0000c0;">True</span>
+<span style="color: #00538b;">df</span>[<span style="color: #2544bb;">"is_ced"</span>]=is_ced
+<span style="color: #00538b;">df</span>=df[df[<span style="color: #2544bb;">"is_ced"</span>]==<span style="color: #0000c0;">False</span>].sort_values(<span style="color: #2544bb;">"size"</span>,ascending=<span style="color: #0000c0;">False</span>).reset_index(drop=<span style="color: #0000c0;">True</span>)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgbb79d41" class="outline-2">
+<h2 id="orgbb79d41"><span class="section-number-2">3.</span> Compression</h2>
+<div class="outline-text-2" id="text-3">
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #00538b;">dim</span>=1920
+<span style="color: #505050; font-style: italic;">#</span><span style="color: #505050; font-style: italic;">dim=1280</span>
+<span style="color: #00538b;">c_size</span>=0
+<span style="color: #00538b;">cq</span>=<span style="color: #2544bb;">"28"</span>
+<span style="color: #5317ac; font-weight: bold;">for</span> i <span style="color: #5317ac; font-weight: bold;">in</span> tqdm(<span style="color: #8f0075; font-weight: bold;">range</span>(<span style="color: #8f0075; font-weight: bold;">len</span>(df))):
+    <span style="color: #00538b;">start</span>=time.time()
+    <span style="color: #00538b;">drive_path</span>=df[<span style="color: #2544bb;">"name"</span>].iloc[i]
+    <span style="color: #00538b;">file_ext</span>=df[<span style="color: #2544bb;">"ext"</span>].iloc[i]
+    <span style="color: #00538b;">copy_path</span>=<span style="color: #2544bb;">"/content/"</span>+drive_path.split(<span style="color: #2544bb;">"/"</span>)[-1]
+    shutil.copy(drive_path, copy_path)
+
+    <span style="color: #00538b;">to_rem</span>=copy_path.replace(file_ext,<span style="color: #2544bb;">"__tr"</span>+file_ext)
+    <span style="color: #00538b;">ced</span>=to_rem.replace(<span style="color: #2544bb;">"__tr"</span>+file_ext,<span style="color: #2544bb;">"__ced.mp4"</span>)
+
+    os.rename(copy_path, to_rem)
+
+    subprocess.run([<span style="color: #2544bb;">"ffmpeg"</span>,<span style="color: #2544bb;">"-strict"</span>, <span style="color: #2544bb;">"2"</span>, <span style="color: #2544bb;">"-hwaccel"</span>, <span style="color: #2544bb;">"auto"</span>,<span style="color: #2544bb;">"-i"</span>,to_rem, <span style="color: #2544bb;">"-vf"</span>,
+                      <span style="color: #2544bb;">"scale=if(gte(iw\,ih)\,min("</span>+<span style="color: #8f0075; font-weight: bold;">str</span>(dim)+<span style="color: #2544bb;">"\,iw)\,-2):if(lt(iw\,ih)\,min("</span>+<span style="color: #8f0075; font-weight: bold;">str</span>(dim)+<span style="color: #2544bb;">"\,ih)\,-2)"</span>,
+                      <span style="color: #2544bb;">"-c:v"</span>, <span style="color: #2544bb;">"hevc_nvenc"</span>, <span style="color: #2544bb;">"-preset"</span> ,<span style="color: #2544bb;">"slow"</span>,<span style="color: #2544bb;">"-rc"</span>, <span style="color: #2544bb;">"vbr"</span>, <span style="color: #2544bb;">"-cq"</span>, cq, <span style="color: #2544bb;">"-qmin"</span>, cq,
+                      <span style="color: #2544bb;">"-qmax"</span>, cq, <span style="color: #2544bb;">"-profile:v"</span>, <span style="color: #2544bb;">"main10"</span>, <span style="color: #2544bb;">"-pix_fmt"</span>, <span style="color: #2544bb;">"p010le"</span>, <span style="color: #2544bb;">"-b:v"</span>, <span style="color: #2544bb;">"0K"</span>,
+                      <span style="color: #2544bb;">"-c:a"</span>, <span style="color: #2544bb;">"aac"</span>, ced])
+    end=time.time()
+    to_rem_size=<span style="color: #8f0075; font-weight: bold;">round</span>(os.path.getsize(to_rem)/1024/1024)
+    ced_size=<span style="color: #8f0075; font-weight: bold;">round</span>(os.path.getsize(ced)/1024/1024)
+    diff_s=<span style="color: #8f0075; font-weight: bold;">round</span>(to_rem_size-ced_size)
+    percent_dif=<span style="color: #8f0075; font-weight: bold;">round</span>(diff_s/to_rem_size,1)
+    c_size=c_size+diff_s
+    p_timee=<span style="color: #8f0075; font-weight: bold;">round</span>((end-start)/60)
+    <span style="color: #8f0075; font-weight: bold;">print</span>(<span style="color: #2544bb;">"|original"</span>,to_rem_size,<span style="color: #2544bb;">"|compressed"</span>, ced_size, <span style="color: #2544bb;">"|diffrence"</span>, diff_s, <span style="color: #2544bb;">"|decrease percent"</span>,percent_dif, <span style="color: #2544bb;">"|time:"</span>,p_timee,<span style="color: #2544bb;">"|total free space:"</span>,c_size)        
+
+    <span style="color: #5317ac; font-weight: bold;">if</span> ced_size!=0:
+        shutil.copy(ced, drive_path.replace(file_ext,<span style="color: #2544bb;">"__ced.mp4"</span>))
+        os.remove(drive_path)
+        os.remove(to_rem)
+        os.remove(ced)
+    <span style="color: #5317ac; font-weight: bold;">else</span>:
+        os.remove(to_rem)
+        os.rename(drive_path, drive_path.replace(df[<span style="color: #2544bb;">"ext"</span>].iloc[i],<span style="color: #2544bb;">"__pr"</span>+file_ext))
+
+</pre>
+</div>
+<ul class="org-ul">
+<li>Notes<br />
+<ul class="org-ul">
+<li>The variable 'dim' is used within the subprocess function to set a maximum video width; for, dim=1920<br />
+<ul class="org-ul">
+<li>If a video is 1280 px in width, the video width won't change.<br /></li>
+<li>If a video is 1920 px in width, the video width won't change.<br /></li>
+<li>If a video is above 1920 px in width, the video width will change to 1920 while maintaining the aspect ratio.<br /></li>
+</ul></li>
+<li>The variable "cq" is controlling the quality of the output, higher value mean lower quality and smaller size.<br /></li>
+<li>The variable "c_size" add up the difference between the video's original size and the compressed size, for each video compressed, to know how much total space in Google Drive did I save up.<br /></li>
+<li>Using os.remove() to remove the file from Google Drive doesn't free up the space, I need to manually remove the files from the bin.<br /></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: 2023-03-08 Wed 18:38</p>
+<p class="date">Created: 2023-03-08 Wed 19:06</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

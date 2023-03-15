@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-03-08 Wed 20:58 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Downloading courses to Google Drive</title>
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/js/readtheorg.js"></script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Downloading courses to Google Drive</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org30fc2f4">1. Download from Torrent</a></li>
+<li><a href="#org4986d47">2. Downlaod from Mega.nz</a></li>
+<li><a href="#orgbe123af">3. Download from the web</a></li>
+</ul>
+</div>
+</div>
+<p>
+Disclaimer: I didn't build the scripts from scratch, tho I made some minor tweaks.<br />
+Those scripts a used to download courses to my Google Drive and compress them later with this script because I am out of space in my computer.<br />
+</p>
+<div id="outline-container-org30fc2f4" class="outline-2">
+<h2 id="org30fc2f4"><span class="section-number-2">1.</span> Download from Torrent</h2>
+<div class="outline-text-2" id="text-1">
+<div class="org-src-container">
+<pre class="src src-python">!apt install python3-libtorrent
+!python -m pip install --upgrade pip setuptools wheel
+!python -m pip install lbry-libtorrent
+<span style="color: #5317ac; font-weight: bold;">import</span> libtorrent <span style="color: #5317ac; font-weight: bold;">as</span> lt
+<span style="color: #00538b;">ses</span> = lt.session()
+ses.listen_on(6881, 6891)
+<span style="color: #00538b;">downloads</span> = []
+<span style="color: #505050; font-style: italic;">#</span><span style="color: #505050; font-style: italic;">Using a torrent file</span>
+<span style="color: #5317ac; font-weight: bold;">from</span> google.colab <span style="color: #5317ac; font-weight: bold;">import</span> files
+<span style="color: #00538b;">source</span> = files.upload()
+<span style="color: #00538b;">params</span> = {
+    <span style="color: #2544bb;">"save_path"</span>: <span style="color: #2544bb;">"/content"</span>,
+    <span style="color: #2544bb;">"ti"</span>: lt.torrent_info(<span style="color: #8f0075; font-weight: bold;">list</span>(source.keys())[0]),
+}
+downloads.append(ses.add_torrent(params))
+
+<span style="color: #505050; font-style: italic;">#</span><span style="color: #505050; font-style: italic;">Using a torrent magnet link</span>
+<span style="color: #00538b;">params</span> = {<span style="color: #2544bb;">"save_path"</span>: <span style="color: #2544bb;">"/content"</span>}
+<span style="color: #5317ac; font-weight: bold;">while</span> <span style="color: #0000c0;">True</span>:
+    magnet_link = <span style="color: #8f0075; font-weight: bold;">input</span>(<span style="color: #2544bb;">"Enter Magnet Link Or Type Exit: "</span>)
+    <span style="color: #5317ac; font-weight: bold;">if</span> magnet_link.lower() == <span style="color: #2544bb;">"exit"</span>:
+        <span style="color: #5317ac; font-weight: bold;">break</span>
+    downloads.append(
+        lt.add_magnet_uri(ses, magnet_link, params))
+
+<span style="color: #505050; font-style: italic;">#</span><span style="color: #505050; font-style: italic;">Downlading</span>
+<span style="color: #5317ac; font-weight: bold;">import</span> time
+<span style="color: #5317ac; font-weight: bold;">from</span> IPython.display <span style="color: #5317ac; font-weight: bold;">import</span> display
+<span style="color: #5317ac; font-weight: bold;">import</span> ipywidgets <span style="color: #5317ac; font-weight: bold;">as</span> widgets
+
+state_str = [
+    <span style="color: #2544bb;">"queued"</span>,
+    <span style="color: #2544bb;">"checking"</span>,
+    <span style="color: #2544bb;">"downloading metadata"</span>,
+    <span style="color: #2544bb;">"downloading"</span>,
+    <span style="color: #2544bb;">"finished"</span>,
+    <span style="color: #2544bb;">"seeding"</span>,
+    <span style="color: #2544bb;">"allocating"</span>,
+    <span style="color: #2544bb;">"checking fastresume"</span>,
+]
+
+layout = widgets.Layout(width=<span style="color: #2544bb;">"auto"</span>)
+style = {<span style="color: #2544bb;">"description_width"</span>: <span style="color: #2544bb;">"initial"</span>}
+download_bars = [
+    widgets.FloatSlider(
+        step=0.01, disabled=<span style="color: #0000c0;">True</span>, layout=layout, style=style
+    )
+    <span style="color: #5317ac; font-weight: bold;">for</span> _ <span style="color: #5317ac; font-weight: bold;">in</span> downloads
+]
+display(*download_bars)
+
+<span style="color: #5317ac; font-weight: bold;">while</span> downloads:
+    next_shift = 0
+    <span style="color: #5317ac; font-weight: bold;">for</span> index, download <span style="color: #5317ac; font-weight: bold;">in</span> <span style="color: #8f0075; font-weight: bold;">enumerate</span>(downloads[:]):
+        bar = download_bars[index + next_shift]
+        <span style="color: #5317ac; font-weight: bold;">if</span> <span style="color: #5317ac; font-weight: bold;">not</span> download.is_seed():
+            s = download.status()
+
+            bar.description = <span style="color: #2544bb;">" "</span>.join(
+                [
+                    download.name(),
+                    <span style="color: #8f0075; font-weight: bold;">str</span>(s.download_rate / 1000),
+                    <span style="color: #2544bb;">"kB/s"</span>,
+                    state_str[s.state],
+                ]
+            )
+            bar.value = s.progress * 100
+        <span style="color: #5317ac; font-weight: bold;">else</span>:
+            next_shift -= 1
+            ses.remove_torrent(download)
+            downloads.remove(download)
+            bar.close() <span style="color: #505050; font-style: italic;"># </span><span style="color: #505050; font-style: italic;">Seems to be not working in Colab (see https://github.com/googlecolab/colabtools/issues/726#issue-486731758)</span>
+            download_bars.remove(bar)
+            <span style="color: #8f0075; font-weight: bold;">print</span>(download.name(), <span style="color: #2544bb;">"complete"</span>)
+            time.sleep(1)
+
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org4986d47" class="outline-2">
+<h2 id="org4986d47"><span class="section-number-2">2.</span> Downlaod from Mega.nz</h2>
+<div class="outline-text-2" id="text-2">
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #5317ac; font-weight: bold;">import</span> sys, os, urllib.request
+<span style="color: #5317ac; font-weight: bold;">import</span> time
+<span style="color: #5317ac; font-weight: bold;">import</span> subprocess
+<span style="color: #5317ac; font-weight: bold;">import</span> contextlib
+<span style="color: #5317ac; font-weight: bold;">from</span> IPython.display <span style="color: #5317ac; font-weight: bold;">import</span> clear_output
+<span style="color: #505050; font-style: italic;">#</span><span style="color: #505050; font-style: italic;">@markdown &lt;br&gt;&lt;center&gt;&lt;img src='https://mega.nz/favicon.ico?v=3' height="50" alt="MEGA-logo"/&gt;&lt;/center&gt;</span>
+<span style="color: #505050; font-style: italic;">#</span><span style="color: #505050; font-style: italic;">@markdown &lt;center&gt;&lt;h2&gt;Transfer from Mega to GDrive&lt;/h2&gt;&lt;/center&gt;&lt;br&gt;</span>
+<span style="color: #00538b;">HOME</span> = os.path.expanduser(<span style="color: #2544bb;">"~"</span>)
+<span style="color: #5317ac; font-weight: bold;">if</span> <span style="color: #5317ac; font-weight: bold;">not</span> os.path.exists(f<span style="color: #2544bb;">"</span>{HOME}<span style="color: #2544bb;">/.ipython/ocr.py"</span>):
+    <span style="color: #00538b;">hCode</span> = <span style="color: #2544bb;">"https://raw.githubusercontent.com/biplobsd/"</span> \
+                <span style="color: #2544bb;">"OneClickRun/master/res/ocr.py"</span>
+    urllib.request.urlretrieve(hCode, f<span style="color: #2544bb;">"</span>{HOME}<span style="color: #2544bb;">/.ipython/ocr.py"</span>)
+
+<span style="color: #5317ac; font-weight: bold;">from</span> ocr <span style="color: #5317ac; font-weight: bold;">import</span> (
+    runSh,
+    loadingAn,
+)
+<span style="color: #505050; font-style: italic;">#</span><span style="color: #505050; font-style: italic;">@title MEGA public link download</span>
+<span style="color: #00538b;">URL</span> = <span style="color: #2544bb;">"https://mega.nz/folder/vIMGCBIY#2uI_PXYQ8WNq7DRwna5inA"</span> <span style="color: #505050; font-style: italic;">#</span><span style="color: #505050; font-style: italic;">@param {type:"string"}</span>
+OUTPUT_PATH = <span style="color: #2544bb;">"/content/drive/MyDrive"</span> <span style="color: #505050; font-style: italic;">#</span><span style="color: #505050; font-style: italic;">@param {type:"string"}</span>
+<span style="color: #505050; font-style: italic;">#</span><span style="color: #505050; font-style: italic;">@markdown #####_*Sometimes this cell doesn't stop itself after the completion of the transfer. In case of that stop the cell manually._</span>
+<span style="color: #5317ac; font-weight: bold;">if</span> <span style="color: #5317ac; font-weight: bold;">not</span> OUTPUT_PATH:
+    os.makedirs(<span style="color: #2544bb;">"downloads"</span>, exist_ok=<span style="color: #0000c0;">True</span>)
+    OUTPUT_PATH = <span style="color: #2544bb;">"downloads"</span>
+<span style="color: #505050; font-style: italic;"># </span><span style="color: #505050; font-style: italic;">MEGAcmd installing</span>
+<span style="color: #5317ac; font-weight: bold;">if</span> <span style="color: #5317ac; font-weight: bold;">not</span> os.path.exists(<span style="color: #2544bb;">"/usr/bin/mega-cmd"</span>):
+    loadingAn()
+    <span style="color: #8f0075; font-weight: bold;">print</span>(<span style="color: #2544bb;">"Installing MEGA ..."</span>)
+    runSh(<span style="color: #2544bb;">'sudo apt-get -y update'</span>)
+    runSh(<span style="color: #2544bb;">'sudo apt-get -y install libmms0 libc-ares2 libc6 libcrypto++6 libgcc1 libmediainfo0v5 libpcre3 libpcrecpp0v5 libssl1.1 libstdc++6 libzen0v5 zlib1g apt-transport-https'</span>)
+    runSh(<span style="color: #2544bb;">'sudo curl -sL -o /var/cache/apt/archives/MEGAcmd.deb https://mega.nz/linux/MEGAsync/Debian_9.0/amd64/megacmd-Debian_9.0_amd64.deb'</span>, output=<span style="color: #0000c0;">True</span>)
+    runSh(<span style="color: #2544bb;">'sudo dpkg -i /var/cache/apt/archives/MEGAcmd.deb'</span>, output=<span style="color: #0000c0;">True</span>)
+    <span style="color: #8f0075; font-weight: bold;">print</span>(<span style="color: #2544bb;">"MEGA is installed."</span>)
+    clear_output()
+
+<span style="color: #505050; font-style: italic;"># </span><span style="color: #505050; font-style: italic;">Unix, Windows and old Macintosh end-of-line</span>
+newlines = [<span style="color: #2544bb;">'\n'</span>, <span style="color: #2544bb;">'\r\n'</span>, <span style="color: #2544bb;">'\r'</span>]
+
+<span style="color: #5317ac; font-weight: bold;">def</span> <span style="color: #721045;">unbuffered</span>(proc, stream=<span style="color: #2544bb;">'stdout'</span>):
+    stream = <span style="color: #8f0075; font-weight: bold;">getattr</span>(proc, stream)
+    <span style="color: #5317ac; font-weight: bold;">with</span> contextlib.closing(stream):
+        <span style="color: #5317ac; font-weight: bold;">while</span> <span style="color: #0000c0;">True</span>:
+            out = []
+            last = stream.read(1)
+            <span style="color: #505050; font-style: italic;"># </span><span style="color: #505050; font-style: italic;">Don't loop forever</span>
+            <span style="color: #5317ac; font-weight: bold;">if</span> last == <span style="color: #2544bb;">''</span> <span style="color: #5317ac; font-weight: bold;">and</span> proc.poll() <span style="color: #5317ac; font-weight: bold;">is</span> <span style="color: #5317ac; font-weight: bold;">not</span> <span style="color: #0000c0;">None</span>:
+                <span style="color: #5317ac; font-weight: bold;">break</span>
+            <span style="color: #5317ac; font-weight: bold;">while</span> last <span style="color: #5317ac; font-weight: bold;">not</span> <span style="color: #5317ac; font-weight: bold;">in</span> newlines:
+                <span style="color: #505050; font-style: italic;"># </span><span style="color: #505050; font-style: italic;">Don't loop forever</span>
+                <span style="color: #5317ac; font-weight: bold;">if</span> last == <span style="color: #2544bb;">''</span> <span style="color: #5317ac; font-weight: bold;">and</span> proc.poll() <span style="color: #5317ac; font-weight: bold;">is</span> <span style="color: #5317ac; font-weight: bold;">not</span> <span style="color: #0000c0;">None</span>:
+                    <span style="color: #5317ac; font-weight: bold;">break</span>
+                out.append(last)
+                last = stream.read(1)
+            out = <span style="color: #2544bb;">''</span>.join(out)
+            <span style="color: #5317ac; font-weight: bold;">yield</span> out
+
+
+<span style="color: #5317ac; font-weight: bold;">def</span> <span style="color: #721045;">transfare</span>():
+    <span style="color: #5317ac; font-weight: bold;">import</span> codecs
+    decoder = codecs.getincrementaldecoder(<span style="color: #2544bb;">"UTF-8"</span>)()
+    cmd = [<span style="color: #2544bb;">"mega-get"</span>, URL, OUTPUT_PATH]
+    proc = subprocess.Popen(
+        cmd,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        <span style="color: #505050; font-style: italic;"># </span><span style="color: #505050; font-style: italic;">Make all end-of-lines '\n'</span>
+        universal_newlines=<span style="color: #0000c0;">True</span>,
+    )
+    <span style="color: #5317ac; font-weight: bold;">for</span> line <span style="color: #5317ac; font-weight: bold;">in</span> unbuffered(proc):
+        <span style="color: #8f0075; font-weight: bold;">print</span>(line)
+
+transfare()
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgbe123af" class="outline-2">
+<h2 id="orgbe123af"><span class="section-number-2">3.</span> Download from the web</h2>
+<div class="outline-text-2" id="text-3">
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #505050; font-style: italic;"># </span><span style="color: #505050; font-style: italic;">changing google colab restrictions if needed, a set of proxy are in here http://free-proxy.cz/en/proxylist/country/all/https/uptime/all</span>
+%env <span style="color: #00538b;">http_proxy</span>=69.243.253.67:80
+%env <span style="color: #00538b;">https_proxy</span>=103.52.37.43:80
+<span style="color: #505050; font-style: italic;"># </span><span style="color: #505050; font-style: italic;">downloading with what ever package</span>
+<span style="color: #813e00; font-weight: bold;">!</span>curl
+<span style="color: #813e00; font-weight: bold;">!</span>wget
+<span style="color: #813e00; font-weight: bold;">!</span>yt-dlp
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: 2023-03-08 Wed 13:21</p>
+<p class="date">Created: 2023-03-08 Wed 20:58</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,2552 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-02-18 Sat 11:45 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Google Data Analytics</title>
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/js/readtheorg.js"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Google Data Analytics</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgcd6983e">1. Foundations Data, Data, Everywhere</a>
+<ul>
+<li><a href="#orgbdc5073">1.1. Introducing data analytics</a>
+<ul>
+<li><a href="#orgf32a468">1.1.1. Get started</a>
+<ul>
+<li><a href="#orgb09481b">1.1.1.1. Get started</a></li>
+<li><a href="#org3653d7d">1.1.1.2. Intorduction to the course</a></li>
+</ul>
+</li>
+<li><a href="#org871e4a6">1.1.2. Transofrming data into insight</a>
+<ul>
+<li><a href="#org4706a9a">1.1.2.1. Data anayltics in every day life</a></li>
+<li><a href="#orgb3b9fe4">1.1.2.2. Dimension of data analytics</a></li>
+</ul>
+</li>
+<li><a href="#org370f5d4">1.1.3. Data ecosystem</a>
+<ul>
+<li><a href="#org2b02ed4">1.1.3.1. What is an ecosystem</a></li>
+<li><a href="#orge7350de">1.1.3.2. How data inform better decisions</a></li>
+</ul>
+</li>
+<li><a href="#org4adc6b2">1.1.4. Summary</a></li>
+</ul>
+</li>
+<li><a href="#org961d78f">1.2. All about analytical thinking</a>
+<ul>
+<li><a href="#orgc1c2165">1.2.1. Embrace your data skills</a>
+<ul>
+<li><a href="#orgb2ee04e">1.2.1.1. </a></li>
+<li><a href="#orge9c183f">1.2.1.2. Key data analytocal skills</a></li>
+</ul>
+</li>
+<li><a href="#org2378a20">1.2.2. Thinking about analytical thihnking</a>
+<ul>
+<li><a href="#orgeaa92e5">1.2.2.1. all about thinking analyticly</a></li>
+<li><a href="#orgb0ca7e7">1.2.2.2. Exploring core analytial skills</a></li>
+</ul>
+</li>
+<li><a href="#orge7d51df">1.2.3. Think about outcomes</a>
+<ul>
+<li><a href="#org1613f02">1.2.3.1. Using data to drive sucessful outcomes</a></li>
+</ul>
+</li>
+<li><a href="#org39ea607">1.2.4. Summary</a></li>
+</ul>
+</li>
+<li><a href="#orgc49a235">1.3. The wonderful world of data</a>
+<ul>
+<li><a href="#orgdccc302">1.3.1. floow the data life cycle</a>
+<ul>
+<li><a href="#org71be51e">1.3.1.1. Learn about the data phases and tools</a></li>
+<li><a href="#org6cafb4f">1.3.1.2. stages of data life cycle</a></li>
+</ul>
+</li>
+<li><a href="#org7d38190">1.3.2. Data analyses process</a>
+<ul>
+<li><a href="#orgda9f1a8">1.3.2.1. six phases</a></li>
+</ul>
+</li>
+<li><a href="#orga46f732">1.3.3. Data analysis toolbox</a>
+<ul>
+<li><a href="#org3ad9a17">1.3.3.1. exploring the tools</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgfef169c">1.4. Setup your toolbox</a>
+<ul>
+<li><a href="#orgf9f8541">1.4.1. spredsheet basics</a></li>
+<li><a href="#org6e12d88">1.4.2. SQL</a></li>
+<li><a href="#orgd58a8b5">1.4.3. Data visualization</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org3b22540">2. Ask questions</a>
+<ul>
+<li><a href="#orgfde1cc2">2.1. Effective questions</a>
+<ul>
+<li><a href="#org56d4665">2.1.1. problem solving and effective questioning</a></li>
+<li><a href="#orgc76a055">2.1.2. take action with data</a></li>
+<li><a href="#orgb6c303c">2.1.3. Solve problem with data</a></li>
+<li><a href="#org6fb3c81">2.1.4. Craft effective questions</a></li>
+</ul>
+</li>
+<li><a href="#orgb7ebc7f">2.2. Data drivin decision</a>
+<ul>
+<li><a href="#org49c5874">2.2.1. understand the power of data</a></li>
+<li><a href="#org4d3238f">2.2.2. follow the evidence</a></li>
+<li><a href="#org403f8bb">2.2.3. Connecting data with dots</a></li>
+</ul>
+</li>
+<li><a href="#orgdd735aa">2.3. More spreadsheet basics</a>
+<ul>
+<li><a href="#org7c85707">2.3.1. working with spreadsheet</a></li>
+<li><a href="#org769d3f8">2.3.2. Formulas in spreadhseet</a></li>
+<li><a href="#org014555b">2.3.3. Functions in spreadsheet</a></li>
+<li><a href="#orgf6b8141">2.3.4. save time with structural thinking</a></li>
+</ul>
+</li>
+<li><a href="#org445eab9">2.4. Always remember the stakeholder</a>
+<ul>
+<li><a href="#orgbfd0799">2.4.1. balance team and stakeholder need</a></li>
+<li><a href="#org7d33423">2.4.2. communucation is key</a></li>
+<li><a href="#org8b29e4a">2.4.3. Amazing networks</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org496d9d1">3. Prepare data for Exploration</a>
+<ul>
+<li><a href="#orgde9e65a">3.1. Data type and structure</a></li>
+<li><a href="#org7b76d6f">3.2. Bias, credibility, ethics, and access</a></li>
+<li><a href="#org5e392f5">3.3. data based where data lives</a></li>
+<li><a href="#org4dadfe6">3.4. organize and protect the data</a></li>
+<li><a href="#org17f66a2">3.5. optional- engaging wit hthe date community</a></li>
+</ul>
+</li>
+<li><a href="#org3217789">4. Process data</a>
+<ul>
+<li><a href="#orgd14dded">4.1. Importance of integrity</a></li>
+<li><a href="#org25d1cb3">4.2. sparkling clean data</a></li>
+<li><a href="#org9c281e0">4.3. Cleaning data with SQL</a></li>
+<li><a href="#org776dcb5">4.4. verify and report on your clraning</a></li>
+</ul>
+</li>
+<li><a href="#orgbedc2f7">5. Analyze to answer questions</a>
+<ul>
+<li><a href="#org67d62bf">5.1. Orginizing data to bigen analysis</a></li>
+<li><a href="#orge78c494">5.2. Formating and adjusting data</a></li>
+<li><a href="#org908911f">5.3. Aggregating data for analysis</a></li>
+<li><a href="#org00a340a">5.4. Performing data calculation</a></li>
+</ul>
+</li>
+<li><a href="#org9801c7b">6. Share data through the art of visualization</a>
+<ul>
+<li><a href="#orgeadb8d7">6.1. Visualizing data</a></li>
+<li><a href="#org9405bed">6.2. creatign data visualization with tableau</a></li>
+<li><a href="#orgc0295da">6.3. creatign data stories</a></li>
+<li><a href="#org0de8018">6.4. developing presentations and slideshows</a></li>
+</ul>
+</li>
+<li><a href="#orge111101">7. Data analysis with R</a>
+<ul>
+<li><a href="#org6c6b9c2">7.1. programing and data analysis</a>
+<ul>
+<li><a href="#orgafd8eca">7.1.1. the exiting world of programing</a></li>
+<li><a href="#orgf40e0f9">7.1.2. programing as a data analyst</a></li>
+<li><a href="#orgee0caf4">7.1.3. learn programing using rstudio</a></li>
+</ul>
+</li>
+<li><a href="#orga8f7ad4">7.2. programing using rstudio</a>
+<ul>
+<li><a href="#orge28e74d">7.2.1. understand basic programing concept</a></li>
+<li><a href="#org84b6f8b">7.2.2. explore coding in r</a></li>
+<li><a href="#orgbabdf63">7.2.3. learning about r packages</a></li>
+<li><a href="#orga4b9af0">7.2.4. explore the tidyverse</a></li>
+</ul>
+</li>
+<li><a href="#orgdddaaac">7.3. working with data in r</a>
+<ul>
+<li><a href="#orgbc9f8eb">7.3.1. explore the data and r</a></li>
+<li><a href="#org31e6515">7.3.2. cleaning data</a></li>
+<li><a href="#orgc11ccfe">7.3.3. take a closer look at the data</a></li>
+</ul>
+</li>
+<li><a href="#orgb8d549f">7.4. more about visualization, asthetic and annotation</a>
+<ul>
+<li><a href="#org828b573">7.4.1. create data visualization in r</a></li>
+<li><a href="#org5055505">7.4.2. explore aesthetics in analysis</a></li>
+<li><a href="#org91fb863">7.4.3. annotate and save visualization</a></li>
+</ul>
+</li>
+<li><a href="#org3da85b4">7.5. Documentation and reports</a>
+<ul>
+<li><a href="#orgd0d38c1">7.5.1. Develop documentation and report in r studio</a></li>
+<li><a href="#org03666fc">7.5.2. create r markdown document</a></li>
+<li><a href="#orgd46d25e">7.5.3. understand code chunks and expor</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgcd6983e" class="outline-2">
+<h2 id="orgcd6983e"><span class="section-number-2">1.</span> Foundations Data, Data, Everywhere</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-orgbdc5073" class="outline-3">
+<h3 id="orgbdc5073"><span class="section-number-3">1.1.</span> Introducing data analytics</h3>
+<div class="outline-text-3" id="text-1-1">
+</div>
+<div id="outline-container-orgf32a468" class="outline-4">
+<h4 id="orgf32a468"><span class="section-number-4">1.1.1.</span> Get started</h4>
+<div class="outline-text-4" id="text-1-1-1">
+</div>
+<div id="outline-container-orgb09481b" class="outline-5">
+<h5 id="orgb09481b"><span class="section-number-5">1.1.1.1.</span> Get started</h5>
+<div class="outline-text-5" id="text-1-1-1-1">
+<ul class="org-ul">
+<li>Data is a collection of facts.<br /></li>
+<li>Data analysis is the collection, transformation, and organization of data in order to draw conclusion, make predictions, and drive informed decision making.<br /></li>
+<li>Data analyst is someone who collects, transforms, and organize data in order to help make informed decisions.<br /></li>
+<li>Data analysis processes are: Ask, Prepare, Process, Analyse, Share, and Act.<br /></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org3653d7d" class="outline-5">
+<h5 id="org3653d7d"><span class="section-number-5">1.1.1.2.</span> Intorduction to the course</h5>
+<div class="outline-text-5" id="text-1-1-1-2">
+<ul class="org-ul">
+<li>Data analytics is the science of data<br /></li>
+<li>Data is a collection of facts<br /></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org871e4a6" class="outline-4">
+<h4 id="org871e4a6"><span class="section-number-4">1.1.2.</span> Transofrming data into insight</h4>
+<div class="outline-text-4" id="text-1-1-2">
+</div>
+<div id="outline-container-org4706a9a" class="outline-5">
+<h5 id="org4706a9a"><span class="section-number-5">1.1.2.1.</span> Data anayltics in every day life</h5>
+<div class="outline-text-5" id="text-1-1-2-1">
+<ul class="org-ul">
+<li>Businesses can use data to Improve processes, identify opportunities, launch new products, serve customers, and make thoughtful decisions<br /></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgb3b9fe4" class="outline-5">
+<h5 id="orgb3b9fe4"><span class="section-number-5">1.1.2.2.</span> Dimension of data analytics</h5>
+<div class="outline-text-5" id="text-1-1-2-2">
+<ul class="org-ul">
+<li>A data analyst is an explorer, a detective, and an artist all rolled into one<br /></li>
+<li>Data science is a broad term that encompasses three distinct roles based on the number of decisions that must be made.<br />
+<ul class="org-ul">
+<li>If you need to make a few decisions, your role is of a statistician, making decision base on statistics.<br /></li>
+<li>If you need to make many decisions, your role is of an AI engineer, making an automation system with good accuracy.<br /></li>
+<li>If you don't know how many decisions you need to take, your role is of an analyst, exploring the data and draw conclusions.<br /></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org370f5d4" class="outline-4">
+<h4 id="org370f5d4"><span class="section-number-4">1.1.3.</span> Data ecosystem</h4>
+<div class="outline-text-4" id="text-1-1-3">
+</div>
+<div id="outline-container-org2b02ed4" class="outline-5">
+<h5 id="org2b02ed4"><span class="section-number-5">1.1.3.1.</span> What is an ecosystem</h5>
+<div class="outline-text-5" id="text-1-1-3-1">
+<ul class="org-ul">
+<li>Data ecosystems are elements that interact with each other in order to produce, manage, store, organaze, analyze, and share data.<br /></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orge7350de" class="outline-5">
+<h5 id="orge7350de"><span class="section-number-5">1.1.3.2.</span> How data inform better decisions</h5>
+<div class="outline-text-5" id="text-1-1-3-2">
+<ul class="org-ul">
+<li>Data driving decision making is using facts to guide business strategy<br /></li>
+<li>subject matter expert Review the results of data analysis and identify any inconsistencies<br /></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org4adc6b2" class="outline-4">
+<h4 id="org4adc6b2"><span class="section-number-4">1.1.4.</span> Summary</h4>
+<div class="outline-text-4" id="text-1-1-4">
+<ul class="org-ul">
+<li>Data analysis is the use of a data ecosystem to draw conclusions or make decision.<br />
+<ul class="org-ul">
+<li>Data ecosystem are elements that interact with each other to collect, transform, store, organize, analyze, and share data.<br /></li>
+</ul></li>
+<li>Data analyst is someone who uses data analysis and its processes.<br />
+<ul class="org-ul">
+<li>Data analysis process: Ask, prepare, process, analyze, share, and act.<br />
+<ul class="org-ul">
+<li>Ask the subject-matter expert that can find inconsistency and inform you about the business.<br /></li>
+</ul></li>
+</ul></li>
+<li>Data science is a broad term that encompasses three distinct roles based on the number of decisions that must be made.<br />
+<ul class="org-ul">
+<li>If you need to make a few decisions, your role is of a statistician, making decision base on statistics.<br /></li>
+<li>If you need to make many decisions, your role is of an AI engineer, making an automation system with good accuracy.<br /></li>
+<li>If you don't know how many decisions you need to take, your role is of an analyst, exploring the data and draw conclusions.<br /></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org961d78f" class="outline-3">
+<h3 id="org961d78f"><span class="section-number-3">1.2.</span> All about analytical thinking</h3>
+<div class="outline-text-3" id="text-1-2">
+</div>
+<div id="outline-container-orgc1c2165" class="outline-4">
+<h4 id="orgc1c2165"><span class="section-number-4">1.2.1.</span> Embrace your data skills</h4>
+<div class="outline-text-4" id="text-1-2-1">
+</div>
+<div id="outline-container-orgb2ee04e" class="outline-5">
+<h5 id="orgb2ee04e"><span class="section-number-5">1.2.1.1.</span> </h5>
+</div>
+<div id="outline-container-orge9c183f" class="outline-5">
+<h5 id="orge9c183f"><span class="section-number-5">1.2.1.2.</span> Key data analytocal skills</h5>
+<div class="outline-text-5" id="text-1-2-1-2">
+<ul class="org-ul">
+<li>analytical skills is a characteristis or skill associated with solving problems using facts<br /></li>
+<li>there are 5 aspect to this, curiosety, undestanding context, having a technical mindset, data design, data stragey.<br /></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org2378a20" class="outline-4">
+<h4 id="org2378a20"><span class="section-number-4">1.2.2.</span> Thinking about analytical thihnking</h4>
+<div class="outline-text-4" id="text-1-2-2">
+</div>
+<div id="outline-container-orgeaa92e5" class="outline-5">
+<h5 id="orgeaa92e5"><span class="section-number-5">1.2.2.1.</span> all about thinking analyticly</h5>
+<div class="outline-text-5" id="text-1-2-2-1">
+<ul class="org-ul">
+<li>Analytical thinking identify and define a problem and then solving it using data in an orginize step by step manner<br /></li>
+<li>the five key aspect to analytical thinking: visualiozation, strategy, problem oriontation, correlation, big picture and detail orianted thinkink<br /></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgb0ca7e7" class="outline-5">
+<h5 id="orgb0ca7e7"><span class="section-number-5">1.2.2.2.</span> Exploring core analytial skills</h5>
+<div class="outline-text-5" id="text-1-2-2-2">
+<ul class="org-ul">
+<li>questions that analyst ask<br />
+<ul class="org-ul">
+<li>What is the root cause of a problem?, to find the root causes keep asking "why?" when an answer is giving<br /></li>
+<li>Where are the gaps in out process? using gap analysis to evaluate processes and determing theri proformance relative to expectation<br /></li>
+<li>What do we not consider before?<br /></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orge7d51df" class="outline-4">
+<h4 id="orge7d51df"><span class="section-number-4">1.2.3.</span> Think about outcomes</h4>
+<div class="outline-text-4" id="text-1-2-3">
+</div>
+<div id="outline-container-org1613f02" class="outline-5">
+<h5 id="org1613f02"><span class="section-number-5">1.2.3.1.</span> Using data to drive sucessful outcomes</h5>
+</div>
+</div>
+<div id="outline-container-org39ea607" class="outline-4">
+<h4 id="org39ea607"><span class="section-number-4">1.2.4.</span> Summary</h4>
+<div class="outline-text-4" id="text-1-2-4">
+<ul class="org-ul">
+<li>Skills that data analyst must have:<br />
+<ul class="org-ul">
+<li>Curiosity: wanting new knowledge<br /></li>
+<li>Understanding context: being able to group elements or identify a pattern.<br /></li>
+<li>Having a technical mindset: breaking a problem into pieces to solve each piece logically in order.<br /></li>
+<li>Data design: organizing data to make it easier to retrieve.<br /></li>
+<li>Data strategy: the management of people, processes, and tools used in data analysis.<br />
+<ul class="org-ul">
+<li>Managing people by making sure they know how to use the right data to solve the problem.<br /></li>
+<li>Managing processes by making sure the path to that solution is clear.<br /></li>
+<li>Managing tool by making sure the right technology is being used for the job.<br /></li>
+</ul></li>
+</ul></li>
+<li>Analytical thinking: identifying a problem and solving it using data.<br />
+<ul class="org-ul">
+<li>Visualization: graphical representation of information can help identify the problem quickly.<br /></li>
+<li>Strategy: determining what you want to achieve with the data.<br /></li>
+<li>Problem orientation: identify, describe, and solve a problem.<br /></li>
+<li>Correlation: identifying correlation between two and more pieces of data.<br /></li>
+<li>Big picture: being able to see the overall problem, similar to keep asking "why?" concept<br /></li>
+<li>Detail oriented: figuring out all the specifics that will help you execute a plan<br /></li>
+</ul></li>
+<li>Questions to ask<br />
+<ul class="org-ul">
+<li>Keep asking "why?" until you find the root cause of a problem.<br /></li>
+<li>Is there any gap in the processes? By performing gap analysis,<br /></li>
+<li>What didn't we consider before?<br /></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgc49a235" class="outline-3">
+<h3 id="orgc49a235"><span class="section-number-3">1.3.</span> The wonderful world of data</h3>
+<div class="outline-text-3" id="text-1-3">
+</div>
+<div id="outline-container-orgdccc302" class="outline-4">
+<h4 id="orgdccc302"><span class="section-number-4">1.3.1.</span> floow the data life cycle</h4>
+<div class="outline-text-4" id="text-1-3-1">
+</div>
+<div id="outline-container-org71be51e" class="outline-5">
+<h5 id="org71be51e"><span class="section-number-5">1.3.1.1.</span> Learn about the data phases and tools</h5>
+<div class="outline-text-5" id="text-1-3-1-1">
+<ul class="org-ul">
+<li>Data analysis tools<br />
+<ul class="org-ul">
+<li>Spreadsheet<br /></li>
+<li>Databases<br /></li>
+<li>Query languages<br /></li>
+<li>Visualization<br /></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org6cafb4f" class="outline-5">
+<h5 id="org6cafb4f"><span class="section-number-5">1.3.1.2.</span> stages of data life cycle</h5>
+<div class="outline-text-5" id="text-1-3-1-2">
+<ul class="org-ul">
+<li>The data life cycle:<br />
+<ul class="org-ul">
+<li>Planning:  What data we need to collect and who will manage it.<br /></li>
+<li>Capture: Data collection<br /></li>
+<li>Manage: Storing, protecting, and maintaining the data.<br /></li>
+<li>Analyze: Analyze the data to solve problems and make decisions.<br /></li>
+<li>Archive: Store the data for use in another time.<br /></li>
+<li>Destroy: Shred the document and data to protect the company privacy.<br /></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org7d38190" class="outline-4">
+<h4 id="org7d38190"><span class="section-number-4">1.3.2.</span> Data analyses process</h4>
+<div class="outline-text-4" id="text-1-3-2">
+</div>
+<div id="outline-container-orgda9f1a8" class="outline-5">
+<h5 id="orgda9f1a8"><span class="section-number-5">1.3.2.1.</span> six phases</h5>
+<div class="outline-text-5" id="text-1-3-2-1">
+<ul class="org-ul">
+<li>phases of data analysis<br />
+<ul class="org-ul">
+<li>Ask: ask the stakeholders (the people who invested in the business) about the ideal state of the business, compare it to the current state and determine problems.<br /></li>
+<li>Prepare: collecting and storing the data.<br /></li>
+<li>Process: Clean the data.<br /></li>
+<li>Analyze: Using tools to transform and organize the data to draw conclusion.<br /></li>
+<li>Share: Share result with others to make decisions with visuals.<br /></li>
+<li>Act: Stakeholder takes a data driven decision-making based on your result.<br /></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orga46f732" class="outline-4">
+<h4 id="orga46f732"><span class="section-number-4">1.3.3.</span> Data analysis toolbox</h4>
+<div class="outline-text-4" id="text-1-3-3">
+</div>
+<div id="outline-container-org3ad9a17" class="outline-5">
+<h5 id="org3ad9a17"><span class="section-number-5">1.3.3.1.</span> exploring the tools</h5>
+<div class="outline-text-5" id="text-1-3-3-1">
+<ul class="org-ul">
+<li>data analst tool:<br />
+<ul class="org-ul">
+<li>spreadsheet<br /></li>
+<li>query language<br /></li>
+<li>visualization tool<br /></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgfef169c" class="outline-3">
+<h3 id="orgfef169c"><span class="section-number-3">1.4.</span> Setup your toolbox</h3>
+<div class="outline-text-3" id="text-1-4">
+</div>
+<div id="outline-container-orgf9f8541" class="outline-4">
+<h4 id="orgf9f8541"><span class="section-number-4">1.4.1.</span> spredsheet basics</h4>
+<div class="outline-text-4" id="text-1-4-1">
+<ul class="org-ul">
+<li>a highligted row is called observation and all the values of the columns are called attribute<br /></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org6e12d88" class="outline-4">
+<h4 id="org6e12d88"><span class="section-number-4">1.4.2.</span> SQL</h4>
+<div class="outline-text-4" id="text-1-4-2">
+<ul class="org-ul">
+<li>a language that halp you store, orginize, and analyze your data<br /></li>
+<li><p>
+Basiq structure of sql:<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-sql"><span style="color: #5317ac; font-weight: bold;">SELECT</span> a_columns #2
+<span style="color: #5317ac; font-weight: bold;">FROM</span> a_database #1
+<span style="color: #5317ac; font-weight: bold;">WHERE</span> a_value_bigger_than_100 #3
+</pre>
+</div></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgd58a8b5" class="outline-4">
+<h4 id="orgd58a8b5"><span class="section-number-4">1.4.3.</span> Data visualization</h4>
+<div class="outline-text-4" id="text-1-4-3">
+<ul class="org-ul">
+<li>story telling with data<br /></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org3b22540" class="outline-2">
+<h2 id="org3b22540"><span class="section-number-2">2.</span> Ask questions</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-orgfde1cc2" class="outline-3">
+<h3 id="orgfde1cc2"><span class="section-number-3">2.1.</span> Effective questions</h3>
+<div class="outline-text-3" id="text-2-1">
+</div>
+<div id="outline-container-org56d4665" class="outline-4">
+<h4 id="org56d4665"><span class="section-number-4">2.1.1.</span> problem solving and effective questioning</h4>
+<div class="outline-text-4" id="text-2-1-1">
+<ul class="org-ul">
+<li>Structured thinking: the process of reconizing the current problem or situation, organizing available information, revealing gaps and opportunities, and identify opinions.<br /></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgc76a055" class="outline-4">
+<h4 id="orgc76a055"><span class="section-number-4">2.1.2.</span> take action with data</h4>
+</div>
+<div id="outline-container-orgb6c303c" class="outline-4">
+<h4 id="orgb6c303c"><span class="section-number-4">2.1.3.</span> Solve problem with data</h4>
+<div class="outline-text-4" id="text-2-1-3">
+<ul class="org-ul">
+<li>common problems type:<br />
+<ul class="org-ul">
+<li>Making predictions: Taking actions based on data-driven predictions<br />
+<ul class="org-ul">
+<li>Finding patterns: using historical timestamp data to find repeating pattern and make predictions.<br /></li>
+</ul></li>
+<li>Categorizing things: grouping things with common features together<br />
+<ul class="org-ul">
+<li>Identifying themes: categorizing things in a broader concept.<br /></li>
+</ul></li>
+<li>Spotting something unusual: identifying outliers in the data.<br /></li>
+<li>Discovering connections: find the activities with problems that affect the activity that we have analyzed.("why?" questions)<br /></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org6fb3c81" class="outline-4">
+<h4 id="org6fb3c81"><span class="section-number-4">2.1.4.</span> Craft effective questions</h4>
+<div class="outline-text-4" id="text-2-1-4">
+<ul class="org-ul">
+<li>bad questions:<br />
+<ul class="org-ul">
+<li>leadign questions:<br /></li>
+<li>close ended quesions<br /></li>
+<li>to vague or lacking context<br /></li>
+</ul></li>
+<li>affective questions:<br />
+<ul class="org-ul">
+<li>spefic questions are simple, significant and focus on a single topic or few closely related ideas<br /></li>
+<li>measurable questions are quentified and assessed<br /></li>
+<li>action oriented questions encourage change<br /></li>
+<li>relevant quastions "Why?"<br /></li>
+<li>time bound questions<br /></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb7ebc7f" class="outline-3">
+<h3 id="orgb7ebc7f"><span class="section-number-3">2.2.</span> Data drivin decision</h3>
+<div class="outline-text-3" id="text-2-2">
+</div>
+<div id="outline-container-org49c5874" class="outline-4">
+<h4 id="org49c5874"><span class="section-number-4">2.2.1.</span> understand the power of data</h4>
+<div class="outline-text-4" id="text-2-2-1">
+<ul class="org-ul">
+<li>Data inspired dicision making explores diffirent data sources to find out what they have in common<br /></li>
+<li>quantitative: numetic data<br /></li>
+<li>qualitative categorical data<br /></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org4d3238f" class="outline-4">
+<h4 id="org4d3238f"><span class="section-number-4">2.2.2.</span> follow the evidence</h4>
+<div class="outline-text-4" id="text-2-2-2">
+<ul class="org-ul">
+<li>metric are formulat applied on data that give meaning, example Return On Investment<br /></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org403f8bb" class="outline-4">
+<h4 id="org403f8bb"><span class="section-number-4">2.2.3.</span> Connecting data with dots</h4>
+<div class="outline-text-4" id="text-2-2-3">
+<ul class="org-ul">
+<li>mathmatical thinking: is thining logicly to solve a problem by making or using a formula and make decision base on the result<br /></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgdd735aa" class="outline-3">
+<h3 id="orgdd735aa"><span class="section-number-3">2.3.</span> More spreadsheet basics</h3>
+<div class="outline-text-3" id="text-2-3">
+</div>
+<div id="outline-container-org7c85707" class="outline-4">
+<h4 id="org7c85707"><span class="section-number-4">2.3.1.</span> working with spreadsheet</h4>
+<div class="outline-text-4" id="text-2-3-1">
+<ul class="org-ul">
+<li>work with spreadsheet<br />
+<ul class="org-ul">
+<li>organize the data quickly with<br />
+<ul class="org-ul">
+<li>pivot table<br />
+<ul class="org-ul">
+<li>sort and filter the data<br /></li>
+</ul></li>
+</ul></li>
+<li>calculate your data<br /></li>
+</ul></li>
+<li>step by step<br />
+<ul class="org-ul">
+<li>select new file<br /></li>
+<li>create a title<br /></li>
+<li>create a folder to save all spreadsheet<br /></li>
+<li>select all spreadsheet and click and drag the horizental borders of a column to make it wider<br /></li>
+</ul></li>
+<li>using function and formulat will save time<br /></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org769d3f8" class="outline-4">
+<h4 id="org769d3f8"><span class="section-number-4">2.3.2.</span> Formulas in spreadhseet</h4>
+<div class="outline-text-4" id="text-2-3-2">
+<ul class="org-ul">
+<li>formulas for sucess<br />
+<ul class="org-ul">
+<li>formilas a re build or operators, orperator is a symble that names the type of operation or calculation to be preformed<br /></li>
+<li>to write a formula you start with = fowwowed by the expression/equassioon without any space<br /></li>
+<li>cell reffrence a cell or range of cells in a worksheet that can be used in a formula<br /></li>
+<li>range of cell is the collection of two or more cells<br /></li>
+</ul></li>
+<li>errors<br />
+<ul class="org-ul">
+<li>div/0 error: occure when a formula tyeing to devide by zero or empty cell<br />
+<ul class="org-ul">
+<li>Fix: IFERROR(A1/B1, "not applicable")<br /></li>
+</ul></li>
+<li>Error!: a formula can't be interpeted as input<br /></li>
+<li>N/A: dat acannot be found, accut when using functuion like vlookup<br /></li>
+<li>NAME?: a formula name isent inderstood<br /></li>
+<li>NUM!: a formula or function calculation can't be preformed as specified<br /></li>
+<li>VALUE!: indecate a problem either in formula or refferecen cell<br /></li>
+<li>REF!: accure when a cell reffrenced in a formula is deleted<br /></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org014555b" class="outline-4">
+<h4 id="org014555b"><span class="section-number-4">2.3.3.</span> Functions in spreadsheet</h4>
+<div class="outline-text-4" id="text-2-3-3">
+<ul class="org-ul">
+<li>Functions: a preset command that automaticlly preforms a specific process or task using the data<br /></li>
+<li>Example: sum, everage,min, coun<br /></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgf6b8141" class="outline-4">
+<h4 id="orgf6b8141"><span class="section-number-4">2.3.4.</span> save time with structural thinking</h4>
+<div class="outline-text-4" id="text-2-3-4">
+<ul class="org-ul">
+<li>before solving the problem understand it<br /></li>
+<li>problem domain: the spesific area of analysis that encoumpess every activity affecting or effected by the problem<br /></li>
+<li>scope of work and structure thining<br />
+<ul class="org-ul">
+<li>Structure thinking is the process of reconizing the current problemor situation, orginizing availible information, revealing gaps and opportunities, and identifiying the options.<br /></li>
+<li>the start place of structural thining is the problem domain<br /></li>
+<li>skope of work (SOK) an agred-upon outline of the work your are going to preform on a project<br /></li>
+</ul></li>
+<li>we use data to generate  many insight, the value and technical skillincrease by each<br />
+<ul class="org-ul">
+<li>Descriptive : answering "What happend?"<br /></li>
+<li>Diagnostic : answering "Why did it happend?"<br /></li>
+<li>Predictive : answering "What will happend?"<br /></li>
+<li>Prescriptive : answering "How can we make it happend?"<br /></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org445eab9" class="outline-3">
+<h3 id="org445eab9"><span class="section-number-3">2.4.</span> Always remember the stakeholder</h3>
+<div class="outline-text-3" id="text-2-4">
+</div>
+<div id="outline-container-orgbfd0799" class="outline-4">
+<h4 id="orgbfd0799"><span class="section-number-4">2.4.1.</span> balance team and stakeholder need</h4>
+<div class="outline-text-4" id="text-2-4-1">
+<ul class="org-ul">
+<li>communicating is key<br />
+<ul class="org-ul">
+<li></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org7d33423" class="outline-4">
+<h4 id="org7d33423"><span class="section-number-4">2.4.2.</span> communucation is key</h4>
+<div class="outline-text-4" id="text-2-4-2">
+<ul class="org-ul">
+<li>write your email profiennly<br /></li>
+<li>be clear about you need like a deadline, "needed by 11/09/2022"<br /></li>
+<li>set a realisting project durration to your stakeholders<br /></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org8b29e4a" class="outline-4">
+<h4 id="org8b29e4a"><span class="section-number-4">2.4.3.</span> Amazing networks</h4>
+<div class="outline-text-4" id="text-2-4-3">
+<ul class="org-ul">
+<li>meeting best practice<br />
+<ul class="org-ul">
+<li>what to do:<br />
+<ul class="org-ul">
+<li>come prepared<br />
+<ul class="org-ul">
+<li>bring the notes you need<br /></li>
+<li>read the meeting egenda<br /></li>
+<li>be ready to answer questions<br /></li>
+</ul></li>
+<li>be on time<br /></li>
+<li>pay attention<br /></li>
+<li>ask questions<br /></li>
+</ul></li>
+</ul></li>
+<li>be objective when a conflict accure<br /></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org496d9d1" class="outline-2">
+<h2 id="org496d9d1"><span class="section-number-2">3.</span> Prepare data for Exploration</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-orgde9e65a" class="outline-3">
+<h3 id="orgde9e65a"><span class="section-number-3">3.1.</span> Data type and structure</h3>
+<div class="outline-text-3" id="text-3-1">
+<ol class="org-ol">
+<li>data exploration<br /></li>
+<li>Collecting data<br />
+<ul class="org-ul">
+<li>How data is collected<br />
+<ul class="org-ul">
+<li>Interview<br /></li>
+<li>Observation (commong amoung scientist)<br /></li>
+<li>Form<br /></li>
+<li>Questionnaires<br /></li>
+<li>Survey<br /></li>
+<li>Cookies<br /></li>
+</ul></li>
+<li>Data collection considerations<br />
+<ul class="org-ul">
+<li>How the data will be collected<br /></li>
+<li>Chose data sources<br />
+<ul class="org-ul">
+<li>First party data: data collected by an individual or a group using their own resources<br /></li>
+<li>Second party data: data collected by a group directly from its audience and then sold<br /></li>
+<li>Third party data: data collected from outside sources who did not collect it directly<br /></li>
+</ul></li>
+<li>Decide what data to use<br /></li>
+<li>How much data to collect<br />
+<ul class="org-ul">
+<li>Population: all posible data values in a certain dataset<br /></li>
+<li>Sample: a part of a population that is representative of the population<br /></li>
+</ul></li>
+<li>Select the right data type<br /></li>
+<li>Determine time frame<br /></li>
+</ul></li>
+</ul></li>
+<li>Diffirence between data format and structure<br />
+<ul class="org-ul">
+<li>qualitative data cannot be counted, measured or expressed usign numbers<br />
+<ul class="org-ul">
+<li>nominal data: data that is categorize without a set of order ("Yes", "No", "Not sure")<br /></li>
+<li>ordinal data: data that is categorize with a set of order (ranking a movie from one to five)<br /></li>
+</ul></li>
+<li>Quantitative data can be counted, measured or expressed usign numbers<br />
+<ul class="org-ul">
+<li>Discreate data: data that is counted and have a limited number of value (intiger 1)<br /></li>
+<li>Continuous data: dat athat is measured and can have almost any numeric value (float 1.32)<br /></li>
+</ul></li>
+<li>Internal data: a data that lives within a company's own system<br /></li>
+<li>External data: a data that lives and generated outside an organization<br /></li>
+<li>Structured data is data that is organize in a certain format such as rows and columns (spreadsheet, database)<br /></li>
+<li>Unstructured data is data that is not organize in any easily identifiable manner (audio and video file)<br /></li>
+<li>most data generated is unstructered ( audio files, video files, emails, photos, social media)<br /></li>
+<li>structured data works nicel with a data model<br /></li>
+<li>Data model: A model that is used for orginizing data elements and how they relate to one another (SQL PK and FK)<br />
+<ul class="org-ul">
+<li>Data elemsnt: piece of information such as name, email, adrresses, or ID.<br /></li>
+</ul></li>
+</ul></li>
+<li>Explore data type field and values<br />
+<ul class="org-ul">
+<li>Data type: a specific type of data attribute that tells what kind of value a data is<br /></li>
+<li>Data type can be a number, string, boolean<br /></li>
+<li><p>
+Wide data: Data in which every data subject has a single row with multiple columns to hold the values of various attribute of the subject.<br />
+Amount sold table<br />
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">product</th>
+<th scope="col" class="org-right">2019</th>
+<th scope="col" class="org-right">2020</th>
+<th scope="col" class="org-right">2021</th>
+<th scope="col" class="org-right">2022</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">A</td>
+<td class="org-right">130</td>
+<td class="org-right">160</td>
+<td class="org-right">177</td>
+<td class="org-right">140</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>
+Long date: Data in which each row in one time point per subject, so each subject will have data in multiple rows.<br />
+Amount sold table<br />
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Product</th>
+<th scope="col" class="org-right">Year</th>
+<th scope="col" class="org-right">Amount</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">A</td>
+<td class="org-right">2019</td>
+<td class="org-right">130</td>
+</tr>
+
+<tr>
+<td class="org-left">A</td>
+<td class="org-right">2020</td>
+<td class="org-right">160</td>
+</tr>
+
+<tr>
+<td class="org-left">A</td>
+<td class="org-right">2021</td>
+<td class="org-right">177</td>
+</tr>
+
+<tr>
+<td class="org-left">A</td>
+<td class="org-right">2022</td>
+<td class="org-right">140</td>
+</tr>
+</tbody>
+</table></li>
+</ul></li>
+</ol>
+</div>
+</div>
+<div id="outline-container-org7b76d6f" class="outline-3">
+<h3 id="org7b76d6f"><span class="section-number-3">3.2.</span> Bias, credibility, ethics, and access</h3>
+<div class="outline-text-3" id="text-3-2">
+<ul class="org-ul">
+<li>unbiased and objective data<br />
+<ul class="org-ul">
+<li>analyse data for bias and credibility<br /></li>
+<li>Bias: a prefrance in favor or agains someone, a group of people, or a thing<br />
+<ul class="org-ul">
+<li>Sample bias: when a sample isen't representative of the population<br /></li>
+<li>Observer/ experimenter/ research bias: The tendency for diffirent people to observe things dififrently (dependint on the sentitivity of the device used for mesur)<br /></li>
+<li>Interpretation bias: The tendency to always interpret unclear situations in a positive or negative way.<br /></li>
+<li>Confirmation bias: The tendency to search for or interpret information in a way that confirms pre-existing beliefs.<br /></li>
+</ul></li>
+</ul></li>
+<li>Explore data credability<br />
+<ul class="org-ul">
+<li>A good data is data that is:<br />
+<ul class="org-ul">
+<li>Reliable: accurate, complete and unbias information<br /></li>
+<li>Original: check if data is from an original source<br /></li>
+<li>Comperhansive: data need to contain all critical information needed to answer a question of find a solution<br /></li>
+<li>Current: updated data<br /></li>
+<li>Cited: is  the source of data cridable<br /></li>
+</ul></li>
+</ul></li>
+<li>Data ethics and privacy<br />
+<ul class="org-ul">
+<li>Ethics: well founded standers or right and wrong that describe what humans oght to do, usually in term of right, obligation, benefits to society, fairness, or specefic virtues.<br /></li>
+<li>Data ethics : well standers of right and wrong that dictate how data is collected, shared, and used.<br /></li>
+<li>GDPR: General Data Protection Regulation of the European union<br /></li>
+<li>Aspects of data ethics:<br />
+<ul class="org-ul">
+<li>Ownership: data iwnership dosent go to the people who collected it, but to the individuals who provide the raw data to be collected.<br /></li>
+<li>Transaction transperency: the algorithm that process the data should be explained by the individuals who provide their data.<br /></li>
+<li>Consent: An indivvisual right to know how and why the data is collected before agreeing to provide it.<br /></li>
+<li>Currency: individuals should be aware of money generated from the use of their data<br /></li>
+<li>Privacy: Preserving a data subjects information and activity any time a data transaction occurs<br /></li>
+<li>Openness: free access, usage, sharing of data after anonymization people identity, it is mostly used in medical indestry<br /></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org5e392f5" class="outline-3">
+<h3 id="org5e392f5"><span class="section-number-3">3.3.</span> data based where data lives</h3>
+<div class="outline-text-3" id="text-3-3">
+<ul class="org-ul">
+<li><p>
+Working with data<br />
+</p>
+<ul class="org-ul">
+<li>Data base is a collection of data stored in a computer system<br /></li>
+<li>Metadata: is data about data<br /></li>
+</ul>
+<p>
+Data base features:<br />
+</p>
+<ul class="org-ul">
+<li>Relational database is a database that contains a series of related tables that can be connected via their relashioship<br /></li>
+<li>Primary key: an indentifier that references a column in which each value is unique<br /></li>
+<li>Foreign key: a field within a table that is a primary key in another table<br /></li>
+</ul></li>
+<li>Managing data with meta data<br />
+<ul class="org-ul">
+<li>there are three stype of metadata:<br />
+<ul class="org-ul">
+<li>Descriptive: Metadata that describe a piece of data and can be used to identify it at a later point in time (a book ISBN).<br /></li>
+<li>Structural: Metadata that indicat how a piece of data is orginized and whether it is part of one, or more than one, data collection (a book table of content).<br /></li>
+<li>Administrative: Metadata that indicate the technical source of a digital asset<br /></li>
+</ul></li>
+<li>Metadata repository is a database that store metadata<br /></li>
+<li>Data governance: A process to ensure the formal managment of a company's data assets<br /></li>
+</ul></li>
+<li>Sorting and filtering:<br />
+<ul class="org-ul">
+<li>to freeze a row<br />
+<ul class="org-ul">
+<li>Select the row<br /></li>
+<li>Views -&gt; Freeze =&gt; 1 row<br /></li>
+</ul></li>
+<li>Sorting by multiple columns<br />
+<ul class="org-ul">
+<li>Select the whole dataset<br /></li>
+<li>Data -&gt; Sort range<br /></li>
+<li>Check data has header row<br /></li>
+<li>Click add another sort column if needed<br /></li>
+</ul></li>
+<li>Add filter:<br />
+<ul class="org-ul">
+<li>Data -&gt; Create a filter<br /></li>
+</ul></li>
+</ul></li>
+<li>Working with large data in sql with bigquerry<br />
+<ul class="org-ul">
+<li>Bigquery with sandbox account is free<br /></li>
+<li>Go to <a href="https://cloud.google.com/bigquery/docs/sandbox">https://cloud.google.com/bigquery/docs/sandbox</a><br /></li>
+<li>Click on get started for free<br /></li>
+<li>Click on create project<br /></li>
+<li>how t owork with bigquery<br /></li>
+<li>Click on the menu button<br /></li>
+<li>scroll down to Bigquery =&gt; SQL workspace<br /></li>
+<li>Click Add data<br /></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org4dadfe6" class="outline-3">
+<h3 id="org4dadfe6"><span class="section-number-3">3.4.</span> organize and protect the data</h3>
+<div class="outline-text-3" id="text-3-4">
+<ul class="org-ul">
+<li>effective orgenize data<br />
+<ul class="org-ul">
+<li>Best practices when orginizing data<br />
+<ul class="org-ul">
+<li>naming convention: consistent guidelines that describe the content, date, or version of the file in its name<br />
+<ul class="org-ul">
+<li>Format date: yyyy-mm-dd (SalesReport20201125)<br /></li>
+<li>Lead version number with zero: SalesReport20201125v02<br /></li>
+<li>Usehyphens, capital letters, underscore instead of space: Sales_Report-2020-11-25_v02<br /></li>
+</ul></li>
+<li>foldering<br /></li>
+<li>archiving older files<br /></li>
+</ul></li>
+</ul></li>
+<li>Securing data in spreadsheet<br />
+<ul class="org-ul">
+<li>protecting modification of viwing of the data by unauthorise access<br /></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org17f66a2" class="outline-3">
+<h3 id="org17f66a2"><span class="section-number-3">3.5.</span> optional- engaging wit hthe date community</h3>
+</div>
+</div>
+<div id="outline-container-org3217789" class="outline-2">
+<h2 id="org3217789"><span class="section-number-2">4.</span> Process data</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-orgd14dded" class="outline-3">
+<h3 id="orgd14dded"><span class="section-number-3">4.1.</span> Importance of integrity</h3>
+<div class="outline-text-3" id="text-4-1">
+<ul class="org-ul">
+<li>why data integrity is important<br />
+<ul class="org-ul">
+<li>Data integrity refers to the accuracy and consistency of the data throughout its life cycle.<br /></li>
+<li>Data integrity can be compromised by:<br />
+<ul class="org-ul">
+<li>Data replication: storing data in multiple location<br /></li>
+<li>Data transfer: copying data from storege device to memory or from one computer to another<br /></li>
+<li>Data manipulation: changing data to make it more orginized and easier to read<br /></li>
+<li>hummang error<br /></li>
+<li>viruses<br /></li>
+<li>malware<br /></li>
+<li>hacking<br /></li>
+<li>system failures<br /></li>
+</ul></li>
+</ul></li>
+<li>incefissiont data<br />
+<ul class="org-ul">
+<li>Sometimes the data in hand doesn't give enough information to solve the problem.<br /></li>
+<li>types of insufficient data and hw to deal with it<br />
+<ul class="org-ul">
+<li>if the data from only once source, look for new data<br /></li>
+<li>data that keeps updating, wait or adjust objective (alanyse trend weekly instead of monthly) or wait<br /></li>
+<li>outdated data, find new updated data<br /></li>
+<li>geographicly /group limited data , use unbias data<br /></li>
+</ul></li>
+</ul></li>
+<li>Testing your data<br />
+<ul class="org-ul">
+<li>statistical terms<br />
+<ul class="org-ul">
+<li>statistical power: the probability of getting meaningful result from a test, statistically sugnificant<br /></li>
+<li>statistically significant mean that the result of the test are not an error caused by randopmness<br /></li>
+<li>hypothesis testing: a way to see if a servey of experiment have a meaningful result<br /></li>
+</ul></li>
+<li>statistical variables<br />
+<ul class="org-ul">
+<li>\(CI\): Confidance level is the probabilty that your sample size accuratly reflects the greater population, bust it get turned into z-score<br />
+<ul class="org-ul">
+<li>confidence level of 0.95 is 1.95 z-score,<br /></li>
+</ul></li>
+<li>\(\epsilon\): Margin of error is how close your sapmple result are to what your result would be if you use the entire population<br /></li>
+<li>\(p\): Population proportion is the population is a binary (meaning we are intrested in people answering yes or no) whar is the percenteg of people answered in one answer, 0.5 for the max number of sample size<br /></li>
+<li>\(N\):Population size the population size<br /></li>
+<li>\(n\): sample size<br /></li>
+</ul></li>
+<li>determining the best sample size<br />
+<ul class="org-ul">
+<li>without population \(N\):<br />
+<ul class="org-ul">
+<li>\(n=\cfrac{z^2p(1-p)}{\epsilon^2}\)<br /></li>
+</ul></li>
+<li>with population \(N\)<br />
+<ul class="org-ul">
+<li>\(n=\cfrac{\cfrac{z^2p(1-p)}{\epsilon^2}}{\cfrac{1+z^2p(1-p)}{\epsilon^2*N}}\) <br /></li>
+</ul></li>
+</ul></li>
+<li>determining margin of error<br />
+<ul class="org-ul">
+<li>without population \(N\)<br />
+<ul class="org-ul">
+<li>\(\epsilon=\cfrac{z\sqrt{p(1-p)}}{\sqrt{n}}\)<br /></li>
+</ul></li>
+<li>with population \(N\)<br />
+<ul class="org-ul">
+<li>\(\epsilon=\cfrac{z\sqrt{p(1-p)}}{\cfrac{n(N-1)}{(N-n)}}\)<br /></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org25d1cb3" class="outline-3">
+<h3 id="org25d1cb3"><span class="section-number-3">4.2.</span> sparkling clean data</h3>
+<div class="outline-text-3" id="text-4-2">
+<ul class="org-ul">
+<li>data cleaning is a must<br />
+<ul class="org-ul">
+<li>clean it up<br />
+<ul class="org-ul">
+<li>clean data is data that is complete, correct, and relevent to the problem you are trying to solve<br /></li>
+<li>What is needed to be done to the data to be clean?<br />
+<ul class="org-ul">
+<li>Fix typos errors<br /></li>
+<li>Fix inconsistent formating (for spreadsheet)<br /></li>
+<li>blank fields, null<br /></li>
+<li>duplicates<br /></li>
+</ul></li>
+</ul></li>
+<li>why data cleaning is important<br />
+<ul class="org-ul">
+<li>sometimes the data you are getting is internal and maintained by the company data enginner and data warehousing soecialist<br />
+<ul class="org-ul">
+<li>data enginners transform the data into a useful format for analysis and give it a reliable infrastructure<br /></li>
+<li>data warehousing specialist develop processes and procedures to effectively store and organize data<br /></li>
+</ul></li>
+<li>null indicate that a value dosenot exit in a datset<br /></li>
+</ul></li>
+<li>reconize dirty data<br />
+<ul class="org-ul">
+<li>typrs of dirty data<br />
+<ul class="org-ul">
+<li>duplicate data<br /></li>
+<li>outdated data<br /></li>
+<li>incomplete data<br /></li>
+<li>inaccurate data<br /></li>
+<li>inconsistent data<br /></li>
+</ul></li>
+<li>data validation is a tool for cheching the accuracy and quality of data before adding or importing it<br /></li>
+</ul></li>
+</ul></li>
+<li>begin data cleaning<br />
+<ul class="org-ul">
+<li>data cleaning tools and technique<br />
+<ul class="org-ul">
+<li>always a good practice to make a copy of the dataset<br /></li>
+<li>cleaning data<br />
+<ul class="org-ul">
+<li>remove unwanted data, duplicates, remove them using remove duplicate tool in spreadsheet<br /></li>
+<li>clean up text to remove extra space and blanks<br /></li>
+<li>fix typos<br />
+<ul class="org-ul">
+<li>fixing misspellings<br /></li>
+<li>incostistance capitalization<br /></li>
+<li>incorrect punctuation and other typos<br /></li>
+</ul></li>
+<li>make formating consistance (only for spreadsheet)<br /></li>
+</ul></li>
+</ul></li>
+<li>cleaning data from multiple source<br />
+<ul class="org-ul">
+<li>merger: and agreement that unite two organizations into a single new one<br /></li>
+<li>data mernign: the processs of combining two or more datasets into a single dataset<br /></li>
+<li>the merning will be hard of the two dataset have diffirent ways to put data in columns<br /></li>
+<li>in data analytics, compatibility describe how well two or more datasets are able to work together<br /></li>
+<li>what to ask before merging data<br />
+<ul class="org-ul">
+<li>do i have all the data i need?<br /></li>
+<li>does the data i need exist within those datasets?<br /></li>
+<li>does the datasets need to be cleaned?<br /></li>
+<li>are the datasets cleaned to the same standard?<br /></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>cleaning data in a spredsheet<br />
+<ul class="org-ul">
+<li>Cleaning data features in spreadhseet<br />
+<ul class="org-ul">
+<li>Conditional formating: a spreadsheet tool that changes how cells apear when value meet specific condition<br />
+<ul class="org-ul">
+<li>select the range you want to search<br /></li>
+<li>Format -&gt; conditional formating<br /></li>
+<li>change the format rule and the style<br /></li>
+</ul></li>
+<li>remove duplicates: a tool that automaticly search for and eliminate duplicates entries from a spreadsheet<br />
+<ul class="org-ul">
+<li>Data -&gt; remove duplicates<br /></li>
+<li>check data has header row<br /></li>
+</ul></li>
+<li>make all data consistent:<br />
+<ul class="org-ul">
+<li>Select column<br /></li>
+<li>Foramt -&gt; number -&gt; Date<br /></li>
+</ul></li>
+<li>split text to columns: split is a tool that devide a text around a specific character and put each fragment in a new and seperate cell, it can also fix instence where number is stored as text<br />
+<ul class="org-ul">
+<li>text string is a group of characters within a cell, most often compose of letters<br /></li>
+<li>specified text separator = delimiter<br /></li>
+<li>Select the column<br /></li>
+<li>Data -&gt; split text to columns<br /></li>
+</ul></li>
+<li>concatenate: a function that joins multiple text strings into a signle string<br /></li>
+</ul></li>
+<li>optimize the data cleaning process<br />
+<ul class="org-ul">
+<li>all functions require a systax: a predetermined structure that include att required information and its proper placment<br /></li>
+<li>COUNTIF: a function that returns the number of cells that match a specific value<br />
+<ul class="org-ul">
+<li>=COUNTFI(range,"value")<br /></li>
+</ul></li>
+<li>LEN: a function that tells you the lenght of a text string by counting the number of characters it contains<br />
+<ul class="org-ul">
+<li>=LEN(range)<br /></li>
+<li>insert new column<br /></li>
+<li>use the function with the cell adjacent to it<br /></li>
+</ul></li>
+<li>LEFT: a function that give you a set number of characters from the left side of a text string<br />
+<ul class="org-ul">
+<li>=LEFT(range, number of characters)<br /></li>
+</ul></li>
+<li>RIGHT: a function that give you a set number of characters from the right side of a text string<br />
+<ul class="org-ul">
+<li>=RIGHT(range, number of characters)<br /></li>
+</ul></li>
+<li>MID: a function that give you a segment frmo the middle of a text string<br />
+<ul class="org-ul">
+<li>=MID(range, starting point, number of characters)<br /></li>
+</ul></li>
+<li>CONCATENATE: a function that joins together two or more text string<br />
+<ul class="org-ul">
+<li>=CONCATENATE(item_1, item_2)<br /></li>
+</ul></li>
+<li>TRIM is a function that removes leading, trailing, and repeated spaces id data<br /></li>
+</ul></li>
+<li>diffirent data prespective and how to do it:<br />
+<ul class="org-ul">
+<li>sorting anf fitleting:<br />
+<ul class="org-ul">
+<li>sorting is arranging data into a meaningful order to make it easier to understand, analyze and visualize, sorting can bring duplicate dogether for faster indentification<br /></li>
+<li>filter is importent in cleaning when yuo want to find a preticulat piece of information<br /></li>
+</ul></li>
+<li>pivot table is a data summerizition tool ised in data processing in cleaning it is used to give you a quick clutter free view on data<br />
+<ul class="org-ul">
+<li>select the whole data<br /></li>
+<li>Data -&gt; pivot table<br /></li>
+<li>New sheet and create<br /></li>
+</ul></li>
+<li>VLOOKUP: a function that searches for a certain value in a column to return a coresponding piece of information<br /></li>
+<li>=VLOOKUP(data to lookup, whare to look, column, false"for exact match")<br /></li>
+<li>Visualize<br /></li>
+</ul></li>
+<li>Even more data cleanning<br />
+<ul class="org-ul">
+<li>one spreadsheet might have NewYork citry spalled as it is, another data base might have it as NY<br /></li>
+<li>Data mapping is the process of matching fields from one data source to another<br /></li>
+<li>data mapping hels us note these defferences<br /></li>
+<li>Schema is a way of describing how somethign is orginize<br /></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org9c281e0" class="outline-3">
+<h3 id="org9c281e0"><span class="section-number-3">4.3.</span> Cleaning data with SQL</h3>
+<div class="outline-text-3" id="text-4-3">
+<ul class="org-ul">
+<li><p>
+using sql to clean<br />
+</p>
+<ul class="org-ul">
+<li>spreadsheet vs sql<br /></li>
+<li>there are tools that you can use in both spreadsheet and SQL<br />
+<ul class="org-ul">
+<li>arhetmithics<br /></li>
+<li>formulas<br /></li>
+<li>join<br /></li>
+</ul></li>
+</ul>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Spreadsheet</th>
+<th scope="col" class="org-left">SQL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Generated with a program</td>
+<td class="org-left">A language use to interact with a database program</td>
+</tr>
+
+<tr>
+<td class="org-left">Access to data you input</td>
+<td class="org-left">cal pul information from diffirent sources in the dataset</td>
+</tr>
+
+<tr>
+<td class="org-left">Stored locally</td>
+<td class="org-left">Stored across a database</td>
+</tr>
+
+<tr>
+<td class="org-left">Small datasets</td>
+<td class="org-left">Large datasets</td>
+</tr>
+
+<tr>
+<td class="org-left">working independently</td>
+<td class="org-left">track changes ccross team</td>
+</tr>
+
+<tr>
+<td class="org-left">built-in functionallity</td>
+<td class="org-left">useful accross multiple programs</td>
+</tr>
+</tbody>
+</table></li>
+<li>Learn bacis SQL querry<br />
+<ul class="org-ul">
+<li>querry is a requst you put in database to ask to to do somethings for you<br /></li>
+<li><p>
+INSERT<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-sql"><span style="color: #5317ac; font-weight: bold;">INSERT</span> <span style="color: #5317ac; font-weight: bold;">INTO</span> data_set.data_table
+(columns1, column2)
+<span style="color: #5317ac; font-weight: bold;">VALUES</span>
+(value1,value2)
+</pre>
+</div></li>
+<li><p>
+Update<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-sql"><span style="color: #5317ac; font-weight: bold;">UPDATE</span> data_set.data_table
+<span style="color: #5317ac; font-weight: bold;">SET</span> columns1="new_value"
+<span style="color: #5317ac; font-weight: bold;">WHERE</span> column_id=id_value
+</pre>
+</div></li>
+<li>Cleaning string variables<br />
+<ul class="org-ul">
+<li><p>
+DISTINCT removes duplicates<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-sql"><span style="color: #5317ac; font-weight: bold;">SELECT</span> <span style="color: #5317ac; font-weight: bold;">DISTINCT</span> column_id
+<span style="color: #5317ac; font-weight: bold;">FROM</span> data_set.data_table
+</pre>
+</div></li>
+<li><p>
+LENGHT a function that returns the number of characters in a text string (use it to check if a columns that should have a set number of characters in string have otherwise)<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-sql"><span style="color: #5317ac; font-weight: bold;">SELECT</span> column1
+<span style="color: #5317ac; font-weight: bold;">FROM</span> data_set.data_table
+<span style="color: #5317ac; font-weight: bold;">WHERE</span> LENGHT(column1)&gt;2            
+</pre>
+</div></li>
+<li><p>
+SUBSTR return a portion of the string giving a columns, a start point, and how much to extract<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-sql"><span style="color: #5317ac; font-weight: bold;">SELECT</span> column_id
+<span style="color: #5317ac; font-weight: bold;">FROM</span> data_set.data_table
+<span style="color: #5317ac; font-weight: bold;">WHERE</span> SUBSTR(column1,1,2)            
+</pre>
+</div></li>
+<li><p>
+TRIM remove extra spaces<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-sql"><span style="color: #5317ac; font-weight: bold;">SELECT</span> column1
+<span style="color: #5317ac; font-weight: bold;">FROM</span> data_set.data_table
+<span style="color: #5317ac; font-weight: bold;">WHERE</span> <span style="color: #8f0075; font-weight: bold;">TRIM</span>(column1)=<span style="color: #2544bb;">'OH'</span>            
+</pre>
+</div></li>
+</ul></li>
+</ul></li>
+<li>Transforming data<br />
+<ul class="org-ul">
+<li><p>
+CAST() can be used to convert anything from a data type to another, this process is called typecasting.<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-sql"><span style="color: #5317ac; font-weight: bold;">SELECT</span> <span style="color: #8f0075; font-weight: bold;">CAST</span>(column1 <span style="color: #5317ac; font-weight: bold;">as</span> <span style="color: #005a5f; font-weight: bold;">FLOAT</span>)
+<span style="color: #5317ac; font-weight: bold;">FROM</span> data_set.data_table
+<span style="color: #5317ac; font-weight: bold;">ORDER</span> <span style="color: #5317ac; font-weight: bold;">BY</span> <span style="color: #8f0075; font-weight: bold;">CAST</span>(column1 <span style="color: #5317ac; font-weight: bold;">as</span> <span style="color: #005a5f; font-weight: bold;">FLOAT</span>) <span style="color: #5317ac; font-weight: bold;">DESC</span>
+</pre>
+</div>
+<div class="org-src-container">
+<pre class="src src-sql"><span style="color: #5317ac; font-weight: bold;">SELECT</span> <span style="color: #8f0075; font-weight: bold;">CAST</span>(date_col <span style="color: #5317ac; font-weight: bold;">as</span> <span style="color: #005a5f; font-weight: bold;">date</span>) <span style="color: #5317ac; font-weight: bold;">as</span> date_only
+<span style="color: #5317ac; font-weight: bold;">FROM</span> data_set.data_table
+<span style="color: #5317ac; font-weight: bold;">WHERE</span> date_only <span style="color: #5317ac; font-weight: bold;">BETWEEN</span> "2020-12-01" <span style="color: #5317ac; font-weight: bold;">AND</span> "2020-12-07"
+</pre>
+</div></li>
+<li><p>
+CONCAT() add strings togetherto create new text string<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-sql"><span style="color: #5317ac; font-weight: bold;">SELECT</span> CONCAT(column1,column2) <span style="color: #5317ac; font-weight: bold;">as</span> con_col
+<span style="color: #5317ac; font-weight: bold;">FROM</span> data_set.data_table
+</pre>
+</div></li>
+<li><p>
+COALESCE() can be used to return non-null values in a list, if it is given two columns, it will return all values in first columns and replace the nulls frmo columns1 with the adjacent values in column2<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-sql"><span style="color: #5317ac; font-weight: bold;">SELECT</span> <span style="color: #8f0075; font-weight: bold;">COALESCE</span>(column1,column2) <span style="color: #5317ac; font-weight: bold;">as</span> coalesce_col
+<span style="color: #5317ac; font-weight: bold;">FROM</span> data_set.data_table
+</pre>
+</div></li>
+<li>If a lot of tables are created use DROP TABLE IF EXISTs<br /></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org776dcb5" class="outline-3">
+<h3 id="org776dcb5"><span class="section-number-3">4.4.</span> verify and report on your clraning</h3>
+<div class="outline-text-3" id="text-4-4">
+<ul class="org-ul">
+<li>manual cleaning data<br />
+<ul class="org-ul">
+<li>verify a process to conferm that the cleaned data is well exicuted resulting in an acurate and reliable data<br /></li>
+<li>change log is a file that contain a chronollogicly ordered list of modiifcations made to a project<br /></li>
+<li>always remeber that the cleaned data, that will be passed foe analysis, should be focused to solve business problem<br /></li>
+<li>finas steps in data cleaning<br />
+<ul class="org-ul">
+<li>if you are using pivot table to samurize and found an error in typos use find and replace, use unique value to see it there is more that it should be<br /></li>
+<li>find and replace a tool that look for specific string and and replace it with somethign else<br />
+<ul class="org-ul">
+<li>Edit -&gt; find and replace<br /></li>
+</ul></li>
+<li><p>
+Case statement: the case statment goes through one or more conditions and returns a value as soon as the condition is met.<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-sql"><span style="color: #5317ac; font-weight: bold;">SELECT</span> customer_id,
+<span style="color: #5317ac; font-weight: bold;">CASE</span>
+<span style="color: #5317ac; font-weight: bold;">WHEN</span> first_name="Tnoy" <span style="color: #5317ac; font-weight: bold;">THEN</span> "Tony"
+<span style="color: #5317ac; font-weight: bold;">ELSE</span> first_name
+<span style="color: #5317ac; font-weight: bold;">END</span> <span style="color: #5317ac; font-weight: bold;">AS</span> cleanned_data
+<span style="color: #5317ac; font-weight: bold;">FROM</span> data_set.data_table
+</pre>
+</div></li>
+</ul></li>
+</ul></li>
+<li>documenting results and the cleaning process<br />
+<ul class="org-ul">
+<li>documentation, the process of tracking changes, additions, deletions, and errors involved in your data-cleaning effort.<br /></li>
+<li>benifits of documentation<br />
+<ul class="org-ul">
+<li>recover data cleaning errors<br /></li>
+<li>inform other users of changes<br /></li>
+<li>determin the quality of the data<br /></li>
+</ul></li>
+<li>spressheet and sql have an changelog<br /></li>
+<li>documenting data cleaning process for stakeholders, sience they cannot see the changelog<br /></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgbedc2f7" class="outline-2">
+<h2 id="orgbedc2f7"><span class="section-number-2">5.</span> Analyze to answer questions</h2>
+<div class="outline-text-2" id="text-5">
+</div>
+<div id="outline-container-org67d62bf" class="outline-3">
+<h3 id="org67d62bf"><span class="section-number-3">5.1.</span> Orginizing data to bigen analysis</h3>
+<div class="outline-text-3" id="text-5-1">
+<ul class="org-ul">
+<li>the analysis process<br />
+<ul class="org-ul">
+<li>analysis is the process used to make sense of the data collected<br /></li>
+<li>the four phases of analysis<br />
+<ul class="org-ul">
+<li>Orginize data<br /></li>
+<li>format and adjust data<br /></li>
+<li>get input from others<br /></li>
+<li>transofrm the data<br /></li>
+</ul></li>
+</ul></li>
+<li>Orginize data for analysis<br />
+<ul class="org-ul">
+<li>before analyzing data, use data model to have an overview on what columns are needed acrose multiple data tables for the analysis<br /></li>
+<li>Besure that the data have a good data type<br /></li>
+<li>Sort and filter<br /></li>
+</ul></li>
+<li>Sort data in a spreadsheet<br />
+<ul class="org-ul">
+<li>you can chose to sort sheet or sort range<br /></li>
+<li>There is two ways to sort:<br />
+<ul class="org-ul">
+<li>using a menu:<br />
+<ul class="org-ul">
+<li>Sort sheet: all the data in spreadsheet is sorted by the ranking of a specific sorted column - data across rows is kept together.<br />
+<ul class="org-ul">
+<li>there is no option to select the header<br /></li>
+</ul></li>
+<li>Sort range: Nothing else on the spreadsheet is rearranged besides the specified cells in column. unless you select the whole sheet.<br />
+<ul class="org-ul">
+<li>sort range have advanced menu where you can spesify more than one range to sort by<br /></li>
+</ul></li>
+</ul></li>
+<li>writing a function:<br />
+<ul class="org-ul">
+<li>SORT(table_range,column_number_to_sort_by,asending_status), =SORT(A2:E7,2,TRUE)<br /></li>
+</ul></li>
+</ul></li>
+<li>Sort in SQL<br />
+<ul class="org-ul">
+<li>ORDER BY column_name DESC<br /></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orge78c494" class="outline-3">
+<h3 id="orge78c494"><span class="section-number-3">5.2.</span> Formating and adjusting data</h3>
+<div class="outline-text-3" id="text-5-2">
+<ul class="org-ul">
+<li>convert and format data<br />
+<ul class="org-ul">
+<li>In spread sheet you can format number in Format -&gt; number<br /></li>
+<li>CONVERT(value, start_unit, end_unit) to convert mesurment units<br />
+<ul class="org-ul">
+<li>copy and past the columns as special by Right click -&gt; Paste special -&gt; Value only<br /></li>
+</ul></li>
+<li>Data validation function in spreadsheet, it allows you to control what can and cannot be enter in a spreadsheet<br />
+<ul class="org-ul">
+<li>by addig dropdown list with predetermined options<br /></li>
+<li>creating custom checkbox<br /></li>
+<li>protect data structure and formulas<br /></li>
+</ul></li>
+<li>Conditional formating is a ways to sytle the cells to be in a sertain color, font and size base of its content<br /></li>
+</ul></li>
+<li>Combine multiple dataset<br />
+<ul class="org-ul">
+<li>CONTATENATE in spreadsheet and CONCAT in SQL<br /></li>
+<li>LEN RIGHT LEFT<br /></li>
+<li>FIND is a function used to find a string in a text and return it's position to be later used with RIGHT or LEFT<br /></li>
+</ul></li>
+<li>Get support during analysis<br />
+<ul class="org-ul">
+<li>ask your team members for help if you are stuck<br /></li>
+<li>best practices to search online<br />
+<ul class="org-ul">
+<li>thinking skills<br />
+<ul class="org-ul">
+<li>Mental model: your thought process and the way you approach a problem.<br /></li>
+</ul></li>
+<li>data analytics terms<br />
+<ul class="org-ul">
+<li>leaning how to search for problems with the same language that all analytics use will help you find soulution<br /></li>
+</ul></li>
+<li>basic knowledge<br /></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org908911f" class="outline-3">
+<h3 id="org908911f"><span class="section-number-3">5.3.</span> Aggregating data for analysis</h3>
+<div class="outline-text-3" id="text-5-3">
+<ul class="org-ul">
+<li>Vlookup and data aggregating<br />
+<ul class="org-ul">
+<li>aggregation means collecting or gathering many separate peices of information as a whole.<br /></li>
+<li>data aggregation is the process of athering data from multiple sources inorder to combine it into a single summarized collection.<br /></li>
+<li>Data aaggrigation help data analyst to indentify trend, make comparisons, gain insights<br /></li>
+<li>Functions help make data aggrigation possible<br /></li>
+<li>Vlookup<br /></li>
+<li>VALUE() is a function that transform text to numeric<br /></li>
+</ul></li>
+<li>Use join to aggregate data in SQL<br />
+<ul class="org-ul">
+<li>JOIN adds information about a foreign key, from the right table where it is a primary key, to a row.<br /></li>
+<li>JOINs type<br />
+<ul class="org-ul">
+<li>Inner: Returns only rows of the left table if the foreign key exist in right table as a primary key.<br /></li>
+<li>Left and Right: Returns all rows from the left<br />
+<ul class="org-ul">
+<li>if a foreign key in the left table is found in the right table as a primary key, it adds its information to the row,<br /></li>
+<li>if a foreign key in the left table is not found in the right table as a primary key, it adds its nulls to the row,<br /></li>
+</ul></li>
+<li>Outer: Returns all rows from the left table and the right table<br />
+<ul class="org-ul">
+<li>if a foreign key in the left table is found in the right table as a primary key, it adds its information to the row.<br /></li>
+<li>if a foreign key in the left table is not found in the right table as a primary key, it adds its nulls to the row.<br /></li>
+<li>if a primary key in the right table is not found in the left table as a foreign key, it adds its nulls to the row.<br /></li>
+</ul></li>
+</ul></li>
+<li>Count : returns the number of rows in a range<br /></li>
+<li>Count distinc: retunrs the unique values in a range<br /></li>
+<li>Aliasing is naming a table or columns to be easiyer to refrence<br /></li>
+</ul></li>
+<li>Working with subquereys<br />
+<ul class="org-ul">
+<li>a query inside a subquery<br /></li>
+<li>the subquery or the inner query execure first<br /></li>
+<li>Having allow you to add filter to your queery<br /></li>
+<li>CASE akoows you to use if statment<br /></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org00a340a" class="outline-3">
+<h3 id="org00a340a"><span class="section-number-3">5.4.</span> Performing data calculation</h3>
+<div class="outline-text-3" id="text-5-4">
+<ul class="org-ul">
+<li>get started with data calculation<br />
+<ul class="org-ul">
+<li>COUNTIF<br /></li>
+<li>SUMIF(range_for_condition, condition, range_to_sum)<br /></li>
+<li>SUMPRODUCT(array1,array2,&#x2026;) multiply arrays and sum the results<br /></li>
+</ul></li>
+<li>Pivot<br />
+<ul class="org-ul">
+<li>Right click on a pivot column, there is an option of pivot date group<br /></li>
+<li>you can add filter<br /></li>
+<li>Calculated field: a fiels that carried out calculation from other fields<br /></li>
+</ul></li>
+<li>Learn more SQL calculation<br />
+<ul class="org-ul">
+<li>Operation is a symbol that names the type of calculation to be done in a formula<br />
+<ul class="org-ul">
+<li>addition +<br /></li>
+<li>substration -<br /></li>
+<li>muliplication *<br /></li>
+<li>division /<br /></li>
+<li>modulo % (returns the remainder)<br /></li>
+<li>not equal &lt;&gt;,!=<br /></li>
+<li><p>
+SQL example<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-sql"><span style="color: #5317ac; font-weight: bold;">SELECT</span> columnA, columnB, columnA+columnB <span style="color: #5317ac; font-weight: bold;">As</span> columnX
+<span style="color: #5317ac; font-weight: bold;">FROM</span> data_table
+</pre>
+</div>
+<div class="org-src-container">
+<pre class="src src-sql"><span style="color: #5317ac; font-weight: bold;">SELECT</span> columnA, columnB, columnC, (columnA+columnB) * columnC <span style="color: #5317ac; font-weight: bold;">As</span> columnX
+<span style="color: #5317ac; font-weight: bold;">FROM</span> data_table
+</pre>
+</div>
+<div class="org-src-container">
+<pre class="src src-sql"><span style="color: #5317ac; font-weight: bold;">SELECT</span> columnA, columnB, columnA+columnB <span style="color: #5317ac; font-weight: bold;">As</span> columnX
+<span style="color: #5317ac; font-weight: bold;">FROM</span> data_table
+</pre>
+</div></li>
+<li>aggrucation functions are function tat preform calculation on multiple values and returns a single value<br /></li>
+<li>SAFEDEVIDE help avoid deviding by zero<br /></li>
+<li>GROUPBY is a command that group rows that have the same values from a table into summary rows<br /></li>
+<li>GROUPBY asually paired with an aggrugation function (sum, count,&#x2026;)<br /></li>
+<li>EXTRACT commend pull on part of date to use<br /></li>
+<li><p>
+SQL example<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-sql"><span style="color: #5317ac; font-weight: bold;">SELECT</span> <span style="color: #8f0075; font-weight: bold;">EXTRACT</span>(<span style="color: #5317ac; font-weight: bold;">year</span> <span style="color: #5317ac; font-weight: bold;">from</span> data_col) <span style="color: #5317ac; font-weight: bold;">as</span> <span style="color: #5317ac; font-weight: bold;">year</span>, <span style="color: #8f0075; font-weight: bold;">COUNT</span>(*) <span style="color: #5317ac; font-weight: bold;">As</span> number_of_rides
+<span style="color: #5317ac; font-weight: bold;">FROM</span> data_table
+GROUPBY <span style="color: #5317ac; font-weight: bold;">year</span>
+ORDERBY <span style="color: #5317ac; font-weight: bold;">year</span> <span style="color: #5317ac; font-weight: bold;">DESC</span>
+</pre>
+</div></li>
+</ul></li>
+<li>Data validation process: a process that envolve checking and rechecking of your data so that it is complete, accurate, secure, and consistant<br /></li>
+<li>SQL temporary table<br />
+<ul class="org-ul">
+<li>a table that is created and exit termporaraly in data server<br /></li>
+<li><p>
+WITH clauseh elp creating temporary tables<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-sql"><span style="color: #5317ac; font-weight: bold;">WITH</span> temp_table <span style="color: #5317ac; font-weight: bold;">AS</span> ( <span style="color: #5317ac; font-weight: bold;">SELECT</span> * <span style="color: #5317ac; font-weight: bold;">FROM</span> DB <span style="color: #5317ac; font-weight: bold;">WHERE</span> col1 &lt;= 60)
+<span style="color: #5317ac; font-weight: bold;">SELECT</span> <span style="color: #8f0075; font-weight: bold;">count</span>(*) <span style="color: #5317ac; font-weight: bold;">as</span> cnt <span style="color: #5317ac; font-weight: bold;">FROM</span> temp_table
+</pre>
+</div></li>
+<li>other statment to create table are<br />
+<ul class="org-ul">
+<li>SELECT INTO,<br /></li>
+<li>CREATE TABLE ( can add meta data)<br /></li>
+<li>with<br /></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org9801c7b" class="outline-2">
+<h2 id="org9801c7b"><span class="section-number-2">6.</span> Share data through the art of visualization</h2>
+<div class="outline-text-2" id="text-6">
+</div>
+<div id="outline-container-orgeadb8d7" class="outline-3">
+<h3 id="orgeadb8d7"><span class="section-number-3">6.1.</span> Visualizing data</h3>
+<div class="outline-text-3" id="text-6-1">
+<ul class="org-ul">
+<li>communicating your data insight<br /></li>
+<li>Understanding visualization<br />
+<ul class="org-ul">
+<li>data visualization is the garphic presentation and representation of data<br /></li>
+<li>data visualization fits alot of information in a small place<br /></li>
+<li>as a data analyst you ll split your time with data visualization in two ways:<br />
+<ul class="org-ul">
+<li>understand and draw conclusion about the data<br /></li>
+<li>telling a story about the data<br /></li>
+</ul></li>
+<li>think about the objectives, patterns and conculions you reach after analysing the data<br /></li>
+<li>For the data visualization to be sucessfull it need (by David McCandless):<br />
+<ul class="org-ul">
+<li>Information - integrity, accuracy, consistency, honnesty<br /></li>
+<li>Story - intresting, relevent, meagninful, new<br /></li>
+<li>Goal - usefulness, useable, fitting, efficent<br /></li>
+<li>Visual form - beauty, structure, appearance<br /></li>
+</ul></li>
+<li>A sucessfull data visualization help the views get to the same conclusion you found, but much quicker<br /></li>
+<li>Example of data visualization<br />
+<ul class="org-ul">
+<li>Bar graph: use size contrast to compare two or more values<br />
+<ul class="org-ul">
+<li>x-axis in bar graph usialy represent categories, time periods, and other variables<br /></li>
+<li>y-axix in bar graph usialy represent the scale of values for the variables<br /></li>
+<li>ranked bar chart<br /></li>
+</ul></li>
+<li>Line graph: help the audience understand shifts or changes in your data<br />
+<ul class="org-ul">
+<li>time series chart<br /></li>
+</ul></li>
+<li>Pie chart: shows how each part of something make up the whole<br /></li>
+<li>Maps: helps organize data geographically<br /></li>
+</ul></li>
+<li>consider where you want your audiance to focus<br /></li>
+<li>Histogram: a chart that show how often data values fall into certain ranges<br /></li>
+<li>Corelation chars can show relationship among data<br /></li>
+<li>Visualization can be statick or dynamic<br /></li>
+<li>Tableua is ised for dynamic visualization<br /></li>
+<li>the more power you give the user to change chart, the less control you have over telling the story<br /></li>
+</ul></li>
+<li>Design data visualization<br />
+<ul class="org-ul">
+<li>Elements of art:<br />
+<ul class="org-ul">
+<li>Line: lines can be curver or straight, thick or thin, horizantal or vertical or diagonal, helps build visual form and structure.<br /></li>
+<li>Shape: need to always be two dimentional, can help add contrast<br /></li>
+<li>Color: can be describe by their hue, intensity, and their value<br /></li>
+<li>Space: the empty area in the graph, usialy between objects<br /></li>
+<li>Movement: done with dynamick graph to change the change of point that heve two coordinance over time<br /></li>
+</ul></li>
+<li>data visdualization inmpact<br />
+<ul class="org-ul">
+<li>which chart will make it easiyer for the usert to understand the point am trying to make<br /></li>
+<li>comparing data over time:<br />
+<ul class="org-ul">
+<li>line<br /></li>
+<li>area<br /></li>
+<li>bar<br /></li>
+<li>stacked bar<br /></li>
+</ul></li>
+<li>comparing distinc objects:<br />
+<ul class="org-ul">
+<li>ordered bar<br /></li>
+<li>ordered column<br /></li>
+<li>grouped bar<br /></li>
+</ul></li>
+<li>data composition: combining the individual parts in a visualization and displaying them together as a whole.<br />
+<ul class="org-ul">
+<li>stackd bar<br /></li>
+<li>pie<br /></li>
+<li>donut<br /></li>
+<li>treemap<br /></li>
+<li>sstacked area<br /></li>
+</ul></li>
+<li>comparing data relationship<br />
+<ul class="org-ul">
+<li>scatter plot<br /></li>
+<li>buuble plot<br /></li>
+<li>column/line<br /></li>
+<li>heatmap<br /></li>
+</ul></li>
+<li>Elements for effective visuals<br />
+<ul class="org-ul">
+<li>clear meaning<br /></li>
+<li>sofisticated use of contrast<br /></li>
+<li>refined execution<br /></li>
+</ul></li>
+</ul></li>
+<li>Design thinking<br />
+<ul class="org-ul">
+<li>design thinking: a humman centric approach that uses design concept to make it easiyer for people to use and understand tecknologie<br /></li>
+<li>Five stages of design process<br />
+<ul class="org-ul">
+<li>Empathize: knowing and uderstanding the audience strugles, hear loss, color blindness, eye sight (assecibilitys), or truble using or seeing some functions<br /></li>
+<li>Define: define the porblems that need to be solve, in your visual, to make it accesable to the audience<br /></li>
+<li>Ideate: come up with ways to solve the problem<br /></li>
+<li>Prototype: scratch those idea into visuals<br /></li>
+<li>test: get feed back from other people, that preferebly have the same problem as your audience<br /></li>
+</ul></li>
+</ul></li>
+<li>Exploring visualization considiration<br />
+<ul class="org-ul">
+<li>the audiene will have less question about what you are sharing if you add<br />
+<ul class="org-ul">
+<li>headline: a lines of words printed in large letter at the top of the visualization to communicate what data is bieng presented<br /></li>
+<li>subtitles: suport the headline by addint more context and description<br /></li>
+<li>labels identify the meaning of difirent element in the visualization<br /></li>
+</ul></li>
+<li>Dona Wong, very good journalist that use visualiztion<br /></li>
+<li>how to make data more accesible<br />
+<ul class="org-ul">
+<li>Labeling<br /></li>
+<li>Text alternatives (provide text alternative to not text content)<br /></li>
+<li>contrest<br /></li>
+<li>limit the reliance of color to distinct information, instead rely on textures<br /></li>
+<li>simplicity<br /></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org9405bed" class="outline-3">
+<h3 id="org9405bed"><span class="section-number-3">6.2.</span> creatign data visualization with tableau</h3>
+<div class="outline-text-3" id="text-6-2">
+<ul class="org-ul">
+<li>get started with tableau<br />
+<ul class="org-ul">
+<li>looker is also like tableau<br /></li>
+<li>tablea data types are:<br />
+<ul class="org-ul">
+<li># for numbers<br /></li>
+<li>ABC for strings<br /></li>
+<li>Globe icon for geographic data<br /></li>
+<li>Date<br /></li>
+</ul></li>
+</ul></li>
+<li>Create vis<br />
+<ul class="org-ul">
+<li>good practice<br />
+<ul class="org-ul">
+<li>diverging color palete: display two range of color values to represent values in a scale<br /></li>
+</ul></li>
+<li>bad coise<br />
+<ul class="org-ul">
+<li>adding alot of labels<br /></li>
+<li>datais clutered<br /></li>
+</ul></li>
+</ul></li>
+<li>linking<br />
+<ul class="org-ul">
+<li>In tableau you can join/add databases together and utilizing data maping/compability<br /></li>
+<li>you can say which two columns represent the same thn and chage data types to match<br /></li>
+</ul></li>
+<li>tableau tools<br /></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgc0295da" class="outline-3">
+<h3 id="orgc0295da"><span class="section-number-3">6.3.</span> creatign data stories</h3>
+<div class="outline-text-3" id="text-6-3">
+<ul class="org-ul">
+<li>se data to develop stories<br />
+<ul class="org-ul">
+<li>dashboard is a tool that orginize information from multiple datasets<br /></li>
+<li>data storytelling is communicationg the meaning of a dataset with visuals and a narative that is customize for each particular audience<br /></li>
+<li>data story telling steps<br />
+<ul class="org-ul">
+<li>engaging your audience: captering and holding theire attention<br /></li>
+<li>creating compelling visuals: should thell the audience how the data change over time or highligh the meaning behind the numbers<br /></li>
+<li>tell the story in an intresting narrative<br /></li>
+</ul></li>
+<li>this about your audience<br />
+<ul class="org-ul">
+<li>what role do they play?<br /></li>
+<li>what is their stake in the project?<br /></li>
+<li>what do they hope to get from the data insights I deliver?<br /></li>
+</ul></li>
+<li>chose your promary message<br /></li>
+<li>spotlightlitnch is scannig through data to quickly identify the most important insight<br /></li>
+</ul></li>
+<li>Sharing story<br />
+<ul class="org-ul">
+<li>the narartive needs<br />
+<ul class="org-ul">
+<li>characters: can be stake holder, customers, client and others<br /></li>
+<li>settings: describes what is going on, how ofter it is happening, what tasks are involve, and other background information abot the data project that describe the curren situation<br /></li>
+<li>plot: conflict, is what create tension in the current situation, this could be a challenge from a compaitor, an inneffition process that need to be fixed, or new opportunity<br /></li>
+<li>big reveal: is how the data you show can solve the provlem or the plot<br /></li>
+<li>aha moment: share ercommendation<br /></li>
+</ul></li>
+<li>how your slide show should look<br />
+<ul class="org-ul">
+<li>themes: it is important to be consistance in colors and font , size to look profisional<br /></li>
+<li>title: describe what ou are about to present<br /></li>
+<li>include date of presentation<br /></li>
+<li>dont include everything you ll say in a writing format<br /></li>
+<li>make about 25 word per slide<br /></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org0de8018" class="outline-3">
+<h3 id="org0de8018"><span class="section-number-3">6.4.</span> developing presentations and slideshows</h3>
+<div class="outline-text-3" id="text-6-4">
+<ul class="org-ul">
+<li>the art and science of an effective presentation<br />
+<ul class="org-ul">
+<li>keep in mind who are your audience and what they need to know<br /></li>
+<li>the framework of your presentation start by understanding the business task<br /></li>
+<li>presentation slide example<br />
+<ul class="org-ul">
+<li>begin by framing business task in a header<br /></li>
+<li>add goals of discussion<br /></li>
+<li>actions to take<br /></li>
+<li>you can start explaning your finding<br /></li>
+<li>add a data overview explaning the data used<br /></li>
+</ul></li>
+<li>adding note in sliders wont be shown in presentation mode<br /></li>
+<li>work data into presentation<br /></li>
+<li>the McCandless methos<br />
+<ul class="org-ul">
+<li>intreduce the graphic by name (grahp title)<br /></li>
+<li>answer the obvious question that your audience might ask (where dose this data from and what does it cover)<br /></li>
+<li>state the insight of your graph<br /></li>
+<li>call out the data to support that insight (give example of individual point in your data that support your hypothesis)<br /></li>
+<li>tell your audience why it matter<br /></li>
+</ul></li>
+<li>a messy presentation example<br />
+<ul class="org-ul">
+<li>generic picters<br /></li>
+<li>long title<br /></li>
+<li>not mentening what are we talking about<br /></li>
+<li>putting alot of data and text in one slide<br /></li>
+</ul></li>
+<li>wat shoud be done<br />
+<ul class="org-ul">
+<li>include title, presenter, data of update<br /></li>
+<li>add a table of content<br />
+<ul class="org-ul">
+<li>purpose of presentation<br /></li>
+<li>(story steps)<br /></li>
+<li>conclusion<br /></li>
+<li>appendix (additional inforamtion about data visuals and data that may not work within the story telling if added)<br /></li>
+</ul></li>
+<li>some transition slides<br />
+<ul class="org-ul">
+<li>what are we talking about?<br /></li>
+<li>present data<br />
+<ul class="org-ul">
+<li>present just the graph and the title<br /></li>
+<li>as you explain reveal text that summurize your point<br /></li>
+<li>this way you can direct audience attention<br /></li>
+</ul></li>
+<li>if the audience see a graph for the first time, explain it<br /></li>
+<li>you cann add questions when presenting a graph that can be answered in the presentation<br /></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>presentation skills and prectice<br />
+<ul class="org-ul">
+<li>you have two key responsabilityes<br />
+<ul class="org-ul">
+<li>analyse your data<br /></li>
+<li>present our findings effectivly<br /></li>
+</ul></li>
+<li>presentation tips<br />
+<ul class="org-ul">
+<li>channel your exitment<br /></li>
+<li>start with the broader idea<br /></li>
+<li>five second rules<br />
+<ul class="org-ul">
+<li>wait five second after showing the visualization<br /></li>
+<li>ask if they understand it<br /></li>
+</ul></li>
+<li>preparation<br /></li>
+</ul></li>
+</ul></li>
+<li>caviat and limitation to the data<br />
+<ul class="org-ul">
+<li>prepere question that might be asked<br /></li>
+<li>handeling objection about the data, analysis, or the findings<br />
+<ul class="org-ul">
+<li>questions about the data<br /></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orge111101" class="outline-2">
+<h2 id="orge111101"><span class="section-number-2">7.</span> Data analysis with R</h2>
+<div class="outline-text-2" id="text-7">
+</div>
+<div id="outline-container-org6c6b9c2" class="outline-3">
+<h3 id="org6c6b9c2"><span class="section-number-3">7.1.</span> programing and data analysis</h3>
+<div class="outline-text-3" id="text-7-1">
+</div>
+<div id="outline-container-orgafd8eca" class="outline-4">
+<h4 id="orgafd8eca"><span class="section-number-4">7.1.1.</span> the exiting world of programing</h4>
+</div>
+<div id="outline-container-orgf40e0f9" class="outline-4">
+<h4 id="orgf40e0f9"><span class="section-number-4">7.1.2.</span> programing as a data analyst</h4>
+<div class="outline-text-4" id="text-7-1-2">
+<ul class="org-ul">
+<li>R is a programing language made for statistical purposes<br /></li>
+<li>R is base on a programing language names S<br /></li>
+<li>Good source to learn <a href="https://ourcodingclub.github.io/tutorials">https://ourcodingclub.github.io/tutorials</a><br /></li>
+<li>R is good for<br />
+<ul class="org-ul">
+<li>repredusing your analysis<br /></li>
+<li>processing alot of data<br /></li>
+<li>make vesualizaiton<br /></li>
+</ul></li>
+<li>R is a data centric programing language<br /></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgee0caf4" class="outline-4">
+<h4 id="orgee0caf4"><span class="section-number-4">7.1.3.</span> learn programing using rstudio</h4>
+<div class="outline-text-4" id="text-7-1-3">
+<ul class="org-ul">
+<li>Rstudio have four panes, but only three are show on startup<br /></li>
+<li>The fourth pane open when you create/open an R file<br /></li>
+<li>Rstudio have keyboard shortcut<br /></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orga8f7ad4" class="outline-3">
+<h3 id="orga8f7ad4"><span class="section-number-3">7.2.</span> programing using rstudio</h3>
+<div class="outline-text-3" id="text-7-2">
+</div>
+<div id="outline-container-orge28e74d" class="outline-4">
+<h4 id="orge28e74d"><span class="section-number-4">7.2.1.</span> understand basic programing concept</h4>
+<div class="outline-text-4" id="text-7-2-1">
+<ul class="org-ul">
+<li>Functions in R are a body of reusable code used to preform specific tasks in R<br /></li>
+<li>Argument in R is an information that a function in R needs in order to run<br /></li>
+<li>Comment are used to describe or explain a piece of code in your file without being exuceted, a comment start with "#"<br /></li>
+<li>Variable in R is a representation of a value in R that can be stored for use later during programing<br />
+<ul class="org-ul">
+<li>a variable name shoudld star with a letter and can only contain numbers and underscores<br /></li>
+<li><p>
+assigning symbole for variable is &lt;- instead of =<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-R">first_variable <span style="color: #0000c0;">&lt;-</span> <span style="color: #2544bb;">"this is my variable"</span>
+</pre>
+</div></li>
+</ul></li>
+<li><p>
+Vector in R represent a group of data elements of the same type stored in a sequence in R (like array in python), to create a vector use the function c()<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-R">vect_1 <span style="color: #0000c0;">&lt;-</span> c(13, 48, 4)
+</pre>
+</div></li>
+<li><p>
+Pipe in R is a tool for expressing a sequance of multiple operations, represented with "%&gt;%", it is use to apply the output of one function into another function.<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-R">ToothGrowth <span style="color: #0000c0;">%&gt;%</span>
+filter(dose==0.5)<span style="color: #0000c0;">%&gt;%</span>
+arrange(len)
+</pre>
+</div></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org84b6f8b" class="outline-4">
+<h4 id="org84b6f8b"><span class="section-number-4">7.2.2.</span> explore coding in r</h4>
+<div class="outline-text-4" id="text-7-2-2">
+<ul class="org-ul">
+<li>operation in R<br />
+<ul class="org-ul">
+<li>addition +<br /></li>
+<li>substraction -<br /></li>
+<li>division /<br /></li>
+<li>multiplication *<br /></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgbabdf63" class="outline-4">
+<h4 id="orgbabdf63"><span class="section-number-4">7.2.3.</span> learning about r packages</h4>
+<div class="outline-text-4" id="text-7-2-3">
+<ul class="org-ul">
+<li>Rpackages are prieces of repredusable rcodes<br /></li>
+<li>in Rstudio there are "base" packages that are instelled and loaded, and "recommended" package that are installed but not leaded.<br /></li>
+<li>to load a package sue the function library("package name")<br /></li>
+<li>Tidyverse a system of packages in R with a common design philosophy for data manipulation, exploration, and visualization.<br />
+<ul class="org-ul">
+<li>you can install Tidyverse from Rstuduo gui or from terminal with install.packages("tidyverse")<br /></li>
+<li>load Tidyverse with library(tidyverse)<br /></li>
+<li>when lardign you ight see a conflict error, it happend when a package have function with the same name as other functions<br /></li>
+<li>eight code packages of tidyverse are:<br />
+<ul class="org-ul">
+<li>ggplot2<br /></li>
+<li>tibble<br /></li>
+<li>tidyr<br /></li>
+<li>readr<br /></li>
+<li>purrr<br /></li>
+<li>dplyr<br /></li>
+<li>stringr<br /></li>
+<li>forcats<br /></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orga4b9af0" class="outline-4">
+<h4 id="orga4b9af0"><span class="section-number-4">7.2.4.</span> explore the tidyverse</h4>
+<div class="outline-text-4" id="text-7-2-4">
+<ul class="org-ul">
+<li>there are eight core packages of tidyverse and among them four of them are essential:<br />
+<ul class="org-ul">
+<li>readr (essential): used for importing data<br /></li>
+<li>tidyr (essential): package used for data cleaning<br /></li>
+<li>dplyr (essential): offer multiple functioon that helps with data manipulation<br /></li>
+<li>ggplot2 (essential): create data visualization<br /></li>
+<li>tibble: work with dataframes<br /></li>
+<li>purrr: helps with vector and functions<br /></li>
+<li>stringr: include cunctions that works with strings<br /></li>
+<li>forcats: solve problems with factors<br /></li>
+</ul></li>
+<li>Factors in R is a group of categorical data whare the data values are limited.<br /></li>
+<li>Pipes in R, there are three ways you can work with data in R<br />
+<ul class="org-ul">
+<li><p>
+Variables<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-R">data(<span style="color: #2544bb;">"ToothGrowth"</span>)
+filtred_data <span style="color: #0000c0;">&lt;-</span> filter(ToothGrowth,dose==0.5)
+arrange(filtred_data,len)
+</pre>
+</div></li>
+<li><p>
+Nested functions<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-R">data(<span style="color: #2544bb;">"ToothGrowth"</span>)
+arrange(filter(ToothGrowth,dose==0.5),len)
+</pre>
+</div></li>
+<li><p>
+Pipes (Ctrl+Shift+M will insert %&gt;%)<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-R">data(<span style="color: #2544bb;">"ToothGrowth"</span>)
+pipe_filter_data<span style="color: #0000c0;">&lt;-</span> ToothGrowth <span style="color: #0000c0;">%&gt;%</span> 
+  filter(dose==0.5) <span style="color: #0000c0;">%&gt;%</span> 
+  arrange(len)
+</pre>
+</div></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgdddaaac" class="outline-3">
+<h3 id="orgdddaaac"><span class="section-number-3">7.3.</span> working with data in r</h3>
+<div class="outline-text-3" id="text-7-3">
+</div>
+<div id="outline-container-orgbc9f8eb" class="outline-4">
+<h4 id="orgbc9f8eb"><span class="section-number-4">7.3.1.</span> explore the data and r</h4>
+<div class="outline-text-4" id="text-7-3-1">
+<ul class="org-ul">
+<li>Dataframe is a collection of columns<br />
+<ul class="org-ul">
+<li>in a dataframe columns should be names and all columns shoud have the same lenght<br /></li>
+</ul></li>
+<li>Tibble is like streamlines dataframes, but they are diffirent from dataframes<br />
+<ul class="org-ul">
+<li>tibble never change the datatype of the inputs<br /></li>
+<li>tibble never change the names of the variables<br /></li>
+<li>never create row names<br /></li>
+<li>makes printing in R easiyer (automaticle print 10 rows) by using the fucnction head()<br /></li>
+</ul></li>
+<li>str(dataframe) return the structure of the dataframe<br /></li>
+<li>colnames(dataframe) return the column name of the dataframe<br /></li>
+<li>mutate(dataframe,new_col=old_col*100) create a new column in the dataframe base on vector<br /></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org31e6515" class="outline-4">
+<h4 id="org31e6515"><span class="section-number-4">7.3.2.</span> cleaning data</h4>
+<div class="outline-text-4" id="text-7-3-2">
+<ul class="org-ul">
+<li>packages to install for cleaning<br />
+<ul class="org-ul">
+<li>Here: make refrencing files easiyer<br /></li>
+<li>Skimr: makes summerizing the data easy<br /></li>
+<li>Janitor: have functions for leaning data<br /></li>
+</ul></li>
+<li>functions to use to get summerys from out dataframe<br />
+<ul class="org-ul">
+<li><p>
+skim_without_charts() returns a data summery (number of rows, columns, and information about column types)<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-R"><span style="color: #0000c0;">library</span>(skimr)
+skim_without_charts(penguins)
+</pre>
+</div></li>
+<li>glimpse() return data live the function View() or head() but in horizental format<br /></li>
+<li>head() return 10 rows of the data<br /></li>
+<li><p>
+select() select a subset of the dataframe columns<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-R"><span style="color: #505050; font-style: italic;"># </span><span style="color: #505050; font-style: italic;">include year column</span>
+penguins <span style="color: #0000c0;">%&gt;%</span> select(year)
+<span style="color: #505050; font-style: italic;"># </span><span style="color: #505050; font-style: italic;">exclude year column</span>
+penguins <span style="color: #0000c0;">%&gt;%</span> select(-year)
+</pre>
+</div></li>
+</ul></li>
+<li><p>
+remane() allow you to rename column in a dataframe<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-R">penguins <span style="color: #0000c0;">%&gt;%</span> rename(new_col_name=old_col_name)
+</pre>
+</div></li>
+<li><p>
+rename_with() changes the column name to be consistante<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-R">rename_with(penguins,tolower)
+</pre>
+</div></li>
+<li><p>
+clean_names() ensures that there is only characters, number, and underscores in columns names, from janitor package<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-R">clean_names(penguins)
+</pre>
+</div></li>
+<li>fucntions that helps orginize and filter your data<br />
+<ul class="org-ul">
+<li><p>
+arrange() for sorting, add - for descending<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-R"><span style="color: #505050; font-style: italic;"># </span><span style="color: #505050; font-style: italic;">Ascending</span>
+penguins <span style="color: #0000c0;">%&gt;%</span> arrange(bill_length_mm)
+<span style="color: #505050; font-style: italic;"># </span><span style="color: #505050; font-style: italic;">Descending</span>
+penguins <span style="color: #0000c0;">%&gt;%</span> arrange(-bill_length_mm)
+</pre>
+</div></li>
+<li><p>
+group_by() us a function that usialy paird with a summerize function, you can use drop_na()<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-R">data <span style="color: #0000c0;">%&gt;%</span>
+  group_by(col_name_to_groupby) <span style="color: #0000c0;">%&gt;%</span>
+  drop_na() <span style="color: #0000c0;">%&gt;%</span>
+  summarise(new_col_name=operator(col_name))
+</pre>
+</div>
+<div class="org-src-container">
+<pre class="src src-R">penguins <span style="color: #0000c0;">%&gt;%</span>
+  group_by(island) <span style="color: #0000c0;">%&gt;%</span>
+  drop_na() <span style="color: #0000c0;">%&gt;%</span>
+  summarise(new_col=mean(bill_length_mm))
+</pre>
+</div>
+<div class="org-src-container">
+<pre class="src src-R">penguins <span style="color: #0000c0;">%&gt;%</span>
+  group_by(island) <span style="color: #0000c0;">%&gt;%</span>
+  drop_na() <span style="color: #0000c0;">%&gt;%</span>
+  summarise(mean(bill_length_mm))
+</pre>
+</div>
+<ul class="org-ul">
+<li><p>
+groupe multiple columns and get multiple summeries<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-R">penguins <span style="color: #0000c0;">%&gt;%</span> 
+  group_by(species,island) <span style="color: #0000c0;">%&gt;%</span>
+  drop_na() <span style="color: #0000c0;">%&gt;%</span> 
+  summarise(max_col=max(bill_length_mm),mean_col=mean(bill_length_mm))
+</pre>
+</div></li>
+</ul></li>
+<li><p>
+filter() hide some data<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-R">penguins <span style="color: #0000c0;">%&gt;%</span> filter(species==<span style="color: #2544bb;">"Adelie"</span>)
+</pre>
+</div></li>
+</ul></li>
+<li>Transforming data<br />
+<ul class="org-ul">
+<li><p>
+seperate() it split string inside a column base a seperator, remove the column, and create new columns<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-R">separate(data,col,into = c(<span style="color: #2544bb;">"n_col_1"</span>,<span style="color: #2544bb;">"n_col_2"</span>), sep=<span style="color: #2544bb;">' '</span>)
+</pre>
+</div></li>
+<li><p>
+unite() does the oposide of seperate<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-R">unite(data,<span style="color: #2544bb;">"n_col"</span>,col_1,col_2, sep=<span style="color: #2544bb;">' '</span>)
+</pre>
+</div></li>
+<li><p>
+mutate() add/create columns with calculation<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-R">penguins <span style="color: #0000c0;">%&gt;%</span> 
+  mutate(body_mass_kg=body_mass_g/1000,flipper_lenght_m=flipper_length_mm/1000)
+</pre>
+</div></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgc11ccfe" class="outline-4">
+<h4 id="orgc11ccfe"><span class="section-number-4">7.3.3.</span> take a closer look at the data</h4>
+<div class="outline-text-4" id="text-7-3-3">
+<ul class="org-ul">
+<li>while summerization give us an overview about the data visualization help us understand more<br /></li>
+<li>bias is function that comes from SimDesign, its purpose is to mesure if the predictions are close to the actual values<br /></li>
+<li>bias mesure The average difference between the actual and predicted values<br /></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb8d549f" class="outline-3">
+<h3 id="orgb8d549f"><span class="section-number-3">7.4.</span> more about visualization, asthetic and annotation</h3>
+<div class="outline-text-3" id="text-7-4">
+</div>
+<div id="outline-container-org828b573" class="outline-4">
+<h4 id="org828b573"><span class="section-number-4">7.4.1.</span> create data visualization in r</h4>
+<div class="outline-text-4" id="text-7-4-1">
+<ul class="org-ul">
+<li>aesthetics are visual property of an object in your plot<br /></li>
+<li>geom is the geometric object used to represent your data<br /></li>
+<li>facets let you display smaller group, or subsets, of your data<br /></li>
+<li>labels and annotation let you customize your plot<br /></li>
+<li>Syntax to build a graph<br />
+<ul class="org-ul">
+<li><p>
+Base<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-R">ggplot(data=&lt;DATA&gt;) + &lt;GEOM_FUNCTION&gt;(mapping=aes(&lt;MAPPINGS&gt;))
+</pre>
+</div></li>
+<li><p>
+Full<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-R">ggplot(data=&lt;DATA&gt;) +
+  &lt;GEOM_FUNCTION&gt;(mapping=aes(&lt;MAPPINGS&gt;),stat=&lt;STAT&gt;,position=&lt;POSITION&gt;) +
+  &lt;COORDINATE_FUNCTION&gt; + &lt;FACET_FUNCTION&gt; + &lt;SCALE_FUNCTION&gt; + &lt;THEME_FUNCTION&gt;
+</pre>
+</div></li>
+</ul></li>
+<li><p>
+Example:<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-R">ggplot(data=penguins) +
+  geom_point(mapping = aes(x=flipper_length_mm,y=body_mass_g),shape=21,color=<span style="color: #2544bb;">"red"</span>)
+</pre>
+</div></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org5055505" class="outline-4">
+<h4 id="org5055505"><span class="section-number-4">7.4.2.</span> explore aesthetics in analysis</h4>
+<div class="outline-text-4" id="text-7-4-2">
+<ul class="org-ul">
+<li><p>
+we can map a new variable to a new aesthatic by addint "color" inside aes function - map aesthatic to variables<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-R">ggplot(data=penguins)+
+  geom_point(mapping = aes(x=flipper_length_mm,y=body_mass_g,color=species))
+</pre>
+</div></li>
+<li><p>
+if you want to add new aesthetic that dosent effect certain point base on their data but effect all the point add it after the aesthetic function - map aesthatic to all elements<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-R">ggplot(data=penguins)+
+  geom_point(mapping = aes(x=flipper_length_mm,y=body_mass_g),color=<span style="color: #2544bb;">"purple"</span>)
+</pre>
+</div></li>
+<li><p>
+you can add a plot ontop of another by addint + in between them<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-R">ggplot(data=penguins)+
+  geom_smooth(mapping = aes(x=flipper_length_mm,y=body_mass_g))+
+  geom_point(mapping = aes(x=flipper_length_mm,y=body_mass_g),alpha=0.2)
+</pre>
+</div></li>
+<li>facet let you display subset of your data<br />
+<ul class="org-ul">
+<li><p>
+facet_wrap facet by a single variable<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-R">ggplot(data=penguins)+
+  geom_point(mapping = aes(x=flipper_length_mm,y=body_mass_g,color=species))+
+  facet_wrap(~island)
+</pre>
+</div></li>
+<li><p>
+facet_grid facet by multiple variables<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-R">ggplot(data=penguins)+
+  geom_point(mapping = aes(x=flipper_length_mm,y=body_mass_g,color=species))+
+  facet_grid(sex~island)
+<span style="color: #505050; font-style: italic;"># </span><span style="color: #505050; font-style: italic;">get the same result as facet wrap</span>
+ggplot(data=penguins)+
+  geom_point(mapping = aes(x=flipper_length_mm,y=body_mass_g,color=species))+
+  facet_grid(~island)      
+</pre>
+</div></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org91fb863" class="outline-4">
+<h4 id="org91fb863"><span class="section-number-4">7.4.3.</span> annotate and save visualization</h4>
+<div class="outline-text-4" id="text-7-4-3">
+<ul class="org-ul">
+<li><p>
+addig title<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-R">ggplot(data=penguins)+
+  geom_point(mapping = aes(x=flipper_length_mm,y=body_mass_g,color=species))+
+  labs(title = <span style="color: #2544bb;">"this is a title"</span>,subtitle = <span style="color: #2544bb;">"this is a subtitle"</span>)
+</pre>
+</div></li>
+<li><p>
+annotation are text in the graph whit its location base on the coordinate from x and y axis<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-R">ggplot(data=penguins)+
+  geom_point(mapping = aes(x=flipper_length_mm,y=body_mass_g,color=species))+
+  labs(title = <span style="color: #2544bb;">"this is a title"</span>,subtitle = <span style="color: #2544bb;">"this is a subtitle"</span>)+
+  annotate(geom = <span style="color: #2544bb;">"text"</span>,x=210,y=3000,label=<span style="color: #2544bb;">"annotation"</span>)
+</pre>
+</div></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org3da85b4" class="outline-3">
+<h3 id="org3da85b4"><span class="section-number-3">7.5.</span> Documentation and reports</h3>
+<div class="outline-text-3" id="text-7-5">
+</div>
+<div id="outline-container-orgd0d38c1" class="outline-4">
+<h4 id="orgd0d38c1"><span class="section-number-4">7.5.1.</span> Develop documentation and report in r studio</h4>
+<div class="outline-text-4" id="text-7-5-1">
+<ul class="org-ul">
+<li>R markdown is a file format to make dynamic documents in R<br /></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org03666fc" class="outline-4">
+<h4 id="org03666fc"><span class="section-number-4">7.5.2.</span> create r markdown document</h4>
+<div class="outline-text-4" id="text-7-5-2">
+<ul class="org-ul">
+<li>install package -&gt; click create new rmarkdown file -&gt; click on Knit<br /></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgd46d25e" class="outline-4">
+<h4 id="orgd46d25e"><span class="section-number-4">7.5.3.</span> understand code chunks and expor</h4>
+<div class="outline-text-4" id="text-7-5-3">
+<ul class="org-ul">
+<li>you can add code chunks bt clickigng Ctrl+Alt+i or click on the green buton on top<br /></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: 2022-07-15 Fri 07:38</p>
+<p class="date">Created: 2023-02-18 Sat 11:45</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

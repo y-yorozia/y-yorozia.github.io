@@ -1,0 +1,642 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-03-15 Wed 15:57 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Scraping from NoxInfluencer and adding additional filters</title>
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/js/readtheorg.js"></script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Scraping from NoxInfluencer and adding additional filters</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org3de2e39">1. OS Setup</a></li>
+<li><a href="#org2835fc0">2. Imports and setup</a></li>
+<li><a href="#org4d482ed">3. Scraping from Noxinfluencer</a></li>
+<li><a href="#org52a1394">4. Scraping from YouTube</a></li>
+<li><a href="#org21a13cb">5. Cleaning the data</a></li>
+<li><a href="#org5d9c903">6. Combining the data</a></li>
+</ul>
+</div>
+</div>
+<p>
+This is the entire data sets generated <a href="https://drive.google.com/drive/folders/1Kk21nNQPlbxeom4Jo6KprYZHZAUCth3N?usp=share_link">Link</a><br />
+And this is the final/importent data set <a href="https://drive.google.com/drive/folders/1-AOB_LgcKwXpTA5IqGIzYd0XxYlmlYIe?usp=share_link">Link</a><br />
+</p>
+<div id="outline-container-org3de2e39" class="outline-2">
+<h2 id="org3de2e39"><span class="section-number-2">1.</span> OS Setup</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Installing selenuim in google colab post Ubuntu update.<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">%%shell
+<span style="color: #505050; font-style: italic;"># </span><span style="color: #505050; font-style: italic;">Ubuntu no longer distributes chromium-browser outside of snap</span>
+<span style="color: #505050; font-style: italic;">#</span>
+<span style="color: #505050; font-style: italic;"># </span><span style="color: #505050; font-style: italic;">Proposed solution: https://askubuntu.com/questions/1204571/how-to-install-chromium-without-snap</span>
+
+<span style="color: #505050; font-style: italic;"># </span><span style="color: #505050; font-style: italic;">Add debian buster</span>
+cat &gt; /etc/apt/sources.list.d/debian.list &lt;&lt;<span style="color: #2544bb;">'EOF'</span>
+<span style="color: #2544bb;">deb [arch=amd64 signed-by=/usr/share/keyrings/debian-buster.gpg] http://deb.debian.org/debian buster main</span>
+<span style="color: #2544bb;">deb [arch=amd64 signed-by=/usr/share/keyrings/debian-buster-updates.gpg] http://deb.debian.org/debian buster-updates main</span>
+<span style="color: #2544bb;">deb [arch=amd64 signed-by=/usr/share/keyrings/debian-security-buster.gpg] http://deb.debian.org/debian-security buster/updates main</span>
+<span style="color: #2544bb;">EOF</span>
+
+<span style="color: #505050; font-style: italic;"># </span><span style="color: #505050; font-style: italic;">Add keys</span>
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys DCC9EFBF77E11517
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 648ACFD622F3D138
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 112695A0E562B32A
+
+apt-key export 77E11517 | gpg --dearmour -o /usr/share/keyrings/debian-buster.gpg
+apt-key export 22F3D138 | gpg --dearmour -o /usr/share/keyrings/debian-buster-updates.gpg
+apt-key export E562B32A | gpg --dearmour -o /usr/share/keyrings/debian-security-buster.gpg
+
+<span style="color: #505050; font-style: italic;"># </span><span style="color: #505050; font-style: italic;">Prefer debian repo for chromium* packages only</span>
+<span style="color: #505050; font-style: italic;"># </span><span style="color: #505050; font-style: italic;">Note the double-blank lines between entries</span>
+cat &gt; /etc/apt/preferences.d/chromium.pref &lt;&lt; <span style="color: #2544bb;">'EOF'</span>
+<span style="color: #2544bb;">Package: *</span>
+<span style="color: #2544bb;">Pin: release a=eoan</span>
+<span style="color: #2544bb;">Pin-Priority: 500</span>
+
+
+<span style="color: #2544bb;">Package: *</span>
+<span style="color: #2544bb;">Pin: origin "deb.debian.org"</span>
+<span style="color: #2544bb;">Pin-Priority: 300</span>
+
+
+<span style="color: #2544bb;">Package: chromium*</span>
+<span style="color: #2544bb;">Pin: origin "deb.debian.org"</span>
+<span style="color: #2544bb;">Pin-Priority: 700</span>
+<span style="color: #2544bb;">EOF</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #813e00; font-weight: bold;">!</span>apt-get update
+<span style="color: #813e00; font-weight: bold;">!</span>apt-get install chromium chromium-driver
+<span style="color: #813e00; font-weight: bold;">!</span>pip3 install selenium
+<span style="color: #813e00; font-weight: bold;">!</span>pip install pytube
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org2835fc0" class="outline-2">
+<h2 id="org2835fc0"><span class="section-number-2">2.</span> Imports and setup</h2>
+<div class="outline-text-2" id="text-2">
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #5317ac; font-weight: bold;">from</span> bs4 <span style="color: #5317ac; font-weight: bold;">import</span> BeautifulSoup
+<span style="color: #5317ac; font-weight: bold;">import</span> time
+<span style="color: #5317ac; font-weight: bold;">import</span> numpy <span style="color: #5317ac; font-weight: bold;">as</span> np
+<span style="color: #5317ac; font-weight: bold;">import</span> pandas <span style="color: #5317ac; font-weight: bold;">as</span> pd
+<span style="color: #5317ac; font-weight: bold;">from</span> tqdm.notebook <span style="color: #5317ac; font-weight: bold;">import</span> trange, tqdm, tqdm_notebook
+<span style="color: #5317ac; font-weight: bold;">import</span> os
+<span style="color: #5317ac; font-weight: bold;">import</span> glob
+<span style="color: #5317ac; font-weight: bold;">from</span> selenium <span style="color: #5317ac; font-weight: bold;">import</span> webdriver
+<span style="color: #5317ac; font-weight: bold;">from</span> selenium.webdriver.chrome.options <span style="color: #5317ac; font-weight: bold;">import</span> Options
+<span style="color: #5317ac; font-weight: bold;">from</span> selenium.webdriver.common.keys <span style="color: #5317ac; font-weight: bold;">import</span> Keys
+<span style="color: #5317ac; font-weight: bold;">from</span> selenium.webdriver.common.by <span style="color: #5317ac; font-weight: bold;">import</span> By
+<span style="color: #5317ac; font-weight: bold;">from</span> selenium.webdriver.support <span style="color: #5317ac; font-weight: bold;">import</span> expected_conditions <span style="color: #5317ac; font-weight: bold;">as</span> EC
+<span style="color: #5317ac; font-weight: bold;">from</span> selenium.webdriver.support.wait <span style="color: #5317ac; font-weight: bold;">import</span> WebDriverWait
+<span style="color: #5317ac; font-weight: bold;">from</span> pytube <span style="color: #5317ac; font-weight: bold;">import</span> YouTube
+<span style="color: #5317ac; font-weight: bold;">from</span> pytube <span style="color: #5317ac; font-weight: bold;">import</span> Channel
+<span style="color: #5317ac; font-weight: bold;">import</span> re
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #00538b;">options</span> = Options()
+options.add_argument(<span style="color: #2544bb;">"--headless"</span>)
+options.add_argument(<span style="color: #2544bb;">"--no-sandbox"</span>)
+options.add_argument(<span style="color: #2544bb;">'--disable-dev-shm-usage'</span>)
+<span style="color: #00538b;">driver</span> = webdriver.Chrome(<span style="color: #2544bb;">"chromedriver"</span>, options=options)
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #00538b;">project_name</span>=<span style="color: #2544bb;">"all in"</span>
+<span style="color: #00538b;">big_path</span>=<span style="color: #2544bb;">"/content/drive/MyDrive/Nox/"</span>
+<span style="color: #505050; font-style: italic;">#</span>
+<span style="color: #00538b;">project_path</span>=big_path+project_name
+<span style="color: #00538b;">nox_scrape</span>=project_path+<span style="color: #2544bb;">"/1-nox_scrape"</span>
+<span style="color: #00538b;">yt_scrape</span>=project_path+<span style="color: #2544bb;">"/2-yt_scrape"</span>
+<span style="color: #00538b;">yt_scrape_process</span>=project_path+<span style="color: #2544bb;">"/3-yt_scrape_process"</span>
+<span style="color: #00538b;">work</span>=project_path+<span style="color: #2544bb;">"/4-work"</span>
+<span style="color: #505050; font-style: italic;">#</span>
+<span style="color: #5317ac; font-weight: bold;">for</span> f <span style="color: #5317ac; font-weight: bold;">in</span> [project_path,nox_scrape,yt_scrape,yt_scrape_process,work]:
+    <span style="color: #5317ac; font-weight: bold;">if</span> os.path.exists(f):
+        <span style="color: #5317ac; font-weight: bold;">pass</span>
+    <span style="color: #5317ac; font-weight: bold;">else</span>:
+        os.mkdir(f)
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #00538b;">goal</span>=100000
+<span style="color: #00538b;">steps</span>=1000
+<span style="color: #00538b;">min_sub</span>=10000
+<span style="color: #00538b;">max_sub</span>=min_sub+steps
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #505050; font-style: italic;">#</span><span style="color: #505050; font-style: italic;">increasing the goal and deleting done</span>
+<span style="color: #00538b;">goal</span>=100000
+<span style="color: #5317ac; font-weight: bold;">if</span> os.path.exists(nox_scrape+<span style="color: #2544bb;">"/"</span>+<span style="color: #2544bb;">'done.txt'</span>):
+    os.remove(nox_scrape+<span style="color: #2544bb;">"/"</span>+<span style="color: #2544bb;">'done.txt'</span>)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org4d482ed" class="outline-2">
+<h2 id="org4d482ed"><span class="section-number-2">3.</span> Scraping from Noxinfluencer</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+This is the result: <a href="https://drive.google.com/drive/folders/1ERTZiBekwAVOO4P-0ReH1JJR_VreA8TN?usp=share_link">Link</a><br />
+I am going to hide the username and the passwords because they are not mine, not they belong to my friend who backstabbed me either, they belong to the employer at the marketing agency.<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #5317ac; font-weight: bold;">if</span> os.path.exists(nox_scrape+<span style="color: #2544bb;">"/"</span>+<span style="color: #2544bb;">'done.txt'</span>):
+    <span style="color: #5317ac; font-weight: bold;">pass</span>
+<span style="color: #5317ac; font-weight: bold;">else</span>:
+    options = Options()
+    options.add_argument(<span style="color: #2544bb;">"--headless"</span>)
+    options.add_argument(<span style="color: #2544bb;">"--no-sandbox"</span>)
+    options.add_argument(<span style="color: #2544bb;">'--disable-dev-shm-usage'</span>)
+    <span style="color: #00538b;">driver</span> = webdriver.Chrome(<span style="color: #2544bb;">"chromedriver"</span>, options=options)
+    driver.implicitly_wait(10)
+
+    driver.get(<span style="color: #2544bb;">"https://www.noxinfluencer.com/login?userType=brand&amp;service=https%3A%2F%2Fwww.noxinfluencer.com%2F"</span>)
+    time.sleep(5)
+
+    username = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, <span style="color: #2544bb;">"input[id='email']"</span>)))
+    password = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, <span style="color: #2544bb;">"input[id='pwd']"</span>)))
+
+    username.clear()
+    username.send_keys(<span style="color: #2544bb;">"USERNAME"</span>)
+    password.clear()
+    password.send_keys(<span style="color: #2544bb;">"PASSWORD"</span>)
+
+    button = WebDriverWait(driver, 2).until(EC.element_to_be_clickable((By.CSS_SELECTOR, <span style="color: #2544bb;">"span[id='login-submit']"</span>))).click()
+    time.sleep(5)
+
+    driver.get(<span style="color: #2544bb;">"https://www.noxinfluencer.com/search/youtube/channel?p=MMf6cWkk1"</span>+<span style="color: #8f0075; font-weight: bold;">str</span>(200000)+<span style="color: #2544bb;">"KntTpoAbcWkk1"</span>+<span style="color: #8f0075; font-weight: bold;">str</span>(200300)+<span style="color: #2544bb;">"KntTAfaG0cWkk2CA"</span>)
+    old_search = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.CSS_SELECTOR, <span style="color: #2544bb;">".kol-icon-back"</span>))).click()
+    old_search = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.CSS_SELECTOR, <span style="color: #2544bb;">".kol-icon-back"</span>)))
+
+    current_files_in_scrape=glob.glob(nox_scrape+<span style="color: #2544bb;">"/*.xlsx"</span>)
+    current_files_in_scrape=<span style="color: #8f0075; font-weight: bold;">sorted</span>(current_files_in_scrape,key=<span style="color: #5317ac; font-weight: bold;">lambda</span> x:<span style="color: #8f0075; font-weight: bold;">int</span>(x.split(<span style="color: #2544bb;">"/"</span>)[-1].split(<span style="color: #2544bb;">'-'</span>)[0]))
+    <span style="color: #5317ac; font-weight: bold;">if</span> <span style="color: #8f0075; font-weight: bold;">len</span>(current_files_in_scrape)&gt;0:
+        min_sub=<span style="color: #8f0075; font-weight: bold;">int</span>(current_files_in_scrape[-1].split(<span style="color: #2544bb;">"/"</span>)[-1].split(<span style="color: #2544bb;">'-'</span>)[0])
+        max_sub=<span style="color: #8f0075; font-weight: bold;">int</span>(current_files_in_scrape[-1].split(<span style="color: #2544bb;">"/"</span>)[-1].split(<span style="color: #2544bb;">'-'</span>)[-1].split(<span style="color: #2544bb;">"."</span>)[0])
+        steps=max_sub-min_sub
+
+    <span style="color: #5317ac; font-weight: bold;">for</span> sub_count <span style="color: #5317ac; font-weight: bold;">in</span> tqdm_notebook(<span style="color: #8f0075; font-weight: bold;">range</span>(<span style="color: #8f0075; font-weight: bold;">int</span>((goal-min_sub)/steps))):
+        <span style="color: #5317ac; font-weight: bold;">if</span> min_sub&gt;goal:
+            <span style="color: #5317ac; font-weight: bold;">with</span> <span style="color: #8f0075; font-weight: bold;">open</span>(nox_scrape+<span style="color: #2544bb;">"/"</span>+<span style="color: #2544bb;">'done.txt'</span>, <span style="color: #2544bb;">'w'</span>) <span style="color: #5317ac; font-weight: bold;">as</span> fp:
+                <span style="color: #5317ac; font-weight: bold;">pass</span>
+        <span style="color: #5317ac; font-weight: bold;">else</span>:
+            search_url=<span style="color: #2544bb;">"https://www.noxinfluencer.com/youtube/search?isvideo=0&amp;searchMode=name&amp;country=UK%2CUS%2CAU%2CCA&amp;language=en&amp;followerIndex=-1&amp;followerGte="</span>+<span style="color: #8f0075; font-weight: bold;">str</span>(min_sub)+<span style="color: #2544bb;">"&amp;followerLte="</span>+<span style="color: #8f0075; font-weight: bold;">str</span>(max_sub)+<span style="color: #2544bb;">"&amp;publishIndex=3&amp;publishTime=7689600000&amp;lastActiveTime=1647126000000&amp;estExposureIndex=-1&amp;estExposureGte=10000&amp;sortField=noxStarLevel"</span>
+            driver.get(search_url)
+            pagesize_select = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, <span style="color: #2544bb;">"span[id='select2-pagination-pagesize-select-container']"</span>))).click()
+            page_50=BeautifulSoup(driver.page_source, <span style="color: #2544bb;">'lxml'</span>).find(<span style="color: #2544bb;">"ul"</span>,{<span style="color: #2544bb;">"id"</span>:<span style="color: #2544bb;">"select2-pagination-pagesize-select-results"</span>}).findAll(<span style="color: #2544bb;">"li"</span>)[-1][<span style="color: #2544bb;">"id"</span>]
+            pagesize_select_50 = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, <span style="color: #2544bb;">"li[id="</span>+page_50+<span style="color: #2544bb;">"]"</span>))).click()
+
+            time.sleep(np.random.randint(2,3))
+
+            page_source = driver.page_source
+            soup = BeautifulSoup(page_source, <span style="color: #2544bb;">'lxml'</span>)
+
+            total_result=<span style="color: #8f0075; font-weight: bold;">int</span>(soup.find(<span style="color: #2544bb;">"span"</span>,class_=<span style="color: #2544bb;">"result-total"</span>).text)
+            item_per_page=<span style="color: #8f0075; font-weight: bold;">len</span>(soup.findAll(<span style="color: #2544bb;">"div"</span>,class_=<span style="color: #2544bb;">"result-item-wrap"</span>))
+            <span style="color: #5317ac; font-weight: bold;">if</span> total_result &lt;=50:
+                total_pages=1
+            <span style="color: #5317ac; font-weight: bold;">else</span>:
+                total_pages=<span style="color: #8f0075; font-weight: bold;">int</span>(np.ceil(total_result/item_per_page))
+            active_page=soup.find(<span style="color: #2544bb;">"span"</span>,class_=<span style="color: #2544bb;">"page-item active"</span>).text
+
+
+            starting_page=0
+
+            <span style="color: #5317ac; font-weight: bold;">if</span> total_result &gt; 500:
+                <span style="color: #8f0075; font-weight: bold;">print</span>(<span style="color: #2544bb;">"total result is big"</span>)
+                <span style="color: #5317ac; font-weight: bold;">break</span>
+            <span style="color: #5317ac; font-weight: bold;">elif</span> total_result &lt;40:
+                steps=steps*2
+
+            <span style="color: #5317ac; font-weight: bold;">for</span> page <span style="color: #5317ac; font-weight: bold;">in</span> tqdm_notebook(<span style="color: #8f0075; font-weight: bold;">range</span>(total_pages-starting_page)):
+
+                page_source = driver.page_source
+                soup = BeautifulSoup(page_source, <span style="color: #2544bb;">'lxml'</span>)
+
+                item_per_page=<span style="color: #8f0075; font-weight: bold;">len</span>(soup.findAll(<span style="color: #2544bb;">"div"</span>,class_=<span style="color: #2544bb;">"result-item-wrap"</span>))
+                active_page=soup.find(<span style="color: #2544bb;">"span"</span>,class_=<span style="color: #2544bb;">"page-item active"</span>).text
+
+                <span style="color: #505050; font-style: italic;">#</span><span style="color: #505050; font-style: italic;">print(active_page+" out of "+str(total_pages))</span>
+
+                name=np.empty(item_per_page, dtype=<span style="color: #8f0075; font-weight: bold;">object</span>)
+                url=np.empty(item_per_page, dtype=<span style="color: #8f0075; font-weight: bold;">object</span>)
+                keywords=np.empty(item_per_page, dtype=<span style="color: #8f0075; font-weight: bold;">object</span>)
+                subs=np.empty(item_per_page, dtype=<span style="color: #8f0075; font-weight: bold;">object</span>)
+                views=np.empty(item_per_page, dtype=<span style="color: #8f0075; font-weight: bold;">object</span>)
+                videos=np.empty(item_per_page, dtype=<span style="color: #8f0075; font-weight: bold;">object</span>)
+                views_to_subs=np.empty(item_per_page, dtype=<span style="color: #8f0075; font-weight: bold;">object</span>)
+                engagement_rate=np.empty(item_per_page, dtype=<span style="color: #8f0075; font-weight: bold;">object</span>)
+                est_views=np.empty(item_per_page, dtype=<span style="color: #8f0075; font-weight: bold;">object</span>)
+                est_sponsorship_price=np.empty(item_per_page, dtype=<span style="color: #8f0075; font-weight: bold;">object</span>)
+
+                <span style="color: #5317ac; font-weight: bold;">for</span> item <span style="color: #5317ac; font-weight: bold;">in</span> <span style="color: #8f0075; font-weight: bold;">range</span>(item_per_page):
+                    <span style="color: #5317ac; font-weight: bold;">try</span>:
+                        name[<span style="color: #00538b;">item</span>]=soup.findAll(<span style="color: #2544bb;">"div"</span>,class_=<span style="color: #2544bb;">"result-item-wrap"</span>)[item].find(<span style="color: #2544bb;">"a"</span>,class_=<span style="color: #2544bb;">"channel-name ellipsis"</span>).text.strip()
+                    <span style="color: #5317ac; font-weight: bold;">except</span>:
+                        <span style="color: #5317ac; font-weight: bold;">pass</span>
+                    <span style="color: #5317ac; font-weight: bold;">try</span>:
+                        url[<span style="color: #00538b;">item</span>]=soup.findAll(<span style="color: #2544bb;">"div"</span>,class_=<span style="color: #2544bb;">"result-item-wrap"</span>)[item].find(<span style="color: #2544bb;">"a"</span>,class_=<span style="color: #2544bb;">"channel-name ellipsis"</span>)[<span style="color: #2544bb;">"href"</span>].replace(<span style="color: #2544bb;">"/youtube"</span>,<span style="color: #2544bb;">"https://www.youtube.com"</span>)
+                    <span style="color: #5317ac; font-weight: bold;">except</span>:
+                        <span style="color: #5317ac; font-weight: bold;">pass</span>
+                    <span style="color: #5317ac; font-weight: bold;">try</span>:
+                        keywords[<span style="color: #00538b;">item</span>]=soup.findAll(<span style="color: #2544bb;">"div"</span>,class_=<span style="color: #2544bb;">"result-item-wrap"</span>)[item].find(<span style="color: #2544bb;">"div"</span>,class_=<span style="color: #2544bb;">"tag-container"</span>).text.strip()
+                    <span style="color: #5317ac; font-weight: bold;">except</span>:
+                        <span style="color: #5317ac; font-weight: bold;">pass</span>
+                    <span style="color: #5317ac; font-weight: bold;">try</span>:
+                        subs[<span style="color: #00538b;">item</span>]=soup.findAll(<span style="color: #2544bb;">"div"</span>,class_=<span style="color: #2544bb;">"result-item-wrap"</span>)[item].findAll(<span style="color: #2544bb;">"span"</span>,class_=<span style="color: #2544bb;">"base-number"</span>)[0].text
+                    <span style="color: #5317ac; font-weight: bold;">except</span>:
+                        <span style="color: #5317ac; font-weight: bold;">pass</span>    
+                    <span style="color: #5317ac; font-weight: bold;">try</span>:
+                        views[<span style="color: #00538b;">item</span>]=soup.findAll(<span style="color: #2544bb;">"div"</span>,class_=<span style="color: #2544bb;">"result-item-wrap"</span>)[item].findAll(<span style="color: #2544bb;">"span"</span>,class_=<span style="color: #2544bb;">"base-number"</span>)[1].text
+                    <span style="color: #5317ac; font-weight: bold;">except</span>:
+                        <span style="color: #5317ac; font-weight: bold;">pass</span>    
+                    <span style="color: #5317ac; font-weight: bold;">try</span>:
+                        videos[<span style="color: #00538b;">item</span>]=soup.findAll(<span style="color: #2544bb;">"div"</span>,class_=<span style="color: #2544bb;">"result-item-wrap"</span>)[item].findAll(<span style="color: #2544bb;">"span"</span>,class_=<span style="color: #2544bb;">"base-number"</span>)[2].text
+                    <span style="color: #5317ac; font-weight: bold;">except</span>:
+                        <span style="color: #5317ac; font-weight: bold;">pass</span>   
+                    <span style="color: #5317ac; font-weight: bold;">try</span>:
+                        views_to_subs[<span style="color: #00538b;">item</span>]=soup.findAll(<span style="color: #2544bb;">"div"</span>,class_=<span style="color: #2544bb;">"item-data pull-left"</span>)[item].findAll(<span style="color: #2544bb;">"div"</span>,class_=<span style="color: #2544bb;">"data-contain clearfix"</span>)[0].find(<span style="color: #2544bb;">"span"</span>,class_=<span style="color: #2544bb;">"data-number"</span>).text
+                    <span style="color: #5317ac; font-weight: bold;">except</span>:
+                        <span style="color: #5317ac; font-weight: bold;">pass</span>   
+                    <span style="color: #5317ac; font-weight: bold;">try</span>:
+                        engagement_rate[<span style="color: #00538b;">item</span>]=soup.findAll(<span style="color: #2544bb;">"div"</span>,class_=<span style="color: #2544bb;">"item-data pull-left"</span>)[item].findAll(<span style="color: #2544bb;">"div"</span>,class_=<span style="color: #2544bb;">"data-contain clearfix"</span>)[1].find(<span style="color: #2544bb;">"span"</span>,class_=<span style="color: #2544bb;">"data-number"</span>).text
+                    <span style="color: #5317ac; font-weight: bold;">except</span>:
+                        <span style="color: #5317ac; font-weight: bold;">pass</span> 
+                    <span style="color: #5317ac; font-weight: bold;">try</span>:
+                        est_views[<span style="color: #00538b;">item</span>]=soup.findAll(<span style="color: #2544bb;">"div"</span>,class_=<span style="color: #2544bb;">"item-data pull-left"</span>)[item].findAll(<span style="color: #2544bb;">"div"</span>,class_=<span style="color: #2544bb;">"data-contain clearfix"</span>)[2].find(<span style="color: #2544bb;">"span"</span>,class_=<span style="color: #2544bb;">"data-number"</span>).text
+                    <span style="color: #5317ac; font-weight: bold;">except</span>:
+                        <span style="color: #5317ac; font-weight: bold;">pass</span> 
+                    <span style="color: #5317ac; font-weight: bold;">try</span>:
+                        est_sponsorship_price[<span style="color: #00538b;">item</span>]=soup.findAll(<span style="color: #2544bb;">"div"</span>,class_=<span style="color: #2544bb;">"item-data pull-left"</span>)[item].findAll(<span style="color: #2544bb;">"div"</span>,class_=<span style="color: #2544bb;">"data-contain clearfix"</span>)[3].find(<span style="color: #2544bb;">"span"</span>,class_=<span style="color: #2544bb;">"data-number"</span>).text
+                    <span style="color: #5317ac; font-weight: bold;">except</span>:
+                        <span style="color: #5317ac; font-weight: bold;">pass</span> 
+
+                <span style="color: #5317ac; font-weight: bold;">if</span> page==0:
+                    pd.DataFrame(data={<span style="color: #2544bb;">"name"</span>:name,<span style="color: #2544bb;">"url"</span>:url,<span style="color: #2544bb;">"subs"</span>:subs,<span style="color: #2544bb;">"keywords"</span>:keywords,<span style="color: #2544bb;">"views"</span>:views,<span style="color: #2544bb;">"videos"</span>:videos,
+                                       <span style="color: #2544bb;">"views_to_subs"</span>:views_to_subs,<span style="color: #2544bb;">"engagement_rate"</span>:engagement_rate,<span style="color: #2544bb;">"est_views"</span>:est_views,
+                                       <span style="color: #2544bb;">"est_sponsorship_price"</span>:est_sponsorship_price}).to_excel(nox_scrape+<span style="color: #2544bb;">"/"</span>+<span style="color: #8f0075; font-weight: bold;">str</span>(min_sub)+<span style="color: #2544bb;">"-"</span>+<span style="color: #8f0075; font-weight: bold;">str</span>(max_sub)+<span style="color: #2544bb;">".xlsx"</span>,index=<span style="color: #0000c0;">False</span>)
+                <span style="color: #5317ac; font-weight: bold;">else</span>:
+                    df=pd.read_excel(nox_scrape+<span style="color: #2544bb;">"/"</span>+<span style="color: #8f0075; font-weight: bold;">str</span>(min_sub)+<span style="color: #2544bb;">"-"</span>+<span style="color: #8f0075; font-weight: bold;">str</span>(max_sub)+<span style="color: #2544bb;">".xlsx"</span>)
+                    ndf=pd.DataFrame(data={<span style="color: #2544bb;">"name"</span>:name,<span style="color: #2544bb;">"url"</span>:url,<span style="color: #2544bb;">"subs"</span>:subs,<span style="color: #2544bb;">"keywords"</span>:keywords,<span style="color: #2544bb;">"views"</span>:views,<span style="color: #2544bb;">"videos"</span>:videos,
+                                       <span style="color: #2544bb;">"views_to_subs"</span>:views_to_subs,<span style="color: #2544bb;">"engagement_rate"</span>:engagement_rate,<span style="color: #2544bb;">"est_views"</span>:est_views,
+                                       <span style="color: #2544bb;">"est_sponsorship_price"</span>:est_sponsorship_price})
+                    pd.concat([df,ndf]).to_excel(nox_scrape+<span style="color: #2544bb;">"/"</span>+<span style="color: #8f0075; font-weight: bold;">str</span>(min_sub)+<span style="color: #2544bb;">"-"</span>+<span style="color: #8f0075; font-weight: bold;">str</span>(max_sub)+<span style="color: #2544bb;">".xlsx"</span>,index=<span style="color: #0000c0;">False</span>)
+
+                next_page = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.CSS_SELECTOR, <span style="color: #2544bb;">"span[id='page-after']"</span>))).click()
+                time.sleep(np.random.randint(1,2))
+            min_sub=max_sub
+            max_sub=min_sub+steps
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org52a1394" class="outline-2">
+<h2 id="org52a1394"><span class="section-number-2">4.</span> Scraping from YouTube</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+This is the result: <a href="https://drive.google.com/drive/folders/1-KQvO_4BZUDkiXUeJbVq1eWtRWqBnieI?usp=share_link">Link</a><br />
+The goal is to add additional filters to the dataset sraper from NoxInfluencer<br />
+<b>Disclaimer</b>: Google did an update, the library "pytube" doesn't return the last 20 videos of a given channel anymore with this function Channel(adf["url"].iloc[r]).<br />
+</p>
+<ul class="org-ul">
+<li>The manual job that I was trying to automate<br />
+<ul class="org-ul">
+<li><p>
+Number of videos in the channel is bigger than 15<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #00538b;">c</span> = Channel(adf[<span style="color: #2544bb;">"url"</span>].iloc[r])
+<span style="color: #00538b;">number_of_video</span>=<span style="color: #8f0075; font-weight: bold;">len</span>(c.video_urls)
+</pre>
+</div></li>
+<li><p>
+Copy the channel's email if found in description of about page.<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #505050; font-style: italic;"># </span><span style="color: #505050; font-style: italic;">looking in the channel description</span>
+<span style="color: #00538b;">cemail</span>[<span style="color: #00538b;">r</span>]=re.findall(r<span style="color: #2544bb;">"[a-z0-9\.\-+_]+@[a-z0-9\.\-+_]+\.[a-z]+"</span>, c_data[<span style="color: #2544bb;">"metadata"</span>][<span style="color: #2544bb;">"channelMetadataRenderer"</span>][<span style="color: #2544bb;">"description"</span>].lower())
+
+<span style="color: #505050; font-style: italic;"># </span><span style="color: #505050; font-style: italic;">looking in the videos description</span>
+<span style="color: #00538b;">demails</span>[<span style="color: #00538b;">i</span>]= re.findall(r<span style="color: #2544bb;">"[a-z0-9\.\-+_]+@[a-z0-9\.\-+_]+\.[a-z]+"</span>, ytd)
+</pre>
+</div></li>
+<li><p>
+The mean and median of video's length and views to be filtered later on by: three minute or more for video length and 10k or more for video views.<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #505050; font-style: italic;"># </span><span style="color: #505050; font-style: italic;">nv is the number of videos sample, nv=20</span>
+<span style="color: #00538b;">views</span>=[np.nan]*nv
+<span style="color: #00538b;">lenght</span>=[np.nan]*nv
+<span style="color: #5317ac; font-weight: bold;">for</span> i <span style="color: #5317ac; font-weight: bold;">in</span> <span style="color: #8f0075; font-weight: bold;">range</span>(nv):
+    <span style="color: #00538b;">yt</span>=YouTube(c.video_urls[i])
+    <span style="color: #00538b;">views</span>[<span style="color: #00538b;">i</span>]=yt.views
+    <span style="color: #00538b;">lenght</span>[<span style="color: #00538b;">i</span>]=yt.lenght
+
+np.mean(views)
+np.median(views)
+np.mean(lenght)
+np.median(lenght)
+</pre>
+</div></li>
+<li><p>
+Filter out content for kids, music, and animations.<br />
+I made a list of words that only appears in undesirable content. I get the video description and see if any of those words are in there, I do it for every 20 video.<br />
+Depending on how often a channel have that word give an idea on whether the channel if fully dedicated to this undesirable content.<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #00538b;">not_worth_keywords_in_discription_keyword</span>=[<span style="color: #2544bb;">"short film"</span>,<span style="color: #2544bb;">"hip hop"</span>,<span style="color: #2544bb;">" asmr "</span>, <span style="color: #2544bb;">"amv "</span> ,<span style="color: #2544bb;">"fortnite"</span>,<span style="color: #2544bb;">"minecraft"</span>,<span style="color: #2544bb;">"roblox"</span>,<span style="color: #2544bb;">" animated "</span>]
+<span style="color: #00538b;">channel_woth_it</span>=[<span style="color: #0000c0;">True</span>]*nv
+<span style="color: #00538b;">discription_word_alert</span>=[]
+<span style="color: #5317ac; font-weight: bold;">for</span> i <span style="color: #5317ac; font-weight: bold;">in</span> <span style="color: #8f0075; font-weight: bold;">range</span>(nv):
+    <span style="color: #00538b;">yt</span>=YouTube(c.video_urls[i])
+    <span style="color: #5317ac; font-weight: bold;">for</span> w <span style="color: #5317ac; font-weight: bold;">in</span> <span style="color: #00538b;">not_worth_keywords_in_discription_keyword</span>:
+        <span style="color: #5317ac; font-weight: bold;">if</span> w <span style="color: #5317ac; font-weight: bold;">in</span> yt.description.lower():
+            channel_woth_it[<span style="color: #00538b;">s</span>]=<span style="color: #0000c0;">False</span>
+            discription_word_alert.append(w)
+</pre>
+</div></li>
+<li><p>
+Content have narration.<br />
+Now, this is something that I was proud to figure it out.<br />
+How could someone tell if a video have a narration or not, I was thinking of downloading the audio of the YouTube videos and analyzing it, but YouTube have a quota limit of 100.<br />
+It tokes me a while to figure out a way.<br />
+What I did is that I checked, with the help of "pytube" library, for each video auto generated subtitles.<br />
+If the video doesn't have it, well, the video is most likely music.<br />
+Event if it did have subtitles, how long are they in comparison to the whole video length, since there are channels that talk in the first 20 second and just play footage.<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #00538b;">len_sub</span>=[np.nan]*nv
+<span style="color: #00538b;">sub_exist</span>=[<span style="color: #0000c0;">False</span>]*nv
+<span style="color: #00538b;">narrative_scores</span>=[np.nan]*nv
+<span style="color: #5317ac; font-weight: bold;">for</span> i <span style="color: #5317ac; font-weight: bold;">in</span> <span style="color: #8f0075; font-weight: bold;">range</span>(nv):
+    <span style="color: #00538b;">yt</span>=YouTube(c.video_urls[i])
+    <span style="color: #5317ac; font-weight: bold;">try</span>:
+        len_sub[<span style="color: #00538b;">i</span>]=<span style="color: #8f0075; font-weight: bold;">len</span>(yt.captions[<span style="color: #2544bb;">"a.en"</span>].xml_captions)
+        <span style="color: #00538b;">sub_exist</span>[<span style="color: #00538b;">i</span>]=<span style="color: #0000c0;">True</span>
+        <span style="color: #00538b;">narrative_scores</span>[<span style="color: #00538b;">i</span>]=len_sub[i]/lenght[i]
+    <span style="color: #5317ac; font-weight: bold;">except</span>:
+        <span style="color: #5317ac; font-weight: bold;">pass</span>
+</pre>
+</div></li>
+</ul></li>
+</ul>
+<p>
+Below is the full code<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #00538b;">current_files_in_scrape</span>=glob.glob(nox_scrape+<span style="color: #2544bb;">"/*.xlsx"</span>)
+<span style="color: #00538b;">current_files_in_scrape</span>=<span style="color: #8f0075; font-weight: bold;">sorted</span>(current_files_in_scrape,key=<span style="color: #5317ac; font-weight: bold;">lambda</span> x:<span style="color: #8f0075; font-weight: bold;">int</span>(x.split(<span style="color: #2544bb;">"/"</span>)[-1].split(<span style="color: #2544bb;">'-'</span>)[0]))
+not_worth_keywords_in_discription_keyword=[<span style="color: #2544bb;">"short film"</span>,<span style="color: #2544bb;">"hip hop"</span>,<span style="color: #2544bb;">" asmr "</span>, <span style="color: #2544bb;">"amv "</span> ,<span style="color: #2544bb;">"fortnite"</span>,<span style="color: #2544bb;">"minecraft"</span>,<span style="color: #2544bb;">"roblox"</span>,<span style="color: #2544bb;">" animated "</span>]
+<span style="color: #5317ac; font-weight: bold;">for</span> excel <span style="color: #5317ac; font-weight: bold;">in</span> tqdm_notebook(current_files_in_scrape):
+    <span style="color: #5317ac; font-weight: bold;">if</span> os.path.exists(excel.replace(nox_scrape,yt_scrape)):
+        <span style="color: #5317ac; font-weight: bold;">pass</span>
+    <span style="color: #5317ac; font-weight: bold;">else</span>:
+        adf=pd.read_excel(excel)
+        cemail=[np.nan]*<span style="color: #8f0075; font-weight: bold;">len</span>(adf)
+        keywords=[np.nan]*<span style="color: #8f0075; font-weight: bold;">len</span>(adf)
+
+        aviews=[np.nan]*<span style="color: #8f0075; font-weight: bold;">len</span>(adf)
+        alenght=[np.nan]*<span style="color: #8f0075; font-weight: bold;">len</span>(adf)
+        adescription=[np.nan]*<span style="color: #8f0075; font-weight: bold;">len</span>(adf)
+        akeywords=[np.nan]*<span style="color: #8f0075; font-weight: bold;">len</span>(adf)
+        ademails=[np.nan]*<span style="color: #8f0075; font-weight: bold;">len</span>(adf)
+        alen_sub=[np.nan]*<span style="color: #8f0075; font-weight: bold;">len</span>(adf)
+        <span style="color: #5317ac; font-weight: bold;">for</span> r <span style="color: #5317ac; font-weight: bold;">in</span> <span style="color: #8f0075; font-weight: bold;">range</span>(<span style="color: #8f0075; font-weight: bold;">len</span>(adf)):
+
+            <span style="color: #505050; font-style: italic;">#</span><span style="color: #505050; font-style: italic;">dfcid=adf["url"].iloc[chi].split("/")[-1]</span>
+            c = Channel(adf[<span style="color: #2544bb;">"url"</span>].iloc[r])
+            number_of_video=<span style="color: #8f0075; font-weight: bold;">len</span>(c.video_urls)
+            <span style="color: #5317ac; font-weight: bold;">if</span> number_of_video &lt;=20:
+                nv=number_of_video
+            <span style="color: #5317ac; font-weight: bold;">else</span>:
+                nv=20
+            <span style="color: #505050; font-style: italic;">#</span><span style="color: #505050; font-style: italic;">channel arrays</span>
+            <span style="color: #5317ac; font-weight: bold;">if</span> number_of_video==0:
+                <span style="color: #5317ac; font-weight: bold;">pass</span>
+            <span style="color: #5317ac; font-weight: bold;">else</span>:
+                c_data=c.initial_data
+                <span style="color: #5317ac; font-weight: bold;">try</span>:
+                    cemail[<span style="color: #00538b;">r</span>]=re.findall(r<span style="color: #2544bb;">"[a-z0-9\.\-+_]+@[a-z0-9\.\-+_]+\.[a-z]+"</span>, c_data[<span style="color: #2544bb;">"metadata"</span>][<span style="color: #2544bb;">"channelMetadataRenderer"</span>][<span style="color: #2544bb;">"description"</span>].lower())
+                <span style="color: #5317ac; font-weight: bold;">except</span>:
+                    <span style="color: #5317ac; font-weight: bold;">pass</span>
+                <span style="color: #505050; font-style: italic;">#</span><span style="color: #505050; font-style: italic;">video arrays</span>
+                views=[np.nan]*nv
+                lenght=[np.nan]*nv
+                channel_woth_it=[<span style="color: #0000c0;">True</span>]*nv
+                discription_word_alert=[]
+                demails=[np.nan]*nv
+                len_sub=[np.nan]*nv
+                sub_exist=[<span style="color: #0000c0;">False</span>]*nv
+                narrative_scores=[np.nan]*nv
+                s=0
+                <span style="color: #5317ac; font-weight: bold;">for</span> i <span style="color: #5317ac; font-weight: bold;">in</span> <span style="color: #8f0075; font-weight: bold;">range</span>(nv):
+                    <span style="color: #505050; font-style: italic;">#</span><span style="color: #505050; font-style: italic;">time.sleep(np.random.randint(1,3))              </span>
+                    <span style="color: #505050; font-style: italic;">#</span><span style="color: #505050; font-style: italic;">youtube</span>
+                    yt=YouTube(c.video_urls[i])
+                    <span style="color: #505050; font-style: italic;"># </span><span style="color: #505050; font-style: italic;">yti=yt.initial_data</span>
+                    views[<span style="color: #00538b;">i</span>]=yt.views
+                    lenght[<span style="color: #00538b;">i</span>]=<span style="color: #8f0075; font-weight: bold;">round</span>(yt.length/60,2)
+                    <span style="color: #5317ac; font-weight: bold;">for</span> w <span style="color: #5317ac; font-weight: bold;">in</span> not_worth_keywords_in_discription_keyword:
+                        <span style="color: #5317ac; font-weight: bold;">if</span> w <span style="color: #5317ac; font-weight: bold;">in</span> yt.description.lower():
+                            channel_woth_it[<span style="color: #00538b;">s</span>]=<span style="color: #0000c0;">False</span>
+                            discription_word_alert.append(w)
+                    s+=1
+                    demails[<span style="color: #00538b;">i</span>]= re.findall(r<span style="color: #2544bb;">"[a-z0-9\.\-+_]+@[a-z0-9\.\-+_]+\.[a-z]+"</span>, yt.description.lower())
+                    <span style="color: #5317ac; font-weight: bold;">try</span>:
+                        len_sub[<span style="color: #00538b;">i</span>]=<span style="color: #8f0075; font-weight: bold;">len</span>(yt.captions[<span style="color: #2544bb;">"a.en"</span>].xml_captions)
+                        sub_exist[<span style="color: #00538b;">i</span>]=<span style="color: #0000c0;">True</span>
+                        narrative_scores[<span style="color: #00538b;">i</span>]=len_sub[i]/lenght[i]
+                    <span style="color: #5317ac; font-weight: bold;">except</span>:
+                        <span style="color: #5317ac; font-weight: bold;">pass</span>
+        adf[<span style="color: #2544bb;">"email"</span>]=cemail
+        adf[<span style="color: #2544bb;">"demail"</span>]=demails
+        adf[<span style="color: #2544bb;">"mean_views"</span>]=np.mean(views)
+        adf[<span style="color: #2544bb;">"median_views"</span>]=np.median(views)
+        adf[<span style="color: #2544bb;">"mean_lenght"</span>]=np.mean(lenght)
+        adf[<span style="color: #2544bb;">"median_lenght"</span>]=np.median(lenght)
+        adf[<span style="color: #2544bb;">"worth_prob"</span>]=np.mean(channel_woth_it)
+        adf[<span style="color: #2544bb;">"discription_word_alert"</span>]=discription_word_alert
+        adf[<span style="color: #2544bb;">"narrative_prob"</span>]=np.mean(sub_exist)
+        adf[<span style="color: #2544bb;">"narative_score"</span>]=np.mean(narrative_scores)
+
+
+        adf.to_excel(excel.replace(nox_scrape,yt_scrape),index=<span style="color: #0000c0;">False</span>)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org21a13cb" class="outline-2">
+<h2 id="org21a13cb"><span class="section-number-2">5.</span> Cleaning the data</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+This is the result: <a href="https://drive.google.com/drive/folders/1-CPoKUJ_YtwDHa1WixN7eBGaVvbHHrAb?usp=share_link">Link</a><br />
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #505050; font-style: italic;"># </span><span style="color: #505050; font-style: italic;">db=pd.read_excel("db.xlsx")</span>
+<span style="color: #00538b;">z</span>=0
+<span style="color: #5317ac; font-weight: bold;">for</span> excel <span style="color: #5317ac; font-weight: bold;">in</span> tqdm(glob.glob(yt_scrape+<span style="color: #2544bb;">"/*.xlsx"</span>)):
+    <span style="color: #00538b;">df</span>=pd.read_excel(excel)
+    <span style="color: #00538b;">df</span>=df.dropna(subset=<span style="color: #2544bb;">'mean_views'</span>).reset_index(drop=<span style="color: #0000c0;">True</span>)
+    subs=[]
+    <span style="color: #5317ac; font-weight: bold;">for</span> i <span style="color: #5317ac; font-weight: bold;">in</span> <span style="color: #8f0075; font-weight: bold;">range</span>(<span style="color: #8f0075; font-weight: bold;">len</span>(df)):
+        <span style="color: #5317ac; font-weight: bold;">if</span> <span style="color: #2544bb;">"K"</span> <span style="color: #5317ac; font-weight: bold;">in</span> df[<span style="color: #2544bb;">"subs"</span>].iloc[i]:
+            subs.append(<span style="color: #8f0075; font-weight: bold;">int</span>(<span style="color: #8f0075; font-weight: bold;">float</span>(df[<span style="color: #2544bb;">"subs"</span>].iloc[i].replace(<span style="color: #2544bb;">"K"</span>,<span style="color: #2544bb;">""</span>))*1000))
+        <span style="color: #5317ac; font-weight: bold;">elif</span> <span style="color: #2544bb;">"M"</span> <span style="color: #5317ac; font-weight: bold;">in</span> df[<span style="color: #2544bb;">"subs"</span>].iloc[i]:
+            subs.append(<span style="color: #8f0075; font-weight: bold;">int</span>(<span style="color: #8f0075; font-weight: bold;">float</span>(df[<span style="color: #2544bb;">"subs"</span>].iloc[i].replace(<span style="color: #2544bb;">"M"</span>,<span style="color: #2544bb;">""</span>))*1000*1000))
+        <span style="color: #5317ac; font-weight: bold;">elif</span> <span style="color: #2544bb;">"B"</span> <span style="color: #5317ac; font-weight: bold;">in</span> df[<span style="color: #2544bb;">"subs"</span>].iloc[i]:
+            subs.append(<span style="color: #8f0075; font-weight: bold;">int</span>(<span style="color: #8f0075; font-weight: bold;">float</span>(df[<span style="color: #2544bb;">"subs"</span>].iloc[i].replace(<span style="color: #2544bb;">"B"</span>,<span style="color: #2544bb;">""</span>))*1000*1000*1000))
+        <span style="color: #5317ac; font-weight: bold;">elif</span> <span style="color: #2544bb;">'--'</span> <span style="color: #5317ac; font-weight: bold;">in</span> df[<span style="color: #2544bb;">"subs"</span>].iloc[i]:
+            subs.append(<span style="color: #8f0075; font-weight: bold;">int</span>(excel.split(<span style="color: #2544bb;">"-"</span>)[-1].split(<span style="color: #2544bb;">"."</span>)[0]))
+        <span style="color: #505050; font-style: italic;">#</span><span style="color: #505050; font-style: italic;">elif '' in df["subs"].iloc[i]:</span>
+            <span style="color: #505050; font-style: italic;">#</span><span style="color: #505050; font-style: italic;">subs.append(np.nan)</span>
+        <span style="color: #5317ac; font-weight: bold;">else</span>:
+            subs.append(<span style="color: #8f0075; font-weight: bold;">int</span>(<span style="color: #8f0075; font-weight: bold;">float</span>(df[<span style="color: #2544bb;">"subs"</span>].iloc[i])))
+    df[<span style="color: #2544bb;">"subs"</span>]=subs
+
+    views=[]
+    <span style="color: #5317ac; font-weight: bold;">for</span> i <span style="color: #5317ac; font-weight: bold;">in</span> <span style="color: #8f0075; font-weight: bold;">range</span>(<span style="color: #8f0075; font-weight: bold;">len</span>(df)):
+        <span style="color: #5317ac; font-weight: bold;">if</span> <span style="color: #2544bb;">"K"</span> <span style="color: #5317ac; font-weight: bold;">in</span> df[<span style="color: #2544bb;">"views"</span>].iloc[i]:
+            views.append(<span style="color: #8f0075; font-weight: bold;">int</span>(<span style="color: #8f0075; font-weight: bold;">float</span>(df[<span style="color: #2544bb;">"views"</span>].iloc[i].replace(<span style="color: #2544bb;">"K"</span>,<span style="color: #2544bb;">""</span>))*1000))
+        <span style="color: #5317ac; font-weight: bold;">elif</span> <span style="color: #2544bb;">"M"</span> <span style="color: #5317ac; font-weight: bold;">in</span> df[<span style="color: #2544bb;">"views"</span>].iloc[i]:
+            views.append(<span style="color: #8f0075; font-weight: bold;">int</span>(<span style="color: #8f0075; font-weight: bold;">float</span>(df[<span style="color: #2544bb;">"views"</span>].iloc[i].replace(<span style="color: #2544bb;">"M"</span>,<span style="color: #2544bb;">""</span>))*1000*1000))
+        <span style="color: #5317ac; font-weight: bold;">elif</span> <span style="color: #2544bb;">"B"</span> <span style="color: #5317ac; font-weight: bold;">in</span> df[<span style="color: #2544bb;">"views"</span>].iloc[i]:
+            views.append(<span style="color: #8f0075; font-weight: bold;">int</span>(<span style="color: #8f0075; font-weight: bold;">float</span>(df[<span style="color: #2544bb;">"views"</span>].iloc[i].replace(<span style="color: #2544bb;">"B"</span>,<span style="color: #2544bb;">""</span>))*1000*1000*1000))
+        <span style="color: #5317ac; font-weight: bold;">elif</span> <span style="color: #2544bb;">'--'</span> <span style="color: #5317ac; font-weight: bold;">in</span> df[<span style="color: #2544bb;">"views"</span>].iloc[i]:
+            views.append(np.nan)
+        <span style="color: #5317ac; font-weight: bold;">elif</span> <span style="color: #2544bb;">''</span> <span style="color: #5317ac; font-weight: bold;">in</span> df[<span style="color: #2544bb;">"views"</span>].iloc[i]:
+            views.append(np.nan)
+        <span style="color: #5317ac; font-weight: bold;">else</span>:
+            views.append(<span style="color: #8f0075; font-weight: bold;">int</span>(<span style="color: #8f0075; font-weight: bold;">float</span>(df[<span style="color: #2544bb;">"views"</span>].iloc[i])))
+    df[<span style="color: #2544bb;">"views"</span>]=views
+
+    views_to_subs=[]
+    <span style="color: #5317ac; font-weight: bold;">for</span> i <span style="color: #5317ac; font-weight: bold;">in</span> <span style="color: #8f0075; font-weight: bold;">range</span>(<span style="color: #8f0075; font-weight: bold;">len</span>(df[<span style="color: #2544bb;">"views_to_subs"</span>])):
+        <span style="color: #5317ac; font-weight: bold;">if</span> <span style="color: #8f0075; font-weight: bold;">type</span>(df[<span style="color: #2544bb;">"views_to_subs"</span>].iloc[i])==<span style="color: #8f0075; font-weight: bold;">float</span>:
+            views_to_subs.append(np.nan)
+        <span style="color: #5317ac; font-weight: bold;">else</span>:
+            views_to_subs.append(<span style="color: #8f0075; font-weight: bold;">round</span>(<span style="color: #8f0075; font-weight: bold;">float</span>(df[<span style="color: #2544bb;">"views_to_subs"</span>].iloc[i].replace(<span style="color: #2544bb;">"%"</span>,<span style="color: #2544bb;">""</span>))/100,2))
+    df[<span style="color: #2544bb;">"views_to_subs"</span>]=views_to_subs
+
+    engagement_rate=[]
+    <span style="color: #5317ac; font-weight: bold;">for</span> i <span style="color: #5317ac; font-weight: bold;">in</span> <span style="color: #8f0075; font-weight: bold;">range</span>(<span style="color: #8f0075; font-weight: bold;">len</span>(df[<span style="color: #2544bb;">"engagement_rate"</span>])):
+        <span style="color: #5317ac; font-weight: bold;">if</span> <span style="color: #8f0075; font-weight: bold;">type</span>(df[<span style="color: #2544bb;">"engagement_rate"</span>].iloc[i])==<span style="color: #8f0075; font-weight: bold;">float</span>:
+            engagement_rate.append(np.nan)
+        <span style="color: #5317ac; font-weight: bold;">else</span>:
+            engagement_rate.append(<span style="color: #8f0075; font-weight: bold;">round</span>(<span style="color: #8f0075; font-weight: bold;">float</span>(df[<span style="color: #2544bb;">"engagement_rate"</span>].iloc[i].replace(<span style="color: #2544bb;">"%"</span>,<span style="color: #2544bb;">""</span>))/100,2))
+    df[<span style="color: #2544bb;">"engagement_rate"</span>]=engagement_rate
+
+    est_views=[]
+    <span style="color: #5317ac; font-weight: bold;">for</span> i <span style="color: #5317ac; font-weight: bold;">in</span> <span style="color: #8f0075; font-weight: bold;">range</span>(<span style="color: #8f0075; font-weight: bold;">len</span>(df)):
+        <span style="color: #5317ac; font-weight: bold;">if</span> <span style="color: #2544bb;">"K"</span> <span style="color: #5317ac; font-weight: bold;">in</span> df[<span style="color: #2544bb;">"est_views"</span>].iloc[i]:
+            est_views.append(<span style="color: #8f0075; font-weight: bold;">int</span>(<span style="color: #8f0075; font-weight: bold;">float</span>(df[<span style="color: #2544bb;">"est_views"</span>].iloc[i].replace(<span style="color: #2544bb;">"K"</span>,<span style="color: #2544bb;">""</span>))*1000))
+        <span style="color: #5317ac; font-weight: bold;">elif</span> <span style="color: #2544bb;">"M"</span> <span style="color: #5317ac; font-weight: bold;">in</span> df[<span style="color: #2544bb;">"est_views"</span>].iloc[i]:
+            est_views.append(<span style="color: #8f0075; font-weight: bold;">int</span>(<span style="color: #8f0075; font-weight: bold;">float</span>(df[<span style="color: #2544bb;">"est_views"</span>].iloc[i].replace(<span style="color: #2544bb;">"M"</span>,<span style="color: #2544bb;">""</span>))*1000*1000))
+        <span style="color: #5317ac; font-weight: bold;">elif</span> <span style="color: #2544bb;">"B"</span> <span style="color: #5317ac; font-weight: bold;">in</span> df[<span style="color: #2544bb;">"est_views"</span>].iloc[i]:
+            est_views.append(<span style="color: #8f0075; font-weight: bold;">int</span>(<span style="color: #8f0075; font-weight: bold;">float</span>(df[<span style="color: #2544bb;">"est_views"</span>].iloc[i].replace(<span style="color: #2544bb;">"B"</span>,<span style="color: #2544bb;">""</span>))*1000*1000*1000))
+        <span style="color: #5317ac; font-weight: bold;">elif</span> <span style="color: #2544bb;">'--'</span> <span style="color: #5317ac; font-weight: bold;">in</span> df[<span style="color: #2544bb;">"est_views"</span>].iloc[i]:
+            est_views.append(np.nan)
+        <span style="color: #505050; font-style: italic;">#</span><span style="color: #505050; font-style: italic;">elif '' in df["est_views"].iloc[i]:</span>
+            <span style="color: #505050; font-style: italic;">#</span><span style="color: #505050; font-style: italic;">est_views.append(np.nan)</span>
+        <span style="color: #5317ac; font-weight: bold;">else</span>:
+            est_views.append(<span style="color: #8f0075; font-weight: bold;">int</span>(<span style="color: #8f0075; font-weight: bold;">float</span>(df[<span style="color: #2544bb;">"est_views"</span>].iloc[i])))
+    df[<span style="color: #2544bb;">"est_views"</span>]=est_views
+
+    df[<span style="color: #2544bb;">'est_sponsorship_price'</span>]=df[<span style="color: #2544bb;">'est_sponsorship_price'</span>].<span style="color: #8f0075; font-weight: bold;">apply</span>(<span style="color: #5317ac; font-weight: bold;">lambda</span> x:x.replace(<span style="color: #2544bb;">'$ '</span>,<span style="color: #2544bb;">''</span>))
+    est_sponsorship_price=[]
+    <span style="color: #5317ac; font-weight: bold;">for</span> i <span style="color: #5317ac; font-weight: bold;">in</span> <span style="color: #8f0075; font-weight: bold;">range</span>(<span style="color: #8f0075; font-weight: bold;">len</span>(df)):
+        <span style="color: #5317ac; font-weight: bold;">if</span> <span style="color: #2544bb;">"K"</span> <span style="color: #5317ac; font-weight: bold;">in</span> df[<span style="color: #2544bb;">"est_sponsorship_price"</span>].iloc[i]:
+            est_sponsorship_price.append(<span style="color: #8f0075; font-weight: bold;">int</span>(<span style="color: #8f0075; font-weight: bold;">float</span>(df[<span style="color: #2544bb;">"est_sponsorship_price"</span>].iloc[i].replace(<span style="color: #2544bb;">"K"</span>,<span style="color: #2544bb;">""</span>))*1000))
+        <span style="color: #5317ac; font-weight: bold;">elif</span> <span style="color: #2544bb;">"M"</span> <span style="color: #5317ac; font-weight: bold;">in</span> df[<span style="color: #2544bb;">"est_sponsorship_price"</span>].iloc[i]:
+            est_sponsorship_price.append(<span style="color: #8f0075; font-weight: bold;">int</span>(<span style="color: #8f0075; font-weight: bold;">float</span>(df[<span style="color: #2544bb;">"est_sponsorship_price"</span>].iloc[i].replace(<span style="color: #2544bb;">"M"</span>,<span style="color: #2544bb;">""</span>))*1000*1000))
+        <span style="color: #5317ac; font-weight: bold;">elif</span> <span style="color: #2544bb;">"B"</span> <span style="color: #5317ac; font-weight: bold;">in</span> df[<span style="color: #2544bb;">"est_sponsorship_price"</span>].iloc[i]:
+            est_sponsorship_price.append(<span style="color: #8f0075; font-weight: bold;">int</span>(<span style="color: #8f0075; font-weight: bold;">float</span>(df[<span style="color: #2544bb;">"est_sponsorship_price"</span>].iloc[i].replace(<span style="color: #2544bb;">"B"</span>,<span style="color: #2544bb;">""</span>))*1000*1000*1000))
+        <span style="color: #5317ac; font-weight: bold;">elif</span> <span style="color: #2544bb;">'-'</span> <span style="color: #5317ac; font-weight: bold;">in</span> df[<span style="color: #2544bb;">"est_sponsorship_price"</span>].iloc[i]:
+            est_sponsorship_price.append(np.nan)
+        <span style="color: #505050; font-style: italic;">#</span><span style="color: #505050; font-style: italic;">elif '' in df["est_sponsorship_price"].iloc[i]:</span>
+            <span style="color: #505050; font-style: italic;">#</span><span style="color: #505050; font-style: italic;">est_sponsorship_price.append(np.nan)</span>
+        <span style="color: #5317ac; font-weight: bold;">else</span>:
+            est_sponsorship_price.append(<span style="color: #8f0075; font-weight: bold;">int</span>(<span style="color: #8f0075; font-weight: bold;">float</span>(df[<span style="color: #2544bb;">"est_sponsorship_price"</span>].iloc[i])))
+    df[<span style="color: #2544bb;">"est_sponsorship_price"</span>]=est_sponsorship_price
+    nemail=np.array(df[<span style="color: #2544bb;">"email"</span>])
+    <span style="color: #5317ac; font-weight: bold;">for</span> i <span style="color: #5317ac; font-weight: bold;">in</span> <span style="color: #8f0075; font-weight: bold;">range</span>(<span style="color: #8f0075; font-weight: bold;">len</span>(df)):
+        <span style="color: #5317ac; font-weight: bold;">if</span> pd.isna(df[<span style="color: #2544bb;">"email"</span>].iloc[i]) == <span style="color: #0000c0;">True</span> <span style="color: #5317ac; font-weight: bold;">and</span> pd.isna(df[<span style="color: #2544bb;">"demail"</span>].iloc[i]) == <span style="color: #0000c0;">False</span>:
+            nemail[<span style="color: #00538b;">i</span>]= df[<span style="color: #2544bb;">"demail"</span>].iloc[i].split(<span style="color: #2544bb;">","</span>)[0]
+    df[<span style="color: #2544bb;">"email"</span>]=nemail
+
+    log_views=np.log(df[<span style="color: #2544bb;">"median_views"</span>])
+    log_videos=np.log(df[<span style="color: #2544bb;">"videos"</span>])
+    log_lenght=np.log(df[<span style="color: #2544bb;">"median_lenght"</span>])
+    log_narative_score=np.log(df[<span style="color: #2544bb;">"narative_score"</span>])
+    log_subs=np.log(df[<span style="color: #2544bb;">"subs"</span>])    
+    df[<span style="color: #2544bb;">"score"</span>]=<span style="color: #8f0075; font-weight: bold;">round</span>(((log_views*log_videos*log_lenght*log_narative_score)/(log_subs))*df[<span style="color: #2544bb;">"worth_prob"</span>]*df[<span style="color: #2544bb;">"narative_prob"</span>],2)
+    df=df.sort_values(by=<span style="color: #2544bb;">"score"</span>,ascending=<span style="color: #0000c0;">False</span>).reset_index(drop=<span style="color: #0000c0;">True</span>)
+
+<span style="color: #505050; font-style: italic;">#     </span><span style="color: #505050; font-style: italic;">is_new=[True]*len(df)</span>
+<span style="color: #505050; font-style: italic;">#     </span><span style="color: #505050; font-style: italic;">for i in range(len(df)):</span>
+<span style="color: #505050; font-style: italic;">#         </span><span style="color: #505050; font-style: italic;">df_name=df["name"].iloc[i]</span>
+<span style="color: #505050; font-style: italic;">#         </span><span style="color: #505050; font-style: italic;">for n in range(len(db)):</span>
+<span style="color: #505050; font-style: italic;">#             </span><span style="color: #505050; font-style: italic;">if df_name==db["name"].iloc[n]:</span>
+<span style="color: #505050; font-style: italic;">#                 </span><span style="color: #505050; font-style: italic;">is_new[i]=False</span>
+<span style="color: #505050; font-style: italic;">#     </span><span style="color: #505050; font-style: italic;">df=df[is_new].reset_index(drop=True)</span>
+    df.to_excel(excel.replace(yt_scrape,yt_scrape_process),index=<span style="color: #0000c0;">False</span>)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org5d9c903" class="outline-2">
+<h2 id="org5d9c903"><span class="section-number-2">6.</span> Combining the data</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+This is the result: <a href="https://drive.google.com/drive/folders/1-AOB_LgcKwXpTA5IqGIzYd0XxYlmlYIe?usp=share_link">Link</a><br />
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #00538b;">i</span>=0
+<span style="color: #5317ac; font-weight: bold;">for</span> excel <span style="color: #5317ac; font-weight: bold;">in</span> tqdm(glob.glob(yt_scrape_process+<span style="color: #2544bb;">"/*.xlsx"</span>)):
+    <span style="color: #5317ac; font-weight: bold;">if</span> i ==0:
+        df=pd.read_excel(excel)
+        i+=1
+    <span style="color: #5317ac; font-weight: bold;">else</span>:
+        df=pd.concat([df,pd.read_excel(excel)])
+df=df[df[<span style="color: #2544bb;">"score"</span>]!=np.inf]
+df=df.sort_values(by=<span style="color: #2544bb;">"score"</span>,ascending=<span style="color: #0000c0;">False</span>).reset_index(drop=<span style="color: #0000c0;">True</span>)
+df=df.drop_duplicates(subset =<span style="color: #2544bb;">"url"</span>,keep = <span style="color: #2544bb;">"first"</span>).reset_index(drop=<span style="color: #0000c0;">True</span>)
+df.to_excel(work+<span style="color: #2544bb;">"/10000-100000.xlsx"</span>,index=<span style="color: #0000c0;">False</span>)
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: 2023-03-08 Wed 20:54</p>
+<p class="date">Created: 2023-03-15 Wed 15:57</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-03-03 Fri 20:17 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Summary of marketing analytics</title>
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/js/readtheorg.js"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Summary of marketing analytics</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orge6a75b3">1. Platforms to use</a>
+<ul>
+<li><a href="#org7d0eca2">1.1. CRM (Customer relationship management)</a></li>
+<li><a href="#orgb2d6c9e">1.2. Tag Manager Platform</a></li>
+<li><a href="#orgbbd5995">1.3. Ads Manager</a></li>
+<li><a href="#orgdaa8287">1.4. Event manager</a></li>
+<li><a href="#org10495eb">1.5. Conversion API</a></li>
+<li><a href="#org0cca4ee">1.6. Web analytics</a></li>
+</ul>
+</li>
+<li><a href="#org3bb52fc">2. Campaigns</a>
+<ul>
+<li><a href="#org0bd62cc">2.1. Purpose of ad campaigns:</a></li>
+<li><a href="#org69f5640">2.2. Purchase cycle</a></li>
+</ul>
+</li>
+<li><a href="#org6a3fcaf">3. Tracking</a>
+<ul>
+<li><a href="#org2643128">3.1. Why do we track</a></li>
+<li><a href="#org546c01d">3.2. How do we track</a></li>
+<li><a href="#org9c26570">3.3. How do we evaluate performance</a></li>
+<li><a href="#orgf970018">3.4. What action we take after calculating a metrics</a></li>
+<li><a href="#orgeba19ab">3.5. What actions we take after calculating a metrics</a></li>
+<li><a href="#org7d8194f">3.6. Evaluating within ad platform</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orge6a75b3" class="outline-2">
+<h2 id="orge6a75b3"><span class="section-number-2">1.</span> Platforms to use</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-org7d0eca2" class="outline-3">
+<h3 id="org7d0eca2"><span class="section-number-3">1.1.</span> CRM (Customer relationship management)</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+A great platform that can hold data for your customers for a long time, good for long purchase cycles.<br />
+</p>
+</div>
+</div>
+<div id="outline-container-orgb2d6c9e" class="outline-3">
+<h3 id="orgb2d6c9e"><span class="section-number-3">1.2.</span> Tag Manager Platform</h3>
+<div class="outline-text-3" id="text-1-2">
+<ul class="org-ul">
+<li>Tag manager platform like Google tag manager<br />
+Each platform that collect data about your client require you to insert a code into your website.<br />
+This data collection allows for campaign performance tracking, but each code added make your website slower.<br />
+The solution is a platform that you only need to insert their code into your website, and insert other platforms codes into it.<br />
+This platform is called a tag manager, a famous example would be Google Tag Manager.<br />
+<ul class="org-ul">
+<li>There are two things to set up in Google Tag Manager.<br />
+<ul class="org-ul">
+<li>A <b>tag</b>, which is the code that you are asked to insert in your website by platforms that track campaign/website performance.<br /></li>
+<li>A <b>trigger</b>, that accompany each <b>tag</b> and tell the tag manager platform what action need to be taken by the client on the website inorder to fire up a <b>tag</b> and send the data to a tracking platform.<br /></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgbbd5995" class="outline-3">
+<h3 id="orgbbd5995"><span class="section-number-3">1.3.</span> Ads Manager</h3>
+<div class="outline-text-3" id="text-1-3">
+<ul class="org-ul">
+<li>Ad manager is a place where you set up ads, it reports a good data about your client actions within Facebook, <b>but not within your business funnel</b>.<br />
+<ul class="org-ul">
+<li><p>
+Example of a reporting on diffirent platform for a funnel that uses facebook ads and email marketing.<br />
+</p>
+<ul class="org-ul">
+<li>Klaviyo (email marketingplatform) report that 756 people register.<br /></li>
+<li>Facebook report that, 1249 people register. Ads were run on Facebook to bring awareness and following that up with an email that set the deal, but Facebook miss allocate clicks.<br /></li>
+</ul>
+<p>
+Not only Facebook takes credit for what email marketing did, but it also overestimates the amount of people who register.<br />
+</p>
+<ul class="org-ul">
+<li>Web analytic report is closer to what is shown in Klaviyo, reporting 789 user.<br /></li>
+</ul>
+
+<div id="orga5811aa" class="figure">
+<p><img src="img/sm_tmtp/Web analytics report.png" alt="Web analytics report.png" /><br />
+</p>
+</div></li>
+</ul></li>
+<li>Best way to track ads is using URL dynamic parameters<br />
+URL dynamic parameters are text that is added to the end of your URL, that dont change the URL direction, where thay can dynamicly change base on an ad parameter.<br />
+<ul class="org-ul">
+<li>Some URL dynamic parameters are:<br />
+<ul class="org-ul">
+<li>ad_id={{ad.id}}<br /></li>
+<li>adset_id={{adset.id}}<br /></li>
+<li>campaign_id={{campaign.id}}<br /></li>
+<li>ad_name={{ad.name}}<br /></li>
+<li>adset_name={{adset.name}}<br /></li>
+<li>campaign_name={{campaign.name}}<br /></li>
+</ul></li>
+<li>URL dynamic parameter can be setup in the ad setup section in your ad manager<br />
+example: utm_source=facebook&amp;utl_meduim=cpc&amp;utm_term={{adset.name}}&amp;utm_content={{ad.name}}&amp;utm_campaign={{campaign.name}}<br />
+<img src="img/sm_tmtp/URL-Parameters-FB-Ads.png" alt="URL-Parameters-FB-Ads.png" /><br /></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgdaa8287" class="outline-3">
+<h3 id="orgdaa8287"><span class="section-number-3">1.4.</span> Event manager</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+An event manager is a place where you decide how and what data it will be gathered using, for example on Facebook, Facebook pixel or Facebook conversion API, to later be used in tracking campaign performance.<br />
+</p>
+<ul class="org-ul">
+<li>What event are we tracking on our website<br />
+<ul class="org-ul">
+<li>Page views<br /></li>
+<li>Optins (people who show an intrest in a product)<br /></li>
+<li>Add to cart<br /></li>
+<li>Sales<br /></li>
+</ul></li>
+<li>Tracking standard events, it is done by sending back to facebook a snnipit of code when an event happend<br />
+<a href="https://www.facebook.com/business/help/402791146561655">https://www.facebook.com/business/help/402791146561655</a><br /></li>
+<li>Tracking custom events, Custom conversion.<br />
+If your business have a unique model, and you want to optimize your campaign for a certain button click or a certain page view.<br />
+We can use a Facebook tool on our website to get the current code block for our custom conversion and add it in our event manager to help facebook optimize the campaigns for your goal.<br />
+<a href="https://www.facebook.com/business/help/777099232674791">https://www.facebook.com/business/help/777099232674791</a><br /></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org10495eb" class="outline-3">
+<h3 id="org10495eb"><span class="section-number-3">1.5.</span> Conversion API</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+It is a way to send the client action or behavior in your website directly back to Facebook, by passing the browsers and persimmon, but it can lead to duplicate tracked events.<br />
+</p>
+</div>
+</div>
+<div id="outline-container-org0cca4ee" class="outline-3">
+<h3 id="org0cca4ee"><span class="section-number-3">1.6.</span> Web analytics</h3>
+<div class="outline-text-3" id="text-1-6">
+<p>
+A web analytic platform record the traffic of your website to be used later on to track a campaign success.<br />
+An example is analyzing URLs that have dynamic parameters, or analyzing unique page views can be used to represent individual actions, which is an alternative measurement if events weren't setup in your event manager.<br />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org3bb52fc" class="outline-2">
+<h2 id="org3bb52fc"><span class="section-number-2">2.</span> Campaigns</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-org0bd62cc" class="outline-3">
+<h3 id="org0bd62cc"><span class="section-number-3">2.1.</span> Purpose of ad campaigns:</h3>
+<div class="outline-text-3" id="text-2-1">
+<ul class="org-ul">
+<li><b>Awareness campaign</b> is for making the people <b>aware</b> of the product/service.<br /></li>
+<li><b>Evaluating campaign</b> is for making pre-aware people <b>evaluate</b> the product/service.<br /></li>
+<li><b>Conversion campaign</b> is for making the people that had evaluated the product/service make an <b>action</b> in your site, whether it is a purchase or an opt-in.<br /></li>
+<li><b>Retention campaign</b> is for making the people who purchased or opted-in <b>engaged</b>.<br /></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org69f5640" class="outline-3">
+<h3 id="org69f5640"><span class="section-number-3">2.2.</span> Purchase cycle</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+The purchase cycle is the period between when someone sees an ad campaign and makes a purchase. The period is short when the product is cheap and long when it is expensive.<br />
+<br />
+When the period is so long, we may not know which ad campaign brought the client because some ad platform only hold data on non buying client for 180 days.  <a href="https://www.facebook.com/business/help/419552341510847">Link to facebook article</a><br />
+Which mean that if someone saw an ad campaign about an expensive product, decided to save money and then buy after more than 180 days, we cannot know what ad campaign brought that person to save up and buy on Facebook.<br />
+</p>
+<ul class="org-ul">
+<li>One solution for long purchase cycle is:<br />
+<ul class="org-ul">
+<li>Using a CRM<br /></li>
+<li>make an ad campaign that encourage people to take a quiz and give their email.<br /></li>
+<li>Keep a database of what ad campaign brought what email.<br /></li>
+<li>If a person decided to buy, he/she will use an email.<br /></li>
+<li>Match the email that a person bought from the emails in your database and determine what campaign that person came from.<br /></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org6a3fcaf" class="outline-2">
+<h2 id="org6a3fcaf"><span class="section-number-2">3.</span> Tracking</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-org2643128" class="outline-3">
+<h3 id="org2643128"><span class="section-number-3">3.1.</span> Why do we track</h3>
+<div class="outline-text-3" id="text-3-1">
+<ul class="org-ul">
+<li>We track ad campaign performance to know:<br />
+<ul class="org-ul">
+<li>What ad campaign, that is currently in the <b>testing phase</b>, performed well, and it is more likely to generate revenue if we <b>scale it</b> (invest more money in promoting it).<br /></li>
+<li>What ad campaign, that is currently in the <b>scaling phase</b>, performed poorly, and we need to stop scaling it.<br /></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org546c01d" class="outline-3">
+<h3 id="org546c01d"><span class="section-number-3">3.2.</span> How do we track</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+We track campaign using unique coupons, phone number to call, and URL for each ad campaign.<br />
+</p>
+<ul class="org-ul">
+<li>Coupons<br /></li>
+<li>Phone numbers<br /></li>
+<li>Dynamic urls<br />
+URL dynamic parameters are text that is added to the end of your URL, that dont change the URL direction, where thay can dynamicly change base on an ad parameter.<br />
+<ul class="org-ul">
+<li>Some URL dynamic parameters are:<br />
+<ul class="org-ul">
+<li>ad_id={{ad.id}}<br /></li>
+<li>adset_id={{adset.id}}<br /></li>
+<li>campaign_id={{campaign.id}}<br /></li>
+<li>ad_name={{ad.name}}<br /></li>
+<li>adset_name={{adset.name}}<br /></li>
+<li>campaign_name={{campaign.name}}<br /></li>
+</ul></li>
+<li>URL dynamic parameter can be setup in the ad setup section in your ad manager<br />
+example: utm_source=facebook&amp;utl_meduim=cpc&amp;utm_term={{adset.name}}&amp;utm_content={{ad.name}}&amp;utm_campaign={{campaign.name}}<br />
+<img src="img/sm_tmtp/URL-Parameters-FB-Ads.png" alt="URL-Parameters-FB-Ads.png" /><br /></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org9c26570" class="outline-3">
+<h3 id="org9c26570"><span class="section-number-3">3.3.</span> How do we evaluate performance</h3>
+<div class="outline-text-3" id="text-3-3">
+<ul class="org-ul">
+<li>we using certain metrics for each campaing type:<br />
+<ul class="org-ul">
+<li>Awareness campaign<br />
+<ul class="org-ul">
+<li>Cost per video view<br />
+\[\frac{\text{Spend}}{\text{3-second video views}}\]<br /></li>
+<li>Cost per messenger signup<br />
+\[\frac{\text{Spend}}{\text{Messenger signups}}\]<br /></li>
+</ul></li>
+<li>Evaluating campaign<br />
+<ul class="org-ul">
+<li>Click through rate (Unique link clicks count when people visit your website as well as your facebook page, in facebook it is better to use Unique outbound clicks)<br />
+\[\frac{\text{Unique link/outbound clicks}}{\text{Impression}}\]<br /></li>
+<li>Cost per click<br />
+\[\frac{\text{Spend}}{\text{Unique link clicks}}\]<br /></li>
+<li>Quality engagment rate/ conversion rate ranking<br /></li>
+<li>Cost per lead<br />
+\[\frac{\text{Spend}}{\text{Leads}}\]<br /></li>
+<li>Lead from conversion rates<br />
+\[\frac{\text{Leads}}{\text{Lead form visitors}}\]<br /></li>
+</ul></li>
+<li>Conversion campaign<br />
+<ul class="org-ul">
+<li>Cost per aqqusition<br />
+\[\frac{\text{Spend}}{\text{Customers created}}\]<br /></li>
+<li>Revenue per visitor<br />
+\[\frac{\text{Revenue}}{\text{Unique link clicks}}\]<br /></li>
+<li>Return on investment<br />
+\[\frac{\text{Revenue - Spend}}{\text{Spend}}\]<br /></li>
+<li>Sales funnnel performance<br />
+\[\frac{\text{Step completers}}{\text{Step visitors}}\]<br /></li>
+</ul></li>
+<li>Retention campaign<br />
+<ul class="org-ul">
+<li>Return on investment (7 days, 30 days)<br />
+\[\frac{\text{Revenue - Spend}}{\text{Spend}}\]<br /></li>
+<li>Lead and customer value over time<br />
+\[\mu_{\text{Revenue by first optin/purchase}}\]  <br /></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgf970018" class="outline-3">
+<h3 id="orgf970018"><span class="section-number-3">3.4.</span> What action we take after calculating a metrics</h3>
+</div>
+<div id="outline-container-orgeba19ab" class="outline-3">
+<h3 id="orgeba19ab"><span class="section-number-3">3.5.</span> What actions we take after calculating a metrics</h3>
+<div class="outline-text-3" id="text-3-5">
+<ul class="org-ul">
+<li>There are metrics that are locked in-platform, we dont have the data to calculate them ourselfs, These metrics are ;CPVV(cost per video view), CPMS(cost per messenger signup), CTR(click throu rate), relevance score.<br />
+<ul class="org-ul">
+<li>When an action is taken: When CPVV, CPMS, or CTR are high or when relevance score is low.<br /></li>
+<li>What action to take: Change the creative<br /></li>
+</ul></li>
+<li>CPL(cost per lead), lead form conversion rated<br />
+<ul class="org-ul">
+<li>When an action is taken: CPL, lead form conversion rated are high<br /></li>
+<li>What action to take: Somethign in the ad dosent align on what the business serve<br /></li>
+</ul></li>
+<li>CPA(cost per accuisition), RPV(revenue per visitor), ROI(return on investment)<br />
+<ul class="org-ul">
+<li>When an action is taken: When CPA is high or RPC or ROI are low.<br /></li>
+<li>What action to take:<br />
+<ul class="org-ul">
+<li>Evaluate the sales funnel:<br />
+<ul class="org-ul">
+<li>Analyzing heatmaps on key pages<br /></li>
+<li>Analyzing conversion rate on each stage of the funnel to find where customers drop off<br /></li>
+</ul></li>
+<li>Evaluate if the offer is good for customers<br /></li>
+<li><b>Disregard low ROI</b>: Lead and customer value over time <b>advanced</b><br />
+<ul class="org-ul">
+<li>disregard ROI if it is neative because you know what a customer is worth over time.<br /></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org7d8194f" class="outline-3">
+<h3 id="org7d8194f"><span class="section-number-3">3.6.</span> Evaluating within ad platform</h3>
+<div class="outline-text-3" id="text-3-6">
+<ul class="org-ul">
+<li>Why cant we relly on just ad platform to see the ad performance, <b>Nope</b>.<br />
+Post IOS14, we can only track, with accuracy, the activity of people who views our ad within Facebook itself.<br />
+For example, track exactly how many seconds a person watch out ad video.<br />
+Ad platform lost the ability to follow what a client is doing inside our website.<br />
+And besides, Facebook doesn't know your entire marketing funnel, you can do email marketing alongside Facebook ads, and Facebook cannot tell whether the result come only from Facebook ads or email marketing.<br />
+<ul class="org-ul">
+<li>If we run an ad campaign on Facebook, an ad can:<br />
+<ul class="org-ul">
+<li>Bring awareness and help an email marketing campaign to close the deal, in this case the email marketing platform and Facebook will both want to take the credit.<br />
+But the email marketing deserve the credit, but we will also want to consider what exact Facebook ad campaign helped to scale them both.<br /></li>
+<li>Bring awareness and encourage a potential client to do research on Google and then access your website and make a purchase from there, in this case both Facebook and Google will want to take the credit.<br />
+But only Facebook deserve the credit.<br /></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: 2023-03-03 Fri 20:16</p>
+<p class="date">Created: 2023-03-03 Fri 20:17</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
