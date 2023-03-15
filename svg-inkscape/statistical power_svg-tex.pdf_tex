@@ -1,0 +1,103 @@
+%% Creator: Inkscape 1.2.1 (9c6d41e410, 2022-07-14), www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'statistical power_svg-tex.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{385.293bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.96876478)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{statistical power_svg-tex.pdf}}%
+    \put(0.41812335,0.07198612){\color[rgb]{0.57647059,0.58431373,0.59607843}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}-1\end{tabular}}}}%
+    \put(0.49715411,0.07198612){\color[rgb]{0.57647059,0.58431373,0.59607843}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}0\end{tabular}}}}%
+    \put(0.56723065,0.07198612){\color[rgb]{0.57647059,0.58431373,0.59607843}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}1\end{tabular}}}}%
+    \put(0.63730719,0.07198612){\color[rgb]{0.57647059,0.58431373,0.59607843}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}2\end{tabular}}}}%
+    \put(0.70738373,0.07198612){\color[rgb]{0.57647059,0.58431373,0.59607843}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}3\end{tabular}}}}%
+    \put(0.77746027,0.07198612){\color[rgb]{0.57647059,0.58431373,0.59607843}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}4\end{tabular}}}}%
+    \put(0.84753681,0.07198612){\color[rgb]{0.57647059,0.58431373,0.59607843}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}5\end{tabular}}}}%
+    \put(0.91761335,0.07198612){\color[rgb]{0.57647059,0.58431373,0.59607843}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}6\end{tabular}}}}%
+    \put(0.98768989,0.07198612){\color[rgb]{0.57647059,0.58431373,0.59607843}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}7\end{tabular}}}}%
+    \put(0.13781719,0.07198612){\color[rgb]{0.57647059,0.58431373,0.59607843}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}-5\end{tabular}}}}%
+    \put(0.20789373,0.07198612){\color[rgb]{0.57647059,0.58431373,0.59607843}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}-4\end{tabular}}}}%
+    \put(0.27797027,0.07198612){\color[rgb]{0.57647059,0.58431373,0.59607843}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}-3\end{tabular}}}}%
+    \put(-0.00233588,0.07198612){\color[rgb]{0.57647059,0.58431373,0.59607843}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}-7\end{tabular}}}}%
+    \put(0.06774065,0.07198612){\color[rgb]{0.57647059,0.58431373,0.59607843}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}-6\end{tabular}}}}%
+    \put(0.34804681,0.07198612){\color[rgb]{0.57647059,0.58431373,0.59607843}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}-2\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{statistical power_svg-tex.pdf}}%
+    \put(0.38308508,0.35548466){\color[rgb]{0.92941176,0.10980392,0.14117647}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Null distributionμtrmt−μctrl=0\end{tabular}}}}%
+    \put(0.01167942,0.35548466){\color[rgb]{0.15294118,0.66666667,0.88235294}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{Alternative distribution}\textbf{μ}\textbf{trmt}\textbf{−}\textbf{μ}\textbf{ctrl}\textbf{≠0}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{statistical power_svg-tex.pdf}}%
+    \put(0.16637338,0.00926762){\color[rgb]{0,0.63137255,0.29411765}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}|μtrmt−μctrl| = |Z\textbf{𝛼}/2|*SE + Z 1-𝛽*SE\end{tabular}}}}%
+    \put(0.6073884,0.38332062){\color[rgb]{0.92941176,0.10980392,0.14117647}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}1−\textbf{𝛼}/2\end{tabular}}}}%
+    \put(0.34125328,0.38332062){\color[rgb]{0.92941176,0.10980392,0.14117647}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{𝛼}/2\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{statistical power_svg-tex.pdf}}%
+    \put(0.41812335,0.63672517){\color[rgb]{0.57647059,0.58431373,0.59607843}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}-1\end{tabular}}}}%
+    \put(0.49715411,0.63672517){\color[rgb]{0.57647059,0.58431373,0.59607843}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}0\end{tabular}}}}%
+    \put(0.56723065,0.63672517){\color[rgb]{0.57647059,0.58431373,0.59607843}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}1\end{tabular}}}}%
+    \put(0.63730719,0.63672517){\color[rgb]{0.57647059,0.58431373,0.59607843}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}2\end{tabular}}}}%
+    \put(0.70738373,0.63672517){\color[rgb]{0.57647059,0.58431373,0.59607843}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}3\end{tabular}}}}%
+    \put(0.77746027,0.63672517){\color[rgb]{0.57647059,0.58431373,0.59607843}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}4\end{tabular}}}}%
+    \put(0.84753681,0.63672517){\color[rgb]{0.57647059,0.58431373,0.59607843}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}5\end{tabular}}}}%
+    \put(0.91761335,0.63672517){\color[rgb]{0.57647059,0.58431373,0.59607843}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}6\end{tabular}}}}%
+    \put(0.98768989,0.63672517){\color[rgb]{0.57647059,0.58431373,0.59607843}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}7\end{tabular}}}}%
+    \put(0.13781719,0.63672517){\color[rgb]{0.57647059,0.58431373,0.59607843}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}-5\end{tabular}}}}%
+    \put(0.20789373,0.63672517){\color[rgb]{0.57647059,0.58431373,0.59607843}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}-4\end{tabular}}}}%
+    \put(0.27797027,0.63672517){\color[rgb]{0.57647059,0.58431373,0.59607843}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}-3\end{tabular}}}}%
+    \put(-0.00233588,0.63672517){\color[rgb]{0.57647059,0.58431373,0.59607843}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}-7\end{tabular}}}}%
+    \put(0.06774065,0.63672517){\color[rgb]{0.57647059,0.58431373,0.59607843}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}-6\end{tabular}}}}%
+    \put(0.34804681,0.63672517){\color[rgb]{0.57647059,0.58431373,0.59607843}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}-2\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{statistical power_svg-tex.pdf}}%
+    \put(0.38308508,0.91609697){\color[rgb]{0.92941176,0.10980392,0.14117647}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Null distributionμtrmt−μctrl=0\end{tabular}}}}%
+    \put(0.66280727,0.91609697){\color[rgb]{0.15294118,0.66666667,0.88235294}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{Alternative distribution}\textbf{μ}\textbf{trmt}\textbf{−}\textbf{μ}\textbf{ctrl}\textbf{≠0}\end{tabular}}}}%
+    \put(0.1694879,0.57400667){\color[rgb]{0,0.63137255,0.29411765}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}|μtrmt−μctrl| = Z1−\textbf{𝛼}/2  *SE + |Z 𝛽|*SE\end{tabular}}}}%
+    \put(0.6073884,0.94805966){\color[rgb]{0.92941176,0.10980392,0.14117647}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}1−\textbf{𝛼}/2\end{tabular}}}}%
+    \put(0.34125328,0.94805966){\color[rgb]{0.92941176,0.10980392,0.14117647}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{𝛼}/2\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{statistical power_svg-tex.pdf}}%
+  \end{picture}%
+\endgroup%
