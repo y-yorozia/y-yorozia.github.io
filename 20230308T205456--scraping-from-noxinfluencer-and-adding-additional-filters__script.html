@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-03-15 Wed 15:57 -->
+<!-- 2023-03-17 Fri 22:37 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Scraping from NoxInfluencer and adding additional filters</title>
@@ -14,6 +14,27 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/lib/js/jquery.stickytableheaders.min.js"></script>
 <script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/js/readtheorg.js"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="content" class="content">
@@ -22,21 +43,43 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org3de2e39">1. OS Setup</a></li>
-<li><a href="#org2835fc0">2. Imports and setup</a></li>
-<li><a href="#org4d482ed">3. Scraping from Noxinfluencer</a></li>
-<li><a href="#org52a1394">4. Scraping from YouTube</a></li>
-<li><a href="#org21a13cb">5. Cleaning the data</a></li>
-<li><a href="#org5d9c903">6. Combining the data</a></li>
+<li><a href="#orgeaffb38">1. OS Setup</a></li>
+<li><a href="#orgef688ba">2. Imports and setup</a></li>
+<li><a href="#orgb18bdd7">3. Scraping from Noxinfluencer</a></li>
+<li><a href="#org24f20b5">4. Scraping from YouTube</a></li>
+<li><a href="#org0de0c56">5. Cleaning the data</a></li>
+<li><a href="#org62e0853">6. Combining the data</a></li>
 </ul>
 </div>
 </div>
 <p>
-This is the entire data sets generated <a href="https://drive.google.com/drive/folders/1Kk21nNQPlbxeom4Jo6KprYZHZAUCth3N?usp=share_link">Link</a><br />
-And this is the final/importent data set <a href="https://drive.google.com/drive/folders/1-AOB_LgcKwXpTA5IqGIzYd0XxYlmlYIe?usp=share_link">Link</a><br />
+The goal is to add additional filters that aren't in Non Influencer to perform tasks that were deemed to only be done manually.<br />
 </p>
-<div id="outline-container-org3de2e39" class="outline-2">
-<h2 id="org3de2e39"><span class="section-number-2">1.</span> OS Setup</h2>
+<ul class="org-ul">
+<li>These filters are:<br />
+<ul class="org-ul">
+<li>Number of videos a channel have uploaded<br /></li>
+<li>average video length<br /></li>
+<li>average video views<br /></li>
+<li>narration in videos<br /></li>
+<li>no content for kids<br /></li>
+<li>Additionally, capturing email address from about page/description<br /></li>
+</ul></li>
+<li>Scoring system:<br />
+A channel is favorable if it has higher views, video length, talking/narration, video count, and fewer subs. Because the fewer subs a channel have, the less likely it was discovered by any influencer marketing agency.<br />
+If a channel is not worth, meaning have content for kids, music, animation, or a channel with no narration that immediately disqualify it.<br />
+See <a href="#org24f20b5">Scraping from YouTube section</a> for more details on variables<br /></li>
+</ul>
+<p>
+\[score=\frac{\log{_\text{video count}}* \log{\bar{x}_\text{views}}*\log{\bar{x}_\text{lengh}}*\log{_\text{narration score}}}{\log{_\text{subs}}} * P(\text{worth}) * P(\text{narration})\]<br />
+</p>
+
+<p>
+This is the entire data sets generated <a href="https://drive.google.com/drive/folders/1Kk21nNQPlbxeom4Jo6KprYZHZAUCth3N?usp=share_link">Link</a><br />
+And this is the final/important data set <a href="https://drive.google.com/drive/folders/1-AOB_LgcKwXpTA5IqGIzYd0XxYlmlYIe?usp=share_link">Link</a><br />
+</p>
+<div id="outline-container-orgeaffb38" class="outline-2">
+<h2 id="orgeaffb38"><span class="section-number-2">1.</span> OS Setup</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Installing selenuim in google colab post Ubuntu update.<br />
@@ -92,8 +135,8 @@ cat &gt; /etc/apt/preferences.d/chromium.pref &lt;&lt; <span style="color: #2544
 </div>
 </div>
 </div>
-<div id="outline-container-org2835fc0" class="outline-2">
-<h2 id="org2835fc0"><span class="section-number-2">2.</span> Imports and setup</h2>
+<div id="outline-container-orgef688ba" class="outline-2">
+<h2 id="orgef688ba"><span class="section-number-2">2.</span> Imports and setup</h2>
 <div class="outline-text-2" id="text-2">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #5317ac; font-weight: bold;">from</span> bs4 <span style="color: #5317ac; font-weight: bold;">import</span> BeautifulSoup
@@ -159,8 +202,8 @@ options.add_argument(<span style="color: #2544bb;">'--disable-dev-shm-usage'</sp
 </div>
 </div>
 </div>
-<div id="outline-container-org4d482ed" class="outline-2">
-<h2 id="org4d482ed"><span class="section-number-2">3.</span> Scraping from Noxinfluencer</h2>
+<div id="outline-container-orgb18bdd7" class="outline-2">
+<h2 id="orgb18bdd7"><span class="section-number-2">3.</span> Scraping from Noxinfluencer</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 This is the result: <a href="https://drive.google.com/drive/folders/1ERTZiBekwAVOO4P-0ReH1JJR_VreA8TN?usp=share_link">Link</a><br />
@@ -317,8 +360,8 @@ I am going to hide the username and the passwords because they are not mine, not
 </div>
 </div>
 </div>
-<div id="outline-container-org52a1394" class="outline-2">
-<h2 id="org52a1394"><span class="section-number-2">4.</span> Scraping from YouTube</h2>
+<div id="outline-container-org24f20b5" class="outline-2">
+<h2 id="org24f20b5"><span class="section-number-2">4.</span> Scraping from YouTube</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 This is the result: <a href="https://drive.google.com/drive/folders/1-KQvO_4BZUDkiXUeJbVq1eWtRWqBnieI?usp=share_link">Link</a><br />
@@ -492,11 +535,15 @@ not_worth_keywords_in_discription_keyword=[<span style="color: #2544bb;">"short 
 </div>
 </div>
 </div>
-<div id="outline-container-org21a13cb" class="outline-2">
-<h2 id="org21a13cb"><span class="section-number-2">5.</span> Cleaning the data</h2>
+<div id="outline-container-org0de0c56" class="outline-2">
+<h2 id="org0de0c56"><span class="section-number-2">5.</span> Cleaning the data</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 This is the result: <a href="https://drive.google.com/drive/folders/1-CPoKUJ_YtwDHa1WixN7eBGaVvbHHrAb?usp=share_link">Link</a><br />
+In this section, I have added a score metric to assess a channel potential to be a good fit for the sponsorship and not being approached already by another influencer marketing agency.<br />
+A channel is favorable if it has higher views, video length, talking/narration, video count, and fewer subs. Because the fewer subs a channel have, the less likely it was discovered by any influencer marketing agency.<br />
+If a channel is not worth, meaning have content for kids, music, animation, or a channel with no narration that immediately disqualify it.<br />
+\[score=\frac{\log{_\text{video count}}* \log{\bar{x}_\text{views}}*\log{\bar{x}_\text{lengh}}*\log{_\text{narration score}}}{\log{_\text{subs}}} * P(\text{worth}) * P(\text{narration})\]<br />
 </p>
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #505050; font-style: italic;"># </span><span style="color: #505050; font-style: italic;">db=pd.read_excel("db.xlsx")</span>
@@ -595,7 +642,7 @@ This is the result: <a href="https://drive.google.com/drive/folders/1-CPoKUJ_Ytw
     log_lenght=np.log(df[<span style="color: #2544bb;">"median_lenght"</span>])
     log_narative_score=np.log(df[<span style="color: #2544bb;">"narative_score"</span>])
     log_subs=np.log(df[<span style="color: #2544bb;">"subs"</span>])    
-    df[<span style="color: #2544bb;">"score"</span>]=<span style="color: #8f0075; font-weight: bold;">round</span>(((log_views*log_videos*log_lenght*log_narative_score)/(log_subs))*df[<span style="color: #2544bb;">"worth_prob"</span>]*df[<span style="color: #2544bb;">"narative_prob"</span>],2)
+    df[<span style="color: #2544bb;">"score"</span>]=<span style="color: #8f0075; font-weight: bold;">round</span>(((log_videos*log_views*log_lenght*log_narative_score)/(log_subs))*df[<span style="color: #2544bb;">"worth_prob"</span>]*df[<span style="color: #2544bb;">"narative_prob"</span>],2)
     df=df.sort_values(by=<span style="color: #2544bb;">"score"</span>,ascending=<span style="color: #0000c0;">False</span>).reset_index(drop=<span style="color: #0000c0;">True</span>)
 
 <span style="color: #505050; font-style: italic;">#     </span><span style="color: #505050; font-style: italic;">is_new=[True]*len(df)</span>
@@ -610,8 +657,8 @@ This is the result: <a href="https://drive.google.com/drive/folders/1-CPoKUJ_Ytw
 </div>
 </div>
 </div>
-<div id="outline-container-org5d9c903" class="outline-2">
-<h2 id="org5d9c903"><span class="section-number-2">6.</span> Combining the data</h2>
+<div id="outline-container-org62e0853" class="outline-2">
+<h2 id="org62e0853"><span class="section-number-2">6.</span> Combining the data</h2>
 <div class="outline-text-2" id="text-6">
 <p>
 This is the result: <a href="https://drive.google.com/drive/folders/1-AOB_LgcKwXpTA5IqGIzYd0XxYlmlYIe?usp=share_link">Link</a><br />
@@ -635,7 +682,7 @@ df.to_excel(work+<span style="color: #2544bb;">"/10000-100000.xlsx"</span>,index
 </div>
 <div id="postamble" class="status">
 <p class="date">Date: 2023-03-08 Wed 20:54</p>
-<p class="date">Created: 2023-03-15 Wed 15:57</p>
+<p class="date">Created: 2023-03-17 Fri 22:37</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

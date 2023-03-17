@@ -1,0 +1,892 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-03-17 Fri 17:13 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Scraping recipes from allrecipes com</title>
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/js/readtheorg.js"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Scraping recipes from allrecipes com</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org0d102ea">1. Imports</a></li>
+<li><a href="#org959efd4">2. Getting recipes URLs</a>
+<ul>
+<li><a href="#orgd54cd18">2.1. First attemnt</a></li>
+<li><a href="#org277963e">2.2. Resumable scraping</a></li>
+<li><a href="#org310885d">2.3. Final filter</a></li>
+</ul>
+</li>
+<li><a href="#orgb522341">3. Getting recipes data</a>
+<ul>
+<li><a href="#org935bffa">3.1. Making dataset placeholders</a></li>
+<li><a href="#orgd739620">3.2. Getting recipes data</a></li>
+<li><a href="#org208b320">3.3. Cleaning and sorting</a></li>
+</ul>
+</li>
+<li><a href="#org6c13ec2">4. Getting recipes images</a>
+<ul>
+<li><a href="#orgedade70">4.1. Initiation</a></li>
+<li><a href="#org1a71f02">4.2. Scraping URLs of 600k images</a></li>
+<li><a href="#org2f29c3d">4.3. Downloading in google drive</a>
+<ul>
+<li><a href="#org4647631">4.3.1. Setup</a></li>
+<li><a href="#orge02506e">4.3.2. Downloading and renaming</a></li>
+<li><a href="#org58e51da">4.3.3. archive multiple 7z files to ease download and speed up google drive</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+The goal of this project is to scrape recipes from <a href="https://www.allrecipes.com/">allrecipes.com</a>, store them into a data sets like in this <a href="https://drive.google.com/drive/folders/1Q7FPQAATjzAK_Zog7LGhfBgTWyy4wRZP?usp=share_link">Google Drive folder</a>, and downloading recipe images with some naming convention: shape__score__recipe-id__image-order like in this <a href="https://drive.google.com/drive/folders/16JurJxHNM8FpUaS3pUZxdPKa5JvlyUk-?usp=share_link">Google Drive folder</a>.<br />
+More information is down below<br />
+</p>
+<div id="outline-container-org0d102ea" class="outline-2">
+<h2 id="org0d102ea"><span class="section-number-2">1.</span> Imports</h2>
+<div class="outline-text-2" id="text-1">
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #5317ac; font-weight: bold;">from</span> bs4 <span style="color: #5317ac; font-weight: bold;">import</span> BeautifulSoup
+<span style="color: #5317ac; font-weight: bold;">import</span> time
+<span style="color: #5317ac; font-weight: bold;">import</span> numpy <span style="color: #5317ac; font-weight: bold;">as</span> np
+<span style="color: #5317ac; font-weight: bold;">import</span> pandas <span style="color: #5317ac; font-weight: bold;">as</span> pd
+<span style="color: #5317ac; font-weight: bold;">from</span> tqdm.notebook <span style="color: #5317ac; font-weight: bold;">import</span> trange, tqdm, tqdm_notebook
+<span style="color: #5317ac; font-weight: bold;">import</span> os
+<span style="color: #5317ac; font-weight: bold;">import</span> glob
+<span style="color: #5317ac; font-weight: bold;">from</span> datetime <span style="color: #5317ac; font-weight: bold;">import</span> datetime
+<span style="color: #5317ac; font-weight: bold;">import</span> shutil
+<span style="color: #5317ac; font-weight: bold;">import</span> requests
+<span style="color: #5317ac; font-weight: bold;">import</span> json
+<span style="color: #5317ac; font-weight: bold;">import</span> urllib.request
+<span style="color: #5317ac; font-weight: bold;">from</span> PIL <span style="color: #5317ac; font-weight: bold;">import</span> Image
+<span style="color: #5317ac; font-weight: bold;">from</span> zipfile <span style="color: #5317ac; font-weight: bold;">import</span> ZipFile
+<span style="color: #5317ac; font-weight: bold;">import</span> os
+<span style="color: #5317ac; font-weight: bold;">from</span> os.path <span style="color: #5317ac; font-weight: bold;">import</span> basename
+<span style="color: #5317ac; font-weight: bold;">from</span> datetime <span style="color: #5317ac; font-weight: bold;">import</span> datetime, timedelta
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org959efd4" class="outline-2">
+<h2 id="org959efd4"><span class="section-number-2">2.</span> Getting recipes URLs</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Allrecipes.com website doesn't have a web page where you can see all recipes on the website.<br />
+Normally I would just go to one web page with recipes and keep changing the page number until I get all recipes links<br />
+The idea of my script is to scrape and filter all URLs in a page and keep those who have "recipe" in the URL, scrape them as well and capture other recipes URLs until there is no new recipe to be found.<br />
+</p>
+</div>
+<div id="outline-container-orgd54cd18" class="outline-3">
+<h3 id="orgd54cd18"><span class="section-number-3">2.1.</span> First attemnt</h3>
+<div class="outline-text-3" id="text-2-1">
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #00538b;">page</span> = requests.get(<span style="color: #2544bb;">"https://www.allrecipes.com"</span>)
+<span style="color: #00538b;">soup</span> = BeautifulSoup(page.content, <span style="color: #2544bb;">'html.parser'</span>)
+<span style="color: #00538b;">links</span>=[]
+<span style="color: #00538b;">all_links</span>=soup.findAll(<span style="color: #2544bb;">"a"</span>)
+<span style="color: #5317ac; font-weight: bold;">for</span> l <span style="color: #5317ac; font-weight: bold;">in</span> <span style="color: #00538b;">all_links</span>:
+    <span style="color: #5317ac; font-weight: bold;">try</span>:
+        tl=l[<span style="color: #2544bb;">"href"</span>]
+        <span style="color: #5317ac; font-weight: bold;">if</span> <span style="color: #2544bb;">"https://www.allrecipes.com/recipe"</span> <span style="color: #5317ac; font-weight: bold;">in</span> <span style="color: #00538b;">tl</span>:
+            links.append(tl)
+    <span style="color: #5317ac; font-weight: bold;">except</span>:
+        <span style="color: #5317ac; font-weight: bold;">pass</span>
+
+ddf=pd.DataFrame(data={<span style="color: #2544bb;">"url"</span>:links})
+ddf[<span style="color: #2544bb;">"scanned"</span>]=<span style="color: #0000c0;">False</span>
+ddf.to_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/Allrecepies/allrecipes_url.csv"</span>,index=<span style="color: #0000c0;">False</span>)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org277963e" class="outline-3">
+<h3 id="org277963e"><span class="section-number-3">2.2.</span> Resumable scraping</h3>
+<div class="outline-text-3" id="text-2-2">
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #00538b;">il</span>=0
+<span style="color: #00538b;">ddf</span>=pd.read_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/Allrecepies/allrecipes_url.csv"</span>)
+<span style="color: #00538b;">links</span>=<span style="color: #8f0075; font-weight: bold;">list</span>(ddf[<span style="color: #2544bb;">"url"</span>])
+<span style="color: #00538b;">scanned</span>=<span style="color: #8f0075; font-weight: bold;">list</span>(ddf[<span style="color: #2544bb;">"scanned"</span>])
+<span style="color: #5317ac; font-weight: bold;">for</span> i <span style="color: #5317ac; font-weight: bold;">in</span> tqdm(<span style="color: #8f0075; font-weight: bold;">range</span>(<span style="color: #8f0075; font-weight: bold;">len</span>(ddf))):
+    <span style="color: #5317ac; font-weight: bold;">if</span> scanned[i]==<span style="color: #0000c0;">True</span>:
+        <span style="color: #5317ac; font-weight: bold;">pass</span>
+    <span style="color: #5317ac; font-weight: bold;">else</span>:
+        time.sleep(0.1)
+        url=ddf[<span style="color: #2544bb;">"url"</span>].iloc[i]
+        page = requests.get(url)
+        soup = BeautifulSoup(page.content, <span style="color: #2544bb;">'html.parser'</span>)
+        all_links=soup.findAll(<span style="color: #2544bb;">"a"</span>)
+        <span style="color: #5317ac; font-weight: bold;">for</span> l <span style="color: #5317ac; font-weight: bold;">in</span> all_links:
+            <span style="color: #5317ac; font-weight: bold;">try</span>:
+                tl=l[<span style="color: #2544bb;">"href"</span>]
+                <span style="color: #5317ac; font-weight: bold;">if</span> <span style="color: #2544bb;">"https://www.allrecipes.com/recipe"</span> <span style="color: #5317ac; font-weight: bold;">in</span> tl:
+                    <span style="color: #5317ac; font-weight: bold;">if</span> tl <span style="color: #5317ac; font-weight: bold;">not</span> <span style="color: #5317ac; font-weight: bold;">in</span> links:
+                        links.append(tl)
+                        scanned.append(<span style="color: #0000c0;">False</span>)
+                        il+=1
+            <span style="color: #5317ac; font-weight: bold;">except</span>:
+                <span style="color: #5317ac; font-weight: bold;">pass</span>
+        scanned[i]=<span style="color: #0000c0;">True</span>
+    <span style="color: #5317ac; font-weight: bold;">if</span> i%1000==0:
+        pd.DataFrame(data={<span style="color: #2544bb;">"url"</span>:links,<span style="color: #2544bb;">"scanned"</span>:scanned}).to_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/Allrecepies/allrecipes_url.csv"</span>,index=<span style="color: #0000c0;">False</span>)
+pd.DataFrame(data={<span style="color: #2544bb;">"url"</span>:links,<span style="color: #2544bb;">"scanned"</span>:scanned}).to_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/Allrecepies/allrecipes_url.csv"</span>,index=<span style="color: #0000c0;">False</span>)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org310885d" class="outline-3">
+<h3 id="org310885d"><span class="section-number-3">2.3.</span> Final filter</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+Remove articles URLs that contain multiple recipes<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #00538b;">ddf</span>[<span style="color: #2544bb;">'type'</span>]=ddf[<span style="color: #2544bb;">'url'</span>].<span style="color: #8f0075; font-weight: bold;">apply</span>(<span style="color: #5317ac; font-weight: bold;">lambda</span> x:x.split(<span style="color: #2544bb;">"/"</span>)[3])
+ddf[ddf[<span style="color: #2544bb;">'type'</span>]==<span style="color: #2544bb;">"recipe"</span>].reset_index(drop=<span style="color: #0000c0;">True</span>).to_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/Allrecepies/AllRecipes_DB.csv"</span>,index=<span style="color: #0000c0;">False</span>)
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb522341" class="outline-2">
+<h2 id="orgb522341"><span class="section-number-2">3.</span> Getting recipes data</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-org935bffa" class="outline-3">
+<h3 id="org935bffa"><span class="section-number-3">3.1.</span> Making dataset placeholders</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+This is based on a lot of trial and errors, but if I were to restart from the beginning, this line is necessary.<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #5317ac; font-weight: bold;">if</span> os.path.exists(<span style="color: #2544bb;">"/content/drive/MyDrive/Allrecepies/recepies.csv"</span>):
+    <span style="color: #5317ac; font-weight: bold;">pass</span>
+<span style="color: #5317ac; font-weight: bold;">else</span>:
+    pd.DataFrame(data={<span style="color: #2544bb;">"url"</span>:[np.nan],<span style="color: #2544bb;">"r_id"</span>:[np.nan],<span style="color: #2544bb;">"name"</span>:[np.nan],<span style="color: #2544bb;">"headline"</span>:[np.nan],<span style="color: #2544bb;">"summary"</span>:[np.nan],<span style="color: #2544bb;">"datePublished"</span>:[np.nan],
+                   <span style="color: #2544bb;">"dateModified"</span>:[np.nan],<span style="color: #2544bb;">"photo_n"</span>:[np.nan], <span style="color: #2544bb;">"photo_p"</span>:[np.nan],<span style="color: #2544bb;">"author_name"</span>:[np.nan], <span style="color: #2544bb;">"author_url"</span>:[np.nan],
+                   <span style="color: #2544bb;">"recipeYield"</span>:[np.nan],<span style="color: #2544bb;">"prepTime"</span>:[np.nan],<span style="color: #2544bb;">"cookTime"</span>:[np.nan],<span style="color: #2544bb;">"totalTime"</span>:[np.nan],<span style="color: #2544bb;">"ratingValue"</span>:[np.nan],
+                   <span style="color: #2544bb;">"ratingCount"</span>:[np.nan]}).to_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/Allrecepies/recepies.csv"</span>, index=<span style="color: #0000c0;">False</span>)
+
+<span style="color: #5317ac; font-weight: bold;">if</span> os.path.exists(<span style="color: #2544bb;">"/content/drive/MyDrive/Allrecepies/rating_df.csv"</span>):
+    <span style="color: #5317ac; font-weight: bold;">pass</span>
+<span style="color: #5317ac; font-weight: bold;">else</span>:
+    pd.DataFrame(data={<span style="color: #2544bb;">"r_id"</span>:[np.nan],<span style="color: #2544bb;">"ratingValue"</span>:[np.nan],<span style="color: #2544bb;">"reviewBody"</span>:[np.nan]}).to_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/Allrecepies/rating_df.csv"</span>, index=<span style="color: #0000c0;">False</span>)
+
+<span style="color: #5317ac; font-weight: bold;">if</span> os.path.exists(<span style="color: #2544bb;">"/content/drive/MyDrive/Allrecepies/nutrition_df.csv"</span>):
+    <span style="color: #5317ac; font-weight: bold;">pass</span>
+<span style="color: #5317ac; font-weight: bold;">else</span>:
+    pd.DataFrame(data={<span style="color: #2544bb;">"nutrition"</span>:[np.nan],<span style="color: #2544bb;">"value"</span>:[np.nan],<span style="color: #2544bb;">"r_id"</span>:[np.nan]}).to_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/Allrecepies/nutrition_df.csv"</span>, index=<span style="color: #0000c0;">False</span>)
+
+<span style="color: #5317ac; font-weight: bold;">if</span> os.path.exists(<span style="color: #2544bb;">"/content/drive/MyDrive/Allrecepies/nutrition_per_df.csv"</span>):
+    <span style="color: #5317ac; font-weight: bold;">pass</span>
+<span style="color: #5317ac; font-weight: bold;">else</span>:
+    pd.DataFrame(data={<span style="color: #2544bb;">"r_id"</span>:[np.nan],<span style="color: #2544bb;">"nutrition"</span>:[np.nan],<span style="color: #2544bb;">"nutrition_value"</span>:[np.nan],<span style="color: #2544bb;">"nutrition_daily_per"</span>:[np.nan]}).to_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/Allrecepies/nutrition_per_df.csv"</span>, index=<span style="color: #0000c0;">False</span>)
+
+<span style="color: #5317ac; font-weight: bold;">if</span> os.path.exists(<span style="color: #2544bb;">"/content/drive/MyDrive/Allrecepies/recipeInstructions_df.csv"</span>):
+    <span style="color: #5317ac; font-weight: bold;">pass</span>
+<span style="color: #5317ac; font-weight: bold;">else</span>:
+    pd.DataFrame(data={<span style="color: #2544bb;">"r_id"</span>:[np.nan],<span style="color: #2544bb;">"recipeInstructions_steps"</span>:[np.nan],<span style="color: #2544bb;">"recipeInstructions"</span>:[np.nan]}).to_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/Allrecepies/recipeInstructions_df.csv"</span>, index=<span style="color: #0000c0;">False</span>)
+
+<span style="color: #5317ac; font-weight: bold;">if</span> os.path.exists(<span style="color: #2544bb;">"/content/drive/MyDrive/Allrecepies/recipeIngredient_df.csv"</span>):
+    <span style="color: #5317ac; font-weight: bold;">pass</span>
+<span style="color: #5317ac; font-weight: bold;">else</span>:
+    pd.DataFrame(data={<span style="color: #2544bb;">"r_id"</span>:[np.nan],<span style="color: #2544bb;">"recipeIngredient"</span>:[np.nan]}).to_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/Allrecepies/recipeIngredient_df.csv"</span>, index=<span style="color: #0000c0;">False</span>)
+
+<span style="color: #5317ac; font-weight: bold;">if</span> os.path.exists(<span style="color: #2544bb;">"/content/drive/MyDrive/Allrecepies/keyword_df.csv"</span>):
+    <span style="color: #5317ac; font-weight: bold;">pass</span>
+<span style="color: #5317ac; font-weight: bold;">else</span>:
+    pd.DataFrame(data={<span style="color: #2544bb;">"r_id"</span>:[np.nan],<span style="color: #2544bb;">"keyword"</span>:[np.nan]}).to_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/Allrecepies/keyword_df.csv"</span>, index=<span style="color: #0000c0;">False</span>)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgd739620" class="outline-3">
+<h3 id="orgd739620"><span class="section-number-3">3.2.</span> Getting recipes data</h3>
+<div class="outline-text-3" id="text-3-2">
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #5317ac; font-weight: bold;">for</span> row <span style="color: #5317ac; font-weight: bold;">in</span> tqdm(<span style="color: #8f0075; font-weight: bold;">range</span>(<span style="color: #8f0075; font-weight: bold;">len</span>(df[<span style="color: #2544bb;">"url"</span>]))):
+    <span style="color: #00538b;">d_url</span>=df[<span style="color: #2544bb;">"url"</span>].iloc[row]
+    <span style="color: #5317ac; font-weight: bold;">if</span> <span style="color: #8f0075; font-weight: bold;">int</span>(d_url.split(<span style="color: #2544bb;">"/"</span>)[4]) <span style="color: #5317ac; font-weight: bold;">in</span> rdf[<span style="color: #2544bb;">"r_id"</span>].<span style="color: #00538b;">values</span>:
+        <span style="color: #5317ac; font-weight: bold;">pass</span>
+    <span style="color: #5317ac; font-weight: bold;">else</span>:
+        url=[]
+        <span style="color: #00538b;">r_id</span>=[]
+        <span style="color: #00538b;">name</span>=[]
+        <span style="color: #00538b;">headline</span>=[]
+        <span style="color: #00538b;">summary</span>=[]
+        <span style="color: #00538b;">datePublished</span>=[]
+        <span style="color: #00538b;">dateModified</span>=[]
+        <span style="color: #00538b;">author_name</span>=[]
+        <span style="color: #00538b;">author_url</span>=[]
+        <span style="color: #00538b;">recipeYield</span>=[]
+        <span style="color: #00538b;">prepTime</span>=[]
+        <span style="color: #00538b;">cookTime</span>=[]
+        <span style="color: #00538b;">totalTime</span>=[]
+        <span style="color: #00538b;">ratingValue</span>=[]
+        <span style="color: #00538b;">ratingCount</span>=[]
+
+        <span style="color: #00538b;">page</span> = requests.get(d_url)
+        <span style="color: #00538b;">soup</span> = BeautifulSoup(page.content, <span style="color: #2544bb;">'html.parser'</span>)
+
+        <span style="color: #00538b;">r_cat</span>=[]
+        <span style="color: #5317ac; font-weight: bold;">try</span>:
+            <span style="color: #5317ac; font-weight: bold;">for</span> i <span style="color: #5317ac; font-weight: bold;">in</span> <span style="color: #8f0075; font-weight: bold;">range</span>(<span style="color: #8f0075; font-weight: bold;">len</span>(soup.find(<span style="color: #2544bb;">"div"</span>,{<span style="color: #2544bb;">"class"</span>:<span style="color: #2544bb;">"article-header"</span>}).findAll(<span style="color: #2544bb;">"li"</span>))):
+                r_cat.append(soup.find(<span style="color: #2544bb;">"div"</span>,{<span style="color: #2544bb;">"class"</span>:<span style="color: #2544bb;">"article-header"</span>}).findAll(<span style="color: #2544bb;">"li"</span>)[i].text.strip())
+        <span style="color: #5317ac; font-weight: bold;">except</span>:
+            r_cat.append(np.nan)  
+
+        <span style="color: #5317ac; font-weight: bold;">try</span>: 
+            photo_n=<span style="color: #8f0075; font-weight: bold;">int</span>(soup.find(<span style="color: #2544bb;">"div"</span>,{<span style="color: #2544bb;">"id"</span>:<span style="color: #2544bb;">"recipe-review-bar__photo-count_1-0"</span>}).text.strip().replace(<span style="color: #2544bb;">" Photos"</span>,<span style="color: #2544bb;">""</span>).replace(<span style="color: #2544bb;">" Photo"</span>,<span style="color: #2544bb;">""</span>).replace(<span style="color: #2544bb;">","</span>,<span style="color: #2544bb;">""</span>))
+            <span style="color: #00538b;">photo_p</span>=<span style="color: #8f0075; font-weight: bold;">int</span>(np.ceil(photo_n/10))
+        <span style="color: #5317ac; font-weight: bold;">except</span>:
+            photo_n=np.nan
+            <span style="color: #00538b;">photo_p</span>=np.nan
+
+        <span style="color: #5317ac; font-weight: bold;">try</span>:
+            summary.append(soup.find(<span style="color: #2544bb;">"p"</span>,{<span style="color: #2544bb;">"id"</span>:<span style="color: #2544bb;">"article-subheading_1-0"</span>}).text.strip())
+        <span style="color: #5317ac; font-weight: bold;">except</span>:
+            summary.append(np.nan)
+
+        data = json.loads(soup.find(<span style="color: #2544bb;">"script"</span>,{<span style="color: #2544bb;">"id"</span>:<span style="color: #2544bb;">"allrecipes-schema_1-0"</span>}).text)
+
+        url.append(data[0][<span style="color: #2544bb;">"mainEntityOfPage"</span>][<span style="color: #2544bb;">"@id"</span>])
+        r_id.append(<span style="color: #8f0075; font-weight: bold;">int</span>(data[0][<span style="color: #2544bb;">"mainEntityOfPage"</span>][<span style="color: #2544bb;">"@id"</span>].split(<span style="color: #2544bb;">"/"</span>)[4]))
+        name.append(data[0][<span style="color: #2544bb;">"name"</span>])
+        headline.append(data[0][<span style="color: #2544bb;">"headline"</span>])
+        datePublished.append(data[0][<span style="color: #2544bb;">"datePublished"</span>])
+        dateModified.append(data[0][<span style="color: #2544bb;">"dateModified"</span>])
+        <span style="color: #5317ac; font-weight: bold;">try</span>:
+            author_name.append(data[0][<span style="color: #2544bb;">"author"</span>][0][<span style="color: #2544bb;">"name"</span>])
+        <span style="color: #5317ac; font-weight: bold;">except</span>:
+            author_name.append(np.nan)
+        <span style="color: #5317ac; font-weight: bold;">try</span>:
+            author_url.append(data[0][<span style="color: #2544bb;">"author"</span>][0][<span style="color: #2544bb;">"url"</span>])
+        <span style="color: #5317ac; font-weight: bold;">except</span>:
+            author_url.append(np.nan)
+        <span style="color: #5317ac; font-weight: bold;">try</span>:
+            recipeYield.append(data[0][<span style="color: #2544bb;">"recipeYield"</span>])
+        <span style="color: #5317ac; font-weight: bold;">except</span>:
+            recipeYield.append(np.nan)
+        <span style="color: #5317ac; font-weight: bold;">try</span>:
+            prepTime.append(data[0][<span style="color: #2544bb;">'prepTime'</span>])
+        <span style="color: #5317ac; font-weight: bold;">except</span>:
+            prepTime.append(np.nan)
+        <span style="color: #5317ac; font-weight: bold;">try</span>:
+            cookTime.append(data[0][<span style="color: #2544bb;">"cookTime"</span>])
+        <span style="color: #5317ac; font-weight: bold;">except</span>:
+            cookTime.append(np.nan)
+        <span style="color: #5317ac; font-weight: bold;">try</span>:
+            totalTime.append(data[0][<span style="color: #2544bb;">"totalTime"</span>])
+        <span style="color: #5317ac; font-weight: bold;">except</span>:
+            totalTime.append(np.nan)
+        <span style="color: #5317ac; font-weight: bold;">try</span>:
+            ratingValue.append(data[0][<span style="color: #2544bb;">"aggregateRating"</span>][<span style="color: #2544bb;">"ratingValue"</span>])
+        <span style="color: #5317ac; font-weight: bold;">except</span>:
+            ratingValue.append(np.nan)
+        <span style="color: #5317ac; font-weight: bold;">try</span>:
+            ratingCount.append(data[0][<span style="color: #2544bb;">"aggregateRating"</span>][<span style="color: #2544bb;">"ratingCount"</span>])
+        <span style="color: #5317ac; font-weight: bold;">except</span>:
+            ratingCount.append(np.nan)
+
+        rdfa=pd.DataFrame(data={<span style="color: #2544bb;">"url"</span>:url,<span style="color: #2544bb;">"r_id"</span>:r_id,<span style="color: #2544bb;">"name"</span>:name,<span style="color: #2544bb;">"headline"</span>:headline,<span style="color: #2544bb;">"summary"</span>:summary,<span style="color: #2544bb;">"datePublished"</span>:datePublished,
+                                <span style="color: #2544bb;">"dateModified"</span>:dateModified,
+                   <span style="color: #2544bb;">"photo_n"</span>:photo_n, <span style="color: #2544bb;">"photo_p"</span>:photo_p,<span style="color: #2544bb;">"author_name"</span>:author_name, <span style="color: #2544bb;">"author_url"</span>:author_url,
+                   <span style="color: #2544bb;">"recipeYield"</span>:recipeYield,<span style="color: #2544bb;">"prepTime"</span>:prepTime,<span style="color: #2544bb;">"cookTime"</span>:cookTime,
+                   <span style="color: #2544bb;">"totalTime"</span>:totalTime,
+                   <span style="color: #2544bb;">"ratingValue"</span>:ratingValue,
+                   <span style="color: #2544bb;">"ratingCount"</span>:ratingCount})
+
+        rdf=pd.concat([rdf,rdfa]).reset_index(drop=<span style="color: #0000c0;">True</span>)
+        <span style="color: #505050; font-style: italic;">#</span><span style="color: #505050; font-style: italic;">rdf.to_excel("recepies.xlsx", index=False)</span>
+
+
+        <span style="color: #5317ac; font-weight: bold;">try</span>:
+            review_count=<span style="color: #8f0075; font-weight: bold;">len</span>(data[0][<span style="color: #2544bb;">"review"</span>])
+            ratingValue=[]
+            reviewBody=[]
+            rrecipe_id=[<span style="color: #8f0075; font-weight: bold;">int</span>(data[0][<span style="color: #2544bb;">"mainEntityOfPage"</span>][<span style="color: #2544bb;">"@id"</span>].split(<span style="color: #2544bb;">"/"</span>)[4])]*review_count
+            <span style="color: #5317ac; font-weight: bold;">for</span> d <span style="color: #5317ac; font-weight: bold;">in</span> <span style="color: #8f0075; font-weight: bold;">range</span>(review_count):
+                ratingValue.append(data[0][<span style="color: #2544bb;">"review"</span>][d][<span style="color: #2544bb;">"reviewRating"</span>][<span style="color: #2544bb;">"ratingValue"</span>])
+                reviewBody.append(data[0][<span style="color: #2544bb;">"review"</span>][d][<span style="color: #2544bb;">"reviewBody"</span>])
+        <span style="color: #5317ac; font-weight: bold;">except</span>:
+            ratingValue=[np.nan]
+            reviewBody=[np.nan]
+            rrecipe_id=[<span style="color: #8f0075; font-weight: bold;">int</span>(data[0][<span style="color: #2544bb;">"mainEntityOfPage"</span>][<span style="color: #2544bb;">"@id"</span>].split(<span style="color: #2544bb;">"/"</span>)[4])]
+        rating_dfa=pd.DataFrame(data={<span style="color: #2544bb;">"r_id"</span>:rrecipe_id,<span style="color: #2544bb;">"ratingValue"</span>:ratingValue,<span style="color: #2544bb;">"reviewBody"</span>:reviewBody})
+        rating_df=pd.concat([rating_df,rating_dfa]).reset_index(drop=<span style="color: #0000c0;">True</span>)
+        <span style="color: #505050; font-style: italic;">#</span><span style="color: #505050; font-style: italic;">rating_df.to_excel("rating_df.xlsx", index=False)</span>
+
+        <span style="color: #5317ac; font-weight: bold;">try</span>:
+            nutrition_dfa=pd.DataFrame.from_dict(data[0][<span style="color: #2544bb;">"nutrition"</span>],orient =<span style="color: #2544bb;">'index'</span>).reset_index()
+            nutrition_dfa.columns=[<span style="color: #2544bb;">"nutrition"</span>,<span style="color: #2544bb;">"value"</span>]
+            nrecipe_id=[<span style="color: #8f0075; font-weight: bold;">int</span>(data[0][<span style="color: #2544bb;">"mainEntityOfPage"</span>][<span style="color: #2544bb;">"@id"</span>].split(<span style="color: #2544bb;">"/"</span>)[4])]*<span style="color: #8f0075; font-weight: bold;">len</span>(nutrition_dfa)
+            nutrition_dfa[<span style="color: #2544bb;">"r_id"</span>]=nrecipe_id
+        <span style="color: #5317ac; font-weight: bold;">except</span>:
+            nutrition_dfa=pd.DataFrame({<span style="color: #2544bb;">"nutrition"</span>:[np.nan],<span style="color: #2544bb;">"value"</span>:[np.nan],<span style="color: #2544bb;">"r_id"</span>:[<span style="color: #8f0075; font-weight: bold;">int</span>(data[0][<span style="color: #2544bb;">"mainEntityOfPage"</span>][<span style="color: #2544bb;">"@id"</span>].split(<span style="color: #2544bb;">"/"</span>)[4])]})
+        nutrition_df=pd.concat([nutrition_df,nutrition_dfa]).reset_index(drop=<span style="color: #0000c0;">True</span>)
+        <span style="color: #505050; font-style: italic;">#</span><span style="color: #505050; font-style: italic;">nutrition_df.to_excel("nutrition_df.xlsx", index=False)</span>
+
+        nutrition=[]
+        nutrition_value=[]
+        nutrition_daily_per=[]
+        <span style="color: #5317ac; font-weight: bold;">try</span>:
+            serv=soup.find(<span style="color: #2544bb;">"tr"</span>,{<span style="color: #2544bb;">"class"</span>:<span style="color: #2544bb;">"mntl-nutrition-facts-label__servings"</span>}).findAll(<span style="color: #2544bb;">"span"</span>)
+            nutrition.append(serv[0].text)
+            nutrition_value.append(serv[1].text)
+            nutrition_daily_per.append(np.nan)
+            <span style="color: #505050; font-style: italic;">#</span>
+            cal=soup.find(<span style="color: #2544bb;">"tr"</span>,{<span style="color: #2544bb;">"class"</span>:<span style="color: #2544bb;">"mntl-nutrition-facts-label__calories"</span>}).findAll(<span style="color: #2544bb;">"span"</span>)
+            nutrition.append(cal[0].text)
+            nutrition_value.append(cal[1].text)
+            nutrition_daily_per.append(np.nan)
+            <span style="color: #505050; font-style: italic;">#</span>
+            nut_fact=soup.find(<span style="color: #2544bb;">"tbody"</span>,{<span style="color: #2544bb;">"class"</span>:<span style="color: #2544bb;">"mntl-nutrition-facts-label__table-body"</span>}).findAll(<span style="color: #2544bb;">"tr"</span>)
+            <span style="color: #5317ac; font-weight: bold;">for</span> n <span style="color: #5317ac; font-weight: bold;">in</span> <span style="color: #8f0075; font-weight: bold;">range</span>(1,<span style="color: #8f0075; font-weight: bold;">len</span>(nut_fact)):
+                nutrition.append(nut_fact[n].text.replace(<span style="color: #2544bb;">"\n\n"</span>,<span style="color: #2544bb;">""</span>).split(<span style="color: #2544bb;">"\n"</span>)[0])
+                nutrition_value.append(nut_fact[n].text.replace(<span style="color: #2544bb;">"\n\n"</span>,<span style="color: #2544bb;">""</span>).split(<span style="color: #2544bb;">"\n"</span>)[1])
+                <span style="color: #5317ac; font-weight: bold;">try</span>:
+                    nutrition_daily_per.append(nut_fact[n].text.replace(<span style="color: #2544bb;">"\n\n"</span>,<span style="color: #2544bb;">""</span>).split(<span style="color: #2544bb;">"\n"</span>)[2])
+                <span style="color: #5317ac; font-weight: bold;">except</span>:
+                    nutrition_daily_per.append(np.nan)
+        <span style="color: #5317ac; font-weight: bold;">except</span>:
+            nutrition.append(np.nan)
+            nutrition_value.append(np.nan)
+            nutrition_daily_per.append(np.nan)
+        nnurecipe_id=[<span style="color: #8f0075; font-weight: bold;">int</span>(data[0][<span style="color: #2544bb;">"mainEntityOfPage"</span>][<span style="color: #2544bb;">"@id"</span>].split(<span style="color: #2544bb;">"/"</span>)[4])]*<span style="color: #8f0075; font-weight: bold;">len</span>(nutrition)
+        nutrition_per_dfa=pd.DataFrame(data={<span style="color: #2544bb;">"r_id"</span>:nnurecipe_id,<span style="color: #2544bb;">"nutrition"</span>:nutrition,<span style="color: #2544bb;">"nutrition_value"</span>:nutrition_value,<span style="color: #2544bb;">"nutrition_daily_per"</span>:nutrition_daily_per})
+        nutrition_per_df=pd.concat([nutrition_per_df,nutrition_per_dfa]).reset_index(drop=<span style="color: #0000c0;">True</span>)
+        <span style="color: #505050; font-style: italic;">#</span><span style="color: #505050; font-style: italic;">nutrition_per_df.to_excel("nutrition_per_df.xlsx", index=False)</span>
+
+        <span style="color: #5317ac; font-weight: bold;">try</span>:
+            recipeInstructions_count=<span style="color: #8f0075; font-weight: bold;">len</span>(data[0][<span style="color: #2544bb;">"recipeInstructions"</span>])
+            recipeInstructions=[]
+            recipeInstructions_steps=[]
+            irecipe_id=[<span style="color: #8f0075; font-weight: bold;">int</span>(data[0][<span style="color: #2544bb;">"mainEntityOfPage"</span>][<span style="color: #2544bb;">"@id"</span>].split(<span style="color: #2544bb;">"/"</span>)[4])]*recipeInstructions_count
+            <span style="color: #5317ac; font-weight: bold;">for</span> s <span style="color: #5317ac; font-weight: bold;">in</span> <span style="color: #8f0075; font-weight: bold;">range</span>(recipeInstructions_count):
+                recipeInstructions_steps.append(<span style="color: #2544bb;">"Step "</span>+<span style="color: #8f0075; font-weight: bold;">str</span>(s+1))
+                recipeInstructions.append(data[0][<span style="color: #2544bb;">"recipeInstructions"</span>][s][<span style="color: #2544bb;">"text"</span>])
+        <span style="color: #5317ac; font-weight: bold;">except</span>:
+            recipeInstructions_steps=[np.nan]
+            recipeInstructions=[np.nan]
+            irecipe_id=[<span style="color: #8f0075; font-weight: bold;">int</span>(data[0][<span style="color: #2544bb;">"mainEntityOfPage"</span>][<span style="color: #2544bb;">"@id"</span>].split(<span style="color: #2544bb;">"/"</span>)[4])]
+        recipeInstructions_dfa=pd.DataFrame(data={<span style="color: #2544bb;">"r_id"</span>:irecipe_id,<span style="color: #2544bb;">"recipeInstructions_steps"</span>:recipeInstructions_steps,<span style="color: #2544bb;">"recipeInstructions"</span>:recipeInstructions})
+        recipeInstructions_df=pd.concat([recipeInstructions_df,recipeInstructions_dfa]).reset_index(drop=<span style="color: #0000c0;">True</span>)
+        <span style="color: #505050; font-style: italic;">#</span><span style="color: #505050; font-style: italic;">recipeInstructions_df.to_excel("recipeInstructions_df.xlsx", index=False)</span>
+
+        inrecipe_id=[<span style="color: #8f0075; font-weight: bold;">int</span>(data[0][<span style="color: #2544bb;">"mainEntityOfPage"</span>][<span style="color: #2544bb;">"@id"</span>].split(<span style="color: #2544bb;">"/"</span>)[4])]*<span style="color: #8f0075; font-weight: bold;">len</span>(data[0][<span style="color: #2544bb;">"recipeIngredient"</span>])
+        recipeIngredient_dfa=pd.DataFrame(data={<span style="color: #2544bb;">"r_id"</span>:inrecipe_id,<span style="color: #2544bb;">"recipeIngredient"</span>:data[0][<span style="color: #2544bb;">"recipeIngredient"</span>]})
+        recipeIngredient_df=pd.concat([recipeIngredient_df,recipeIngredient_dfa]).reset_index(drop=<span style="color: #0000c0;">True</span>)
+        <span style="color: #505050; font-style: italic;">#</span><span style="color: #505050; font-style: italic;">recipeIngredient_df.to_excel("recipeIngredient_df.xlsx", index=False)</span>
+
+        krecipe_id=[<span style="color: #8f0075; font-weight: bold;">int</span>(data[0][<span style="color: #2544bb;">"mainEntityOfPage"</span>][<span style="color: #2544bb;">"@id"</span>].split(<span style="color: #2544bb;">"/"</span>)[4])]*<span style="color: #8f0075; font-weight: bold;">len</span>(r_cat)
+        keyword_dfa=pd.DataFrame(data={<span style="color: #2544bb;">"r_id"</span>:krecipe_id,<span style="color: #2544bb;">"keyword"</span>:r_cat})
+        keyword_df=pd.concat([keyword_df,keyword_dfa]).reset_index(drop=<span style="color: #0000c0;">True</span>)
+        <span style="color: #505050; font-style: italic;">#</span><span style="color: #505050; font-style: italic;">keyword_df.to_excel("keyword_df.xlsx", index=False)</span>
+
+        <span style="color: #505050; font-style: italic;">#</span><span style="color: #505050; font-style: italic;">if row%5000==0:</span>
+            <span style="color: #505050; font-style: italic;">#</span><span style="color: #505050; font-style: italic;">rdf.to_excel("/content/drive/MyDrive/Allrecepies/recepies.xlsx", index=False)</span>
+            <span style="color: #505050; font-style: italic;">#</span><span style="color: #505050; font-style: italic;">rating_df.to_excel("/content/drive/MyDrive/Allrecepies/rating_df2.xlsx", index=False, engine='xlsxwriter')</span>
+            <span style="color: #505050; font-style: italic;">#</span><span style="color: #505050; font-style: italic;">nutrition_df.to_excel("/content/drive/MyDrive/Allrecepies/nutrition_df.xlsx", index=False)</span>
+            <span style="color: #505050; font-style: italic;">#</span><span style="color: #505050; font-style: italic;">nutrition_per_df.to_excel("/content/drive/MyDrive/Allrecepies/nutrition_per_df.xlsx", index=False)</span>
+            <span style="color: #505050; font-style: italic;">#</span><span style="color: #505050; font-style: italic;">recipeInstructions_df.to_excel("/content/drive/MyDrive/Allrecepies/recipeInstructions_df.xlsx", index=False)</span>
+            <span style="color: #505050; font-style: italic;">#</span><span style="color: #505050; font-style: italic;">recipeIngredient_df.to_excel("/content/drive/MyDrive/Allrecepies/recipeIngredient_df.xlsx", index=False)</span>
+            <span style="color: #505050; font-style: italic;">#</span><span style="color: #505050; font-style: italic;">keyword_df.to_excel("/content/drive/MyDrive/Allrecepies/keyword_df.xlsx", index=False)</span>
+        <span style="color: #5317ac; font-weight: bold;">if</span> row%5000==0:
+            rdf.to_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/Allrecepies/recepies.csv"</span>, index=<span style="color: #0000c0;">False</span>)
+            rating_df.to_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/Allrecepies/rating_df.csv"</span>, index=<span style="color: #0000c0;">False</span>)
+            nutrition_df.to_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/Allrecepies/nutrition_df.csv"</span>, index=<span style="color: #0000c0;">False</span>)
+            nutrition_per_df.to_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/Allrecepies/nutrition_per_df.csv"</span>, index=<span style="color: #0000c0;">False</span>)
+            recipeInstructions_df.to_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/Allrecepies/recipeInstructions_df.csv"</span>, index=<span style="color: #0000c0;">False</span>)
+            recipeIngredient_df.to_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/Allrecepies/recipeIngredient_df.csv"</span>, index=<span style="color: #0000c0;">False</span>)
+            keyword_df.to_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/Allrecepies/keyword_df.csv"</span>, index=<span style="color: #0000c0;">False</span>)
+
+rdf.dropna(thresh=2).reset_index(drop=<span style="color: #0000c0;">True</span>).to_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/Allrecepies/recepies.csv"</span>, index=<span style="color: #0000c0;">False</span>)
+rating_df.dropna(thresh=2).reset_index(drop=<span style="color: #0000c0;">True</span>).to_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/Allrecepies/rating_df.csv"</span>, index=<span style="color: #0000c0;">False</span>)
+nutrition_df.dropna(thresh=2).reset_index(drop=<span style="color: #0000c0;">True</span>).to_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/Allrecepies/nutrition_df.csv"</span>, index=<span style="color: #0000c0;">False</span>)
+nutrition_per_df.dropna(thresh=2).reset_index(drop=<span style="color: #0000c0;">True</span>).to_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/Allrecepies/nutrition_per_df.csv"</span>, index=<span style="color: #0000c0;">False</span>)
+recipeInstructions_df.dropna(thresh=2).reset_index(drop=<span style="color: #0000c0;">True</span>).to_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/Allrecepies/recipeInstructions_df.csv"</span>, index=<span style="color: #0000c0;">False</span>)
+recipeIngredient_df.dropna(thresh=2).reset_index(drop=<span style="color: #0000c0;">True</span>).to_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/Allrecepies/recipeIngredient_df.csv"</span>, index=<span style="color: #0000c0;">False</span>)
+keyword_df.dropna(thresh=2).reset_index(drop=<span style="color: #0000c0;">True</span>).to_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/Allrecepies/keyword_df.csv"</span>, index=<span style="color: #0000c0;">False</span>)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org208b320" class="outline-3">
+<h3 id="org208b320"><span class="section-number-3">3.3.</span> Cleaning and sorting</h3>
+<div class="outline-text-3" id="text-3-3">
+<ul class="org-ul">
+<li>A recipe with high score mean that the recipe have:<br />
+<ul class="org-ul">
+<li>A high amount of image posted by users<br /></li>
+<li>A high rating score<br /></li>
+<li>A high rating count<br /></li>
+<li>published long time ago<br /></li>
+</ul></li>
+</ul>
+<p>
+\[Score=\frac{\text{Amount of image posted by users}*\text{Rating score}*\text{Rating count}}{\text{Difference between the date of today and the date of publish}}\]<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #00538b;">rdf</span>[<span style="color: #2544bb;">"datePublished"</span>]=pd.to_datetime(rdf[<span style="color: #2544bb;">"datePublished"</span>])
+<span style="color: #00538b;">rdf</span>[<span style="color: #2544bb;">"dateModified"</span>]=pd.to_datetime(rdf[<span style="color: #2544bb;">"dateModified"</span>])
+<span style="color: #00538b;">rdf</span>[<span style="color: #2544bb;">"dateDiff"</span>]=rdf[<span style="color: #2544bb;">"datePublished"</span>].<span style="color: #8f0075; font-weight: bold;">apply</span>(<span style="color: #5317ac; font-weight: bold;">lambda</span> x:x-rdf[<span style="color: #2544bb;">"datePublished"</span>].<span style="color: #8f0075; font-weight: bold;">min</span>())
+<span style="color: #00538b;">rdf</span>[<span style="color: #2544bb;">"dateDiff"</span>]=rdf[<span style="color: #2544bb;">"dateDiff"</span>].<span style="color: #8f0075; font-weight: bold;">apply</span>(<span style="color: #5317ac; font-weight: bold;">lambda</span> x:x.days+2)
+<span style="color: #00538b;">rdf</span>[<span style="color: #2544bb;">"prepTime"</span>]=rdf[<span style="color: #2544bb;">"prepTime"</span>].<span style="color: #8f0075; font-weight: bold;">apply</span>(<span style="color: #5317ac; font-weight: bold;">lambda</span> <span style="color: #00538b;">x</span>: <span style="color: #8f0075; font-weight: bold;">int</span>(<span style="color: #8f0075; font-weight: bold;">str</span>(x).replace(<span style="color: #2544bb;">"PT"</span>,<span style="color: #2544bb;">""</span>).replace(<span style="color: #2544bb;">"M"</span>,<span style="color: #2544bb;">""</span>).replace(<span style="color: #2544bb;">"nan"</span>,<span style="color: #2544bb;">"0"</span>)))
+rdf[<span style="color: #2544bb;">"cookTime"</span>]=rdf[<span style="color: #2544bb;">"cookTime"</span>].<span style="color: #8f0075; font-weight: bold;">apply</span>(<span style="color: #5317ac; font-weight: bold;">lambda</span> <span style="color: #00538b;">x</span>: <span style="color: #8f0075; font-weight: bold;">int</span>(<span style="color: #8f0075; font-weight: bold;">str</span>(x).replace(<span style="color: #2544bb;">"PT"</span>,<span style="color: #2544bb;">""</span>).replace(<span style="color: #2544bb;">"M"</span>,<span style="color: #2544bb;">""</span>).replace(<span style="color: #2544bb;">"nan"</span>,<span style="color: #2544bb;">"0"</span>)))
+rdf[<span style="color: #2544bb;">"totalTime"</span>]=rdf[<span style="color: #2544bb;">"totalTime"</span>].<span style="color: #8f0075; font-weight: bold;">apply</span>(<span style="color: #5317ac; font-weight: bold;">lambda</span> <span style="color: #00538b;">x</span>: <span style="color: #8f0075; font-weight: bold;">int</span>(<span style="color: #8f0075; font-weight: bold;">str</span>(x).replace(<span style="color: #2544bb;">"PT"</span>,<span style="color: #2544bb;">""</span>).replace(<span style="color: #2544bb;">"M"</span>,<span style="color: #2544bb;">""</span>).replace(<span style="color: #2544bb;">"nan"</span>,<span style="color: #2544bb;">"0"</span>)))
+rdf[<span style="color: #2544bb;">"additionalTime"</span>]=rdf[<span style="color: #2544bb;">"totalTime"</span>]-rdf[<span style="color: #2544bb;">"cookTime"</span>]-rdf[<span style="color: #2544bb;">"prepTime"</span>]
+<span style="color: #00538b;">rdf</span>[<span style="color: #2544bb;">"recipeYield"</span>]=rdf[<span style="color: #2544bb;">"recipeYield"</span>].<span style="color: #8f0075; font-weight: bold;">apply</span>(<span style="color: #5317ac; font-weight: bold;">lambda</span> <span style="color: #00538b;">x</span>:<span style="color: #8f0075; font-weight: bold;">int</span>(<span style="color: #8f0075; font-weight: bold;">str</span>(x).replace(<span style="color: #2544bb;">"['"</span>,<span style="color: #2544bb;">""</span>).replace(<span style="color: #2544bb;">"']"</span>,<span style="color: #2544bb;">""</span>).replace(<span style="color: #2544bb;">"nan"</span>,<span style="color: #2544bb;">"0"</span>)))
+rdf[<span style="color: #2544bb;">"ratingValue"</span>]=rdf[<span style="color: #2544bb;">"ratingValue"</span>].<span style="color: #8f0075; font-weight: bold;">apply</span>(<span style="color: #5317ac; font-weight: bold;">lambda</span> <span style="color: #00538b;">x</span>:<span style="color: #8f0075; font-weight: bold;">float</span>(x))
+rdf[<span style="color: #2544bb;">"ratingCount"</span>]=rdf[<span style="color: #2544bb;">"ratingCount"</span>].<span style="color: #8f0075; font-weight: bold;">apply</span>(<span style="color: #5317ac; font-weight: bold;">lambda</span> <span style="color: #00538b;">x</span>:<span style="color: #8f0075; font-weight: bold;">float</span>(x))
+rdf[<span style="color: #2544bb;">"score"</span>]=rdf[<span style="color: #2544bb;">"photo_n"</span>]*rdf[<span style="color: #2544bb;">"ratingValue"</span>]*rdf[<span style="color: #2544bb;">"ratingCount"</span>]/rdf[<span style="color: #2544bb;">"dateDiff"</span>]
+<span style="color: #00538b;">rdf</span>[<span style="color: #2544bb;">"score_log"</span>]=np.log(rdf[<span style="color: #2544bb;">"photo_n"</span>]+1)*np.log(rdf[<span style="color: #2544bb;">"ratingValue"</span>]+1)*np.log(rdf[<span style="color: #2544bb;">"ratingCount"</span>]+1)/np.log(rdf[<span style="color: #2544bb;">"dateDiff"</span>])
+<span style="color: #00538b;">rdf</span>=rdf.sort_values(<span style="color: #2544bb;">"score_log"</span>,ascending=<span style="color: #0000c0;">False</span>).reset_index(drop=<span style="color: #0000c0;">True</span>)
+rdf.to_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/Allrecepies/recepies.csv"</span>, index=<span style="color: #0000c0;">False</span>)
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org6c13ec2" class="outline-2">
+<h2 id="org6c13ec2"><span class="section-number-2">4.</span> Getting recipes images</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+<b>Note</b>: I did this part locally because of Ubuntu update that messed up selenium install on Google colab. The only adjustment that need to be taken are in regard to the paths.<br />
+</p>
+</div>
+<div id="outline-container-orgedade70" class="outline-3">
+<h3 id="orgedade70"><span class="section-number-3">4.1.</span> Initiation</h3>
+<div class="outline-text-3" id="text-4-1">
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #5317ac; font-weight: bold;">from</span> selenium <span style="color: #5317ac; font-weight: bold;">import</span> webdriver
+<span style="color: #5317ac; font-weight: bold;">from</span> selenium.webdriver.common.keys <span style="color: #5317ac; font-weight: bold;">import</span> Keys
+<span style="color: #5317ac; font-weight: bold;">from</span> selenium.webdriver.support <span style="color: #5317ac; font-weight: bold;">import</span> expected_conditions <span style="color: #5317ac; font-weight: bold;">as</span> EC
+<span style="color: #5317ac; font-weight: bold;">from</span> selenium.webdriver.common.by <span style="color: #5317ac; font-weight: bold;">import</span> By
+<span style="color: #5317ac; font-weight: bold;">from</span> selenium.webdriver.support.wait <span style="color: #5317ac; font-weight: bold;">import</span> WebDriverWait
+
+<span style="color: #5317ac; font-weight: bold;">from</span> selenium.webdriver.firefox.options <span style="color: #5317ac; font-weight: bold;">import</span> Options <span style="color: #5317ac; font-weight: bold;">as</span> FirefoxOptions
+<span style="color: #5317ac; font-weight: bold;">from</span> selenium <span style="color: #5317ac; font-weight: bold;">import</span> webdriver
+
+<span style="color: #00538b;">options</span> = FirefoxOptions()
+options.add_argument(<span style="color: #2544bb;">"--headless"</span>)
+options.add_argument(<span style="color: #2544bb;">"--window-size=1280,720"</span>)
+options.add_argument(<span style="color: #2544bb;">'--start-maximized'</span>)
+options.add_argument(<span style="color: #2544bb;">'--disable-gpu'</span>)
+options.add_argument(<span style="color: #2544bb;">'--no-sandbox'</span>)
+options.add_argument(
+    <span style="color: #2544bb;">"user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36"</span>)
+driver = webdriver.Firefox(options=options)
+
+df=pd.read_csv(<span style="color: #2544bb;">"allrecipes/f_recipe.csv"</span>)
+<span style="color: #505050; font-style: italic;">#</span><span style="color: #505050; font-style: italic;">empyt at first</span>
+idf=pd.read_csv(<span style="color: #2544bb;">"allrecipes/recipe_image_url.csv"</span>)
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #505050; font-style: italic;"># </span><span style="color: #505050; font-style: italic;">a script I found that scroll to the buttom of the page to trigger any element that need to be in view to show in html</span>
+<span style="color: #5317ac; font-weight: bold;">from</span> time <span style="color: #5317ac; font-weight: bold;">import</span> sleep
+<span style="color: #5317ac; font-weight: bold;">def</span> <span style="color: #721045;">keep_scrolling_to_the_bottom</span>():
+    <span style="color: #5317ac; font-weight: bold;">while</span> <span style="color: #0000c0;">True</span>:
+        previous_scrollY = driver.execute_script( <span style="color: #2544bb;">'return window.scrollY'</span> )
+        driver.execute_script( <span style="color: #2544bb;">'window.scrollBy( 0, 600 )'</span> )
+        sleep( 0.2 )
+        <span style="color: #5317ac; font-weight: bold;">if</span> previous_scrollY == driver.execute_script( <span style="color: #2544bb;">'return window.scrollY'</span> ):
+            <span style="color: #5317ac; font-weight: bold;">break</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org1a71f02" class="outline-3">
+<h3 id="org1a71f02"><span class="section-number-3">4.2.</span> Scraping URLs of 600k images</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+The website is somewhat dynamic, I found it hard at first to click on the next button to load the next page of images.<br />
+This CSS selector, "#photo-dialog__pagination_2-"+ str(p+2)+" &gt; li:nth-child("+ ch_n +")", keep changing base on:<br />
+p value change depending on if I am in the first page of the recipe gallery or not.<br />
+ch_n changes based on how many pages there are to the recipe gallery.<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #5317ac; font-weight: bold;">for</span> i <span style="color: #5317ac; font-weight: bold;">in</span> tqdm(<span style="color: #8f0075; font-weight: bold;">range</span>(<span style="color: #8f0075; font-weight: bold;">len</span>(df))):
+    <span style="color: #5317ac; font-weight: bold;">if</span> df[<span style="color: #2544bb;">"r_id"</span>].iloc[i] <span style="color: #5317ac; font-weight: bold;">in</span> idf[<span style="color: #2544bb;">"r_id"</span>].unique():
+        <span style="color: #5317ac; font-weight: bold;">pass</span>
+    <span style="color: #5317ac; font-weight: bold;">else</span>:       
+        driver.get(df[<span style="color: #2544bb;">"url"</span>].iloc[i])
+        time.sleep(1)
+        photo = WebDriverWait(driver, 2).until(EC.element_to_be_clickable((By.CSS_SELECTOR, <span style="color: #2544bb;">"#recipe-review-bar__photo-count_2-0"</span>))).click()
+        time.sleep(1)
+        <span style="color: #505050; font-style: italic;">#</span><span style="color: #505050; font-style: italic;">keep_scrolling_to_the_bottom()</span>
+        <span style="color: #00538b;">page_n</span>=df[<span style="color: #2544bb;">"photo_p"</span>].iloc[i]
+        <span style="color: #5317ac; font-weight: bold;">if</span> page_n&lt;4:
+            <span style="color: #00538b;">ch_n</span>=<span style="color: #2544bb;">"5"</span>
+        <span style="color: #5317ac; font-weight: bold;">elif</span> page_n&lt;5:
+            <span style="color: #00538b;">ch_n</span>=<span style="color: #2544bb;">"6"</span>
+        <span style="color: #5317ac; font-weight: bold;">else</span>:
+            ch_n=<span style="color: #2544bb;">"7"</span>
+        <span style="color: #5317ac; font-weight: bold;">for</span> p <span style="color: #5317ac; font-weight: bold;">in</span> <span style="color: #8f0075; font-weight: bold;">range</span>(page_n-1):
+            time.sleep(1)
+            <span style="color: #5317ac; font-weight: bold;">try</span>:
+                WebDriverWait(driver, 1).until(EC.element_to_be_clickable((By.CLASS_NAME, <span style="color: #2544bb;">"header-exit"</span>))).click()
+            <span style="color: #5317ac; font-weight: bold;">except</span>:
+                <span style="color: #5317ac; font-weight: bold;">pass</span>
+            <span style="color: #5317ac; font-weight: bold;">if</span> p==0:
+                next_p = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.CSS_SELECTOR, <span style="color: #2544bb;">".pagination__next"</span>))).click()
+            <span style="color: #5317ac; font-weight: bold;">elif</span> p==page_n-2:
+                <span style="color: #5317ac; font-weight: bold;">try</span>:
+                    next_p = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.CSS_SELECTOR, <span style="color: #2544bb;">"#photo-dialog__pagination_2-"</span>+ <span style="color: #8f0075; font-weight: bold;">str</span>(p+2)+<span style="color: #2544bb;">" &gt; li:nth-child("</span>+ch_n+<span style="color: #2544bb;">")"</span>))).click()
+                <span style="color: #5317ac; font-weight: bold;">except</span>:
+                    <span style="color: #5317ac; font-weight: bold;">pass</span>
+            <span style="color: #5317ac; font-weight: bold;">else</span>:
+                next_p = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.CSS_SELECTOR, <span style="color: #2544bb;">"#photo-dialog__pagination_2-"</span>+ <span style="color: #8f0075; font-weight: bold;">str</span>(p+2)+<span style="color: #2544bb;">" &gt; li:nth-child("</span>+ch_n+<span style="color: #2544bb;">")"</span>))).click()
+
+        time.sleep(2)
+        spage_source = driver.page_source
+        ssoup = BeautifulSoup(spage_source, <span style="color: #2544bb;">'lxml'</span>)
+        soup_photo=ssoup.findAll(<span style="color: #2544bb;">"div"</span>,{<span style="color: #2544bb;">"class"</span>:<span style="color: #2544bb;">"photo-dialog__item"</span>})
+
+        img_pos=[]
+        img_link=[]
+        img_rid=[df[<span style="color: #2544bb;">"r_id"</span>].iloc[i]]*<span style="color: #8f0075; font-weight: bold;">len</span>(soup_photo)
+        up_total_img=<span style="color: #8f0075; font-weight: bold;">int</span>(soup_photo[-1].find(<span style="color: #2544bb;">"span"</span>,{<span style="color: #2544bb;">"class"</span>:<span style="color: #2544bb;">"content-list-number__total"</span>}).text.split(<span style="color: #2544bb;">" "</span>)[-1].replace(<span style="color: #2544bb;">","</span>,<span style="color: #2544bb;">""</span>))
+        <span style="color: #5317ac; font-weight: bold;">if</span> <span style="color: #8f0075; font-weight: bold;">len</span>(soup_photo)&gt;=up_total_img-1:
+            <span style="color: #5317ac; font-weight: bold;">for</span> iml <span style="color: #5317ac; font-weight: bold;">in</span> <span style="color: #8f0075; font-weight: bold;">range</span>(<span style="color: #8f0075; font-weight: bold;">len</span>(soup_photo)):
+                img_pos.append(iml+1)
+                img_link.append(soup_photo[iml].find(<span style="color: #2544bb;">"img"</span>)[<span style="color: #2544bb;">"data-src"</span>].split(<span style="color: #2544bb;">"&amp;"</span>)[0])
+            idf=pd.concat([idf,pd.DataFrame({<span style="color: #2544bb;">"r_id"</span>:img_rid,<span style="color: #2544bb;">"img_pos"</span>:img_pos,<span style="color: #2544bb;">"img_link"</span>:img_link})]).reset_index(drop=<span style="color: #0000c0;">True</span>)
+        <span style="color: #5317ac; font-weight: bold;">else</span>:
+            <span style="color: #8f0075; font-weight: bold;">print</span>(df[<span style="color: #2544bb;">"url"</span>].iloc[i])
+            <span style="color: #8f0075; font-weight: bold;">print</span>(<span style="color: #8f0075; font-weight: bold;">len</span>(soup_photo),up_total_img)
+            <span style="color: #8f0075; font-weight: bold;">print</span>(<span style="color: #2544bb;">"_"</span>*30)
+
+        <span style="color: #5317ac; font-weight: bold;">if</span> i%100==0:
+            idf.to_csv(<span style="color: #2544bb;">"allrecipes/recipe_image_url.csv"</span>,index=<span style="color: #0000c0;">False</span>)
+idf.to_csv(<span style="color: #2544bb;">"allrecipes/recipe_image_url.csv"</span>,index=<span style="color: #0000c0;">False</span>)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org2f29c3d" class="outline-3">
+<h3 id="org2f29c3d"><span class="section-number-3">4.3.</span> Downloading in google drive</h3>
+<div class="outline-text-3" id="text-4-3">
+</div>
+<div id="outline-container-org4647631" class="outline-4">
+<h4 id="org4647631"><span class="section-number-4">4.3.1.</span> Setup</h4>
+<div class="outline-text-4" id="text-4-3-1">
+<p>
+Splitting the data into four groups, each have multiple data sets, one for each recipe.<br />
+Installing a python library to calculate brisque score<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-python">!pip install piq
+</pre>
+</div>
+<p>
+importing librarys<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #5317ac; font-weight: bold;">import</span> time
+<span style="color: #5317ac; font-weight: bold;">import</span> numpy <span style="color: #5317ac; font-weight: bold;">as</span> np
+<span style="color: #5317ac; font-weight: bold;">import</span> pandas <span style="color: #5317ac; font-weight: bold;">as</span> pd
+<span style="color: #5317ac; font-weight: bold;">from</span> tqdm.notebook <span style="color: #5317ac; font-weight: bold;">import</span> trange, tqdm, tqdm_notebook
+<span style="color: #5317ac; font-weight: bold;">import</span> os
+<span style="color: #5317ac; font-weight: bold;">import</span> glob
+<span style="color: #5317ac; font-weight: bold;">import</span> shutil
+<span style="color: #5317ac; font-weight: bold;">from</span> PIL <span style="color: #5317ac; font-weight: bold;">import</span> Image
+<span style="color: #5317ac; font-weight: bold;">import</span> subprocess
+<span style="color: #5317ac; font-weight: bold;">from</span> zipfile <span style="color: #5317ac; font-weight: bold;">import</span> ZipFile
+<span style="color: #5317ac; font-weight: bold;">from</span> os.path <span style="color: #5317ac; font-weight: bold;">import</span> basename
+<span style="color: #5317ac; font-weight: bold;">from</span> PIL <span style="color: #5317ac; font-weight: bold;">import</span> ImageFile, Image
+<span style="color: #5317ac; font-weight: bold;">import</span> torch
+<span style="color: #5317ac; font-weight: bold;">import</span> piq
+<span style="color: #5317ac; font-weight: bold;">from</span> skimage.io <span style="color: #5317ac; font-weight: bold;">import</span> imread
+<span style="color: #5317ac; font-weight: bold;">import</span> cv2
+ImageFile.<span style="color: #00538b;">LOAD_TRUNCATED_IMAGES</span> = <span style="color: #0000c0;">True</span>
+</pre>
+</div>
+<p>
+importing group data sets from drive<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #00538b;">group</span>=<span style="color: #2544bb;">"a"</span>
+<span style="color: #5317ac; font-weight: bold;">try</span>:
+    os.mkdir(<span style="color: #2544bb;">"/content/"</span>+group)
+<span style="color: #5317ac; font-weight: bold;">except</span>:
+    <span style="color: #5317ac; font-weight: bold;">pass</span>
+shutil.copy(<span style="color: #2544bb;">"/content/drive/MyDrive/all_rec_img/"</span>+group+<span style="color: #2544bb;">".7z"</span>,<span style="color: #2544bb;">"/content/"</span>+group+<span style="color: #2544bb;">".7z"</span>)
+subprocess.run([<span style="color: #2544bb;">"7za"</span>,<span style="color: #2544bb;">"e"</span>,<span style="color: #2544bb;">"/content/"</span>+group+<span style="color: #2544bb;">".7z"</span>,<span style="color: #2544bb;">"-o/content/"</span>+group+<span style="color: #2544bb;">"/"</span>])
+<span style="color: #00538b;">db</span>=pd.read_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/all_rec_img/db.csv"</span>)
+<span style="color: #00538b;">csv_list</span>=glob.glob(<span style="color: #2544bb;">"/content/"</span>+group+<span style="color: #2544bb;">"/*.csv"</span>)
+</pre>
+</div>
+<p>
+extracting and ordeting<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #00538b;">f_size</span>=[]
+<span style="color: #5317ac; font-weight: bold;">for</span> ccc <span style="color: #5317ac; font-weight: bold;">in</span> <span style="color: #00538b;">csv_list</span>:
+    f_size.append(os.path.getsize(ccc))
+odf=pd.DataFrame({<span style="color: #2544bb;">"csv_list"</span>:csv_list,<span style="color: #2544bb;">"f_size"</span>:f_size})
+<span style="color: #00538b;">odf</span>=odf.sort_values(<span style="color: #2544bb;">"f_size"</span>,ascending=<span style="color: #0000c0;">False</span>).reset_index(drop=<span style="color: #0000c0;">True</span>)
+csv_list=odf[<span style="color: #2544bb;">"csv_list"</span>]
+</pre>
+</div>
+<p>
+checking the google drive storage to make the downlaod stop when it 12 gb full<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #00538b;">g_size</span>=[]
+<span style="color: #00538b;">z_list</span>=glob.glob(<span style="color: #2544bb;">"/content/drive/MyDrive/all_rec_img/img/*"</span>)
+<span style="color: #5317ac; font-weight: bold;">for</span> z <span style="color: #5317ac; font-weight: bold;">in</span> z_list:
+    g_size.append(os.path.getsize(z))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orge02506e" class="outline-4">
+<h4 id="orge02506e"><span class="section-number-4">4.3.2.</span> Downloading and renaming</h4>
+<div class="outline-text-4" id="text-4-3-2">
+<p>
+The whole point of this project is to automate recipe import, but I couldn't automate getting the best images, it needs to be done manually.<br />
+</p>
+<ul class="org-ul">
+<li><p>
+After downloading, the image is renamed base on its: shape__score__recipe-id__image-order<br />
+</p>
+<ul class="org-ul">
+<li>shape: represented by letters:<br />
+<ul class="org-ul">
+<li>p mean the image is portrait<br /></li>
+<li>l mean the image is landscape<br /></li>
+<li>s mean the image is square<br /></li>
+</ul></li>
+<li>score: is compose of three elements:<br />
+<ul class="org-ul">
+<li>constent: I decided to add 200 to the score because of lexicographic sorting.<br />
+Where if we have two files where one start with 10 and the other by 2, 2 will be considered bigger than 10. Because of the way sorting algorithm works.<br /></li>
+<li>BRISQUE score: A method that asses image quality based on its sharpness, a lower score means a sharper image.<br /></li>
+<li><p>
+square root of relative image area (SRIA): The minimum image width and height are 960, let's imagine we have two images:<br />
+</p>
+<ul class="org-ul">
+<li>Image 1: width=960, height=960, BRISQUE score=20<br /></li>
+<li>Image 2: width=1920, height=1080, BRISQUE score=20<br /></li>
+</ul>
+<p>
+I would prefer image 2 over image 1 because it has more overall area/pixels, therefore it was probably captured by a good camera and might be a good image to put in a website or social media.<br />
+So I come up with this metric:<br />
+<b>Note</b> Minimum image width and heigh are equal to 960<br />
+\[SRIA=\sqrt{\frac{\text{Current image width}*\text{Current image height}}{\text{Minimum image width}*\text{Minimum image height}}}\]<br />
+If we would to apply it one image one and two:<br />
+\[SRIA_{\text{Image 1}}=\sqrt{\frac{960*960}{960*960}}=1\]<br />
+\[SRIA_{\text{Image 2}}=\sqrt{\frac{1920*1080}{960*960}}=1.5\]<br />
+</p></li>
+</ul></li>
+</ul>
+<p>
+<b>Note</b> Since the lower the BRISQUE score the better, dividing by SRIA score will make large images have a lower score, therefore, appear first in sorting.<br />
+The overall score formula is like this<br />
+\[Score=constant+\frac{BRISUQE}{SRIA}\]<br />
+\[Score_{\text{Image 1}}=200+\frac{20}{1}=220\]<br />
+\[Score_{\text{Image 2}}=200+\frac{20}{1.5} \approx 213\]<br />
+This way image 2 will apprear before image 1<br />
+</p></li>
+<li>Example of the final image namming:<br />
+<ul class="org-ul">
+<li>image 1: s__220__10813_49.jpeg<br /></li>
+<li>image 2: l__213__10813_50.jpeg<br /></li>
+</ul></li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #00538b;">img_done</span>=[<span style="color: #2544bb;">"no"</span>]*10000
+<span style="color: #5317ac; font-weight: bold;">for</span> c <span style="color: #5317ac; font-weight: bold;">in</span> tqdm(<span style="color: #8f0075; font-weight: bold;">range</span>(<span style="color: #8f0075; font-weight: bold;">len</span>(csv_list))):
+    <span style="color: #00538b;">csv_id</span>=csv_list[c].split(<span style="color: #2544bb;">"/"</span>)[-1].split(<span style="color: #2544bb;">"."</span>)[0]
+    <span style="color: #5317ac; font-weight: bold;">if</span> <span style="color: #8f0075; font-weight: bold;">round</span>(<span style="color: #8f0075; font-weight: bold;">sum</span>(g_size)/1024/1024/1024,1)&gt;12:
+        <span style="color: #8f0075; font-weight: bold;">print</span>(<span style="color: #2544bb;">"Gdrive limit"</span>)
+        <span style="color: #5317ac; font-weight: bold;">break</span>
+    <span style="color: #5317ac; font-weight: bold;">if</span> <span style="color: #8f0075; font-weight: bold;">int</span>(csv_id) <span style="color: #5317ac; font-weight: bold;">in</span> db[<span style="color: #2544bb;">"r_id"</span>].unique():
+        <span style="color: #5317ac; font-weight: bold;">pass</span>
+    <span style="color: #5317ac; font-weight: bold;">else</span>:
+        df=pd.read_csv(csv_list[c])
+        <span style="color: #00538b;">image_folder</span>=<span style="color: #2544bb;">"/content/"</span>+csv_id
+        <span style="color: #00538b;">zip_name</span>=image_folder+<span style="color: #2544bb;">".7z"</span>
+        <span style="color: #5317ac; font-weight: bold;">try</span>:
+            os.mkdir(image_folder)
+        <span style="color: #5317ac; font-weight: bold;">except</span>:
+            <span style="color: #5317ac; font-weight: bold;">pass</span>
+        img_n=<span style="color: #8f0075; font-weight: bold;">len</span>(df)
+        <span style="color: #5317ac; font-weight: bold;">for</span> i <span style="color: #5317ac; font-weight: bold;">in</span> tqdm(<span style="color: #8f0075; font-weight: bold;">range</span>(<span style="color: #8f0075; font-weight: bold;">len</span>(df))):
+            <span style="color: #00538b;">image_path</span>=image_folder+<span style="color: #2544bb;">"/"</span>+csv_id+<span style="color: #2544bb;">"_"</span>+<span style="color: #8f0075; font-weight: bold;">str</span>(df[<span style="color: #2544bb;">"img_pos"</span>].iloc[i])+<span style="color: #2544bb;">"."</span>+df[<span style="color: #2544bb;">"img_link"</span>].iloc[i].split(<span style="color: #2544bb;">"."</span>)[-1]
+            <span style="color: #00538b;">image_url</span>=df[<span style="color: #2544bb;">"img_link"</span>].iloc[i]
+            <span style="color: #5317ac; font-weight: bold;">if</span> img_done[i]==<span style="color: #2544bb;">"done"</span>:
+                <span style="color: #5317ac; font-weight: bold;">pass</span>
+            <span style="color: #5317ac; font-weight: bold;">else</span>:
+                subprocess.run([<span style="color: #2544bb;">"curl"</span>,image_url,<span style="color: #2544bb;">"--output"</span>,image_path])
+                <span style="color: #5317ac; font-weight: bold;">if</span> os.path.exists(image_path):
+                    <span style="color: #5317ac; font-weight: bold;">pass</span>
+                <span style="color: #5317ac; font-weight: bold;">else</span>:
+                    subprocess.run([<span style="color: #2544bb;">"curl"</span>,image_url,<span style="color: #2544bb;">"--output"</span>,image_path])
+                <span style="color: #5317ac; font-weight: bold;">while</span> os.path.getsize(image_path)&lt;200:
+                    os.remove(image_path)
+                    time.sleep(120)
+                    subprocess.run([<span style="color: #2544bb;">"curl"</span>,image_url,<span style="color: #2544bb;">"--output"</span>,image_path])
+                <span style="color: #5317ac; font-weight: bold;">if</span> image_path[-5]==<span style="color: #2544bb;">"."</span>:
+                    <span style="color: #5317ac; font-weight: bold;">pass</span>
+                <span style="color: #5317ac; font-weight: bold;">elif</span> image_path[-4]==<span style="color: #2544bb;">"."</span>:
+                    <span style="color: #5317ac; font-weight: bold;">pass</span>
+                <span style="color: #5317ac; font-weight: bold;">else</span>:
+                    os.rename(image_path,image_path+<span style="color: #2544bb;">".jpg"</span>)
+                    image_path=image_path+<span style="color: #2544bb;">".jpg"</span>
+                image = Image.<span style="color: #8f0075; font-weight: bold;">open</span>(image_path)
+                <span style="color: #5317ac; font-weight: bold;">if</span> image.width&lt;300:
+                    image.close()
+                    os.remove(image_path)
+                    img_n=img_n-1
+                    img_done[i]=<span style="color: #2544bb;">"done"</span>
+                <span style="color: #5317ac; font-weight: bold;">else</span>:
+                    <span style="color: #5317ac; font-weight: bold;">try</span>:
+                        image.save(image_path, optimize = <span style="color: #0000c0;">True</span>, quality = 90)
+                    <span style="color: #5317ac; font-weight: bold;">except</span>:
+                        image.convert(<span style="color: #2544bb;">'RGB'</span>).save(image_path, optimize = <span style="color: #0000c0;">True</span>, quality = 90)
+
+                    h_im = cv2.imread(image_path)
+                    original_height=h_im.shape[0]
+                    original_width=h_im.shape[1]
+                    r_image_area=np.sqrt(original_height*original_width/960**2)
+                    new_heigh=<span style="color: #8f0075; font-weight: bold;">int</span>(960*h_im.shape[0]/h_im.shape[1])
+                    dim = (960, new_heigh)
+                    h_im=cv2.resize(h_im,dim)  
+
+                    <span style="color: #5317ac; font-weight: bold;">if</span> <span style="color: #8f0075; font-weight: bold;">round</span>(original_width,-3)==<span style="color: #8f0075; font-weight: bold;">round</span>(original_height,-3):
+                        sh=<span style="color: #2544bb;">"s"</span>
+                    <span style="color: #5317ac; font-weight: bold;">elif</span> <span style="color: #8f0075; font-weight: bold;">round</span>(original_width,-3)&gt;<span style="color: #8f0075; font-weight: bold;">round</span>(original_height,-3):
+                        sh=<span style="color: #2544bb;">"l"</span>
+                    <span style="color: #5317ac; font-weight: bold;">elif</span> <span style="color: #8f0075; font-weight: bold;">round</span>(original_width,-3)&lt;<span style="color: #8f0075; font-weight: bold;">round</span>(original_height,-3):
+                        sh=<span style="color: #2544bb;">"p"</span>
+
+                    x = torch.tensor(h_im).permute(2, 0, 1)[<span style="color: #0000c0;">None</span>, ...] / 255.
+                    brisque_index: torch.Tensor = piq.brisque(x, data_range=1., reduction=<span style="color: #2544bb;">'none'</span>)
+                    br_score=<span style="color: #8f0075; font-weight: bold;">round</span>(200+brisque_index.item()/r_image_area)
+                    new_image_name=image_path.replace(image_path.split(<span style="color: #2544bb;">'/'</span>)[-1],sh+<span style="color: #2544bb;">"__"</span>+<span style="color: #8f0075; font-weight: bold;">str</span>(br_score)+<span style="color: #2544bb;">"__"</span>+image_path.split(<span style="color: #2544bb;">'/'</span>)[-1])
+                    os.rename(image_path,new_image_name)
+                    img_done[i]=<span style="color: #2544bb;">"done"</span>
+
+        <span style="color: #5317ac; font-weight: bold;">if</span> img_n==<span style="color: #8f0075; font-weight: bold;">len</span>(glob.glob(image_folder+<span style="color: #2544bb;">"/*"</span>)):
+            subprocess.run([<span style="color: #2544bb;">"7za"</span>, <span style="color: #2544bb;">"a"</span>, <span style="color: #2544bb;">"-mhe"</span>,zip_name, image_folder])
+            shutil.rmtree(image_folder)
+            shutil.copy(zip_name,zip_name.replace(<span style="color: #2544bb;">"/content/"</span>,<span style="color: #2544bb;">"/content/drive/MyDrive/all_rec_img/img/"</span>))
+            g_size.append(os.path.getsize(zip_name))
+            os.remove(zip_name)
+            n_db=<span style="color: #8f0075; font-weight: bold;">list</span>(db[<span style="color: #2544bb;">"r_id"</span>])
+            n_db.append(<span style="color: #8f0075; font-weight: bold;">int</span>(csv_id))
+            db=pd.DataFrame({<span style="color: #2544bb;">"r_id"</span>:n_db})
+            db.to_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/all_rec_img/db.csv"</span>,index=<span style="color: #0000c0;">False</span>)
+            img_done=[<span style="color: #2544bb;">"no"</span>]*10000
+        <span style="color: #5317ac; font-weight: bold;">if</span> <span style="color: #8f0075; font-weight: bold;">round</span>(<span style="color: #8f0075; font-weight: bold;">sum</span>(g_size)/1024/1024/1024,1)&gt;12:
+            <span style="color: #8f0075; font-weight: bold;">print</span>(<span style="color: #2544bb;">"Gdrive limit"</span>)
+            <span style="color: #5317ac; font-weight: bold;">break</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org58e51da" class="outline-4">
+<h4 id="org58e51da"><span class="section-number-4">4.3.3.</span> archive multiple 7z files to ease download and speed up google drive</h4>
+<div class="outline-text-4" id="text-4-3-3">
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #00538b;">z_s</span>=[]
+<span style="color: #00538b;">z_p</span>=glob.glob(<span style="color: #2544bb;">"/content/drive/MyDrive/all_rec_img/img/*"</span>)
+<span style="color: #5317ac; font-weight: bold;">for</span> zzz <span style="color: #5317ac; font-weight: bold;">in</span> z_p:
+    z_s.append(<span style="color: #8f0075; font-weight: bold;">round</span>(os.path.getsize(zzz)/1024/1024))
+<span style="color: #00538b;">zdf</span>=pd.DataFrame({<span style="color: #2544bb;">"z_p"</span>:z_p,<span style="color: #2544bb;">"z_s"</span>:z_s})
+<span style="color: #00538b;">zdf</span>[<span style="color: #2544bb;">"z_sc"</span>]=zdf[<span style="color: #2544bb;">"z_s"</span>].cumsum()
+</pre>
+</div>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #00538b;">i</span>=0
+<span style="color: #00538b;">mins</span>=0
+<span style="color: #00538b;">maxs</span>=1000
+</pre>
+</div>
+<p>
+this line is repeated manualy after cleaning the Google drive bin<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #00538b;">zfg</span>=<span style="color: #2544bb;">"/content/"</span>+group+<span style="color: #2544bb;">"_"</span>+<span style="color: #8f0075; font-weight: bold;">str</span>(i)
+<span style="color: #00538b;">zipfg</span>=zfg.replace(<span style="color: #2544bb;">"/content/"</span>,<span style="color: #2544bb;">"/content/group_"</span>)+<span style="color: #2544bb;">".7z"</span>
+<span style="color: #5317ac; font-weight: bold;">try</span>:
+    os.mkdir(zfg)
+<span style="color: #5317ac; font-weight: bold;">except</span>:
+    <span style="color: #5317ac; font-weight: bold;">pass</span>
+copyz=zdf[(zdf[<span style="color: #2544bb;">"z_sc"</span>]&gt;mins) &amp; (zdf[<span style="color: #2544bb;">"z_sc"</span>]&lt;=maxs)].reset_index(drop=<span style="color: #0000c0;">True</span>)
+<span style="color: #5317ac; font-weight: bold;">if</span> i&gt;15:
+    <span style="color: #8f0075; font-weight: bold;">print</span>(<span style="color: #2544bb;">"done"</span>)
+<span style="color: #5317ac; font-weight: bold;">elif</span> <span style="color: #8f0075; font-weight: bold;">len</span>(copyz)==0:
+    i=i+1
+    mins=mins+1000
+    maxs=maxs+1000
+    <span style="color: #8f0075; font-weight: bold;">print</span>(i)
+<span style="color: #5317ac; font-weight: bold;">else</span>:
+    <span style="color: #5317ac; font-weight: bold;">for</span> fz <span style="color: #5317ac; font-weight: bold;">in</span> tqdm(<span style="color: #8f0075; font-weight: bold;">range</span>(<span style="color: #8f0075; font-weight: bold;">len</span>(copyz))):
+        zfile_path=copyz[<span style="color: #2544bb;">"z_p"</span>].iloc[fz]
+        dist_path=copyz[<span style="color: #2544bb;">"z_p"</span>].iloc[fz].replace(<span style="color: #2544bb;">"/content/drive/MyDrive/all_rec_img/img"</span>,<span style="color: #2544bb;">"/content/"</span>+group+<span style="color: #2544bb;">"_"</span>+<span style="color: #8f0075; font-weight: bold;">str</span>(i))
+        shutil.copy(zfile_path,dist_path)
+    subprocess.run([<span style="color: #2544bb;">"7za"</span>, <span style="color: #2544bb;">"a"</span>, <span style="color: #2544bb;">"-p0qqhUBk9xk1sT4d8fSK2"</span>,<span style="color: #2544bb;">"-mhe"</span>,zipfg, zfg])
+    <span style="color: #5317ac; font-weight: bold;">for</span> fz <span style="color: #5317ac; font-weight: bold;">in</span> <span style="color: #8f0075; font-weight: bold;">range</span>(<span style="color: #8f0075; font-weight: bold;">len</span>(copyz)):
+        zfile_path=copyz[<span style="color: #2544bb;">"z_p"</span>].iloc[fz]
+        os.remove(zfile_path)
+    shutil.rmtree(zfg)
+    shutil.copy(zipfg,zipfg.replace(<span style="color: #2544bb;">"/content/"</span>,<span style="color: #2544bb;">"/content/drive/MyDrive/all_rec_img/7z_img/"</span>))
+    os.remove(zipfg)
+    i=i+1
+    mins=mins+1000
+    maxs=maxs+1000
+    <span style="color: #8f0075; font-weight: bold;">print</span>(i)
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: 2023-03-16 Thu 17:56</p>
+<p class="date">Created: 2023-03-17 Fri 17:13</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
