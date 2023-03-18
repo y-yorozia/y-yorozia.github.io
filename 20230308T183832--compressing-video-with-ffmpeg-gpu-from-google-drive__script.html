@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-03-08 Wed 19:06 -->
+<!-- 2023-03-18 Sat 10:24 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Compressing video with FFMPEG-GPU from Google Drive</title>
@@ -22,15 +22,25 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org222918c">1. Building FFMPEG with GPU acceleration in google colab instense</a></li>
-<li><a href="#orgb46b2d5">2. Scannig for video files</a></li>
-<li><a href="#orgbb79d41">3. Compression</a></li>
+<li><a href="#org6d64279">1. Building FFMPEG with GPU acceleration in google colab instense</a></li>
+<li><a href="#org70b18c6">2. Scannig for video files</a></li>
+<li><a href="#orgb6ad5f0">3. Compression</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org222918c" class="outline-2">
-<h2 id="org222918c"><span class="section-number-2">1.</span> Building FFMPEG with GPU acceleration in google colab instense</h2>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z0T1EQTBKL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Z0T1EQTBKL');
+</script>
+
+<div id="outline-container-org6d64279" class="outline-2">
+<h2 id="org6d64279"><span class="section-number-2">1.</span> Building FFMPEG with GPU acceleration in google colab instense</h2>
 <div class="outline-text-2" id="text-1">
 <div class="org-src-container">
 <pre class="src src-python">!wget https://gist.githubusercontent.com/ransagy/3f6f1a9e5ede6212425f3b36b136216e/raw/eac1102659ec3dad1ccdb6c8eedf71317e7e3a0e/<span style="color: #8f0075; font-weight: bold;">compile</span>-ffmpeg-nvenc.sh
@@ -39,8 +49,8 @@
 </div>
 </div>
 </div>
-<div id="outline-container-orgb46b2d5" class="outline-2">
-<h2 id="orgb46b2d5"><span class="section-number-2">2.</span> Scannig for video files</h2>
+<div id="outline-container-org70b18c6" class="outline-2">
+<h2 id="org70b18c6"><span class="section-number-2">2.</span> Scannig for video files</h2>
 <div class="outline-text-2" id="text-2">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #00538b;">dd</span>=[]
@@ -76,8 +86,8 @@ Now I can eliminate files that have "__ced" in their file name and have a file t
 </div>
 </div>
 
-<div id="outline-container-orgbb79d41" class="outline-2">
-<h2 id="orgbb79d41"><span class="section-number-2">3.</span> Compression</h2>
+<div id="outline-container-orgb6ad5f0" class="outline-2">
+<h2 id="orgb6ad5f0"><span class="section-number-2">3.</span> Compression</h2>
 <div class="outline-text-2" id="text-3">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #00538b;">dim</span>=1920
@@ -140,7 +150,7 @@ Now I can eliminate files that have "__ced" in their file name and have a file t
 </div>
 <div id="postamble" class="status">
 <p class="date">Date: 2023-03-08 Wed 18:38</p>
-<p class="date">Created: 2023-03-08 Wed 19:06</p>
+<p class="date">Created: 2023-03-18 Sat 10:24</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

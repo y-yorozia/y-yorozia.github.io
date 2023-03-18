@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-03-03 Fri 20:22 -->
+<!-- 2023-03-18 Sat 10:22 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Story telling with data</title>
@@ -22,179 +22,190 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgb2f3176">1. The importance of context</a>
+<li><a href="#orgfd8aadf">1. The importance of context</a>
 <ul>
-<li><a href="#org0075572">1.1. Exploratory vs explanatory analysis</a></li>
-<li><a href="#org0ecd8b2">1.2. Who, what, and how</a>
+<li><a href="#org43d5256">1.1. Exploratory vs explanatory analysis</a></li>
+<li><a href="#org9ff3402">1.2. Who, what, and how</a>
 <ul>
-<li><a href="#orgc349c3a">1.2.1. Who</a>
+<li><a href="#org75acc6c">1.2.1. Who</a>
 <ul>
-<li><a href="#org4c2f1a0">1.2.1.1. Your audience:</a></li>
-<li><a href="#org341189a">1.2.1.2. You:</a></li>
+<li><a href="#org3d8d94e">1.2.1.1. Your audience:</a></li>
+<li><a href="#orgd27ff9a">1.2.1.2. You:</a></li>
 </ul>
 </li>
-<li><a href="#org58be331">1.2.2. What</a>
+<li><a href="#org62fbe17">1.2.2. What</a>
 <ul>
-<li><a href="#org650a0d4">1.2.2.1. Action</a></li>
-<li><a href="#org29072f2">1.2.2.2. Mechanism</a></li>
-<li><a href="#org9da0c2e">1.2.2.3. Tone</a></li>
+<li><a href="#org011f581">1.2.2.1. Action</a></li>
+<li><a href="#orga5668c2">1.2.2.2. Mechanism</a></li>
+<li><a href="#org36aef09">1.2.2.3. Tone</a></li>
 </ul>
 </li>
-<li><a href="#org9e6d31e">1.2.3. How</a></li>
+<li><a href="#orgce30282">1.2.3. How</a></li>
 </ul>
 </li>
-<li><a href="#orgd4f19d3">1.3. Who, what, and how: example</a></li>
-<li><a href="#orgbb0c8c4">1.4. Consulting for context: question to ask</a></li>
-<li><a href="#org6048392">1.5. The 3 minute story and big idea</a>
+<li><a href="#org821e1c5">1.3. Who, what, and how: example</a></li>
+<li><a href="#org261f173">1.4. Consulting for context: question to ask</a></li>
+<li><a href="#org4e7affe">1.5. The 3 minute story and big idea</a>
 <ul>
-<li><a href="#org6e93b23">1.5.1. 3-minute story</a></li>
-<li><a href="#orgfd92e48">1.5.2. Big Idea</a></li>
-<li><a href="#org8666e1c">1.5.3. ُExample</a></li>
+<li><a href="#org509f9a0">1.5.1. 3-minute story</a></li>
+<li><a href="#org2ff8390">1.5.2. Big Idea</a></li>
+<li><a href="#org4f4dc58">1.5.3. ُExample</a></li>
 </ul>
 </li>
-<li><a href="#orgea84b04">1.6. Story boarding</a></li>
+<li><a href="#orgfcf0e41">1.6. Story boarding</a></li>
 </ul>
 </li>
-<li><a href="#orgdf87b02">2. Choosing an effective visual</a>
+<li><a href="#org4bea7e0">2. Choosing an effective visual</a>
 <ul>
-<li><a href="#org1547092">2.1. Simple text</a></li>
-<li><a href="#orgc179be0">2.2. Tables</a>
+<li><a href="#orged74b30">2.1. Simple text</a></li>
+<li><a href="#org6f1bb0b">2.2. Tables</a>
 <ul>
-<li><a href="#orgf3dab21">2.2.1. Heatmap</a></li>
+<li><a href="#org32bed2f">2.2.1. Heatmap</a></li>
 </ul>
 </li>
-<li><a href="#org8346da9">2.3. Graph</a></li>
-<li><a href="#org7ff5ccc">2.4. Points</a>
+<li><a href="#orgd8d6aac">2.3. Graph</a></li>
+<li><a href="#orgd6a1a62">2.4. Points</a>
 <ul>
-<li><a href="#org0a9311c">2.4.1. Scatterplot</a></li>
+<li><a href="#orgdab0c5f">2.4.1. Scatterplot</a></li>
 </ul>
 </li>
-<li><a href="#org6700e79">2.5. Lines</a>
+<li><a href="#org3c1b550">2.5. Lines</a>
 <ul>
-<li><a href="#org0823347">2.5.1. Slopegraph</a></li>
+<li><a href="#orgc20bc96">2.5.1. Slopegraph</a></li>
 </ul>
 </li>
-<li><a href="#org457cd57">2.6. Bars</a>
+<li><a href="#orge8e6373">2.6. Bars</a>
 <ul>
-<li><a href="#orgffb34e8">2.6.1. Vertical bar chart</a></li>
-<li><a href="#orgae54075">2.6.2. Stacked vertical bar chart</a></li>
-<li><a href="#orge9b730d">2.6.3. Waterfall chart</a></li>
-<li><a href="#org159140d">2.6.4. Horizontal bar chart</a></li>
-<li><a href="#orgd3a0f6b">2.6.5. Stacked horizontal bar chart</a></li>
+<li><a href="#org5327f01">2.6.1. Vertical bar chart</a></li>
+<li><a href="#orgba24fcf">2.6.2. Stacked vertical bar chart</a></li>
+<li><a href="#orgdf34b57">2.6.3. Waterfall chart</a></li>
+<li><a href="#org6c87390">2.6.4. Horizontal bar chart</a></li>
+<li><a href="#org8630298">2.6.5. Stacked horizontal bar chart</a></li>
 </ul>
 </li>
-<li><a href="#orgb73342b">2.7. Area</a></li>
-<li><a href="#org2884988">2.8. Other type of graph</a></li>
-<li><a href="#orgc4cbd3d">2.9. To be avoided</a>
+<li><a href="#orgc18848a">2.7. Area</a></li>
+<li><a href="#org3f5ae8f">2.8. Other type of graph</a></li>
+<li><a href="#orge12be73">2.9. To be avoided</a>
 <ul>
-<li><a href="#orgefcf0fc">2.9.1. pie chart</a></li>
-<li><a href="#orgd442647">2.9.2. donut chart</a></li>
-<li><a href="#org86a916b">2.9.3. 3d</a></li>
-<li><a href="#org8f6976a">2.9.4. secondary y-axes</a></li>
+<li><a href="#org23be0ac">2.9.1. pie chart</a></li>
+<li><a href="#org90dd6aa">2.9.2. donut chart</a></li>
+<li><a href="#org6021cd6">2.9.3. 3d</a></li>
+<li><a href="#org3607af0">2.9.4. secondary y-axes</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orga3656d6">3. Clustter is your ennemie</a>
+<li><a href="#org9a61719">3. Clustter is your ennemie</a>
 <ul>
-<li><a href="#orgf259b1b">3.1. Cognitive load</a></li>
-<li><a href="#org6881f46">3.2. Clutter</a></li>
-<li><a href="#org5eabff6">3.3. Gestalt principles of visual perception</a>
+<li><a href="#org57a1827">3.1. Cognitive load</a></li>
+<li><a href="#org3719ea9">3.2. Clutter</a></li>
+<li><a href="#orgd9131e7">3.3. Gestalt principles of visual perception</a>
 <ul>
-<li><a href="#org942cb35">3.3.1. Proximity</a></li>
-<li><a href="#orgfba338d">3.3.2. Similarity</a></li>
-<li><a href="#org30dcbb0">3.3.3. Enclosure</a></li>
-<li><a href="#org5e30151">3.3.4. Closure</a></li>
-<li><a href="#org2d9c05e">3.3.5. Continuity</a></li>
-<li><a href="#orgec0f6f6">3.3.6. Connection</a></li>
+<li><a href="#orgff2ff39">3.3.1. Proximity</a></li>
+<li><a href="#orgbb2fe86">3.3.2. Similarity</a></li>
+<li><a href="#orgf122438">3.3.3. Enclosure</a></li>
+<li><a href="#org1af8f7a">3.3.4. Closure</a></li>
+<li><a href="#orgf885cec">3.3.5. Continuity</a></li>
+<li><a href="#orgfa5b5b2">3.3.6. Connection</a></li>
 </ul>
 </li>
-<li><a href="#org7a0d683">3.4. Lack of visual order</a>
+<li><a href="#org1838202">3.4. Lack of visual order</a>
 <ul>
-<li><a href="#org026e328">3.4.1. Alignment</a></li>
-<li><a href="#orgc911346">3.4.2. White space</a></li>
+<li><a href="#org17f71f5">3.4.1. Alignment</a></li>
+<li><a href="#orgc21ffea">3.4.2. White space</a></li>
 </ul>
 </li>
-<li><a href="#orgd436e55">3.5. Non-stategic use of contrast</a></li>
-<li><a href="#org7b1f124">3.6. Decluttering: step-by-step</a></li>
+<li><a href="#org204699f">3.5. Non-stategic use of contrast</a></li>
+<li><a href="#org80f41e1">3.6. Decluttering: step-by-step</a></li>
 </ul>
 </li>
-<li><a href="#org04ac481">4. Focus your audience attention</a>
+<li><a href="#orgb9152dd">4. Focus your audience attention</a>
 <ul>
-<li><a href="#org21e55fd">4.1. You see with your brain</a></li>
-<li><a href="#org6c7022b">4.2. A brief lesson on memory</a>
+<li><a href="#orga442904">4.1. You see with your brain</a></li>
+<li><a href="#orgbed3878">4.2. A brief lesson on memory</a>
 <ul>
-<li><a href="#org9f8c2c7">4.2.1. Iconic memory</a></li>
-<li><a href="#org7ed58f9">4.2.2. Short term memory</a></li>
-<li><a href="#org6d6f48b">4.2.3. Long term memory</a></li>
+<li><a href="#orgbf7f257">4.2.1. Iconic memory</a></li>
+<li><a href="#orgde7203b">4.2.2. Short term memory</a></li>
+<li><a href="#orgc711cbc">4.2.3. Long term memory</a></li>
 </ul>
 </li>
-<li><a href="#orge380e68">4.3. Preattentive attribute signal where to look</a></li>
-<li><a href="#org8a52391">4.4. Preattentive attribute in text</a></li>
-<li><a href="#orge169d5d">4.5. Preattentive attributes in graph</a></li>
-<li><a href="#org01abaf5">4.6. Size</a></li>
-<li><a href="#orgb393a10">4.7. Color</a>
+<li><a href="#org9f7dcde">4.3. Preattentive attribute signal where to look</a></li>
+<li><a href="#orgef3cf7d">4.4. Preattentive attribute in text</a></li>
+<li><a href="#org8578f3f">4.5. Preattentive attributes in graph</a></li>
+<li><a href="#orgc7eae4f">4.6. Size</a></li>
+<li><a href="#orgd50cfc0">4.7. Color</a>
 <ul>
-<li><a href="#orga197913">4.7.1. Use colot sparingly</a></li>
-<li><a href="#orgadcf6c6">4.7.2. Use color consistently</a></li>
-<li><a href="#org5e538cb">4.7.3. Brand color</a></li>
+<li><a href="#org2ef9f6d">4.7.1. Use colot sparingly</a></li>
+<li><a href="#orge9e79b7">4.7.2. Use color consistently</a></li>
+<li><a href="#orge4e17f3">4.7.3. Brand color</a></li>
 </ul>
 </li>
-<li><a href="#org5ef1794">4.8. Position on page</a></li>
+<li><a href="#orgf38e075">4.8. Position on page</a></li>
 </ul>
 </li>
-<li><a href="#orgdebd781">5. Think like a designer</a>
+<li><a href="#orgec1bf96">5. Think like a designer</a>
 <ul>
-<li><a href="#orgd316e55">5.1. Affordances</a>
+<li><a href="#org2ed651c">5.1. Affordances</a>
 <ul>
-<li><a href="#org0d65af0">5.1.1. Highlight the important stuff:</a></li>
-<li><a href="#org34293cb">5.1.2. Eliminate distractions</a></li>
-<li><a href="#orgb6f2667">5.1.3. Create a clead visual hierarchy of information</a></li>
+<li><a href="#org41cb9c7">5.1.1. Highlight the important stuff:</a></li>
+<li><a href="#orgb7ab334">5.1.2. Eliminate distractions</a></li>
+<li><a href="#org3ac50c2">5.1.3. Create a clead visual hierarchy of information</a></li>
 </ul>
 </li>
-<li><a href="#orgc2692f4">5.2. Accessibility</a></li>
-<li><a href="#org2c52063">5.3. Aesthetics</a></li>
-<li><a href="#org65efd7a">5.4. Acceptance</a></li>
+<li><a href="#org2068d43">5.2. Accessibility</a></li>
+<li><a href="#orgc541763">5.3. Aesthetics</a></li>
+<li><a href="#orgb8754a1">5.4. Acceptance</a></li>
 </ul>
 </li>
-<li><a href="#org4318d21">6. Dissecting model visuals</a></li>
-<li><a href="#orgd198ec4">7. Lessons in story telling</a>
+<li><a href="#orgd301064">6. Dissecting model visuals</a></li>
+<li><a href="#orgecbcde9">7. Lessons in story telling</a>
 <ul>
-<li><a href="#orga895439">7.1. The magic of story telling</a>
+<li><a href="#org2cca89b">7.1. The magic of story telling</a>
 <ul>
-<li><a href="#orgee53a5e">7.1.1. Storytelling in plays</a></li>
-<li><a href="#org0f152c8">7.1.2. Storytelling and the cinema</a></li>
-<li><a href="#org16c2b7e">7.1.3. Storytelling and the written word</a></li>
+<li><a href="#org7d6778c">7.1.1. Storytelling in plays</a></li>
+<li><a href="#orgb7e5c7c">7.1.2. Storytelling and the cinema</a></li>
+<li><a href="#org9b9707f">7.1.3. Storytelling and the written word</a></li>
 </ul>
 </li>
-<li><a href="#orgf0ed387">7.2. Cosntructing the story</a>
+<li><a href="#org793dbfc">7.2. Cosntructing the story</a>
 <ul>
-<li><a href="#org891effa">7.2.1. The beginning</a></li>
-<li><a href="#orgfcde1f4">7.2.2. The middle</a></li>
-<li><a href="#org77fe598">7.2.3. The end</a></li>
+<li><a href="#orgfcd097a">7.2.1. The beginning</a></li>
+<li><a href="#org161327b">7.2.2. The middle</a></li>
+<li><a href="#org2e11419">7.2.3. The end</a></li>
 </ul>
 </li>
-<li><a href="#orgc5840d7">7.3. The narrative structure</a>
+<li><a href="#org08503c9">7.3. The narrative structure</a>
 <ul>
-<li><a href="#orgc63828e">7.3.1. The narrative flow: order the story</a></li>
-<li><a href="#orge6b8ef2">7.3.2. The spoken and written narrative</a></li>
+<li><a href="#org9537d3f">7.3.1. The narrative flow: order the story</a></li>
+<li><a href="#org8036c5e">7.3.2. The spoken and written narrative</a></li>
 </ul>
 </li>
-<li><a href="#org7678c30">7.4. The power of repetition</a></li>
-<li><a href="#org9fd163d">7.5. Tactics to help ensure clear story</a>
+<li><a href="#orgb0ecf22">7.4. The power of repetition</a></li>
+<li><a href="#orgfefffe1">7.5. Tactics to help ensure clear story</a>
 <ul>
-<li><a href="#orgb6ec34f">7.5.1. Horizontal logic</a></li>
-<li><a href="#org50a49df">7.5.2. Vertical logic</a></li>
-<li><a href="#org1bd3e51">7.5.3. Reverse storyboarding</a></li>
-<li><a href="#orgc97e540">7.5.4. A fresh perspective</a></li>
+<li><a href="#org0cce91f">7.5.1. Horizontal logic</a></li>
+<li><a href="#org741ff63">7.5.2. Vertical logic</a></li>
+<li><a href="#org6cb1d1b">7.5.3. Reverse storyboarding</a></li>
+<li><a href="#orgc4452be">7.5.4. A fresh perspective</a></li>
 </ul>
 </li>
-<li><a href="#org3080743">7.6. Clising</a></li>
+<li><a href="#orga896af2">7.6. Clising</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z0T1EQTBKL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Z0T1EQTBKL');
+</script>
+
 <ul class="org-ul">
 <li>we have been taught how to tell a story with words and sentesences and how to make sense of numbers with math, but no one teaches us how to make a story with numbers.<br /></li>
 <li>the six key lessons:<br />
@@ -209,12 +220,12 @@
 </ul>
 
 
-<div id="outline-container-orgb2f3176" class="outline-2">
-<h2 id="orgb2f3176"><span class="section-number-2">1.</span> The importance of context</h2>
+<div id="outline-container-orgfd8aadf" class="outline-2">
+<h2 id="orgfd8aadf"><span class="section-number-2">1.</span> The importance of context</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-org0075572" class="outline-3">
-<h3 id="org0075572"><span class="section-number-3">1.1.</span> Exploratory vs explanatory analysis</h3>
+<div id="outline-container-org43d5256" class="outline-3">
+<h3 id="org43d5256"><span class="section-number-3">1.1.</span> Exploratory vs explanatory analysis</h3>
 <div class="outline-text-3" id="text-1-1">
 <ul class="org-ul">
 <li>Exploratory analysis is what you do to understand the data<br />
@@ -225,24 +236,24 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org0ecd8b2" class="outline-3">
-<h3 id="org0ecd8b2"><span class="section-number-3">1.2.</span> Who, what, and how</h3>
+<div id="outline-container-org9ff3402" class="outline-3">
+<h3 id="org9ff3402"><span class="section-number-3">1.2.</span> Who, what, and how</h3>
 <div class="outline-text-3" id="text-1-2">
 </div>
-<div id="outline-container-orgc349c3a" class="outline-4">
-<h4 id="orgc349c3a"><span class="section-number-4">1.2.1.</span> Who</h4>
+<div id="outline-container-org75acc6c" class="outline-4">
+<h4 id="org75acc6c"><span class="section-number-4">1.2.1.</span> Who</h4>
 <div class="outline-text-4" id="text-1-2-1">
 </div>
-<div id="outline-container-org4c2f1a0" class="outline-5">
-<h5 id="org4c2f1a0"><span class="section-number-5">1.2.1.1.</span> Your audience:</h5>
+<div id="outline-container-org3d8d94e" class="outline-5">
+<h5 id="org3d8d94e"><span class="section-number-5">1.2.1.1.</span> Your audience:</h5>
 <div class="outline-text-5" id="text-1-2-1-1">
 <ul class="org-ul">
 <li>you need to be specific on determining who is your audience and what they need to know or do.<br /></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org341189a" class="outline-5">
-<h5 id="org341189a"><span class="section-number-5">1.2.1.2.</span> You:</h5>
+<div id="outline-container-orgd27ff9a" class="outline-5">
+<h5 id="orgd27ff9a"><span class="section-number-5">1.2.1.2.</span> You:</h5>
 <div class="outline-text-5" id="text-1-2-1-2">
 <ul class="org-ul">
 <li>how your audience perceive you and what they expect from you.<br /></li>
@@ -252,12 +263,12 @@
 </div>
 </div>
 </div>
-<div id="outline-container-org58be331" class="outline-4">
-<h4 id="org58be331"><span class="section-number-4">1.2.2.</span> What</h4>
+<div id="outline-container-org62fbe17" class="outline-4">
+<h4 id="org62fbe17"><span class="section-number-4">1.2.2.</span> What</h4>
 <div class="outline-text-4" id="text-1-2-2">
 </div>
-<div id="outline-container-org650a0d4" class="outline-5">
-<h5 id="org650a0d4"><span class="section-number-5">1.2.2.1.</span> Action</h5>
+<div id="outline-container-org011f581" class="outline-5">
+<h5 id="org011f581"><span class="section-number-5">1.2.2.1.</span> Action</h5>
 <div class="outline-text-5" id="text-1-2-2-1">
 <ul class="org-ul">
 <li>What do you need your audiance to know or do<br /></li>
@@ -266,8 +277,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org29072f2" class="outline-5">
-<h5 id="org29072f2"><span class="section-number-5">1.2.2.2.</span> Mechanism</h5>
+<div id="outline-container-orga5668c2" class="outline-5">
+<h5 id="orga5668c2"><span class="section-number-5">1.2.2.2.</span> Mechanism</h5>
 <div class="outline-text-5" id="text-1-2-2-2">
 <ul class="org-ul">
 <li>What amount of detail need to be shown<br /></li>
@@ -277,8 +288,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org9da0c2e" class="outline-5">
-<h5 id="org9da0c2e"><span class="section-number-5">1.2.2.3.</span> Tone</h5>
+<div id="outline-container-org36aef09" class="outline-5">
+<h5 id="org36aef09"><span class="section-number-5">1.2.2.3.</span> Tone</h5>
 <div class="outline-text-5" id="text-1-2-2-3">
 <ul class="org-ul">
 <li>What tone you use should be depending on what feeling you want your audience to have.<br /></li>
@@ -286,8 +297,8 @@
 </div>
 </div>
 </div>
-<div id="outline-container-org9e6d31e" class="outline-4">
-<h4 id="org9e6d31e"><span class="section-number-4">1.2.3.</span> How</h4>
+<div id="outline-container-orgce30282" class="outline-4">
+<h4 id="orgce30282"><span class="section-number-4">1.2.3.</span> How</h4>
 <div class="outline-text-4" id="text-1-2-3">
 <ul class="org-ul">
 <li>How can I get the data I need to help me make my point<br /></li>
@@ -295,8 +306,8 @@
 </div>
 </div>
 </div>
-<div id="outline-container-orgd4f19d3" class="outline-3">
-<h3 id="orgd4f19d3"><span class="section-number-3">1.3.</span> Who, what, and how: example</h3>
+<div id="outline-container-org821e1c5" class="outline-3">
+<h3 id="org821e1c5"><span class="section-number-3">1.3.</span> Who, what, and how: example</h3>
 <div class="outline-text-3" id="text-1-3">
 <ul class="org-ul">
 <li>Who: The budget committee that can approve funding for continuation of the summer learning program<br /></li>
@@ -305,8 +316,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-orgbb0c8c4" class="outline-3">
-<h3 id="orgbb0c8c4"><span class="section-number-3">1.4.</span> Consulting for context: question to ask</h3>
+<div id="outline-container-org261f173" class="outline-3">
+<h3 id="org261f173"><span class="section-number-3">1.4.</span> Consulting for context: question to ask</h3>
 <div class="outline-text-3" id="text-1-4">
 <ul class="org-ul">
 <li>often you don't have the context you need if the deliverable come from the request of a client<br /></li>
@@ -323,24 +334,24 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org6048392" class="outline-3">
-<h3 id="org6048392"><span class="section-number-3">1.5.</span> The 3 minute story and big idea</h3>
+<div id="outline-container-org4e7affe" class="outline-3">
+<h3 id="org4e7affe"><span class="section-number-3">1.5.</span> The 3 minute story and big idea</h3>
 <div class="outline-text-3" id="text-1-5">
 <ul class="org-ul">
 <li>Blaise Pascal once said "I would have written a shorter letter, but i did not have the time"<br /></li>
 <li>Those two concepts help concise your presentation<br /></li>
 </ul>
 </div>
-<div id="outline-container-org6e93b23" class="outline-4">
-<h4 id="org6e93b23"><span class="section-number-4">1.5.1.</span> 3-minute story</h4>
+<div id="outline-container-org509f9a0" class="outline-4">
+<h4 id="org509f9a0"><span class="section-number-4">1.5.1.</span> 3-minute story</h4>
 <div class="outline-text-4" id="text-1-5-1">
 <ul class="org-ul">
 <li>If you want to tell a story, tell it in 3-minute.<br /></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgfd92e48" class="outline-4">
-<h4 id="orgfd92e48"><span class="section-number-4">1.5.2.</span> Big Idea</h4>
+<div id="outline-container-org2ff8390" class="outline-4">
+<h4 id="org2ff8390"><span class="section-number-4">1.5.2.</span> Big Idea</h4>
 <div class="outline-text-4" id="text-1-5-2">
 <ul class="org-ul">
 <li>Nancy duarte says, big idead has three components<br />
@@ -352,8 +363,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org8666e1c" class="outline-4">
-<h4 id="org8666e1c"><span class="section-number-4">1.5.3.</span> ُExample</h4>
+<div id="outline-container-org4f4dc58" class="outline-4">
+<h4 id="org4f4dc58"><span class="section-number-4">1.5.3.</span> ُExample</h4>
 <div class="outline-text-4" id="text-1-5-3">
 <ul class="org-ul">
 <li>3-minute story: A group of us in the science department were<br /></li>
@@ -367,8 +378,8 @@ brainstorming about how to resolve an ongoing issue we have with incoming fourth
 </div>
 </div>
 </div>
-<div id="outline-container-orgea84b04" class="outline-3">
-<h3 id="orgea84b04"><span class="section-number-3">1.6.</span> Story boarding</h3>
+<div id="outline-container-orgfcf0e41" class="outline-3">
+<h3 id="orgfcf0e41"><span class="section-number-3">1.6.</span> Story boarding</h3>
 <div class="outline-text-3" id="text-1-6">
 <ul class="org-ul">
 <li>you can do it upfront<br /></li>
@@ -378,23 +389,23 @@ brainstorming about how to resolve an ongoing issue we have with incoming fourth
 </div>
 </div>
 </div>
-<div id="outline-container-orgdf87b02" class="outline-2">
-<h2 id="orgdf87b02"><span class="section-number-2">2.</span> Choosing an effective visual</h2>
+<div id="outline-container-org4bea7e0" class="outline-2">
+<h2 id="org4bea7e0"><span class="section-number-2">2.</span> Choosing an effective visual</h2>
 <div class="outline-text-2" id="text-2">
 <ul class="org-ul">
 <li>there are alot of visuals but only a few are needed<br /></li>
 </ul>
 </div>
-<div id="outline-container-org1547092" class="outline-3">
-<h3 id="org1547092"><span class="section-number-3">2.1.</span> Simple text</h3>
+<div id="outline-container-orged74b30" class="outline-3">
+<h3 id="orged74b30"><span class="section-number-3">2.1.</span> Simple text</h3>
 <div class="outline-text-3" id="text-2-1">
 <ul class="org-ul">
 <li>Use a simple text when you only have one or two numbers to show.<br /></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgc179be0" class="outline-3">
-<h3 id="orgc179be0"><span class="section-number-3">2.2.</span> Tables</h3>
+<div id="outline-container-org6f1bb0b" class="outline-3">
+<h3 id="org6f1bb0b"><span class="section-number-3">2.2.</span> Tables</h3>
 <div class="outline-text-3" id="text-2-2">
 <ul class="org-ul">
 <li>tabels can be read like a normal text<br /></li>
@@ -407,8 +418,8 @@ brainstorming about how to resolve an ongoing issue we have with incoming fourth
 </ul></li>
 </ul>
 </div>
-<div id="outline-container-orgf3dab21" class="outline-4">
-<h4 id="orgf3dab21"><span class="section-number-4">2.2.1.</span> Heatmap</h4>
+<div id="outline-container-org32bed2f" class="outline-4">
+<h4 id="org32bed2f"><span class="section-number-4">2.2.1.</span> Heatmap</h4>
 <div class="outline-text-4" id="text-2-2-1">
 <ul class="org-ul">
 <li>Heatmap is a way to include visuals into a table, by coloring the cells base on their values<br /></li>
@@ -418,8 +429,8 @@ brainstorming about how to resolve an ongoing issue we have with incoming fourth
 </div>
 </div>
 </div>
-<div id="outline-container-org8346da9" class="outline-3">
-<h3 id="org8346da9"><span class="section-number-3">2.3.</span> Graph</h3>
+<div id="outline-container-orgd8d6aac" class="outline-3">
+<h3 id="orgd8d6aac"><span class="section-number-3">2.3.</span> Graph</h3>
 <div class="outline-text-3" id="text-2-3">
 <ul class="org-ul">
 <li>graph interact with our visual system<br /></li>
@@ -427,12 +438,12 @@ brainstorming about how to resolve an ongoing issue we have with incoming fourth
 </ul>
 </div>
 </div>
-<div id="outline-container-org7ff5ccc" class="outline-3">
-<h3 id="org7ff5ccc"><span class="section-number-3">2.4.</span> Points</h3>
+<div id="outline-container-orgd6a1a62" class="outline-3">
+<h3 id="orgd6a1a62"><span class="section-number-3">2.4.</span> Points</h3>
 <div class="outline-text-3" id="text-2-4">
 </div>
-<div id="outline-container-org0a9311c" class="outline-4">
-<h4 id="org0a9311c"><span class="section-number-4">2.4.1.</span> Scatterplot</h4>
+<div id="outline-container-orgdab0c5f" class="outline-4">
+<h4 id="orgdab0c5f"><span class="section-number-4">2.4.1.</span> Scatterplot</h4>
 <div class="outline-text-4" id="text-2-4-1">
 <ul class="org-ul">
 <li>is used to show relationship between two things<br /></li>
@@ -440,8 +451,8 @@ brainstorming about how to resolve an ongoing issue we have with incoming fourth
 </div>
 </div>
 </div>
-<div id="outline-container-org6700e79" class="outline-3">
-<h3 id="org6700e79"><span class="section-number-3">2.5.</span> Lines</h3>
+<div id="outline-container-org3c1b550" class="outline-3">
+<h3 id="org3c1b550"><span class="section-number-3">2.5.</span> Lines</h3>
 <div class="outline-text-3" id="text-2-5">
 <ul class="org-ul">
 <li>used to plot continuous data<br /></li>
@@ -450,8 +461,8 @@ brainstorming about how to resolve an ongoing issue we have with incoming fourth
 <li>you can plot mulitple lines to show an interval between Max and Min with an Avg line in the middle.<br /></li>
 </ul>
 </div>
-<div id="outline-container-org0823347" class="outline-4">
-<h4 id="org0823347"><span class="section-number-4">2.5.1.</span> Slopegraph</h4>
+<div id="outline-container-orgc20bc96" class="outline-4">
+<h4 id="orgc20bc96"><span class="section-number-4">2.5.1.</span> Slopegraph</h4>
 <div class="outline-text-4" id="text-2-5-1">
 <ul class="org-ul">
 <li>slopegraph are line that represent a increase or decrease in multiple categories over two periods<br /></li>
@@ -462,8 +473,8 @@ brainstorming about how to resolve an ongoing issue we have with incoming fourth
 </div>
 </div>
 </div>
-<div id="outline-container-org457cd57" class="outline-3">
-<h3 id="org457cd57"><span class="section-number-3">2.6.</span> Bars</h3>
+<div id="outline-container-orge8e6373" class="outline-3">
+<h3 id="orge8e6373"><span class="section-number-3">2.6.</span> Bars</h3>
 <div class="outline-text-3" id="text-2-6">
 <ul class="org-ul">
 <li>sometimes barchart are avoided because they are common<br /></li>
@@ -477,8 +488,8 @@ brainstorming about how to resolve an ongoing issue we have with incoming fourth
 <li>don't misslead with visualization and statistic to make a point<br /></li>
 </ul>
 </div>
-<div id="outline-container-orgffb34e8" class="outline-4">
-<h4 id="orgffb34e8"><span class="section-number-4">2.6.1.</span> Vertical bar chart</h4>
+<div id="outline-container-org5327f01" class="outline-4">
+<h4 id="org5327f01"><span class="section-number-4">2.6.1.</span> Vertical bar chart</h4>
 <div class="outline-text-4" id="text-2-6-1">
 <ul class="org-ul">
 <li>a verticat bar chart can host:<br />
@@ -490,8 +501,8 @@ brainstorming about how to resolve an ongoing issue we have with incoming fourth
 </ul>
 </div>
 </div>
-<div id="outline-container-orgae54075" class="outline-4">
-<h4 id="orgae54075"><span class="section-number-4">2.6.2.</span> Stacked vertical bar chart</h4>
+<div id="outline-container-orgba24fcf" class="outline-4">
+<h4 id="orgba24fcf"><span class="section-number-4">2.6.2.</span> Stacked vertical bar chart</h4>
 <div class="outline-text-4" id="text-2-6-2">
 <ul class="org-ul">
 <li>the usage is limited<br /></li>
@@ -500,8 +511,8 @@ brainstorming about how to resolve an ongoing issue we have with incoming fourth
 </ul>
 </div>
 </div>
-<div id="outline-container-orge9b730d" class="outline-4">
-<h4 id="orge9b730d"><span class="section-number-4">2.6.3.</span> Waterfall chart</h4>
+<div id="outline-container-orgdf34b57" class="outline-4">
+<h4 id="orgdf34b57"><span class="section-number-4">2.6.3.</span> Waterfall chart</h4>
 <div class="outline-text-4" id="text-2-6-3">
 <ul class="org-ul">
 <li>used to oull a part the sets of a categorie or to show a starging point, increaces and decreasesn and the resulting ending point.<br /></li>
@@ -515,8 +526,8 @@ brainstorming about how to resolve an ongoing issue we have with incoming fourth
 </ul>
 </div>
 </div>
-<div id="outline-container-org159140d" class="outline-4">
-<h4 id="org159140d"><span class="section-number-4">2.6.4.</span> Horizontal bar chart</h4>
+<div id="outline-container-org6c87390" class="outline-4">
+<h4 id="org6c87390"><span class="section-number-4">2.6.4.</span> Horizontal bar chart</h4>
 <div class="outline-text-4" id="text-2-6-4">
 <ul class="org-ul">
 <li>is usful if you want to label the data itself, since bar win will only limit the character height.<br /></li>
@@ -524,8 +535,8 @@ brainstorming about how to resolve an ongoing issue we have with incoming fourth
 </ul>
 </div>
 </div>
-<div id="outline-container-orgd3a0f6b" class="outline-4">
-<h4 id="orgd3a0f6b"><span class="section-number-4">2.6.5.</span> Stacked horizontal bar chart</h4>
+<div id="outline-container-org8630298" class="outline-4">
+<h4 id="org8630298"><span class="section-number-4">2.6.5.</span> Stacked horizontal bar chart</h4>
 <div class="outline-text-4" id="text-2-6-5">
 <ul class="org-ul">
 <li>same as stacked horizontal<br /></li>
@@ -536,8 +547,8 @@ brainstorming about how to resolve an ongoing issue we have with incoming fourth
 </div>
 </div>
 </div>
-<div id="outline-container-orgb73342b" class="outline-3">
-<h3 id="orgb73342b"><span class="section-number-3">2.7.</span> Area</h3>
+<div id="outline-container-orgc18848a" class="outline-3">
+<h3 id="orgc18848a"><span class="section-number-3">2.7.</span> Area</h3>
 <div class="outline-text-3" id="text-2-7">
 <ul class="org-ul">
 <li>not easy to read for quantitative data<br /></li>
@@ -547,44 +558,44 @@ brainstorming about how to resolve an ongoing issue we have with incoming fourth
 </ul>
 </div>
 </div>
-<div id="outline-container-org2884988" class="outline-3">
-<h3 id="org2884988"><span class="section-number-3">2.8.</span> Other type of graph</h3>
+<div id="outline-container-org3f5ae8f" class="outline-3">
+<h3 id="org3f5ae8f"><span class="section-number-3">2.8.</span> Other type of graph</h3>
 <div class="outline-text-3" id="text-2-8">
 <ul class="org-ul">
 <li>Inforgaphic is a graph that show a data but it accompagny with cartoonish graphics<br /></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgc4cbd3d" class="outline-3">
-<h3 id="orgc4cbd3d"><span class="section-number-3">2.9.</span> To be avoided</h3>
+<div id="outline-container-orge12be73" class="outline-3">
+<h3 id="orge12be73"><span class="section-number-3">2.9.</span> To be avoided</h3>
 <div class="outline-text-3" id="text-2-9">
 </div>
-<div id="outline-container-orgefcf0fc" class="outline-4">
-<h4 id="orgefcf0fc"><span class="section-number-4">2.9.1.</span> pie chart</h4>
+<div id="outline-container-org23be0ac" class="outline-4">
+<h4 id="org23be0ac"><span class="section-number-4">2.9.1.</span> pie chart</h4>
 <div class="outline-text-4" id="text-2-9-1">
 <ul class="org-ul">
 <li>If there was two large category, you cannot estimate which category is larger visualy<br /></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgd442647" class="outline-4">
-<h4 id="orgd442647"><span class="section-number-4">2.9.2.</span> donut chart</h4>
+<div id="outline-container-org90dd6aa" class="outline-4">
+<h4 id="org90dd6aa"><span class="section-number-4">2.9.2.</span> donut chart</h4>
 <div class="outline-text-4" id="text-2-9-2">
 <ul class="org-ul">
 <li>hard to visualy compare the arc of thow categorys that are close in value using only visuals<br /></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org86a916b" class="outline-4">
-<h4 id="org86a916b"><span class="section-number-4">2.9.3.</span> 3d</h4>
+<div id="outline-container-org6021cd6" class="outline-4">
+<h4 id="org6021cd6"><span class="section-number-4">2.9.3.</span> 3d</h4>
 <div class="outline-text-4" id="text-2-9-3">
 <ul class="org-ul">
 <li>make it hard to use compare two category, if one category is closer to the screen it will look visualy bigger, even if it is smaller that the one compared to<br /></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org8f6976a" class="outline-4">
-<h4 id="org8f6976a"><span class="section-number-4">2.9.4.</span> secondary y-axes</h4>
+<div id="outline-container-org3607af0" class="outline-4">
+<h4 id="org3607af0"><span class="section-number-4">2.9.4.</span> secondary y-axes</h4>
 <div class="outline-text-4" id="text-2-9-4">
 <ul class="org-ul">
 <li>generaly it is confusing to link which axix and value belong to who<br /></li>
@@ -594,8 +605,8 @@ brainstorming about how to resolve an ongoing issue we have with incoming fourth
 </div>
 </div>
 </div>
-<div id="outline-container-orga3656d6" class="outline-2">
-<h2 id="orga3656d6"><span class="section-number-2">3.</span> Clustter is your ennemie</h2>
+<div id="outline-container-org9a61719" class="outline-2">
+<h2 id="org9a61719"><span class="section-number-2">3.</span> Clustter is your ennemie</h2>
 <div class="outline-text-2" id="text-3">
 <ul class="org-ul">
 <li>cluster is anything that is not adding informative value<br /></li>
@@ -603,31 +614,31 @@ brainstorming about how to resolve an ongoing issue we have with incoming fourth
 <li>Using the Gestalt principle, we can add information without introducing more elements to the graph.<br /></li>
 </ul>
 </div>
-<div id="outline-container-orgf259b1b" class="outline-3">
-<h3 id="orgf259b1b"><span class="section-number-3">3.1.</span> Cognitive load</h3>
+<div id="outline-container-org57a1827" class="outline-3">
+<h3 id="org57a1827"><span class="section-number-3">3.1.</span> Cognitive load</h3>
 <div class="outline-text-3" id="text-3-1">
 <ul class="org-ul">
 <li>The more information added to the graph, the harder it becomes for your audience to process it.<br /></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org6881f46" class="outline-3">
-<h3 id="org6881f46"><span class="section-number-3">3.2.</span> Clutter</h3>
+<div id="outline-container-org3719ea9" class="outline-3">
+<h3 id="org3719ea9"><span class="section-number-3">3.2.</span> Clutter</h3>
 <div class="outline-text-3" id="text-3-2">
 <ul class="org-ul">
 <li>information that make it harder to understand<br /></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org5eabff6" class="outline-3">
-<h3 id="org5eabff6"><span class="section-number-3">3.3.</span> Gestalt principles of visual perception</h3>
+<div id="outline-container-orgd9131e7" class="outline-3">
+<h3 id="orgd9131e7"><span class="section-number-3">3.3.</span> Gestalt principles of visual perception</h3>
 <div class="outline-text-3" id="text-3-3">
 <ul class="org-ul">
 <li>Principles that were intreduce in early 1900s by Gestalt university to understand how individuals perceive order in the workd around them<br /></li>
 </ul>
 </div>
-<div id="outline-container-org942cb35" class="outline-4">
-<h4 id="org942cb35"><span class="section-number-4">3.3.1.</span> Proximity</h4>
+<div id="outline-container-orgff2ff39" class="outline-4">
+<h4 id="orgff2ff39"><span class="section-number-4">3.3.1.</span> Proximity</h4>
 <div class="outline-text-4" id="text-3-3-1">
 <ul class="org-ul">
 <li>Objects that are close together are percieved as related or belonging to a group<br /></li>
@@ -636,8 +647,8 @@ brainstorming about how to resolve an ongoing issue we have with incoming fourth
 </ul>
 </div>
 </div>
-<div id="outline-container-orgfba338d" class="outline-4">
-<h4 id="orgfba338d"><span class="section-number-4">3.3.2.</span> Similarity</h4>
+<div id="outline-container-orgbb2fe86" class="outline-4">
+<h4 id="orgbb2fe86"><span class="section-number-4">3.3.2.</span> Similarity</h4>
 <div class="outline-text-4" id="text-3-3-2">
 <ul class="org-ul">
 <li>Objects that are of similar color, shape, size, or oriontation are percieved as related or belonging to a group.<br /></li>
@@ -645,8 +656,8 @@ brainstorming about how to resolve an ongoing issue we have with incoming fourth
 </ul>
 </div>
 </div>
-<div id="outline-container-org30dcbb0" class="outline-4">
-<h4 id="org30dcbb0"><span class="section-number-4">3.3.3.</span> Enclosure</h4>
+<div id="outline-container-orgf122438" class="outline-4">
+<h4 id="orgf122438"><span class="section-number-4">3.3.3.</span> Enclosure</h4>
 <div class="outline-text-4" id="text-3-3-3">
 <ul class="org-ul">
 <li>Object enclosed together or inside a border are percieved as related or belonging to each other<br /></li>
@@ -654,8 +665,8 @@ brainstorming about how to resolve an ongoing issue we have with incoming fourth
 </ul>
 </div>
 </div>
-<div id="outline-container-org5e30151" class="outline-4">
-<h4 id="org5e30151"><span class="section-number-4">3.3.4.</span> Closure</h4>
+<div id="outline-container-org1af8f7a" class="outline-4">
+<h4 id="org1af8f7a"><span class="section-number-4">3.3.4.</span> Closure</h4>
 <div class="outline-text-4" id="text-3-3-4">
 <ul class="org-ul">
 <li>Objects that are intermitent or discontinuous are precieved as a whole<br /></li>
@@ -663,8 +674,8 @@ brainstorming about how to resolve an ongoing issue we have with incoming fourth
 </ul>
 </div>
 </div>
-<div id="outline-container-org2d9c05e" class="outline-4">
-<h4 id="org2d9c05e"><span class="section-number-4">3.3.5.</span> Continuity</h4>
+<div id="outline-container-orgf885cec" class="outline-4">
+<h4 id="orgf885cec"><span class="section-number-4">3.3.5.</span> Continuity</h4>
 <div class="outline-text-4" id="text-3-3-5">
 <ul class="org-ul">
 <li>Objects near to each other are precieved as smooth<br /></li>
@@ -673,8 +684,8 @@ brainstorming about how to resolve an ongoing issue we have with incoming fourth
 </ul>
 </div>
 </div>
-<div id="outline-container-orgec0f6f6" class="outline-4">
-<h4 id="orgec0f6f6"><span class="section-number-4">3.3.6.</span> Connection</h4>
+<div id="outline-container-orgfa5b5b2" class="outline-4">
+<h4 id="orgfa5b5b2"><span class="section-number-4">3.3.6.</span> Connection</h4>
 <div class="outline-text-4" id="text-3-3-6">
 <ul class="org-ul">
 <li>Connections comes as the second strongest assosiated value propriety, behind Enclosure<br /></li>
@@ -683,12 +694,12 @@ brainstorming about how to resolve an ongoing issue we have with incoming fourth
 </div>
 </div>
 </div>
-<div id="outline-container-org7a0d683" class="outline-3">
-<h3 id="org7a0d683"><span class="section-number-3">3.4.</span> Lack of visual order</h3>
+<div id="outline-container-org1838202" class="outline-3">
+<h3 id="org1838202"><span class="section-number-3">3.4.</span> Lack of visual order</h3>
 <div class="outline-text-3" id="text-3-4">
 </div>
-<div id="outline-container-org026e328" class="outline-4">
-<h4 id="org026e328"><span class="section-number-4">3.4.1.</span> Alignment</h4>
+<div id="outline-container-org17f71f5" class="outline-4">
+<h4 id="org17f71f5"><span class="section-number-4">3.4.1.</span> Alignment</h4>
 <div class="outline-text-4" id="text-3-4-1">
 <ul class="org-ul">
 <li>aligning text to the left instead of center make it easyer to read<br /></li>
@@ -696,8 +707,8 @@ brainstorming about how to resolve an ongoing issue we have with incoming fourth
 </ul>
 </div>
 </div>
-<div id="outline-container-orgc911346" class="outline-4">
-<h4 id="orgc911346"><span class="section-number-4">3.4.2.</span> White space</h4>
+<div id="outline-container-orgc21ffea" class="outline-4">
+<h4 id="orgc21ffea"><span class="section-number-4">3.4.2.</span> White space</h4>
 <div class="outline-text-4" id="text-3-4-2">
 <ul class="org-ul">
 <li>dont be afraid of leaving empty space in your report<br /></li>
@@ -706,8 +717,8 @@ brainstorming about how to resolve an ongoing issue we have with incoming fourth
 </div>
 </div>
 </div>
-<div id="outline-container-orgd436e55" class="outline-3">
-<h3 id="orgd436e55"><span class="section-number-3">3.5.</span> Non-stategic use of contrast</h3>
+<div id="outline-container-org204699f" class="outline-3">
+<h3 id="org204699f"><span class="section-number-3">3.5.</span> Non-stategic use of contrast</h3>
 <div class="outline-text-3" id="text-3-5">
 <ul class="org-ul">
 <li>contrast is usefull to direct attention of your audience<br /></li>
@@ -715,8 +726,8 @@ brainstorming about how to resolve an ongoing issue we have with incoming fourth
 </ul>
 </div>
 </div>
-<div id="outline-container-org7b1f124" class="outline-3">
-<h3 id="org7b1f124"><span class="section-number-3">3.6.</span> Decluttering: step-by-step</h3>
+<div id="outline-container-org80f41e1" class="outline-3">
+<h3 id="org80f41e1"><span class="section-number-3">3.6.</span> Decluttering: step-by-step</h3>
 <div class="outline-text-3" id="text-3-6">
 <ol class="org-ol">
 <li>Remove chart border<br /></li>
@@ -733,26 +744,26 @@ brainstorming about how to resolve an ongoing issue we have with incoming fourth
 </div>
 </div>
 </div>
-<div id="outline-container-org04ac481" class="outline-2">
-<h2 id="org04ac481"><span class="section-number-2">4.</span> Focus your audience attention</h2>
+<div id="outline-container-orgb9152dd" class="outline-2">
+<h2 id="orgb9152dd"><span class="section-number-2">4.</span> Focus your audience attention</h2>
 <div class="outline-text-2" id="text-4">
 <ul class="org-ul">
 <li>you grab your audience attention by using preattentive attributes on the object you want them to focus on<br /></li>
 <li>and use an object that the audience have prior experiance with to make the new information stick in long term memory<br /></li>
 </ul>
 </div>
-<div id="outline-container-org21e55fd" class="outline-3">
-<h3 id="org21e55fd"><span class="section-number-3">4.1.</span> You see with your brain</h3>
+<div id="outline-container-orga442904" class="outline-3">
+<h3 id="orga442904"><span class="section-number-3">4.1.</span> You see with your brain</h3>
 </div>
-<div id="outline-container-org6c7022b" class="outline-3">
-<h3 id="org6c7022b"><span class="section-number-3">4.2.</span> A brief lesson on memory</h3>
+<div id="outline-container-orgbed3878" class="outline-3">
+<h3 id="orgbed3878"><span class="section-number-3">4.2.</span> A brief lesson on memory</h3>
 <div class="outline-text-3" id="text-4-2">
 <ul class="org-ul">
 <li>As we design visual communication keep in mind those 3 type of memorys<br /></li>
 </ul>
 </div>
-<div id="outline-container-org9f8c2c7" class="outline-4">
-<h4 id="org9f8c2c7"><span class="section-number-4">4.2.1.</span> Iconic memory</h4>
+<div id="outline-container-orgbf7f257" class="outline-4">
+<h4 id="orgbf7f257"><span class="section-number-4">4.2.1.</span> Iconic memory</h4>
 <div class="outline-text-4" id="text-4-2-1">
 <ul class="org-ul">
 <li>super fast<br /></li>
@@ -763,8 +774,8 @@ brainstorming about how to resolve an ongoing issue we have with incoming fourth
 </ul>
 </div>
 </div>
-<div id="outline-container-org7ed58f9" class="outline-4">
-<h4 id="org7ed58f9"><span class="section-number-4">4.2.2.</span> Short term memory</h4>
+<div id="outline-container-orgde7203b" class="outline-4">
+<h4 id="orgde7203b"><span class="section-number-4">4.2.2.</span> Short term memory</h4>
 <div class="outline-text-4" id="text-4-2-2">
 <ul class="org-ul">
 <li>people can keep up 4 chunks of visual information in their short term meomry at a given time<br /></li>
@@ -774,8 +785,8 @@ brainstorming about how to resolve an ongoing issue we have with incoming fourth
 </ul>
 </div>
 </div>
-<div id="outline-container-org6d6f48b" class="outline-4">
-<h4 id="org6d6f48b"><span class="section-number-4">4.2.3.</span> Long term memory</h4>
+<div id="outline-container-orgc711cbc" class="outline-4">
+<h4 id="orgc711cbc"><span class="section-number-4">4.2.3.</span> Long term memory</h4>
 <div class="outline-text-4" id="text-4-2-3">
 <ul class="org-ul">
 <li>when something leaves short term memory, it is either lost or get passed to long term memory<br /></li>
@@ -786,8 +797,8 @@ brainstorming about how to resolve an ongoing issue we have with incoming fourth
 </div>
 </div>
 </div>
-<div id="outline-container-orge380e68" class="outline-3">
-<h3 id="orge380e68"><span class="section-number-3">4.3.</span> Preattentive attribute signal where to look</h3>
+<div id="outline-container-org9f7dcde" class="outline-3">
+<h3 id="org9f7dcde"><span class="section-number-3">4.3.</span> Preattentive attribute signal where to look</h3>
 <div class="outline-text-3" id="text-4-3">
 <ul class="org-ul">
 <li>iconic memory can be triggerd by preattentive atribute of the object in comparison to the envirment<br /></li>
@@ -810,8 +821,8 @@ brainstorming about how to resolve an ongoing issue we have with incoming fourth
 </ul>
 </div>
 </div>
-<div id="outline-container-org8a52391" class="outline-3">
-<h3 id="org8a52391"><span class="section-number-3">4.4.</span> Preattentive attribute in text</h3>
+<div id="outline-container-orgef3cf7d" class="outline-3">
+<h3 id="orgef3cf7d"><span class="section-number-3">4.4.</span> Preattentive attribute in text</h3>
 <div class="outline-text-3" id="text-4-4">
 <ul class="org-ul">
 <li>preattentive text attribure can be<br />
@@ -827,47 +838,47 @@ brainstorming about how to resolve an ongoing issue we have with incoming fourth
 </ul>
 </div>
 </div>
-<div id="outline-container-orge169d5d" class="outline-3">
-<h3 id="orge169d5d"><span class="section-number-3">4.5.</span> Preattentive attributes in graph</h3>
+<div id="outline-container-org8578f3f" class="outline-3">
+<h3 id="org8578f3f"><span class="section-number-3">4.5.</span> Preattentive attributes in graph</h3>
 <div class="outline-text-3" id="text-4-5">
 <ul class="org-ul">
 <li>Use all the above to highligh inmportant information withing the graph<br /></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org01abaf5" class="outline-3">
-<h3 id="org01abaf5"><span class="section-number-3">4.6.</span> Size</h3>
+<div id="outline-container-orgc7eae4f" class="outline-3">
+<h3 id="orgc7eae4f"><span class="section-number-3">4.6.</span> Size</h3>
 <div class="outline-text-3" id="text-4-6">
 <ul class="org-ul">
 <li>If an object is important make it big relative to the others<br /></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgb393a10" class="outline-3">
-<h3 id="orgb393a10"><span class="section-number-3">4.7.</span> Color</h3>
+<div id="outline-container-orgd50cfc0" class="outline-3">
+<h3 id="orgd50cfc0"><span class="section-number-3">4.7.</span> Color</h3>
 <div class="outline-text-3" id="text-4-7">
 <ul class="org-ul">
 <li>typically use a shade of gray and a bold color for important object (blue)<br /></li>
 </ul>
 </div>
-<div id="outline-container-orga197913" class="outline-4">
-<h4 id="orga197913"><span class="section-number-4">4.7.1.</span> Use colot sparingly</h4>
+<div id="outline-container-org2ef9f6d" class="outline-4">
+<h4 id="org2ef9f6d"><span class="section-number-4">4.7.1.</span> Use colot sparingly</h4>
 <div class="outline-text-4" id="text-4-7-1">
 <ul class="org-ul">
 <li>to much color variaty isent preferable, use a shade of one color<br /></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgadcf6c6" class="outline-4">
-<h4 id="orgadcf6c6"><span class="section-number-4">4.7.2.</span> Use color consistently</h4>
+<div id="outline-container-orge9e79b7" class="outline-4">
+<h4 id="orge9e79b7"><span class="section-number-4">4.7.2.</span> Use color consistently</h4>
 <div class="outline-text-4" id="text-4-7-2">
 <ul class="org-ul">
 <li>If you are telliong a story with your data, your qudience wont get bored with<br /></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org5e538cb" class="outline-4">
-<h4 id="org5e538cb"><span class="section-number-4">4.7.3.</span> Brand color</h4>
+<div id="outline-container-orge4e17f3" class="outline-4">
+<h4 id="orge4e17f3"><span class="section-number-4">4.7.3.</span> Brand color</h4>
 <div class="outline-text-4" id="text-4-7-3">
 <ul class="org-ul">
 <li>If a brand have a color you can use it, use black, or use a complementary color to grab attention<br /></li>
@@ -875,8 +886,8 @@ brainstorming about how to resolve an ongoing issue we have with incoming fourth
 </div>
 </div>
 </div>
-<div id="outline-container-org5ef1794" class="outline-3">
-<h3 id="org5ef1794"><span class="section-number-3">4.8.</span> Position on page</h3>
+<div id="outline-container-orgf38e075" class="outline-3">
+<h3 id="orgf38e075"><span class="section-number-3">4.8.</span> Position on page</h3>
 <div class="outline-text-3" id="text-4-8">
 <ul class="org-ul">
 <li>most people scan the page from top left to top right, buttom left to buttom right<br /></li>
@@ -885,8 +896,8 @@ brainstorming about how to resolve an ongoing issue we have with incoming fourth
 </div>
 </div>
 </div>
-<div id="outline-container-orgdebd781" class="outline-2">
-<h2 id="orgdebd781"><span class="section-number-2">5.</span> Think like a designer</h2>
+<div id="outline-container-orgec1bf96" class="outline-2">
+<h2 id="orgec1bf96"><span class="section-number-2">5.</span> Think like a designer</h2>
 <div class="outline-text-2" id="text-5">
 <ul class="org-ul">
 <li>form (visualization) follow function (data)<br /></li>
@@ -900,8 +911,8 @@ brainstorming about how to resolve an ongoing issue we have with incoming fourth
 </ul></li>
 </ul>
 </div>
-<div id="outline-container-orgd316e55" class="outline-3">
-<h3 id="orgd316e55"><span class="section-number-3">5.1.</span> Affordances</h3>
+<div id="outline-container-org2ed651c" class="outline-3">
+<h3 id="org2ed651c"><span class="section-number-3">5.1.</span> Affordances</h3>
 <div class="outline-text-3" id="text-5-1">
 <ul class="org-ul">
 <li>object with affordance ar eobject that are well design that it is obvious how the product is to be used<br /></li>
@@ -909,16 +920,16 @@ brainstorming about how to resolve an ongoing issue we have with incoming fourth
 <li>Lets trasnlate this concept to our visualization, it can be done in 3 steps:<br /></li>
 </ul>
 </div>
-<div id="outline-container-org0d65af0" class="outline-4">
-<h4 id="org0d65af0"><span class="section-number-4">5.1.1.</span> Highlight the important stuff:</h4>
+<div id="outline-container-org41cb9c7" class="outline-4">
+<h4 id="org41cb9c7"><span class="section-number-4">5.1.1.</span> Highlight the important stuff:</h4>
 <div class="outline-text-4" id="text-5-1-1">
 <ul class="org-ul">
 <li>Same as in preattentive attribute<br /></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org34293cb" class="outline-4">
-<h4 id="org34293cb"><span class="section-number-4">5.1.2.</span> Eliminate distractions</h4>
+<div id="outline-container-orgb7ab334" class="outline-4">
+<h4 id="orgb7ab334"><span class="section-number-4">5.1.2.</span> Eliminate distractions</h4>
 <div class="outline-text-4" id="text-5-1-2">
 <ul class="org-ul">
 <li>In his book Airman's Odyssey, Antoine de Saint-Exupery said, "You know you've achieved perdection, not when you have nothing more to add, but when you have nothing to take away".<br /></li>
@@ -927,8 +938,8 @@ brainstorming about how to resolve an ongoing issue we have with incoming fourth
 </ul>
 </div>
 </div>
-<div id="outline-container-orgb6f2667" class="outline-4">
-<h4 id="orgb6f2667"><span class="section-number-4">5.1.3.</span> Create a clead visual hierarchy of information</h4>
+<div id="outline-container-org3ac50c2" class="outline-4">
+<h4 id="org3ac50c2"><span class="section-number-4">5.1.3.</span> Create a clead visual hierarchy of information</h4>
 <div class="outline-text-4" id="text-5-1-3">
 <ul class="org-ul">
 <li>highlighting determin what the audience should look first<br /></li>
@@ -936,8 +947,8 @@ brainstorming about how to resolve an ongoing issue we have with incoming fourth
 </div>
 </div>
 </div>
-<div id="outline-container-orgc2692f4" class="outline-3">
-<h3 id="orgc2692f4"><span class="section-number-3">5.2.</span> Accessibility</h3>
+<div id="outline-container-org2068d43" class="outline-3">
+<h3 id="org2068d43"><span class="section-number-3">5.2.</span> Accessibility</h3>
 <div class="outline-text-3" id="text-5-2">
 <ul class="org-ul">
 <li>keep those with disabilities in mind, but also peple with no background knowledge<br /></li>
@@ -946,8 +957,8 @@ brainstorming about how to resolve an ongoing issue we have with incoming fourth
 </ul>
 </div>
 </div>
-<div id="outline-container-org2c52063" class="outline-3">
-<h3 id="org2c52063"><span class="section-number-3">5.3.</span> Aesthetics</h3>
+<div id="outline-container-orgc541763" class="outline-3">
+<h3 id="orgc541763"><span class="section-number-3">5.3.</span> Aesthetics</h3>
 <div class="outline-text-3" id="text-5-3">
 <ul class="org-ul">
 <li>visualization need to be pretty<br /></li>
@@ -955,8 +966,8 @@ brainstorming about how to resolve an ongoing issue we have with incoming fourth
 </ul>
 </div>
 </div>
-<div id="outline-container-org65efd7a" class="outline-3">
-<h3 id="org65efd7a"><span class="section-number-3">5.4.</span> Acceptance</h3>
+<div id="outline-container-orgb8754a1" class="outline-3">
+<h3 id="orgb8754a1"><span class="section-number-3">5.4.</span> Acceptance</h3>
 <div class="outline-text-3" id="text-5-4">
 <ul class="org-ul">
 <li>hummans don't accept change immediatly<br /></li>
@@ -971,24 +982,24 @@ brainstorming about how to resolve an ongoing issue we have with incoming fourth
 </div>
 </div>
 </div>
-<div id="outline-container-org4318d21" class="outline-2">
-<h2 id="org4318d21"><span class="section-number-2">6.</span> Dissecting model visuals</h2>
+<div id="outline-container-orgd301064" class="outline-2">
+<h2 id="orgd301064"><span class="section-number-2">6.</span> Dissecting model visuals</h2>
 <div class="outline-text-2" id="text-6">
 <p>
 Visual example<br />
 </p>
 </div>
 </div>
-<div id="outline-container-orgd198ec4" class="outline-2">
-<h2 id="orgd198ec4"><span class="section-number-2">7.</span> Lessons in story telling</h2>
+<div id="outline-container-orgecbcde9" class="outline-2">
+<h2 id="orgecbcde9"><span class="section-number-2">7.</span> Lessons in story telling</h2>
 <div class="outline-text-2" id="text-7">
 </div>
-<div id="outline-container-orga895439" class="outline-3">
-<h3 id="orga895439"><span class="section-number-3">7.1.</span> The magic of story telling</h3>
+<div id="outline-container-org2cca89b" class="outline-3">
+<h3 id="org2cca89b"><span class="section-number-3">7.1.</span> The magic of story telling</h3>
 <div class="outline-text-3" id="text-7-1">
 </div>
-<div id="outline-container-orgee53a5e" class="outline-4">
-<h4 id="orgee53a5e"><span class="section-number-4">7.1.1.</span> Storytelling in plays</h4>
+<div id="outline-container-org7d6778c" class="outline-4">
+<h4 id="org7d6778c"><span class="section-number-4">7.1.1.</span> Storytelling in plays</h4>
 <div class="outline-text-4" id="text-7-1-1">
 <ul class="org-ul">
 <li>Aristotle says "A story has a clear beginning, middle, and end", over time it been commenly reffered as "the setup, conflict, and resolution"<br /></li>
@@ -996,8 +1007,8 @@ Visual example<br />
 </ul>
 </div>
 </div>
-<div id="outline-container-org0f152c8" class="outline-4">
-<h4 id="org0f152c8"><span class="section-number-4">7.1.2.</span> Storytelling and the cinema</h4>
+<div id="outline-container-orgb7e5c7c" class="outline-4">
+<h4 id="orgb7e5c7c"><span class="section-number-4">7.1.2.</span> Storytelling and the cinema</h4>
 <div class="outline-text-4" id="text-7-1-2">
 <ul class="org-ul">
 <li>Robert McKee, and award winning writer, says there are two ways to persuade people<br />
@@ -1028,8 +1039,8 @@ story unite and idea with emotions<br />
 </ul>
 </div>
 </div>
-<div id="outline-container-org16c2b7e" class="outline-4">
-<h4 id="org16c2b7e"><span class="section-number-4">7.1.3.</span> Storytelling and the written word</h4>
+<div id="outline-container-org9b9707f" class="outline-4">
+<h4 id="org9b9707f"><span class="section-number-4">7.1.3.</span> Storytelling and the written word</h4>
 <div class="outline-text-4" id="text-7-1-3">
 <ul class="org-ul">
 <li>Kurt Vonnegut gave 7 tips to write a captivating story<br />
@@ -1048,12 +1059,12 @@ simplify and clarify<br /></li>
 </div>
 </div>
 </div>
-<div id="outline-container-orgf0ed387" class="outline-3">
-<h3 id="orgf0ed387"><span class="section-number-3">7.2.</span> Cosntructing the story</h3>
+<div id="outline-container-org793dbfc" class="outline-3">
+<h3 id="org793dbfc"><span class="section-number-3">7.2.</span> Cosntructing the story</h3>
 <div class="outline-text-3" id="text-7-2">
 </div>
-<div id="outline-container-org891effa" class="outline-4">
-<h4 id="org891effa"><span class="section-number-4">7.2.1.</span> The beginning</h4>
+<div id="outline-container-orgfcd097a" class="outline-4">
+<h4 id="orgfcd097a"><span class="section-number-4">7.2.1.</span> The beginning</h4>
 <div class="outline-text-4" id="text-7-2-1">
 <ul class="org-ul">
 <li>intreduce the prot or the problem<br /></li>
@@ -1061,8 +1072,8 @@ simplify and clarify<br /></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgfcde1f4" class="outline-4">
-<h4 id="orgfcde1f4"><span class="section-number-4">7.2.2.</span> The middle</h4>
+<div id="outline-container-org161327b" class="outline-4">
+<h4 id="org161327b"><span class="section-number-4">7.2.2.</span> The middle</h4>
 <div class="outline-text-4" id="text-7-2-2">
 <ul class="org-ul">
 <li>address the audience how they can solve the problem<br /></li>
@@ -1077,8 +1088,8 @@ simplify and clarify<br /></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org77fe598" class="outline-4">
-<h4 id="org77fe598"><span class="section-number-4">7.2.3.</span> The end</h4>
+<div id="outline-container-org2e11419" class="outline-4">
+<h4 id="org2e11419"><span class="section-number-4">7.2.3.</span> The end</h4>
 <div class="outline-text-4" id="text-7-2-3">
 <ul class="org-ul">
 <li>Call to action end<br /></li>
@@ -1087,15 +1098,15 @@ simplify and clarify<br /></li>
 </div>
 </div>
 </div>
-<div id="outline-container-orgc5840d7" class="outline-3">
-<h3 id="orgc5840d7"><span class="section-number-3">7.3.</span> The narrative structure</h3>
+<div id="outline-container-org08503c9" class="outline-3">
+<h3 id="org08503c9"><span class="section-number-3">7.3.</span> The narrative structure</h3>
 <div class="outline-text-3" id="text-7-3">
 <ul class="org-ul">
 <li>data visualization without word fail to tell a story<br /></li>
 </ul>
 </div>
-<div id="outline-container-orgc63828e" class="outline-4">
-<h4 id="orgc63828e"><span class="section-number-4">7.3.1.</span> The narrative flow: order the story</h4>
+<div id="outline-container-org9537d3f" class="outline-4">
+<h4 id="org9537d3f"><span class="section-number-4">7.3.1.</span> The narrative flow: order the story</h4>
 <div class="outline-text-4" id="text-7-3-1">
 <ul class="org-ul">
 <li>use the big idea and 3-minute rules in chapter one<br /></li>
@@ -1103,24 +1114,24 @@ simplify and clarify<br /></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orge6b8ef2" class="outline-4">
-<h4 id="orge6b8ef2"><span class="section-number-4">7.3.2.</span> The spoken and written narrative</h4>
+<div id="outline-container-org8036c5e" class="outline-4">
+<h4 id="org8036c5e"><span class="section-number-4">7.3.2.</span> The spoken and written narrative</h4>
 </div>
 </div>
-<div id="outline-container-org7678c30" class="outline-3">
-<h3 id="org7678c30"><span class="section-number-3">7.4.</span> The power of repetition</h3>
+<div id="outline-container-orgb0ecf22" class="outline-3">
+<h3 id="orgb0ecf22"><span class="section-number-3">7.4.</span> The power of repetition</h3>
 <div class="outline-text-3" id="text-7-4">
 <ul class="org-ul">
 <li>repeat the idea in the intro, and conclustion<br /></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org9fd163d" class="outline-3">
-<h3 id="org9fd163d"><span class="section-number-3">7.5.</span> Tactics to help ensure clear story</h3>
+<div id="outline-container-orgfefffe1" class="outline-3">
+<h3 id="orgfefffe1"><span class="section-number-3">7.5.</span> Tactics to help ensure clear story</h3>
 <div class="outline-text-3" id="text-7-5">
 </div>
-<div id="outline-container-orgb6ec34f" class="outline-4">
-<h4 id="orgb6ec34f"><span class="section-number-4">7.5.1.</span> Horizontal logic</h4>
+<div id="outline-container-org0cce91f" class="outline-4">
+<h4 id="org0cce91f"><span class="section-number-4">7.5.1.</span> Horizontal logic</h4>
 <div class="outline-text-4" id="text-7-5-1">
 <ul class="org-ul">
 <li>the ability of understanding only by reading slides title<br /></li>
@@ -1128,24 +1139,24 @@ simplify and clarify<br /></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org50a49df" class="outline-4">
-<h4 id="org50a49df"><span class="section-number-4">7.5.2.</span> Vertical logic</h4>
+<div id="outline-container-org741ff63" class="outline-4">
+<h4 id="org741ff63"><span class="section-number-4">7.5.2.</span> Vertical logic</h4>
 <div class="outline-text-4" id="text-7-5-2">
 <ul class="org-ul">
 <li>is when the title and the content reinforce eachother<br /></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org1bd3e51" class="outline-4">
-<h4 id="org1bd3e51"><span class="section-number-4">7.5.3.</span> Reverse storyboarding</h4>
+<div id="outline-container-org6cb1d1b" class="outline-4">
+<h4 id="org6cb1d1b"><span class="section-number-4">7.5.3.</span> Reverse storyboarding</h4>
 <div class="outline-text-4" id="text-7-5-3">
 <ul class="org-ul">
 <li>you start with slides, and then put the title of the slides in a summery<br /></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgc97e540" class="outline-4">
-<h4 id="orgc97e540"><span class="section-number-4">7.5.4.</span> A fresh perspective</h4>
+<div id="outline-container-orgc4452be" class="outline-4">
+<h4 id="orgc4452be"><span class="section-number-4">7.5.4.</span> A fresh perspective</h4>
 <div class="outline-text-4" id="text-7-5-4">
 <ul class="org-ul">
 <li>give it to your friends to see<br /></li>
@@ -1153,8 +1164,8 @@ simplify and clarify<br /></li>
 </div>
 </div>
 </div>
-<div id="outline-container-org3080743" class="outline-3">
-<h3 id="org3080743"><span class="section-number-3">7.6.</span> Clising</h3>
+<div id="outline-container-orga896af2" class="outline-3">
+<h3 id="orga896af2"><span class="section-number-3">7.6.</span> Clising</h3>
 <div class="outline-text-3" id="text-7-6">
 <ul class="org-ul">
 <li>make the audience the protagonist<br /></li>
@@ -1240,7 +1251,7 @@ simplify and clarify<br /></li>
 </div>
 <div id="postamble" class="status">
 <p class="date">Date: 2023-04-25 Tue 12:44</p>
-<p class="date">Created: 2023-03-03 Fri 20:22</p>
+<p class="date">Created: 2023-03-18 Sat 10:22</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

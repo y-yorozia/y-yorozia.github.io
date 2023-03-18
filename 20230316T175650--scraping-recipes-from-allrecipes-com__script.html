@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-03-17 Fri 17:13 -->
+<!-- 2023-03-18 Sat 10:25 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Scraping recipes from allrecipes com</title>
@@ -43,30 +43,30 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org0d102ea">1. Imports</a></li>
-<li><a href="#org959efd4">2. Getting recipes URLs</a>
+<li><a href="#orgb875404">1. Imports</a></li>
+<li><a href="#org984866d">2. Getting recipes URLs</a>
 <ul>
-<li><a href="#orgd54cd18">2.1. First attemnt</a></li>
-<li><a href="#org277963e">2.2. Resumable scraping</a></li>
-<li><a href="#org310885d">2.3. Final filter</a></li>
+<li><a href="#orgce7b8ee">2.1. First attemnt</a></li>
+<li><a href="#org0a1a74a">2.2. Resumable scraping</a></li>
+<li><a href="#org728f1c1">2.3. Final filter</a></li>
 </ul>
 </li>
-<li><a href="#orgb522341">3. Getting recipes data</a>
+<li><a href="#org5aa4918">3. Getting recipes data</a>
 <ul>
-<li><a href="#org935bffa">3.1. Making dataset placeholders</a></li>
-<li><a href="#orgd739620">3.2. Getting recipes data</a></li>
-<li><a href="#org208b320">3.3. Cleaning and sorting</a></li>
+<li><a href="#orgd726653">3.1. Making dataset placeholders</a></li>
+<li><a href="#org0b0e1a5">3.2. Getting recipes data</a></li>
+<li><a href="#orgc814c3e">3.3. Cleaning and sorting</a></li>
 </ul>
 </li>
-<li><a href="#org6c13ec2">4. Getting recipes images</a>
+<li><a href="#org1a6bb59">4. Getting recipes images</a>
 <ul>
-<li><a href="#orgedade70">4.1. Initiation</a></li>
-<li><a href="#org1a71f02">4.2. Scraping URLs of 600k images</a></li>
-<li><a href="#org2f29c3d">4.3. Downloading in google drive</a>
+<li><a href="#org63e0e6e">4.1. Initiation</a></li>
+<li><a href="#org5f50739">4.2. Scraping URLs of 600k images</a></li>
+<li><a href="#orgeb1d041">4.3. Downloading in google drive</a>
 <ul>
-<li><a href="#org4647631">4.3.1. Setup</a></li>
-<li><a href="#orge02506e">4.3.2. Downloading and renaming</a></li>
-<li><a href="#org58e51da">4.3.3. archive multiple 7z files to ease download and speed up google drive</a></li>
+<li><a href="#org6fb48ad">4.3.1. Setup</a></li>
+<li><a href="#org50e7b57">4.3.2. Downloading and renaming</a></li>
+<li><a href="#org4f62aad">4.3.3. archive multiple 7z files to ease download and speed up google drive</a></li>
 </ul>
 </li>
 </ul>
@@ -74,12 +74,23 @@
 </ul>
 </div>
 </div>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z0T1EQTBKL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Z0T1EQTBKL');
+</script>
+
 <p>
 The goal of this project is to scrape recipes from <a href="https://www.allrecipes.com/">allrecipes.com</a>, store them into a data sets like in this <a href="https://drive.google.com/drive/folders/1Q7FPQAATjzAK_Zog7LGhfBgTWyy4wRZP?usp=share_link">Google Drive folder</a>, and downloading recipe images with some naming convention: shape__score__recipe-id__image-order like in this <a href="https://drive.google.com/drive/folders/16JurJxHNM8FpUaS3pUZxdPKa5JvlyUk-?usp=share_link">Google Drive folder</a>.<br />
 More information is down below<br />
 </p>
-<div id="outline-container-org0d102ea" class="outline-2">
-<h2 id="org0d102ea"><span class="section-number-2">1.</span> Imports</h2>
+<div id="outline-container-orgb875404" class="outline-2">
+<h2 id="orgb875404"><span class="section-number-2">1.</span> Imports</h2>
 <div class="outline-text-2" id="text-1">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #5317ac; font-weight: bold;">from</span> bs4 <span style="color: #5317ac; font-weight: bold;">import</span> BeautifulSoup
@@ -103,8 +114,8 @@ More information is down below<br />
 </div>
 </div>
 </div>
-<div id="outline-container-org959efd4" class="outline-2">
-<h2 id="org959efd4"><span class="section-number-2">2.</span> Getting recipes URLs</h2>
+<div id="outline-container-org984866d" class="outline-2">
+<h2 id="org984866d"><span class="section-number-2">2.</span> Getting recipes URLs</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Allrecipes.com website doesn't have a web page where you can see all recipes on the website.<br />
@@ -112,8 +123,8 @@ Normally I would just go to one web page with recipes and keep changing the page
 The idea of my script is to scrape and filter all URLs in a page and keep those who have "recipe" in the URL, scrape them as well and capture other recipes URLs until there is no new recipe to be found.<br />
 </p>
 </div>
-<div id="outline-container-orgd54cd18" class="outline-3">
-<h3 id="orgd54cd18"><span class="section-number-3">2.1.</span> First attemnt</h3>
+<div id="outline-container-orgce7b8ee" class="outline-3">
+<h3 id="orgce7b8ee"><span class="section-number-3">2.1.</span> First attemnt</h3>
 <div class="outline-text-3" id="text-2-1">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #00538b;">page</span> = requests.get(<span style="color: #2544bb;">"https://www.allrecipes.com"</span>)
@@ -135,8 +146,8 @@ ddf.to_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/Allrecepies/all
 </div>
 </div>
 </div>
-<div id="outline-container-org277963e" class="outline-3">
-<h3 id="org277963e"><span class="section-number-3">2.2.</span> Resumable scraping</h3>
+<div id="outline-container-org0a1a74a" class="outline-3">
+<h3 id="org0a1a74a"><span class="section-number-3">2.2.</span> Resumable scraping</h3>
 <div class="outline-text-3" id="text-2-2">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #00538b;">il</span>=0
@@ -170,8 +181,8 @@ pd.DataFrame(data={<span style="color: #2544bb;">"url"</span>:links,<span style=
 </div>
 </div>
 </div>
-<div id="outline-container-org310885d" class="outline-3">
-<h3 id="org310885d"><span class="section-number-3">2.3.</span> Final filter</h3>
+<div id="outline-container-org728f1c1" class="outline-3">
+<h3 id="org728f1c1"><span class="section-number-3">2.3.</span> Final filter</h3>
 <div class="outline-text-3" id="text-2-3">
 <p>
 Remove articles URLs that contain multiple recipes<br />
@@ -184,12 +195,12 @@ ddf[ddf[<span style="color: #2544bb;">'type'</span>]==<span style="color: #2544b
 </div>
 </div>
 </div>
-<div id="outline-container-orgb522341" class="outline-2">
-<h2 id="orgb522341"><span class="section-number-2">3.</span> Getting recipes data</h2>
+<div id="outline-container-org5aa4918" class="outline-2">
+<h2 id="org5aa4918"><span class="section-number-2">3.</span> Getting recipes data</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-org935bffa" class="outline-3">
-<h3 id="org935bffa"><span class="section-number-3">3.1.</span> Making dataset placeholders</h3>
+<div id="outline-container-orgd726653" class="outline-3">
+<h3 id="orgd726653"><span class="section-number-3">3.1.</span> Making dataset placeholders</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 This is based on a lot of trial and errors, but if I were to restart from the beginning, this line is necessary.<br />
@@ -236,8 +247,8 @@ This is based on a lot of trial and errors, but if I were to restart from the be
 </div>
 </div>
 </div>
-<div id="outline-container-orgd739620" class="outline-3">
-<h3 id="orgd739620"><span class="section-number-3">3.2.</span> Getting recipes data</h3>
+<div id="outline-container-org0b0e1a5" class="outline-3">
+<h3 id="org0b0e1a5"><span class="section-number-3">3.2.</span> Getting recipes data</h3>
 <div class="outline-text-3" id="text-3-2">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #5317ac; font-weight: bold;">for</span> row <span style="color: #5317ac; font-weight: bold;">in</span> tqdm(<span style="color: #8f0075; font-weight: bold;">range</span>(<span style="color: #8f0075; font-weight: bold;">len</span>(df[<span style="color: #2544bb;">"url"</span>]))):
@@ -447,8 +458,8 @@ keyword_df.dropna(thresh=2).reset_index(drop=<span style="color: #0000c0;">True<
 </div>
 </div>
 </div>
-<div id="outline-container-org208b320" class="outline-3">
-<h3 id="org208b320"><span class="section-number-3">3.3.</span> Cleaning and sorting</h3>
+<div id="outline-container-orgc814c3e" class="outline-3">
+<h3 id="orgc814c3e"><span class="section-number-3">3.3.</span> Cleaning and sorting</h3>
 <div class="outline-text-3" id="text-3-3">
 <ul class="org-ul">
 <li>A recipe with high score mean that the recipe have:<br />
@@ -483,15 +494,15 @@ rdf.to_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/Allrecepies/rec
 </div>
 </div>
 </div>
-<div id="outline-container-org6c13ec2" class="outline-2">
-<h2 id="org6c13ec2"><span class="section-number-2">4.</span> Getting recipes images</h2>
+<div id="outline-container-org1a6bb59" class="outline-2">
+<h2 id="org1a6bb59"><span class="section-number-2">4.</span> Getting recipes images</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 <b>Note</b>: I did this part locally because of Ubuntu update that messed up selenium install on Google colab. The only adjustment that need to be taken are in regard to the paths.<br />
 </p>
 </div>
-<div id="outline-container-orgedade70" class="outline-3">
-<h3 id="orgedade70"><span class="section-number-3">4.1.</span> Initiation</h3>
+<div id="outline-container-org63e0e6e" class="outline-3">
+<h3 id="org63e0e6e"><span class="section-number-3">4.1.</span> Initiation</h3>
 <div class="outline-text-3" id="text-4-1">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #5317ac; font-weight: bold;">from</span> selenium <span style="color: #5317ac; font-weight: bold;">import</span> webdriver
@@ -533,8 +544,8 @@ idf=pd.read_csv(<span style="color: #2544bb;">"allrecipes/recipe_image_url.csv"<
 </div>
 </div>
 </div>
-<div id="outline-container-org1a71f02" class="outline-3">
-<h3 id="org1a71f02"><span class="section-number-3">4.2.</span> Scraping URLs of 600k images</h3>
+<div id="outline-container-org5f50739" class="outline-3">
+<h3 id="org5f50739"><span class="section-number-3">4.2.</span> Scraping URLs of 600k images</h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
 The website is somewhat dynamic, I found it hard at first to click on the next button to load the next page of images.<br />
@@ -601,12 +612,12 @@ idf.to_csv(<span style="color: #2544bb;">"allrecipes/recipe_image_url.csv"</span
 </div>
 </div>
 </div>
-<div id="outline-container-org2f29c3d" class="outline-3">
-<h3 id="org2f29c3d"><span class="section-number-3">4.3.</span> Downloading in google drive</h3>
+<div id="outline-container-orgeb1d041" class="outline-3">
+<h3 id="orgeb1d041"><span class="section-number-3">4.3.</span> Downloading in google drive</h3>
 <div class="outline-text-3" id="text-4-3">
 </div>
-<div id="outline-container-org4647631" class="outline-4">
-<h4 id="org4647631"><span class="section-number-4">4.3.1.</span> Setup</h4>
+<div id="outline-container-org6fb48ad" class="outline-4">
+<h4 id="org6fb48ad"><span class="section-number-4">4.3.1.</span> Setup</h4>
 <div class="outline-text-4" id="text-4-3-1">
 <p>
 Splitting the data into four groups, each have multiple data sets, one for each recipe.<br />
@@ -678,8 +689,8 @@ checking the google drive storage to make the downlaod stop when it 12 gb full<b
 </div>
 </div>
 </div>
-<div id="outline-container-orge02506e" class="outline-4">
-<h4 id="orge02506e"><span class="section-number-4">4.3.2.</span> Downloading and renaming</h4>
+<div id="outline-container-org50e7b57" class="outline-4">
+<h4 id="org50e7b57"><span class="section-number-4">4.3.2.</span> Downloading and renaming</h4>
 <div class="outline-text-4" id="text-4-3-2">
 <p>
 The whole point of this project is to automate recipe import, but I couldn't automate getting the best images, it needs to be done manually.<br />
@@ -824,8 +835,8 @@ This way image 2 will apprear before image 1<br />
 </div>
 </div>
 </div>
-<div id="outline-container-org58e51da" class="outline-4">
-<h4 id="org58e51da"><span class="section-number-4">4.3.3.</span> archive multiple 7z files to ease download and speed up google drive</h4>
+<div id="outline-container-org4f62aad" class="outline-4">
+<h4 id="org4f62aad"><span class="section-number-4">4.3.3.</span> archive multiple 7z files to ease download and speed up google drive</h4>
 <div class="outline-text-4" id="text-4-3-3">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #00538b;">z_s</span>=[]
@@ -885,7 +896,7 @@ copyz=zdf[(zdf[<span style="color: #2544bb;">"z_sc"</span>]&gt;mins) &amp; (zdf[
 </div>
 <div id="postamble" class="status">
 <p class="date">Date: 2023-03-16 Thu 17:56</p>
-<p class="date">Created: 2023-03-17 Fri 17:13</p>
+<p class="date">Created: 2023-03-18 Sat 10:25</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
