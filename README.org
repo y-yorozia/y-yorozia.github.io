@@ -1,0 +1,192 @@
+#+title:      Portfolio
+#+date:       [2023-02-20 Mon 12:11]
+#+filetags:   :note:
+#+identifier: 20230220T121111
+
+#+OPTIONS: ^:nil
+#+OPTIONS: \n:t
+#+OPTIONS: tex:t
+#+OPTIONS: H:6
+#+LATEX_HEADER: \usepackage{svg}
+#+LATEX_HEADER: \usepackage{tikz,pgfplots,amsmath}
+#+LATEX_HEADER: \usetikzlibrary{positioning}
+#+LATEX_HEADER: \usepackage[margin=2cm]{geometry}
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
+
+#+begin_export html
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z0T1EQTBKL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Z0T1EQTBKL');
+</script>
+
+#+end_export
+
+* My story
+** A humble beginning
+My name is Youssef, or Joseph in English. I am 26 years old and live in Morocco. I am currently looking for a mentor. 
+
+My story began with me being a gifted child, or so I was told. 
+I was getting good grades simply by attending classes without doing any extra work at home, and it was from there that my addiction to games and interest in education began.
+
+At the age of 15, I met my first girlfriend in a game called Dofus, but our relationship remained online until the age of 18. 
+
+I started university at the age of 18 and planned to major in chemistry.
+I encountered a few minor issues.
+The first issue was a change in language; we had previously studied in Arabic, and it was changed to French.
+The second issue was that the classes were extremely long for what I was used to.
+The third issue was that my online girlfriend, with whom I had spent three years, was six years older than me and had recently gotten engaged. And I only found out because her friend told me, since she felt sorry for me.
+
+I felt betrayed because I had worked on construction sites since I was 16 to earn enough money to stay online with her all year, as well as spend money in game to progress together.
+I failed four years in a row due to depression, anxiety, and changes in the university education system.
+I didn't tell anyone, I didn't ask for help; I was simply done.
+** A new goal
+One day, I saw a video on YouTube one day that changed my career goals.
+When I was despaired to feed on videos so that I can sleep without thinking of my life...
+A video from TED Talks by Hans Rosling, recorded in February 2006 in Monterey, CA, published on YouTube on January 16, 2007. the video name is [[https://www.youtube.com/watch?v=hVimVzgtD6w][The best stats you've ever seen | Hans Rosling]].
+Seeing how data can be used to change your world view made me excited to work in this field.
+After some research, I discovered that the field's name is data analysis, and that I could find and pirate courses for it, so I chose data science courses, specifically [[https://www.udemy.com/course/python-for-data-science-and-machine-learning-bootcamp/][Udemy - Data Science from Jose Portilla]] and [[https://www.udemy.com/course/the-data-science-course-complete-data-science-bootcamp][Udemy - Data Science from 365 Careers]].
+
+** Work-related desperation
+*** The jack of all traits
+In late 2019, my friend and I decided to try a drop-shipping business, and we endeed up purchased a service called Launchese that assists with getting accepted in payment gateways.
+Long story short, we were lacking in terms of funding and I ended up working in a company called AOP+ that is also owned by the CEO of Launchese.
+Despite the fact that my role was in customer service, I decided to assist the company in any way I could.
+
+I assisted the product manager by creating detailed reports for each product, which required me to expand the app's collected data by splitting the SKU variable into multiple variables to create a detailed report.
+And to reduce the number of refunds/reorders, I assisted the shipping department by gathering data from the Shipstation app, manipulating it, and reporting back orders with missing phone and home/apparent numbers.
+I was a Jack of all trades and a master of none, but I was only getting paid $10 a day. I ended up quitting. and back to square one.
+
+And then, when I thought things cannot get any worse, Covid happened.
+*** The hidden data scientist
+Fast-forward, A friend who work as a freelancer offer me a job.
+He was working with an influencer marketing agency, and he asked me to do some manual tasks.
+- The task was done in steps:
+  - Accessing Noxinfluencer and applying country and subscriber count filters.
+  - Access to each channel's page and manually check for some conditions that were as followed:
+    - Number of videos in the channel is bigger than 15
+    - Copy the channel's email if found in description of about page.
+    - Average video length is three minutes or more
+    - Average video views is 10k or more
+    - No content for kids
+    - Content have narration.
+    - maximum subscriber count for our task was 100k
+The situation was, I work to find the channels, and he does a quick review and report them to the employer.
+The payment was as followed, $10 for each 30 channels found with a monthly upper limit of $300, plus you get 5% for each sponsorship deal, for life.
+Each month I find 900 channels, he does a quick review and report them back to the employer, we get $300 and split it in half.
+Of Course, I wasn't in the slack group, so I had no idea which one accept a sponsor deal or not to know how much we gain in total.
+I was getting paid $10 per 30 channels found, with a limit of $300 per month, or at least that what I was told, and we were splitting it in half.
+Doing the task manually, we were finding, on average, five channels per hour. I wrote a programming script that helped us find, on average, 30 channels per hour. Details are in here.
+Here is the script [[file:20230308T205456--scraping-from-noxinfluencer-and-adding-additional-filters__script.html][Link]], and here is the final result [[https://drive.google.com/drive/folders/1-AOB_LgcKwXpTA5IqGIzYd0XxYlmlYIe?usp=share_link][Link]].
+But there was still that limit of $300 per month that limit us from taking advantege of this data that I gather.
+So I make him two proposals: the first is to ask them to raise the limit, and the second is to introduce me to them as a data scientist, in the hopes that I will gain recognition and begin freelancing.
+He didn't like both, He start diminishing the value of my work and joking about how I spend my first cash pay, which was only $90, on buying a weight gainer we because I was so underweight.
+He wanted me to be under his control, just producing him easy money and not helping me as he claimed. He was basically a tyrant.
+He got the data, [[https://drive.google.com/drive/folders/1-AOB_LgcKwXpTA5IqGIzYd0XxYlmlYIe?usp=share_link][Link]], to help him in his task.
+He ignored me after this, he still holds my money and still generates money from my work.
+And I thought that I would never be betrayed.
+
+There I was, at the age of 26, unemployed, uncertified, fed up with life. I still can't put my hand on what went wrong.
+** A new view
+Until again, on YouTube, I saw another video that changes my views on, not on the world, but on my self.
+Nobody, especially parents, consider teaching how to study, how to manage time, how to plan and avoid risk, to a gifted child.
+Because, well, you demonstrated your intelligence when you were given children's study material, let's just leave you alone.
+Now I'm not going to point fingers, but that's my parent mistakes, however I am willing to fix it alone as always.
+I learned from that video that I have ADHD. Which is strange because I was always a calm kid, but the symptoms are there.
+
+I'm currently studying ADHD materials, primarily those two materials [[https://www.healthygamer.gg/about/guide][Dr. K’s Guide to Mental Health]] and [[https://www.amazon.com/ADHD-2-0-Essential-Strategies-Distraction/dp/0399178732][ADHD 2.0]], because I can't afford to see a psychiatrist.
+I am so used to learning a skill when I need it that I even studied how to make a story from this course to write this story. Of course, this isn't the best story, but I can't blame myself for my limited vocabulary.
+
+At the end, I want to finish with two things.
+
+I am willing to work for free in order to gain experience. The thing is, I live in a Third World country, so even if I am paid half of what a data scientist is paid, I will be fine. I would prefer more, but I will be fine.
+
+Since I write my story for you, whether you will be my future employer or colleague, I would like to show you a poem that resonate with me.
+The poem is named The Greatest Adventure, it is a song written by Maury Laws (music) and Jules Bass (lyric) and performed by Glenn Yarbrough.
+#+begin_export html
+<iframe width="560" height="315" src="https://www.youtube.com/embed/2dQ5c5SIYnc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+#+end_export
+
+The greatest adventure is what lies ahead.
+Today and tomorrow are yet to be said.
+The chances, the changes are all yours to make.
+The mold of your life is in your hands to break.
+
+The greatest adventure is there if you're bold.
+Let go of the moment that life makes you hold.
+To measure the meaning can make you delay;
+It's time you stop thinkin' and wasting the day.
+
+The man who's a dreamer and never takes leave
+Who thinks of a world that is just make-believe
+Will never know passion, will never know pain.
+Who sits by the window will one day see rain.
+
+The greatest adventure is what lies ahead.
+Today and tomorrow are yet to be said.
+The chances, the changes are all yours to make.
+The mold of your life is in your hands to break.
+
+The greatest adventure is what lies ahead. 
+* Notes
+- I don't have money to but a course and get a certificate, so here are some of my notes from the courses I studied:
+  - [[file:20220418T115131--excel-skills-for-business-specialization__note.html][Notes]] from the Coursera course [[https://www.coursera.org/specializations/excel][Excel Skills for Business Specialization]]
+  - [[file:20220720T184217--google-data-analysis__coursera_google_note.html][Notes]], [[file:20220715T073848--google-data-analytics__coursera_google_cnotes_datascience.html][o notes]] from the Coursera course [[https://www.coursera.org/professional-certificates/google-data-analytics][Google Data Analytics Professional Certificate]]
+  - [[file:20221031T171547--data-analysis-with-r-specialization__dataanalysis_math_note_summary.html][Notes]] from the Coursera course [[https://www.coursera.org/specializations/statistics][Data Analysis with R Specialization (previously known as *Statistics* with R)]]
+    This note has a lot of math formulas written in $LaTeX$, it may take a while to load.
+  - [[file:20220531T125038--simon-sinek-presentation-essentials__note.html][Notes]] from the course [[https://simonsinek.com/product/the-art-of-presenting-with-simon/][The Art of Presenting by Simon Sinek]]
+  - [[file:20220425T124453--story-telling-with-data__note.html][Notes]] from the book [[https://www.amazon.com/Storytelling-Data-Visualization-Business-Professionals/dp/1119002257][Storytelling with Data by Cole Nussbaumer Knaflic]]
+  - [[file:20230303T201648--summary-of-marketing-analytics__note.html][Notes]] from module 7 about marketing analytics in [[https://smartmarketer.com/train-my-traffic-person/][Train my traffic person by Jhon Grimshaw]]
+* What next in learning journy
+- Next courses in my list:
+  - Andrew Ng - DeepLearning.AI
+    - [[https://www.coursera.org/specializations/mathematics-for-machine-learning-and-data-science][Coursera - Mathematics for Machine Learning and Data Science Specialization]]
+    - [[https://www.coursera.org/specializations/machine-learning-introduction][Coursera - Machine Learning Specialization]]
+    - [[https://www.coursera.org/learn/ai-for-everyone][Coursera - AI For Everyone]]
+    - [[https://www.coursera.org/specializations/deep-learning][Coursera - Deep Learning Specialization]]
+    - [[https://www.coursera.org/specializations/machine-learning-engineering-for-production-mlops][Coursera - Machine Learning Engineering for Production (MLOps) Specialization]]
+  - Six Sigma
+    - [[https://www.coursera.org/specializations/six-sigma-fundamentals][Coursera - Six Sigma Yellow Belt Specialization]]
+    - [[https://www.coursera.org/specializations/six-sigma-green-belt][Coursera - Six Sigma Green Belt Specialization]]
+  - [[https://www.coursera.org/learn/erasmus-econometrics][Econometrics: Methods and Applications]]
+  - [[https://cs50.harvard.edu/x/2023/][CS50’s Introduction to Computer Science]]
+  - [[https://www.udemy.com/course/accelerated-regular-expressions-training/][Udemy - Accelerated Regular Expressions Training - Regex]]
+  - [[https://www.amazon.com/Discrete-Mathematics-Applications-Susanna-Epp/dp/1337694193][Discrete Mathematics with Applications]]
+* Programing langauges
+- Languages
+  - Python
+    Only what is needed for data science, I don't use functions often nor did I ever use classes. You can check my python scripts below.
+  - SQL
+    Never performs a query, I don't event know what setup is needed, all I know is the syntax. Check my Google data analytics notes.
+  - R
+    I only used R for statistical computation from the course data analysis with R, It is sad to say this but, I don't event know how to manipulate data frames in R.
+* Tools I work
+- Tools I work with
+  - [[https://www.gnu.org/software/emacs/][Gnu Emacs]] just a *normal* text editor.
+  - [[https://orgmode.org/][Org mode]] just a *normal* text format, with an Excel like functionality, the ability to run codes within the note... All the notes that I wrote, especially the notes of statistics with R of which I am very proud of, are writing in org mode format.
+    Here is an example [[https://raw.githubusercontent.com/y-yorozia/y-yorozia.github.io/main/20221031T171547--data-analysis-with-r-specialization__dataanalysis_math_note_summary.org][a note in org mode]]
+  - Excel
+  - Jupyter notebbok
+  - Google colab
+  - Rstudio
+* Library
+- Librarites I work with
+  - Pandas
+  - Numpy
+  - sklearn
+  - beautifulsoup
+  - selenuim
+  - [[https://plotly.com/python/plotly-express/][Plotly express]]
+  - opencv2
+  - [[https://github.com/photosynthesis-team/piq][PIQ]] used in my latest project
+* Project
+- Side projects
+  - [[file:20230308T132143--downloading-courses-to-google-drive__script.html][Downloading to google drive]]
+  - [[file:20230308T183832--compressing-video-with-ffmpeg-gpu-from-google-drive__script.org][Compressing video files from Google Drive]]
+  - [[file:20230308T205456--scraping-from-noxinfluencer-and-adding-additional-filters__script.html][Scraping data from NoxInfluencer and YouTube for a marketing agency]]
+  - [[file:20230316T175650--scraping-recipes-from-allrecipes-com__script.html][Scraping recipe data from allrecipes.com]]
