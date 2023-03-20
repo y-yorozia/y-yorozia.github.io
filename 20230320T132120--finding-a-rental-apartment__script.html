@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-03-20 Mon 14:09 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Finding a rental apartment</title>
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/js/readtheorg.js"></script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Finding a rental apartment</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgbdc2cbb">1. Imports</a></li>
+<li><a href="#orgd5a187f">2. Scraping appartments links from mubwab.com</a></li>
+<li><a href="#org42a3d8e">3. Scraping information from each appartment page</a>
+<ul>
+<li><a href="#org8bee580">3.1. Initiation</a></li>
+<li><a href="#org3387b2f">3.2. Scrapping</a></li>
+</ul>
+</li>
+<li><a href="#org56d01b3">4. Cleaning for analyzing</a>
+<ul>
+<li><a href="#org6fbd1b7">4.1. Initiation</a></li>
+<li><a href="#orgdb67634">4.2. Cleaning</a>
+<ul>
+<li><a href="#orgc9c7936">4.2.1. Cleaning "mubwab rent.csv"</a>
+<ul>
+<li><a href="#org61cba16">4.2.1.1. Currency</a></li>
+<li><a href="#orgf52f764">4.2.1.2. Location</a></li>
+<li><a href="#org52ae24f">4.2.1.3. wrapping up</a></li>
+</ul>
+</li>
+<li><a href="#org3aec7c6">4.2.2. Cleaning "mubwab rent tags.csv"</a>
+<ul>
+<li><a href="#org26512cd">4.2.2.1. Spliting the values from variables</a></li>
+<li><a href="#orgeceda45">4.2.2.2. Pivoting</a></li>
+<li><a href="#org46c1c88">4.2.2.3. cleaning pivot data</a></li>
+<li><a href="#org4e8b51d">4.2.2.4. Wrapping up and merging</a></li>
+</ul>
+</li>
+<li><a href="#orgc637f7f">4.2.3. Cleaning "mubwab rent features.csv"</a>
+<ul>
+<li><a href="#orgb2910a2">4.2.3.1. Making pivot work when I only have two columns in total</a></li>
+<li><a href="#org82c7c6d">4.2.3.2. Cleaning</a></li>
+<li><a href="#org1a4a092">4.2.3.3. Wrapping and exporting for final manual analysis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z0T1EQTBKL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Z0T1EQTBKL');
+</script>
+<p>
+I made this project to help me find an apartment way before I even get hired, Is this optimism? Partly, and partly because I am lonely, and I had nothing to do.<br />
+Here is a <a href="https://drive.google.com/drive/folders/1kX70hStWMveKN1cgkKc9-XXZv1tALWhD?usp=share_link">link</a> to data folder.<br />
+</p>
+<div id="outline-container-orgbdc2cbb" class="outline-2">
+<h2 id="orgbdc2cbb"><span class="section-number-2">1.</span> Imports</h2>
+<div class="outline-text-2" id="text-1">
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #5317ac; font-weight: bold;">import</span> numpy <span style="color: #5317ac; font-weight: bold;">as</span> np
+<span style="color: #5317ac; font-weight: bold;">import</span> pandas <span style="color: #5317ac; font-weight: bold;">as</span> pd
+<span style="color: #5317ac; font-weight: bold;">from</span> bs4 <span style="color: #5317ac; font-weight: bold;">import</span> BeautifulSoup
+<span style="color: #5317ac; font-weight: bold;">import</span> requests
+<span style="color: #5317ac; font-weight: bold;">from</span> tqdm.notebook <span style="color: #5317ac; font-weight: bold;">import</span> trange, tqdm, tqdm_notebook
+<span style="color: #5317ac; font-weight: bold;">import</span> os
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgd5a187f" class="outline-2">
+<h2 id="orgd5a187f"><span class="section-number-2">2.</span> Scraping appartments links from mubwab.com</h2>
+<div class="outline-text-2" id="text-2">
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #00538b;">page</span> = requests.get(<span style="color: #2544bb;">"https://www.mubawab.ma/en/sc/apartments-for-rent"</span>)
+<span style="color: #00538b;">soup</span> = BeautifulSoup(page.content, <span style="color: #2544bb;">'html.parser'</span>)
+
+<span style="color: #00538b;">total_pages</span>=<span style="color: #8f0075; font-weight: bold;">int</span>(soup.find(<span style="color: #2544bb;">"p"</span>,{<span style="color: #2544bb;">"class"</span>:<span style="color: #2544bb;">"fSize11"</span>}).text.split(<span style="color: #2544bb;">"|"</span>)[-1].split(<span style="color: #2544bb;">"-"</span>)[-1].split(<span style="color: #2544bb;">" "</span>)[0])
+
+<span style="color: #00538b;">mubwab_url</span>=[]
+<span style="color: #00538b;">mubwab_publish_date</span>=[]
+<span style="color: #00538b;">mubwab_bedrooms</span>=[]
+<span style="color: #00538b;">mubwab_area</span>=[]
+<span style="color: #5317ac; font-weight: bold;">for</span> p <span style="color: #5317ac; font-weight: bold;">in</span> tqdm(<span style="color: #8f0075; font-weight: bold;">range</span>(1,total_pages+1)):
+    <span style="color: #00538b;">url</span>=<span style="color: #2544bb;">"https://www.mubawab.ma/en/sc/apartments-for-rent:p:"</span>+<span style="color: #8f0075; font-weight: bold;">str</span>(p)
+    <span style="color: #00538b;">page</span> = requests.get(url)
+    <span style="color: #00538b;">soup</span> = BeautifulSoup(page.content, <span style="color: #2544bb;">'html.parser'</span>)
+    <span style="color: #00538b;">listingBox</span>=soup.find(<span style="color: #2544bb;">"ul"</span>,{<span style="color: #2544bb;">"class"</span>:<span style="color: #2544bb;">"ulListing"</span>}).findAll(<span style="color: #2544bb;">"li"</span>,{<span style="color: #2544bb;">"class"</span>:<span style="color: #2544bb;">"listingBox"</span>})
+    <span style="color: #5317ac; font-weight: bold;">for</span> i <span style="color: #5317ac; font-weight: bold;">in</span> <span style="color: #8f0075; font-weight: bold;">range</span>(<span style="color: #8f0075; font-weight: bold;">len</span>(listingBox)):
+        mubwab_url.append(listingBox[i][<span style="color: #2544bb;">"linkref"</span>])
+        <span style="color: #5317ac; font-weight: bold;">try</span>:
+            mubwab_publish_date.append(listingBox[i].find(<span style="color: #2544bb;">"span"</span>,{<span style="color: #2544bb;">"class"</span>:<span style="color: #2544bb;">"listingDetails iconPadR"</span>}).text.strip())
+        <span style="color: #5317ac; font-weight: bold;">except</span>:
+            mubwab_publish_date.append(<span style="color: #2544bb;">"ad"</span>)
+pd.DataFrame(data={<span style="color: #2544bb;">"url"</span>:mubwab_url,<span style="color: #2544bb;">"publish_date"</span>:mubwab_publish_date}).read_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/mubwab.csv"</span>,index=<span style="color: #0000c0;">False</span>)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org42a3d8e" class="outline-2">
+<h2 id="org42a3d8e"><span class="section-number-2">3.</span> Scraping information from each appartment page</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-org8bee580" class="outline-3">
+<h3 id="org8bee580"><span class="section-number-3">3.1.</span> Initiation</h3>
+<div class="outline-text-3" id="text-3-1">
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #5317ac; font-weight: bold;">if</span> os.path.exists(<span style="color: #2544bb;">"/content/drive/MyDrive/mubwab/mubwab rent.csv"</span>):
+    <span style="color: #5317ac; font-weight: bold;">pass</span>
+<span style="color: #5317ac; font-weight: bold;">else</span>:
+    pd.DataFrame(data={<span style="color: #2544bb;">"url"</span>:[np.nan],<span style="color: #2544bb;">"price"</span>:[np.nan],<span style="color: #2544bb;">"city_1"</span>:[np.nan],<span style="color: #2544bb;">"city_2"</span>:[np.nan],<span style="color: #2544bb;">"lat"</span>:[np.nan],<span style="color: #2544bb;">"lon"</span>:[np.nan],<span style="color: #2544bb;">"agency"</span>:[np.nan]}).to_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/mubwab/mubwab rent.csv"</span>,index=<span style="color: #0000c0;">False</span>)
+<span style="color: #5317ac; font-weight: bold;">if</span> os.path.exists(<span style="color: #2544bb;">"/content/drive/MyDrive/mubwab/mubwab rent tags.csv"</span>):
+    <span style="color: #5317ac; font-weight: bold;">pass</span>
+<span style="color: #5317ac; font-weight: bold;">else</span>:
+    pd.DataFrame(data={<span style="color: #2544bb;">"url"</span>:[np.nan],<span style="color: #2544bb;">"tags"</span>:[np.nan]}).to_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/mubwab/mubwab rent tags.csv"</span>,index=<span style="color: #0000c0;">False</span>)
+<span style="color: #5317ac; font-weight: bold;">if</span> os.path.exists(<span style="color: #2544bb;">"/content/drive/MyDrive/mubwab/mubwab rent features.csv"</span>):
+    <span style="color: #5317ac; font-weight: bold;">pass</span>
+<span style="color: #5317ac; font-weight: bold;">else</span>:
+    pd.DataFrame(data={<span style="color: #2544bb;">"url"</span>:[np.nan],<span style="color: #2544bb;">"features"</span>:[np.nan]}).to_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/mubwab/mubwab rent features.csv"</span>,index=<span style="color: #0000c0;">False</span>)
+
+df=pd.read_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/mubwab/mubwab.csv"</span>)
+mr=pd.read_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/mubwab/mubwab rent.csv"</span>)
+mrt=pd.read_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/mubwab/mubwab rent tags.csv"</span>)
+mrf=pd.read_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/mubwab/mubwab rent features.csv"</span>)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org3387b2f" class="outline-3">
+<h3 id="org3387b2f"><span class="section-number-3">3.2.</span> Scrapping</h3>
+<div class="outline-text-3" id="text-3-2">
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #00538b;">mub_url</span>=<span style="color: #8f0075; font-weight: bold;">list</span>(mr[<span style="color: #2544bb;">'url'</span>])
+<span style="color: #00538b;">price</span>=<span style="color: #8f0075; font-weight: bold;">list</span>(mr[<span style="color: #2544bb;">'price'</span>])
+<span style="color: #00538b;">city_1</span>=<span style="color: #8f0075; font-weight: bold;">list</span>(mr[<span style="color: #2544bb;">'city_1'</span>])
+<span style="color: #00538b;">city_2</span>=<span style="color: #8f0075; font-weight: bold;">list</span>(mr[<span style="color: #2544bb;">'city_2'</span>])
+<span style="color: #00538b;">lat</span>=<span style="color: #8f0075; font-weight: bold;">list</span>(mr[<span style="color: #2544bb;">'lat'</span>])
+<span style="color: #00538b;">lon</span>=<span style="color: #8f0075; font-weight: bold;">list</span>(mr[<span style="color: #2544bb;">'lon'</span>])
+<span style="color: #00538b;">agency</span>=<span style="color: #8f0075; font-weight: bold;">list</span>(mr[<span style="color: #2544bb;">'agency'</span>])
+
+<span style="color: #00538b;">tags_url</span>=<span style="color: #8f0075; font-weight: bold;">list</span>(mrt[<span style="color: #2544bb;">'url'</span>])
+<span style="color: #00538b;">tags_tg</span>=<span style="color: #8f0075; font-weight: bold;">list</span>(mrt[<span style="color: #2544bb;">'tags'</span>])
+
+<span style="color: #00538b;">features_url</span>=<span style="color: #8f0075; font-weight: bold;">list</span>(mrf[<span style="color: #2544bb;">'url'</span>])
+<span style="color: #00538b;">features_ft</span>=<span style="color: #8f0075; font-weight: bold;">list</span>(mrf[<span style="color: #2544bb;">'features'</span>])
+<span style="color: #5317ac; font-weight: bold;">for</span> i <span style="color: #5317ac; font-weight: bold;">in</span> tqdm(<span style="color: #8f0075; font-weight: bold;">range</span>(<span style="color: #8f0075; font-weight: bold;">len</span>(df))):
+    <span style="color: #5317ac; font-weight: bold;">if</span> df[<span style="color: #2544bb;">"publish_date"</span>].iloc[i]==<span style="color: #2544bb;">"ad"</span>:
+        <span style="color: #5317ac; font-weight: bold;">pass</span>
+    <span style="color: #5317ac; font-weight: bold;">elif</span> df[<span style="color: #2544bb;">"url"</span>].iloc[i] <span style="color: #5317ac; font-weight: bold;">in</span> mub_url:
+        <span style="color: #5317ac; font-weight: bold;">pass</span>
+    <span style="color: #5317ac; font-weight: bold;">else</span>:
+        url=df[<span style="color: #2544bb;">"url"</span>].iloc[i]
+        page = requests.get(url)
+        soup = BeautifulSoup(page.content, <span style="color: #2544bb;">'html.parser'</span>)
+        mub_url.append(url)
+        url_id=url.split(<span style="color: #2544bb;">"/a/"</span>)[-1].split(<span style="color: #2544bb;">'/'</span>)[0]
+
+        <span style="color: #5317ac; font-weight: bold;">try</span>:
+            price.append(soup.find(<span style="color: #2544bb;">"h3"</span>,{<span style="color: #2544bb;">"class"</span>:<span style="color: #2544bb;">"orangeTit"</span>}).text.strip())
+        <span style="color: #5317ac; font-weight: bold;">except</span>:
+            price.append(<span style="color: #2544bb;">"no price"</span>)
+        <span style="color: #5317ac; font-weight: bold;">try</span>:
+            city_1.append(soup.find(<span style="color: #2544bb;">"h3"</span>,{<span style="color: #2544bb;">"class"</span>:<span style="color: #2544bb;">"greyTit"</span>}).text.strip())
+        <span style="color: #5317ac; font-weight: bold;">except</span>:
+            city_1.append(<span style="color: #2544bb;">"no"</span>)
+        <span style="color: #5317ac; font-weight: bold;">try</span>:
+            city_2.append(soup.find(<span style="color: #2544bb;">'p'</span>,{<span style="color: #2544bb;">"class"</span>:<span style="color: #2544bb;">"darkblue inBlock float-right floatL"</span>}).text.strip())
+        <span style="color: #5317ac; font-weight: bold;">except</span>:
+            city_2.append(<span style="color: #2544bb;">"no"</span>)
+        <span style="color: #5317ac; font-weight: bold;">try</span>:
+            lat.append(soup.find(<span style="color: #2544bb;">"div"</span>,{<span style="color: #2544bb;">"id"</span>:<span style="color: #2544bb;">"mapOpen"</span>})[<span style="color: #2544bb;">"lat"</span>])
+        <span style="color: #5317ac; font-weight: bold;">except</span>:
+            lat.append(<span style="color: #2544bb;">"no"</span>)                    
+        <span style="color: #5317ac; font-weight: bold;">try</span>:
+            lon.append(soup.find(<span style="color: #2544bb;">"div"</span>,{<span style="color: #2544bb;">"id"</span>:<span style="color: #2544bb;">"mapOpen"</span>})[<span style="color: #2544bb;">"lon"</span>])
+        <span style="color: #5317ac; font-weight: bold;">except</span>:
+            lon.append(<span style="color: #2544bb;">"no"</span>)            
+        <span style="color: #5317ac; font-weight: bold;">try</span>:
+            agency.append(soup.find(<span style="color: #2544bb;">"div"</span>,{<span style="color: #2544bb;">"class"</span>:<span style="color: #2544bb;">"agency-info"</span>}).find(<span style="color: #2544bb;">"a"</span>)[<span style="color: #2544bb;">"href"</span>])
+        <span style="color: #5317ac; font-weight: bold;">except</span>:
+            agency.append(<span style="color: #2544bb;">"No agency"</span>)
+
+
+        tags=soup.find(<span style="color: #2544bb;">"div"</span>,{<span style="color: #2544bb;">"class"</span>:<span style="color: #2544bb;">"catNav"</span>}).findAll(<span style="color: #2544bb;">"span"</span>)
+        <span style="color: #5317ac; font-weight: bold;">for</span> t <span style="color: #5317ac; font-weight: bold;">in</span> tags:
+            tags_url.append(url)
+            tags_tg.append(t.text.strip().replace(<span style="color: #2544bb;">"\n\t\t\t\t\t"</span>,<span style="color: #2544bb;">" "</span>))
+        <span style="color: #5317ac; font-weight: bold;">try</span>:    
+            caractBlockProp=soup.find(<span style="color: #2544bb;">"div"</span>,{<span style="color: #2544bb;">"class"</span>:<span style="color: #2544bb;">"caractBlockProp"</span>}).findAll(<span style="color: #2544bb;">"li"</span>)
+            <span style="color: #5317ac; font-weight: bold;">for</span> c <span style="color: #5317ac; font-weight: bold;">in</span> caractBlockProp:
+                features_url.append(url)
+                features_ft.append(c.text.strip().replace(<span style="color: #2544bb;">"\n\t\t\t\t\t\t\t\t\t\t\t"</span>,<span style="color: #2544bb;">""</span>))
+        <span style="color: #5317ac; font-weight: bold;">except</span>:
+            <span style="color: #5317ac; font-weight: bold;">pass</span>
+    <span style="color: #5317ac; font-weight: bold;">if</span> i%100==0:
+        pd.DataFrame(data={<span style="color: #2544bb;">"url"</span>:mub_url,<span style="color: #2544bb;">"price"</span>:price,<span style="color: #2544bb;">"city_1"</span>:city_1,<span style="color: #2544bb;">"city_2"</span>:city_2,<span style="color: #2544bb;">"lat"</span>:lat,<span style="color: #2544bb;">"lon"</span>:lon,<span style="color: #2544bb;">"agency"</span>:agency}).to_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/mubwab/mubwab rent.csv"</span>,index=<span style="color: #0000c0;">False</span>)
+        pd.DataFrame(data={<span style="color: #2544bb;">"url"</span>:tags_url,<span style="color: #2544bb;">"tags"</span>:tags_tg}).to_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/mubwab/mubwab rent tags.csv"</span>,index=<span style="color: #0000c0;">False</span>)
+        pd.DataFrame(data={<span style="color: #2544bb;">"url"</span>:features_url,<span style="color: #2544bb;">"features"</span>:features_ft}).to_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/mubwab/mubwab rent features.csv"</span>,index=<span style="color: #0000c0;">False</span>)
+pd.DataFrame(data={<span style="color: #2544bb;">"url"</span>:mub_url,<span style="color: #2544bb;">"price"</span>:price,<span style="color: #2544bb;">"city_1"</span>:city_1,<span style="color: #2544bb;">"city_2"</span>:city_2,<span style="color: #2544bb;">"lat"</span>:lat,<span style="color: #2544bb;">"lon"</span>:lon,<span style="color: #2544bb;">"agency"</span>:agency}).to_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/mubwab/mubwab rent.csv"</span>,index=<span style="color: #0000c0;">False</span>)
+pd.DataFrame(data={<span style="color: #2544bb;">"url"</span>:tags_url,<span style="color: #2544bb;">"tags"</span>:tags_tg}).to_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/mubwab/mubwab rent tags.csv"</span>,index=<span style="color: #0000c0;">False</span>)
+pd.DataFrame(data={<span style="color: #2544bb;">"url"</span>:features_url,<span style="color: #2544bb;">"features"</span>:features_ft}).to_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/mubwab/mubwab rent features.csv"</span>,index=<span style="color: #0000c0;">False</span>)
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org56d01b3" class="outline-2">
+<h2 id="org56d01b3"><span class="section-number-2">4.</span> Cleaning for analyzing</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-org6fbd1b7" class="outline-3">
+<h3 id="org6fbd1b7"><span class="section-number-3">4.1.</span> Initiation</h3>
+<div class="outline-text-3" id="text-4-1">
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #00538b;">mr</span>=pd.read_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/mubwab/mubwab rent.csv"</span>)
+<span style="color: #00538b;">mrt</span>=pd.read_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/mubwab/mubwab rent tags.csv"</span>)
+<span style="color: #00538b;">mrf</span>=pd.read_csv(<span style="color: #2544bb;">"/content/drive/MyDrive/mubwab/mubwab rent features.csv"</span>)
+
+<span style="color: #00538b;">mr</span>=mr.dropna().reset_index(drop=<span style="color: #0000c0;">True</span>)
+mrt=mrt.dropna().reset_index(drop=<span style="color: #0000c0;">True</span>)
+mrf=mrf.dropna().reset_index(drop=<span style="color: #0000c0;">True</span>)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgdb67634" class="outline-3">
+<h3 id="orgdb67634"><span class="section-number-3">4.2.</span> Cleaning</h3>
+<div class="outline-text-3" id="text-4-2">
+</div>
+<div id="outline-container-orgc9c7936" class="outline-4">
+<h4 id="orgc9c7936"><span class="section-number-4">4.2.1.</span> Cleaning "mubwab rent.csv"</h4>
+<div class="outline-text-4" id="text-4-2-1">
+</div>
+<div id="outline-container-org61cba16" class="outline-5">
+<h5 id="org61cba16"><span class="section-number-5">4.2.1.1.</span> Currency</h5>
+<div class="outline-text-5" id="text-4-2-1-1">
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #00538b;">mr_df</span>=mr[mr[<span style="color: #2544bb;">"price"</span>]!=<span style="color: #2544bb;">"no price"</span>].reset_index(drop=<span style="color: #0000c0;">True</span>)
+
+page = requests.get(<span style="color: #2544bb;">"https://wise.com/gb/currency-converter/eur-to-usd-rate"</span>)
+soup = BeautifulSoup(page.content, <span style="color: #2544bb;">'html.parser'</span>)
+EURtoUSD=<span style="color: #8f0075; font-weight: bold;">float</span>(soup.find(<span style="color: #2544bb;">"span"</span>,{<span style="color: #2544bb;">"class"</span>:<span style="color: #2544bb;">"text-success"</span>}).text.split(<span style="color: #2544bb;">" "</span>)[0])
+
+page = requests.get(<span style="color: #2544bb;">"https://wise.com/gb/currency-converter/mad-to-usd-rate"</span>)
+soup = BeautifulSoup(page.content, <span style="color: #2544bb;">'html.parser'</span>)
+MADtoUSD=<span style="color: #8f0075; font-weight: bold;">float</span>(soup.find(<span style="color: #2544bb;">"span"</span>,{<span style="color: #2544bb;">"class"</span>:<span style="color: #2544bb;">"text-success"</span>}).text.split(<span style="color: #2544bb;">" "</span>)[0])
+
+price_usd=[]
+<span style="color: #5317ac; font-weight: bold;">for</span> i <span style="color: #5317ac; font-weight: bold;">in</span> <span style="color: #8f0075; font-weight: bold;">range</span>(<span style="color: #8f0075; font-weight: bold;">len</span>(mr_df)):
+    p=mr_df[<span style="color: #2544bb;">"price"</span>].iloc[i]
+    pr=<span style="color: #8f0075; font-weight: bold;">float</span>(p.split(<span style="color: #2544bb;">" "</span>)[0].replace(<span style="color: #2544bb;">","</span>,<span style="color: #2544bb;">""</span>))
+    cr=p.split(<span style="color: #2544bb;">" "</span>)[-1]
+    <span style="color: #5317ac; font-weight: bold;">if</span> cr==<span style="color: #2544bb;">"DH"</span>:
+        price_usd.append(<span style="color: #8f0075; font-weight: bold;">int</span>(<span style="color: #8f0075; font-weight: bold;">round</span>(pr*MADtoUSD,-2)))
+    <span style="color: #5317ac; font-weight: bold;">elif</span> cr==<span style="color: #2544bb;">"EUR"</span>:
+        price_usd.append(<span style="color: #8f0075; font-weight: bold;">int</span>(<span style="color: #8f0075; font-weight: bold;">round</span>(pr*EURtoUSD,-2)))
+    <span style="color: #5317ac; font-weight: bold;">else</span>:
+        price_usd.append(<span style="color: #8f0075; font-weight: bold;">int</span>(<span style="color: #8f0075; font-weight: bold;">round</span>(pr,-2)))
+
+mr_df[<span style="color: #2544bb;">"price_usd"</span>]=price_usd
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgf52f764" class="outline-5">
+<h5 id="orgf52f764"><span class="section-number-5">4.2.1.2.</span> Location</h5>
+<div class="outline-text-5" id="text-4-2-1-2">
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #00538b;">distric</span>=mr_df[<span style="color: #2544bb;">"city_1"</span>].<span style="color: #8f0075; font-weight: bold;">apply</span>(<span style="color: #5317ac; font-weight: bold;">lambda</span> <span style="color: #00538b;">x</span>:x.split(<span style="color: #2544bb;">" in"</span>)[0])
+city=mr_df[<span style="color: #2544bb;">"city_2"</span>].<span style="color: #8f0075; font-weight: bold;">apply</span>(<span style="color: #5317ac; font-weight: bold;">lambda</span> <span style="color: #00538b;">x</span>:x.split(<span style="color: #2544bb;">","</span>)[0])
+region=mr_df[<span style="color: #2544bb;">"city_2"</span>].<span style="color: #8f0075; font-weight: bold;">apply</span>(<span style="color: #5317ac; font-weight: bold;">lambda</span> x:x.split(<span style="color: #2544bb;">","</span>)[-1])
+
+<span style="color: #00538b;">mr_df</span>[<span style="color: #2544bb;">"distric"</span>]=distric
+<span style="color: #00538b;">mr_df</span>[<span style="color: #2544bb;">"city"</span>]=city
+<span style="color: #00538b;">mr_df</span>[<span style="color: #2544bb;">"region"</span>]=region
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org52ae24f" class="outline-5">
+<h5 id="org52ae24f"><span class="section-number-5">4.2.1.3.</span> wrapping up</h5>
+<div class="outline-text-5" id="text-4-2-1-3">
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #00538b;">mr_df</span>=mr_df[[<span style="color: #2544bb;">"url"</span>,<span style="color: #2544bb;">"price_usd"</span>,<span style="color: #2544bb;">"distric"</span>,<span style="color: #2544bb;">"city"</span>,<span style="color: #2544bb;">"region"</span>,<span style="color: #2544bb;">"lat"</span>,<span style="color: #2544bb;">"lon"</span>,<span style="color: #2544bb;">"agency"</span>]]
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org3aec7c6" class="outline-4">
+<h4 id="org3aec7c6"><span class="section-number-4">4.2.2.</span> Cleaning "mubwab rent tags.csv"</h4>
+<div class="outline-text-4" id="text-4-2-2">
+</div>
+<div id="outline-container-org26512cd" class="outline-5">
+<h5 id="org26512cd"><span class="section-number-5">4.2.2.1.</span> Spliting the values from variables</h5>
+<div class="outline-text-5" id="text-4-2-2-1">
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #00538b;">mrt_df</span>=mrt
+<span style="color: #00538b;">mrt_df</span>[<span style="color: #2544bb;">"tgv"</span>]=mrt[<span style="color: #2544bb;">"tags"</span>].<span style="color: #8f0075; font-weight: bold;">apply</span>(<span style="color: #5317ac; font-weight: bold;">lambda</span> <span style="color: #00538b;">x</span>:x.split(<span style="color: #2544bb;">" "</span>)[0])
+mrt_df[<span style="color: #2544bb;">"tg"</span>]=mrt[<span style="color: #2544bb;">"tags"</span>].<span style="color: #8f0075; font-weight: bold;">apply</span>(<span style="color: #5317ac; font-weight: bold;">lambda</span> x:x.split(<span style="color: #2544bb;">" "</span>)[-1].replace(<span style="color: #2544bb;">"Pieces"</span>,<span style="color: #2544bb;">"Piece"</span>).replace(<span style="color: #2544bb;">"Bathrooms"</span>,<span style="color: #2544bb;">"Bathroom"</span>).replace(<span style="color: #2544bb;">"Rooms"</span>,<span style="color: #2544bb;">"Room"</span>))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgeceda45" class="outline-5">
+<h5 id="orgeceda45"><span class="section-number-5">4.2.2.2.</span> Pivoting</h5>
+<div class="outline-text-5" id="text-4-2-2-2">
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #00538b;">mrt_df_pv</span>=mrt_df.pivot(index=<span style="color: #2544bb;">'url'</span>, columns=<span style="color: #2544bb;">'tg'</span>, values=<span style="color: #2544bb;">'tgv'</span>).reset_index()
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org46c1c88" class="outline-5">
+<h5 id="org46c1c88"><span class="section-number-5">4.2.2.3.</span> cleaning pivot data</h5>
+<div class="outline-text-5" id="text-4-2-2-3">
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #00538b;">yr</span>=mrt_df_pv[<span style="color: #2544bb;">"year"</span>].replace(<span style="color: #2544bb;">"Less"</span>,1)
+<span style="color: #5317ac; font-weight: bold;">for</span> i <span style="color: #5317ac; font-weight: bold;">in</span> <span style="color: #8f0075; font-weight: bold;">range</span>(<span style="color: #8f0075; font-weight: bold;">len</span>(mrt_df_pv)):
+    <span style="color: #5317ac; font-weight: bold;">if</span> <span style="color: #8f0075; font-weight: bold;">type</span>(mrt_df_pv.iloc[i][<span style="color: #2544bb;">"old"</span>])==<span style="color: #8f0075; font-weight: bold;">float</span>:
+        <span style="color: #5317ac; font-weight: bold;">pass</span>
+    <span style="color: #5317ac; font-weight: bold;">elif</span> mrt_df_pv.iloc[i][<span style="color: #2544bb;">"old"</span>]==<span style="color: #2544bb;">'Over'</span>:
+        <span style="color: #5317ac; font-weight: bold;">pass</span>
+    <span style="color: #5317ac; font-weight: bold;">elif</span> mrt_df_pv.iloc[i][<span style="color: #2544bb;">"old"</span>]:
+        yr[<span style="color: #00538b;">i</span>]=<span style="color: #8f0075; font-weight: bold;">int</span>(mrt_df_pv.iloc[i][<span style="color: #2544bb;">"old"</span>].split(<span style="color: #2544bb;">"-"</span>)[-1])
+mrt_df_pv[<span style="color: #2544bb;">"years"</span>]=yr
+
+mrt_df_pv[<span style="color: #2544bb;">"New"</span>]=mrt_df_pv[<span style="color: #2544bb;">"New"</span>].replace(np.nan,<span style="color: #0000c0;">False</span>).replace(<span style="color: #2544bb;">"New"</span>,<span style="color: #0000c0;">True</span>)
+
+floor=<span style="color: #8f0075; font-weight: bold;">list</span>(mrt_df_pv[<span style="color: #2544bb;">"stage"</span>])
+<span style="color: #5317ac; font-weight: bold;">for</span> i <span style="color: #5317ac; font-weight: bold;">in</span> <span style="color: #8f0075; font-weight: bold;">range</span>(<span style="color: #8f0075; font-weight: bold;">len</span>(mrt_df_pv)):
+    <span style="color: #5317ac; font-weight: bold;">if</span> <span style="color: #8f0075; font-weight: bold;">type</span>(mrt_df_pv[<span style="color: #2544bb;">"stage"</span>].iloc[i])==<span style="color: #8f0075; font-weight: bold;">str</span>:
+        floor[<span style="color: #00538b;">i</span>]=<span style="color: #8f0075; font-weight: bold;">int</span>(mrt_df_pv[<span style="color: #2544bb;">"stage"</span>].iloc[i].replace(<span style="color: #2544bb;">"st"</span>,<span style="color: #2544bb;">""</span>).replace(<span style="color: #2544bb;">"nd"</span>,<span style="color: #2544bb;">""</span>).replace(<span style="color: #2544bb;">"rd"</span>,<span style="color: #2544bb;">""</span>).replace(<span style="color: #2544bb;">"th"</span>,<span style="color: #2544bb;">""</span>))
+mrt_df_pv[<span style="color: #2544bb;">"floor"</span>]=floor
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org4e8b51d" class="outline-5">
+<h5 id="org4e8b51d"><span class="section-number-5">4.2.2.4.</span> Wrapping up and merging</h5>
+<div class="outline-text-5" id="text-4-2-2-4">
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #00538b;">mrt_df_pv</span>=mrt_df_pv[[<span style="color: #2544bb;">"url"</span>,<span style="color: #2544bb;">"m&#178;"</span>,<span style="color: #2544bb;">"Room"</span>,<span style="color: #2544bb;">"Bathroom"</span>,<span style="color: #2544bb;">"Piece"</span>,<span style="color: #2544bb;">"floor"</span>,<span style="color: #2544bb;">"New"</span>,<span style="color: #2544bb;">"years"</span>,<span style="color: #2544bb;">"condition"</span>,<span style="color: #2544bb;">"reform"</span>]]
+<span style="color: #00538b;">df</span>=pd.merge(mr_df,mrt_df_pv,on=<span style="color: #2544bb;">"url"</span>)
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgc637f7f" class="outline-4">
+<h4 id="orgc637f7f"><span class="section-number-4">4.2.3.</span> Cleaning "mubwab rent features.csv"</h4>
+<div class="outline-text-4" id="text-4-2-3">
+</div>
+<div id="outline-container-orgb2910a2" class="outline-5">
+<h5 id="orgb2910a2"><span class="section-number-5">4.2.3.1.</span> Making pivot work when I only have two columns in total</h5>
+<div class="outline-text-5" id="text-4-2-3-1">
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #00538b;">mrf</span>[<span style="color: #2544bb;">"fv"</span>]=<span style="color: #0000c0;">True</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org82c7c6d" class="outline-5">
+<h5 id="org82c7c6d"><span class="section-number-5">4.2.3.2.</span> Cleaning</h5>
+<div class="outline-text-5" id="text-4-2-3-2">
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #00538b;">mrf_pv</span>=mrf.pivot(index=<span style="color: #2544bb;">'url'</span>, columns=<span style="color: #2544bb;">'features'</span>, values=<span style="color: #2544bb;">'fv'</span>).reset_index().replace(np.nan,<span style="color: #0000c0;">False</span>)
+
+<span style="color: #505050; font-style: italic;">#</span><span style="color: #505050; font-style: italic;">Calculating the total number of features in each appartmnet</span>
+mrf_pv[<span style="color: #2544bb;">"N_features"</span>]=mrf_pv.iloc[:, 1:].<span style="color: #8f0075; font-weight: bold;">sum</span>(axis=1)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org1a4a092" class="outline-5">
+<h5 id="org1a4a092"><span class="section-number-5">4.2.3.3.</span> Wrapping and exporting for final manual analysis</h5>
+<div class="outline-text-5" id="text-4-2-3-3">
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #00538b;">df</span>=pd.merge(df,mrf_pv,on=<span style="color: #2544bb;">"url"</span>)
+df=df.sort_values(<span style="color: #2544bb;">"N_features"</span>,ascending=<span style="color: #0000c0;">False</span>).reset_index(drop=<span style="color: #0000c0;">True</span>)
+df.to_excel(<span style="color: #2544bb;">"/content/drive/MyDrive/final_data.xlsx"</span>,index=<span style="color: #0000c0;">False</span>)
+</pre>
+</div>
+<p>
+Here is a link to the final data <a href="https://docs.google.com/spreadsheets/d/1tyn4840AG8L-4lwQ7RpOPchyQtzLh9nG/edit?usp=share_link&amp;ouid=111727379260443252485&amp;rtpof=true&amp;sd=true">link</a><br />
+I noticed that some apartment prices are meant to be paid per day, not per month&#x2026;<br />
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: 2023-03-20 Mon 13:21</p>
+<p class="date">Created: 2023-03-20 Mon 14:09</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
