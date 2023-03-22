@@ -11,6 +11,7 @@
 #+LATEX_HEADER: \usepackage{tikz,pgfplots,amsmath}
 #+LATEX_HEADER: \usetikzlibrary{positioning}
 #+LATEX_HEADER: \usepackage[margin=2cm]{geometry}
+#+latex_header: \hypersetup{colorlinks=false}
 #+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
 
 #+begin_export html
@@ -157,6 +158,13 @@ The greatest adventure is what lies ahead.
   - [[https://cs50.harvard.edu/x/2023/][CS50’s Introduction to Computer Science]]
   - [[https://www.udemy.com/course/accelerated-regular-expressions-training/][Udemy - Accelerated Regular Expressions Training - Regex]]
   - [[https://www.amazon.com/Discrete-Mathematics-Applications-Susanna-Epp/dp/1337694193][Discrete Mathematics with Applications]]
+* Project
+- Side projects
+  - [[file:20230308T132143--downloading-courses-to-google-drive__script.html][Downloading to google drive]]
+  - [[file:20230308T183832--compressing-video-with-ffmpeg-gpu-from-google-drive__script.org][Compressing video files from Google Drive]]
+  - [[file:20230308T205456--scraping-from-noxinfluencer-and-adding-additional-filters__script.html][Scraping data from NoxInfluencer and YouTube for a marketing agency]]
+  - [[file:20230316T175650--scraping-recipes-from-allrecipes-com__script.html][Scraping recipe data from allrecipes.com]]
+  - [[file:20230320T132120--finding-a-rental-apartment__script.html][Finding a rental apartment]]
 * Programing langauges
 - Languages
   - Python
@@ -165,7 +173,7 @@ The greatest adventure is what lies ahead.
     Never performs a query, I don't event know what setup is needed, all I know is the syntax. Check my Google data analytics notes.
   - R
     I only used R for statistical computation from the course data analysis with R, It is sad to say this but, I don't event know how to manipulate data frames in R.
-* Tools I work
+* Tools I use
 - Tools I work with
   - [[https://www.gnu.org/software/emacs/][Gnu Emacs]] just a *normal* text editor.
   - [[https://orgmode.org/][Org mode]] just a *normal* text format, with an Excel like functionality, the ability to run codes within the note... All the notes that I wrote, especially the notes of statistics with R of which I am very proud of, are writing in org mode format.
@@ -184,12 +192,5 @@ The greatest adventure is what lies ahead.
   - [[https://plotly.com/python/plotly-express/][Plotly express]]
   - opencv2
   - [[https://github.com/photosynthesis-team/piq][PIQ]] used in my latest project
-* Project
-- Side projects
-  - [[file:20230308T132143--downloading-courses-to-google-drive__script.html][Downloading to google drive]]
-  - [[file:20230308T183832--compressing-video-with-ffmpeg-gpu-from-google-drive__script.org][Compressing video files from Google Drive]]
-  - [[file:20230308T205456--scraping-from-noxinfluencer-and-adding-additional-filters__script.html][Scraping data from NoxInfluencer and YouTube for a marketing agency]]
-  - [[file:20230316T175650--scraping-recipes-from-allrecipes-com__script.html][Scraping recipe data from allrecipes.com]]
-  - [[file:20230320T132120--finding-a-rental-apartment__script.html][Finding a rental apartment]]
 * Contact
 Email: [[mailto:yoroziano.youssef@gmail.com][yoroziano.youssef@gmail.com]]
