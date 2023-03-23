@@ -31,7 +31,7 @@
 * About me
 Hello My name is Joseph, I am 26 years old, and I live in Morocco.
 
-I am a self-taught data analyst/scientist who developed an interest in data from watching a [[https://www.youtube.com/watch?v=hVimVzgtD6w][Ted Talk by Hans Rosling]]
+I am a self-taught data analyst/scientist who developed an interest in data from watching a [[https://www.youtube.com/watch?v=hVimVzgtD6w][Ted Talk by Hans Rosling]].
 I studied most of the concepts from YouTube, and now I studied on Coursera using auditing.
 
 Currently, I am seeking work with a team, either as a freelancer or an intern.
