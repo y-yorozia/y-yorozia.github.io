@@ -28,6 +28,22 @@
 
 #+end_export
 
+* Project
+- Side projects
+  - [[file:20230308T132143--downloading-courses-to-google-drive__script.html][Downloading to google drive]]
+  - [[file:20230308T183832--compressing-video-with-ffmpeg-gpu-from-google-drive__script.org][Compressing video files from Google Drive]]
+  - [[file:20230308T205456--scraping-from-noxinfluencer-and-adding-additional-filters__script.html][Scraping data from NoxInfluencer and YouTube for a marketing agency]]
+  - [[file:20230316T175650--scraping-recipes-from-allrecipes-com__script.html][Scraping recipe data from allrecipes.com]]
+  - [[file:20230320T132120--finding-a-rental-apartment__script.html][Finding a rental apartment]]
+* Tools I use
+- Tools I work with
+  - [[https://www.gnu.org/software/emacs/][Gnu Emacs]] just a *normal* text editor.
+  - [[https://orgmode.org/][Org mode]] just a *normal* text format, with an Excel like functionality, the ability to run codes within the note... All the notes that I wrote, especially the notes of statistics with R of which I am very proud of, are writing in org mode format.
+    Here is an example [[https://raw.githubusercontent.com/y-yorozia/y-yorozia.github.io/main/20221031T171547--data-analysis-with-r-specialization__dataanalysis_math_note_summary.org][a note in org mode]]
+  - Excel
+  - Jupyter notebbok
+  - Google colab
+  - Rstudio
 * Notes
 - I don't have money to but a course and get a certificate, so here are some of my notes from the courses I studied:
   - [[file:20220418T115131--excel-skills-for-business-specialization__note.html][Notes]] from the Coursera course [[https://www.coursera.org/specializations/excel][Excel Skills for Business Specialization]]
@@ -52,13 +68,6 @@
   - [[https://cs50.harvard.edu/x/2023/][CS50’s Introduction to Computer Science]]
   - [[https://www.udemy.com/course/accelerated-regular-expressions-training/][Udemy - Accelerated Regular Expressions Training - Regex]]
   - [[https://www.amazon.com/Discrete-Mathematics-Applications-Susanna-Epp/dp/1337694193][Discrete Mathematics with Applications]]
-* Project
-- Side projects
-  - [[file:20230308T132143--downloading-courses-to-google-drive__script.html][Downloading to google drive]]
-  - [[file:20230308T183832--compressing-video-with-ffmpeg-gpu-from-google-drive__script.org][Compressing video files from Google Drive]]
-  - [[file:20230308T205456--scraping-from-noxinfluencer-and-adding-additional-filters__script.html][Scraping data from NoxInfluencer and YouTube for a marketing agency]]
-  - [[file:20230316T175650--scraping-recipes-from-allrecipes-com__script.html][Scraping recipe data from allrecipes.com]]
-  - [[file:20230320T132120--finding-a-rental-apartment__script.html][Finding a rental apartment]]
 * Programing langauges
 - Languages
   - Python
@@ -67,15 +76,6 @@
     Never performs a query, I don't event know what setup is needed, all I know is the syntax. Check my Google data analytics notes.
   - R
     I only used R for statistical computation from the course data analysis with R, It is sad to say this but, I don't event know how to manipulate data frames in R.
-* Tools I use
-- Tools I work with
-  - [[https://www.gnu.org/software/emacs/][Gnu Emacs]] just a *normal* text editor.
-  - [[https://orgmode.org/][Org mode]] just a *normal* text format, with an Excel like functionality, the ability to run codes within the note... All the notes that I wrote, especially the notes of statistics with R of which I am very proud of, are writing in org mode format.
-    Here is an example [[https://raw.githubusercontent.com/y-yorozia/y-yorozia.github.io/main/20221031T171547--data-analysis-with-r-specialization__dataanalysis_math_note_summary.org][a note in org mode]]
-  - Excel
-  - Jupyter notebbok
-  - Google colab
-  - Rstudio
 * Library
 - Librarites I work with
   - Pandas
