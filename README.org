@@ -37,10 +37,9 @@ I studied most of the concepts from YouTube, and now I studied on Coursera using
 Currently, I am seeking work with a team, either as a freelancer or an intern.
 All my last projects involves scraping and developing a metric to ease decision-making.
 * Project
-- Side projects
-  - [[file:20230308T205456--scraping-from-noxinfluencer-and-adding-additional-filters__script.html][Scraping data from NoxInfluencer and YouTube for a marketing agency]]
-  - [[file:20230316T175650--scraping-recipes-from-allrecipes-com__script.html][Scraping recipe data from allrecipes.com]]
-  - [[file:20230320T132120--finding-a-rental-apartment__script.html][Finding a rental apartment]]
+- [[file:20230308T205456--scraping-from-noxinfluencer-and-adding-additional-filters__script.html][Scraping data from NoxInfluencer and YouTube for a marketing agency]]
+- [[file:20230316T175650--scraping-recipes-from-allrecipes-com__script.html][Scraping recipe data from allrecipes.com]]
+- [[file:20230320T132120--finding-a-rental-apartment__script.html][Finding a rental apartment]]
 * Notes
 I only audited courses on Coursera, All I have are notes to prove it.
 - [[file:20220418T115131--excel-skills-for-business-specialization__note.html][Notes]] from the Coursera course [[https://www.coursera.org/specializations/excel][Excel Skills for Business Specialization]]
