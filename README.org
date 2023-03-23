@@ -29,17 +29,24 @@
 #+end_export
 
 * About me
-Hello My name is Joseph, I am 26 years old, and I live in Morocco. 
+Hello My name is Joseph, I am 26 years old, and I live in Morocco.
+
 I am a self-taught data analyst/scientist who developed an interest in data from watching a [[https://www.youtube.com/watch?v=hVimVzgtD6w][Ted Talk by Hans Rosling]]
 I studied most of the concepts from YouTube, and now I studied on Coursera using auditing.
+
 Currently, I am seeking work with a team, either as a freelancer or an intern.
+All my last projects involves scraping and developing a metric to ease decision-making.
 * Project
 - Side projects
-  - [[file:20230308T132143--downloading-courses-to-google-drive__script.html][Downloading to google drive]]
-  - [[file:20230308T183832--compressing-video-with-ffmpeg-gpu-from-google-drive__script.org][Compressing video files from Google Drive]]
   - [[file:20230308T205456--scraping-from-noxinfluencer-and-adding-additional-filters__script.html][Scraping data from NoxInfluencer and YouTube for a marketing agency]]
   - [[file:20230316T175650--scraping-recipes-from-allrecipes-com__script.html][Scraping recipe data from allrecipes.com]]
   - [[file:20230320T132120--finding-a-rental-apartment__script.html][Finding a rental apartment]]
+* Notes
+I only audited courses on Coursera, All I have are notes to prove it.
+- [[file:20220418T115131--excel-skills-for-business-specialization__note.html][Notes]] from the Coursera course [[https://www.coursera.org/specializations/excel][Excel Skills for Business Specialization]]
+- [[file:20220720T184217--google-data-analysis__coursera_google_note.html][Notes]], [[file:20220715T073848--google-data-analytics__coursera_google_cnotes_datascience.html][o notes]] from the Coursera course [[https://www.coursera.org/professional-certificates/google-data-analytics][Google Data Analytics Professional Certificate]]
+- [[file:20221031T171547--data-analysis-with-r-specialization__dataanalysis_math_note_summary.html][Notes]] from the Coursera course [[https://www.coursera.org/specializations/statistics][Data Analysis with R Specialization (previously known as *Statistics* with R)]]
+  This note has a lot of math formulas written in $LaTeX$, it may take a while to load.
 * Tools I use
 - Tools I work with
   - [[https://www.gnu.org/software/emacs/][Gnu Emacs]] just a *normal* text editor.
@@ -49,15 +56,6 @@ Currently, I am seeking work with a team, either as a freelancer or an intern.
   - Jupyter notebbok
   - Google colab
   - Rstudio
-* Notes
-- I don't have money to but a course and get a certificate, so here are some of my notes from the courses I studied:
-  - [[file:20220418T115131--excel-skills-for-business-specialization__note.html][Notes]] from the Coursera course [[https://www.coursera.org/specializations/excel][Excel Skills for Business Specialization]]
-  - [[file:20220720T184217--google-data-analysis__coursera_google_note.html][Notes]], [[file:20220715T073848--google-data-analytics__coursera_google_cnotes_datascience.html][o notes]] from the Coursera course [[https://www.coursera.org/professional-certificates/google-data-analytics][Google Data Analytics Professional Certificate]]
-  - [[file:20221031T171547--data-analysis-with-r-specialization__dataanalysis_math_note_summary.html][Notes]] from the Coursera course [[https://www.coursera.org/specializations/statistics][Data Analysis with R Specialization (previously known as *Statistics* with R)]]
-    This note has a lot of math formulas written in $LaTeX$, it may take a while to load.
-  - [[file:20220531T125038--simon-sinek-presentation-essentials__note.html][Notes]] from the course [[https://simonsinek.com/product/the-art-of-presenting-with-simon/][The Art of Presenting by Simon Sinek]]
-  - [[file:20220425T124453--story-telling-with-data__note.html][Notes]] from the book [[https://www.amazon.com/Storytelling-Data-Visualization-Business-Professionals/dp/1119002257][Storytelling with Data by Cole Nussbaumer Knaflic]]
-  - [[file:20230303T201648--summary-of-marketing-analytics__note.html][Notes]] from module 7 about marketing analytics in [[https://smartmarketer.com/train-my-traffic-person/][Train my traffic person by Jhon Grimshaw]]
 * What next in learning journy
 - Next courses in my list:
   - Andrew Ng - DeepLearning.AI
