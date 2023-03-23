@@ -47,46 +47,42 @@ I only audited courses on Coursera, All I have are notes to prove it.
 - [[file:20221031T171547--data-analysis-with-r-specialization__dataanalysis_math_note_summary.html][Notes]] from the Coursera course [[https://www.coursera.org/specializations/statistics][Data Analysis with R Specialization (previously known as *Statistics* with R)]]
   This note has a lot of math formulas written in $LaTeX$, it may take a while to load.
 * Tools I use
-- Tools I work with
-  - [[https://www.gnu.org/software/emacs/][Gnu Emacs]] just a *normal* text editor.
-  - [[https://orgmode.org/][Org mode]] just a *normal* text format, with an Excel like functionality, the ability to run codes within the note... All the notes that I wrote, especially the notes of statistics with R of which I am very proud of, are writing in org mode format.
-    Here is an example [[https://raw.githubusercontent.com/y-yorozia/y-yorozia.github.io/main/20221031T171547--data-analysis-with-r-specialization__dataanalysis_math_note_summary.org][a note in org mode]]
-  - Excel
-  - Jupyter notebbok
-  - Google colab
-  - Rstudio
+- [[https://www.gnu.org/software/emacs/][Gnu Emacs]] just a *normal* text editor.
+- [[https://orgmode.org/][Org mode]] just a *normal* text format, with an Excel like functionality, the ability to run codes within the note... All the notes that I wrote, especially the notes of statistics with R of which I am very proud of, are writing in org mode format.
+  Here is an example [[https://raw.githubusercontent.com/y-yorozia/y-yorozia.github.io/main/20221031T171547--data-analysis-with-r-specialization__dataanalysis_math_note_summary.org][a note in org mode]]
+- Excel
+- Jupyter notebbok
+- Google colab
+- Rstudio
 * What next in learning journy
-- Next courses in my list:
-  - Andrew Ng - DeepLearning.AI
-    - [[https://www.coursera.org/specializations/mathematics-for-machine-learning-and-data-science][Coursera - Mathematics for Machine Learning and Data Science Specialization]]
-    - [[https://www.coursera.org/specializations/machine-learning-introduction][Coursera - Machine Learning Specialization]]
-    - [[https://www.coursera.org/learn/ai-for-everyone][Coursera - AI For Everyone]]
-    - [[https://www.coursera.org/specializations/deep-learning][Coursera - Deep Learning Specialization]]
-    - [[https://www.coursera.org/specializations/machine-learning-engineering-for-production-mlops][Coursera - Machine Learning Engineering for Production (MLOps) Specialization]]
-  - Six Sigma
-    - [[https://www.coursera.org/specializations/six-sigma-fundamentals][Coursera - Six Sigma Yellow Belt Specialization]]
-    - [[https://www.coursera.org/specializations/six-sigma-green-belt][Coursera - Six Sigma Green Belt Specialization]]
-  - [[https://www.coursera.org/learn/erasmus-econometrics][Econometrics: Methods and Applications]]
-  - [[https://cs50.harvard.edu/x/2023/][CS50’s Introduction to Computer Science]]
-  - [[https://www.udemy.com/course/accelerated-regular-expressions-training/][Udemy - Accelerated Regular Expressions Training - Regex]]
-  - [[https://www.amazon.com/Discrete-Mathematics-Applications-Susanna-Epp/dp/1337694193][Discrete Mathematics with Applications]]
+- Andrew Ng - DeepLearning.AI
+  - [[https://www.coursera.org/specializations/mathematics-for-machine-learning-and-data-science][Coursera - Mathematics for Machine Learning and Data Science Specialization]]
+  - [[https://www.coursera.org/specializations/machine-learning-introduction][Coursera - Machine Learning Specialization]]
+  - [[https://www.coursera.org/specializations/machine-learning-engineering-for-production-mlops][Coursera - Machine Learning Engineering for Production (MLOps) Specialization]]
+  - [[https://www.coursera.org/learn/ai-for-everyone][Coursera - AI For Everyone]]
+  - [[https://www.coursera.org/specializations/deep-learning][Coursera - Deep Learning Specialization]]
+- [[https://www.coursera.org/learn/erasmus-econometrics][Econometrics: Methods and Applications]]
+- Six Sigma
+  - [[https://www.coursera.org/specializations/six-sigma-fundamentals][Coursera - Six Sigma Yellow Belt Specialization]]
+  - [[https://www.coursera.org/specializations/six-sigma-green-belt][Coursera - Six Sigma Green Belt Specialization]]
+- [[https://cs50.harvard.edu/x/2023/][CS50’s Introduction to Computer Science]]
+- [[https://www.udemy.com/course/accelerated-regular-expressions-training/][Udemy - Accelerated Regular Expressions Training - Regex]]
+- [[https://www.amazon.com/Discrete-Mathematics-Applications-Susanna-Epp/dp/1337694193][Discrete Mathematics with Applications]]
 * Programing langauges
-- Languages
-  - Python
-    Only what is needed for data science, I don't use functions often nor did I ever use classes. You can check my python scripts below.
-  - SQL
-    Never performs a query, I don't event know what setup is needed, all I know is the syntax. Check my Google data analytics notes.
-  - R
-    I only used R for statistical computation from the course data analysis with R, It is sad to say this but, I don't event know how to manipulate data frames in R.
+- Python
+  Only what is needed for data science, I don't use functions often nor did I ever use classes. You can check my python scripts below.
+- SQL
+  Never performs a query, I don't event know what setup is needed, all I know is the syntax. Check my Google data analytics notes.
+- R
+  I only used R for statistical computation from the course data analysis with R, It is sad to say this but, I don't event know how to manipulate data frames in R.
 * Library
-- Librarites I work with
-  - Pandas
-  - Numpy
-  - sklearn
-  - beautifulsoup
-  - selenuim
-  - [[https://plotly.com/python/plotly-express/][Plotly express]]
-  - opencv2
-  - [[https://github.com/photosynthesis-team/piq][PIQ]] used in my latest project
+- Pandas
+- Numpy
+- sklearn
+- beautifulsoup
+- selenuim
+- [[https://plotly.com/python/plotly-express/][Plotly express]]
+- opencv2
+- [[https://github.com/photosynthesis-team/piq][PIQ]] used in my latest project
 * Contact
 Email: [[mailto:yoroziano.youssef@gmail.com][yoroziano.youssef@gmail.com]]
