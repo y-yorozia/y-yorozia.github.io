@@ -43,7 +43,7 @@ All my last projects involves scraping and developing a metric to ease decision-
 * Notes
 I only audited courses on Coursera, All I have are notes to prove it.
 - [[file:20220418T115131--excel-skills-for-business-specialization__note.html][Notes]] from the Coursera course [[https://www.coursera.org/specializations/excel][Excel Skills for Business Specialization]]
-- [[file:20220720T184217--google-data-analysis__coursera_google_note.html][Notes]], [[file:20220715T073848--google-data-analytics__coursera_google_cnotes_datascience.html][o notes]] from the Coursera course [[https://www.coursera.org/professional-certificates/google-data-analytics][Google Data Analytics Professional Certificate]]
+- [[file:20220715T073848--google-data-analytics__coursera_google_cnotes_datascience.org][Notes]] and a summary diagram from the Coursera course [[https://www.coursera.org/professional-certificates/google-data-analytics][Google Data Analytics Professional Certificate]]
 - [[file:20221031T171547--data-analysis-with-r-specialization__dataanalysis_math_note_summary.html][Notes]] from the Coursera course [[https://www.coursera.org/specializations/statistics][Data Analysis with R Specialization (previously known as *Statistics* with R)]]
   This note has a lot of math formulas written in $LaTeX$, it may take a while to load.
 * Tools I use
