@@ -35,7 +35,7 @@ I am a self-taught data analyst/scientist who developed an interest in data from
 I studied most of the concepts from YouTube, and now I studied on Coursera using auditing.
 
 Currently, I am seeking work with a team, either as a freelancer or an intern.
-All my last projects involves scraping and developing a metric to ease decision-making.
+My last projects involve scraping and developing a metric to ease decision-making.
 * Project
 - [[file:20230308T205456--scraping-from-noxinfluencer-and-adding-additional-filters__script.html][Scraping data from NoxInfluencer and YouTube for a marketing agency]]
 - [[file:20230316T175650--scraping-recipes-from-allrecipes-com__script.html][Scraping recipe data from allrecipes.com]]
@@ -63,21 +63,22 @@ I only audited courses on Coursera, All I have are notes to prove it.
 - Jupyter notebbok
 - Google colab
 - Rstudio
-* What next in learning journy
+* What next in my learning journey
+- [[https://www.coursera.org/learn/microeconomics][Coursera - Microeconomics Principles]]
+- [[https://www.coursera.org/learn/erasmus-econometrics][Coursera - Econometrics: Methods and Applications]]
 - Andrew Ng - DeepLearning.AI
   - [[https://www.coursera.org/specializations/mathematics-for-machine-learning-and-data-science][Coursera - Mathematics for Machine Learning and Data Science Specialization]]
   - [[https://www.coursera.org/specializations/machine-learning-introduction][Coursera - Machine Learning Specialization]]
   - [[https://www.coursera.org/specializations/machine-learning-engineering-for-production-mlops][Coursera - Machine Learning Engineering for Production (MLOps) Specialization]]
   - [[https://www.coursera.org/learn/ai-for-everyone][Coursera - AI For Everyone]]
   - [[https://www.coursera.org/specializations/deep-learning][Coursera - Deep Learning Specialization]]
-- [[https://www.coursera.org/learn/erasmus-econometrics][Econometrics: Methods and Applications]]
 - Six Sigma
   - [[https://www.coursera.org/specializations/six-sigma-fundamentals][Coursera - Six Sigma Yellow Belt Specialization]]
   - [[https://www.coursera.org/specializations/six-sigma-green-belt][Coursera - Six Sigma Green Belt Specialization]]
 - [[https://cs50.harvard.edu/x/2023/][CS50’s Introduction to Computer Science]]
 - [[https://www.udemy.com/course/accelerated-regular-expressions-training/][Udemy - Accelerated Regular Expressions Training - Regex]]
 - [[https://www.amazon.com/Discrete-Mathematics-Applications-Susanna-Epp/dp/1337694193][Discrete Mathematics with Applications]]
-* Programing langauges
+* Programing langauges 
 - Python
   Only what is needed for data science, I don't use functions often nor did I ever use classes. You can check my python scripts below.
 - SQL
