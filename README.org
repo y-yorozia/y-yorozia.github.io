@@ -42,13 +42,13 @@ All my last projects involves scraping and developing a metric to ease decision-
 - [[file:20230320T132120--finding-a-rental-apartment__script.html][Finding a rental apartment]]
 * Workflow
 ** Data Analysis
-[[file:img/svg/google data analysis summary.svg]]
+[[file:img/svg/Google_data_analysis_summary.svg]]
 ** Data collection
-[[file:img/svg/Data collection.svg]]
+[[file:img/svg/Data_Analysis_with_R_Data_collection.svg]]
 ** Exploring data
-[[file:img/svg/Data Analysis with R exploring.svg]]
+[[file:img/svg/Data_Analysis_with_R_Exploring.svg]]
 ** Hypothesize
-[[file:img/svg/Hypothesis_copy.svg]]
+[[file:img/svg/Data_Analysis_with_R_Hypothesis.svg]]
 * Notes
 I only audited courses on Coursera, All I have are notes to prove it.
 - [[file:20220418T115131--excel-skills-for-business-specialization__note.html][Notes]] from the Coursera course [[https://www.coursera.org/specializations/excel][Excel Skills for Business Specialization]]
