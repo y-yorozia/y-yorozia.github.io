@@ -43,8 +43,12 @@ All my last projects involves scraping and developing a metric to ease decision-
 * Workflow
 ** Data Analysis
 [[file:img/svg/google data analysis summary.svg]]
-** Exploring variables
+** Data collection
+[[file:img/svg/Data collection.svg]]
+** Exploring data
 [[file:img/svg/Data Analysis with R exploring.svg]]
+** Hypothesize
+[[file:img/svg/Hypothesis_copy.svg]]
 * Notes
 I only audited courses on Coursera, All I have are notes to prove it.
 - [[file:20220418T115131--excel-skills-for-business-specialization__note.html][Notes]] from the Coursera course [[https://www.coursera.org/specializations/excel][Excel Skills for Business Specialization]]
