@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-03-26 Sun 14:40 -->
+<!-- 2023-03-27 Mon 22:12 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Portfolio</title>
@@ -43,22 +43,22 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org018830c">1. About me</a></li>
-<li><a href="#org2ab4079">2. Project</a></li>
-<li><a href="#orgee65ea4">3. Workflow</a>
+<li><a href="#org6613a0d">1. About me</a></li>
+<li><a href="#org8b836e7">2. Project</a></li>
+<li><a href="#orgd89c0a6">3. Workflow</a>
 <ul>
-<li><a href="#org113b143">3.1. Data Analysis</a></li>
-<li><a href="#org24f2ac9">3.2. Data collection</a></li>
-<li><a href="#org8dd7da8">3.3. Exploring data</a></li>
-<li><a href="#org21a0ad3">3.4. Hypothesize</a></li>
+<li><a href="#org82eda3d">3.1. Data Analysis</a></li>
+<li><a href="#org587e832">3.2. Data collection</a></li>
+<li><a href="#org69e15d9">3.3. Exploring data</a></li>
+<li><a href="#orgdffc9b1">3.4. Hypothesize</a></li>
 </ul>
 </li>
-<li><a href="#org0e1947f">4. Notes</a></li>
-<li><a href="#org3860ad1">5. Tools I use</a></li>
-<li><a href="#org05b8494">6. What next in my learning journey</a></li>
-<li><a href="#org5ba619a">7. Programing langauges</a></li>
-<li><a href="#orgd2934d3">8. Library</a></li>
-<li><a href="#org9c9fb75">9. Contact</a></li>
+<li><a href="#org8c25169">4. Notes</a></li>
+<li><a href="#org7af8498">5. Tools I use</a></li>
+<li><a href="#org5ef207d">6. What next in my learning journey</a></li>
+<li><a href="#org9fbe329">7. Programing langauges</a></li>
+<li><a href="#org6c3ea62">8. Library</a></li>
+<li><a href="#org505df6b">9. Contact</a></li>
 </ul>
 </div>
 </div>
@@ -73,8 +73,8 @@
   gtag('config', 'G-Z0T1EQTBKL');
 </script>
 
-<div id="outline-container-org018830c" class="outline-2">
-<h2 id="org018830c"><span class="section-number-2">1.</span> About me</h2>
+<div id="outline-container-org6613a0d" class="outline-2">
+<h2 id="org6613a0d"><span class="section-number-2">1.</span> About me</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Hello My name is Joseph, I am 26 years old, and I live in Morocco.<br />
@@ -91,63 +91,81 @@ My last projects involve scraping and developing a metric to ease decision-makin
 </p>
 </div>
 </div>
-<div id="outline-container-org2ab4079" class="outline-2">
-<h2 id="org2ab4079"><span class="section-number-2">2.</span> Project</h2>
+<div id="outline-container-org8b836e7" class="outline-2">
+<h2 id="org8b836e7"><span class="section-number-2">2.</span> Project</h2>
 <div class="outline-text-2" id="text-2">
 <ul class="org-ul">
-<li><a href="20230308T205456--scraping-from-noxinfluencer-and-adding-additional-filters__script.html">Scraping data from NoxInfluencer and YouTube for a marketing agency</a><br /></li>
-<li><a href="20230316T175650--scraping-recipes-from-allrecipes-com__script.html">Scraping recipe data from allrecipes.com</a><br /></li>
-<li><a href="20230320T132120--finding-a-rental-apartment__script.html">Finding a rental apartment</a><br /></li>
+<li>A script I made recently for an influencer marketing agency that put additional variables in a channels' database from NoxInfluencer.<br />
+Those variables are served as a filter, instead of visiting a channel and judging if it is a good fit, you just apply a couple of filters.<br />
+This database helped them find potential channels for sponsorship deals five time faster. <a href="20230308T205456--scraping-from-noxinfluencer-and-adding-additional-filters__script.html">Project link</a><br /></li>
+<li>A little script that scrapes recipes database, plus images uploaded by users.<br />
+All recipes were collected and assigned a score base on rating, when it was published and amount of engagement&#x2026;<br />
+Images were assessed as well with BRISQUE algorithm that returns a score base on image sharpness. <a href="20230316T175650--scraping-recipes-from-allrecipes-com__script.html">Project link</a><br /></li>
+<li><p>
+A little script that I wrote to add additional filters to a rent website in my country.<br />
+There is some basic filter in the search page, but each apartment page have additional information.<br />
+</p>
+<ul class="org-ul">
+<li>The script is simple:<br />
+<ul class="org-ul">
+<li>Scrape and get all apartment links<br /></li>
+<li>Scrape and get all feature from each apartment<br /></li>
+<li>Decide which apparent I should rent base on low price and high number of features.<br /></li>
+</ul></li>
+</ul>
+<p>
+<a href="20230320T132120--finding-a-rental-apartment__script.html">Project link</a><br />
+</p></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgee65ea4" class="outline-2">
-<h2 id="orgee65ea4"><span class="section-number-2">3.</span> Workflow</h2>
+<div id="outline-container-orgd89c0a6" class="outline-2">
+<h2 id="orgd89c0a6"><span class="section-number-2">3.</span> Workflow</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-org113b143" class="outline-3">
-<h3 id="org113b143"><span class="section-number-3">3.1.</span> Data Analysis</h3>
+<div id="outline-container-org82eda3d" class="outline-3">
+<h3 id="org82eda3d"><span class="section-number-3">3.1.</span> Data Analysis</h3>
 <div class="outline-text-3" id="text-3-1">
 
-<div id="org3a78361" class="figure">
+<div id="orgd795c39" class="figure">
 <p><img src="img/svg/Google_data_analysis_summary.svg" alt="Google_data_analysis_summary.svg" class="org-svg" /><br />
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-org24f2ac9" class="outline-3">
-<h3 id="org24f2ac9"><span class="section-number-3">3.2.</span> Data collection</h3>
+<div id="outline-container-org587e832" class="outline-3">
+<h3 id="org587e832"><span class="section-number-3">3.2.</span> Data collection</h3>
 <div class="outline-text-3" id="text-3-2">
 
-<div id="orgdecff8f" class="figure">
+<div id="orge54cb35" class="figure">
 <p><img src="img/svg/Data_Analysis_with_R_Data_collection.svg" alt="Data_Analysis_with_R_Data_collection.svg" class="org-svg" /><br />
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-org8dd7da8" class="outline-3">
-<h3 id="org8dd7da8"><span class="section-number-3">3.3.</span> Exploring data</h3>
+<div id="outline-container-org69e15d9" class="outline-3">
+<h3 id="org69e15d9"><span class="section-number-3">3.3.</span> Exploring data</h3>
 <div class="outline-text-3" id="text-3-3">
 
-<div id="org0a4154b" class="figure">
+<div id="org0d0cf55" class="figure">
 <p><img src="img/svg/Data_Analysis_with_R_Exploring.svg" alt="Data_Analysis_with_R_Exploring.svg" class="org-svg" /><br />
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-org21a0ad3" class="outline-3">
-<h3 id="org21a0ad3"><span class="section-number-3">3.4.</span> Hypothesize</h3>
+<div id="outline-container-orgdffc9b1" class="outline-3">
+<h3 id="orgdffc9b1"><span class="section-number-3">3.4.</span> Hypothesize</h3>
 <div class="outline-text-3" id="text-3-4">
 
-<div id="org7552340" class="figure">
+<div id="org6cd81d9" class="figure">
 <p><img src="img/svg/Data_Analysis_with_R_Hypothesis.svg" alt="Data_Analysis_with_R_Hypothesis.svg" class="org-svg" /><br />
 </p>
 </div>
 </div>
 </div>
 </div>
-<div id="outline-container-org0e1947f" class="outline-2">
-<h2 id="org0e1947f"><span class="section-number-2">4.</span> Notes</h2>
+<div id="outline-container-org8c25169" class="outline-2">
+<h2 id="org8c25169"><span class="section-number-2">4.</span> Notes</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 I only audited courses on Coursera, All I have are notes to prove it.<br />
@@ -160,8 +178,8 @@ This note has a lot of math formulas written in \(LaTeX\), it may take a while t
 </ul>
 </div>
 </div>
-<div id="outline-container-org3860ad1" class="outline-2">
-<h2 id="org3860ad1"><span class="section-number-2">5.</span> Tools I use</h2>
+<div id="outline-container-org7af8498" class="outline-2">
+<h2 id="org7af8498"><span class="section-number-2">5.</span> Tools I use</h2>
 <div class="outline-text-2" id="text-5">
 <ul class="org-ul">
 <li><a href="https://www.gnu.org/software/emacs/">Gnu Emacs</a> just a <b>normal</b> text editor.<br /></li>
@@ -174,10 +192,12 @@ Here is an example <a href="https://raw.githubusercontent.com/y-yorozia/y-yorozi
 </ul>
 </div>
 </div>
-<div id="outline-container-org05b8494" class="outline-2">
-<h2 id="org05b8494"><span class="section-number-2">6.</span> What next in my learning journey</h2>
+<div id="outline-container-org5ef207d" class="outline-2">
+<h2 id="org5ef207d"><span class="section-number-2">6.</span> What next in my learning journey</h2>
 <div class="outline-text-2" id="text-6">
 <ul class="org-ul">
+<li><a href="https://aws.amazon.com/training/learn-about/cloud-practitioner">AWS Cloud practitioner</a><br /></li>
+<li><a href="https://aws.amazon.com/training/learn-about/data-analytics/">Data Analytics Learning Plan for AWS Certificate</a><br /></li>
 <li><a href="https://www.coursera.org/learn/microeconomics">Coursera - Microeconomics Principles</a><br /></li>
 <li><a href="https://www.coursera.org/learn/erasmus-econometrics">Coursera - Econometrics: Methods and Applications</a><br /></li>
 <li>Andrew Ng - DeepLearning.AI<br />
@@ -199,8 +219,8 @@ Here is an example <a href="https://raw.githubusercontent.com/y-yorozia/y-yorozi
 </ul>
 </div>
 </div>
-<div id="outline-container-org5ba619a" class="outline-2">
-<h2 id="org5ba619a"><span class="section-number-2">7.</span> Programing langauges</h2>
+<div id="outline-container-org9fbe329" class="outline-2">
+<h2 id="org9fbe329"><span class="section-number-2">7.</span> Programing langauges</h2>
 <div class="outline-text-2" id="text-7">
 <ul class="org-ul">
 <li>Python<br />
@@ -212,8 +232,8 @@ I only used R for statistical computation from the course data analysis with R, 
 </ul>
 </div>
 </div>
-<div id="outline-container-orgd2934d3" class="outline-2">
-<h2 id="orgd2934d3"><span class="section-number-2">8.</span> Library</h2>
+<div id="outline-container-org6c3ea62" class="outline-2">
+<h2 id="org6c3ea62"><span class="section-number-2">8.</span> Library</h2>
 <div class="outline-text-2" id="text-8">
 <ul class="org-ul">
 <li>Pandas<br /></li>
@@ -227,8 +247,8 @@ I only used R for statistical computation from the course data analysis with R, 
 </ul>
 </div>
 </div>
-<div id="outline-container-org9c9fb75" class="outline-2">
-<h2 id="org9c9fb75"><span class="section-number-2">9.</span> Contact</h2>
+<div id="outline-container-org505df6b" class="outline-2">
+<h2 id="org505df6b"><span class="section-number-2">9.</span> Contact</h2>
 <div class="outline-text-2" id="text-9">
 <p>
 Email: <a href="mailto:yoroziano.youssef@gmail.com">yoroziano.youssef@gmail.com</a><br />
@@ -238,7 +258,7 @@ Email: <a href="mailto:yoroziano.youssef@gmail.com">yoroziano.youssef@gmail.com<
 </div>
 <div id="postamble" class="status">
 <p class="date">Date: 2023-02-20 Mon 12:11</p>
-<p class="date">Created: 2023-03-26 Sun 14:40</p>
+<p class="date">Created: 2023-03-27 Mon 22:12</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

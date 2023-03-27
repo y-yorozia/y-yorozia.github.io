@@ -37,9 +37,19 @@ I studied most of the concepts from YouTube, and now I studied on Coursera using
 Currently, I am seeking work with a team, either as a freelancer or an intern.
 My last projects involve scraping and developing a metric to ease decision-making.
 * Project
-- [[file:20230308T205456--scraping-from-noxinfluencer-and-adding-additional-filters__script.html][Scraping data from NoxInfluencer and YouTube for a marketing agency]]
-- [[file:20230316T175650--scraping-recipes-from-allrecipes-com__script.html][Scraping recipe data from allrecipes.com]]
-- [[file:20230320T132120--finding-a-rental-apartment__script.html][Finding a rental apartment]]
+- A script I made recently for an influencer marketing agency that put additional variables in a channels' database from NoxInfluencer.
+  Those variables are served as a filter, instead of visiting a channel and judging if it is a good fit, you just apply a couple of filters.
+  This database helped them find potential channels for sponsorship deals five time faster. [[file:20230308T205456--scraping-from-noxinfluencer-and-adding-additional-filters__script.html][Project link]]
+- A little script that scrapes recipes database, plus images uploaded by users.
+  All recipes were collected and assigned a score base on rating, when it was published and amount of engagement...
+  Images were assessed as well with BRISQUE algorithm that returns a score base on image sharpness. [[file:20230316T175650--scraping-recipes-from-allrecipes-com__script.html][Project link]]
+- A little script that I wrote to add additional filters to a rent website in my country.
+  There is some basic filter in the search page, but each apartment page have additional information.
+  - The script is simple:
+    - Scrape and get all apartment links
+    - Scrape and get all feature from each apartment
+    - Decide which apparent I should rent base on low price and high number of features.
+  [[file:20230320T132120--finding-a-rental-apartment__script.html][Project link]]
 * Workflow
 ** Data Analysis
 [[file:img/svg/Google_data_analysis_summary.svg]]
@@ -64,6 +74,8 @@ I only audited courses on Coursera, All I have are notes to prove it.
 - Google colab
 - Rstudio
 * What next in my learning journey
+- [[https://aws.amazon.com/training/learn-about/cloud-practitioner][AWS Cloud practitioner]]
+- [[https://aws.amazon.com/training/learn-about/data-analytics/][Data Analytics Learning Plan for AWS Certificate]]
 - [[https://www.coursera.org/learn/microeconomics][Coursera - Microeconomics Principles]]
 - [[https://www.coursera.org/learn/erasmus-econometrics][Coursera - Econometrics: Methods and Applications]]
 - Andrew Ng - DeepLearning.AI

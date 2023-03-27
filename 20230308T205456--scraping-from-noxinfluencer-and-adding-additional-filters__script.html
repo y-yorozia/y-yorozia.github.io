@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-03-18 Sat 10:25 -->
+<!-- 2023-03-27 Mon 21:50 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Scraping from NoxInfluencer and adding additional filters</title>
@@ -43,12 +43,18 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgfce592a">1. OS Setup</a></li>
-<li><a href="#orgfe989f5">2. Imports and setup</a></li>
-<li><a href="#orgc644a86">3. Scraping from Noxinfluencer</a></li>
-<li><a href="#orgb8d4df4">4. Scraping from YouTube</a></li>
-<li><a href="#orgc75cf1d">5. Cleaning the data</a></li>
-<li><a href="#orgdff1742">6. Combining the data</a></li>
+<li><a href="#org3b4d27f">1. Workflow</a>
+<ul>
+<li><a href="#org262ccb3">1.1. summary</a></li>
+<li><a href="#org1e06a52">1.2. Nox influancer scrape</a></li>
+</ul>
+</li>
+<li><a href="#org7802c88">2. OS Setup</a></li>
+<li><a href="#orge743212">3. Imports and setup</a></li>
+<li><a href="#orgc0922af">4. Scraping from Noxinfluencer</a></li>
+<li><a href="#orgd9d9bf3">5. Scraping from YouTube</a></li>
+<li><a href="#orga02c151">6. Cleaning the data</a></li>
+<li><a href="#orgaea53f0">7. Combining the data</a></li>
 </ul>
 </div>
 </div>
@@ -79,7 +85,7 @@ The goal is to add additional filters that aren't in Non Influencer to perform t
 <li>Scoring system:<br />
 A channel is favorable if it has higher views, video length, talking/narration, video count, and fewer subs. Because the fewer subs a channel have, the less likely it was discovered by any influencer marketing agency.<br />
 If a channel is not worth, meaning have content for kids, music, animation, or a channel with no narration that immediately disqualify it.<br />
-See <a href="#orgb8d4df4">Scraping from YouTube section</a> for more details on variables<br /></li>
+See <a href="#orgd9d9bf3">Scraping from YouTube section</a> for more details on variables<br /></li>
 </ul>
 <p>
 \[score=\frac{\log{_\text{video count}}* \log{\bar{x}_\text{views}}*\log{\bar{x}_\text{lengh}}*\log{_\text{narration score}}}{\log{_\text{subs}}} * P(\text{worth}) * P(\text{narration})\]<br />
@@ -89,9 +95,35 @@ See <a href="#orgb8d4df4">Scraping from YouTube section</a> for more details on 
 This is the entire data sets generated <a href="https://drive.google.com/drive/folders/1Kk21nNQPlbxeom4Jo6KprYZHZAUCth3N?usp=share_link">Link</a><br />
 And this is the final/important data set <a href="https://drive.google.com/drive/folders/1-AOB_LgcKwXpTA5IqGIzYd0XxYlmlYIe?usp=share_link">Link</a><br />
 </p>
-<div id="outline-container-orgfce592a" class="outline-2">
-<h2 id="orgfce592a"><span class="section-number-2">1.</span> OS Setup</h2>
+
+<div id="outline-container-org3b4d27f" class="outline-2">
+<h2 id="org3b4d27f"><span class="section-number-2">1.</span> Workflow</h2>
 <div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-org262ccb3" class="outline-3">
+<h3 id="org262ccb3"><span class="section-number-3">1.1.</span> summary</h3>
+<div class="outline-text-3" id="text-1-1">
+
+<div id="orgcf781f8" class="figure">
+<p><img src="img/svg/NoxInfluencer_Overview.svg" alt="NoxInfluencer_Overview.svg" class="org-svg" /><br />
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org1e06a52" class="outline-3">
+<h3 id="org1e06a52"><span class="section-number-3">1.2.</span> Nox influancer scrape</h3>
+<div class="outline-text-3" id="text-1-2">
+
+<div id="org7a65605" class="figure">
+<p><img src="img/svg/NoxInfluencer_Scraping.svg" alt="NoxInfluencer_Scraping.svg" class="org-svg" /><br />
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org7802c88" class="outline-2">
+<h2 id="org7802c88"><span class="section-number-2">2.</span> OS Setup</h2>
+<div class="outline-text-2" id="text-2">
 <p>
 Installing selenuim in google colab post Ubuntu update.<br />
 </p>
@@ -146,9 +178,9 @@ cat &gt; /etc/apt/preferences.d/chromium.pref &lt;&lt; <span style="color: #2544
 </div>
 </div>
 </div>
-<div id="outline-container-orgfe989f5" class="outline-2">
-<h2 id="orgfe989f5"><span class="section-number-2">2.</span> Imports and setup</h2>
-<div class="outline-text-2" id="text-2">
+<div id="outline-container-orge743212" class="outline-2">
+<h2 id="orge743212"><span class="section-number-2">3.</span> Imports and setup</h2>
+<div class="outline-text-2" id="text-3">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #5317ac; font-weight: bold;">from</span> bs4 <span style="color: #5317ac; font-weight: bold;">import</span> BeautifulSoup
 <span style="color: #5317ac; font-weight: bold;">import</span> time
@@ -213,9 +245,9 @@ options.add_argument(<span style="color: #2544bb;">'--disable-dev-shm-usage'</sp
 </div>
 </div>
 </div>
-<div id="outline-container-orgc644a86" class="outline-2">
-<h2 id="orgc644a86"><span class="section-number-2">3.</span> Scraping from Noxinfluencer</h2>
-<div class="outline-text-2" id="text-3">
+<div id="outline-container-orgc0922af" class="outline-2">
+<h2 id="orgc0922af"><span class="section-number-2">4.</span> Scraping from Noxinfluencer</h2>
+<div class="outline-text-2" id="text-4">
 <p>
 This is the result: <a href="https://drive.google.com/drive/folders/1ERTZiBekwAVOO4P-0ReH1JJR_VreA8TN?usp=share_link">Link</a><br />
 I am going to hide the username and the passwords because they are not mine, not they belong to my friend who backstabbed me either, they belong to the employer at the marketing agency.<br />
@@ -371,9 +403,9 @@ I am going to hide the username and the passwords because they are not mine, not
 </div>
 </div>
 </div>
-<div id="outline-container-orgb8d4df4" class="outline-2">
-<h2 id="orgb8d4df4"><span class="section-number-2">4.</span> Scraping from YouTube</h2>
-<div class="outline-text-2" id="text-4">
+<div id="outline-container-orgd9d9bf3" class="outline-2">
+<h2 id="orgd9d9bf3"><span class="section-number-2">5.</span> Scraping from YouTube</h2>
+<div class="outline-text-2" id="text-5">
 <p>
 This is the result: <a href="https://drive.google.com/drive/folders/1-KQvO_4BZUDkiXUeJbVq1eWtRWqBnieI?usp=share_link">Link</a><br />
 The goal is to add additional filters to the dataset sraper from NoxInfluencer<br />
@@ -546,9 +578,9 @@ not_worth_keywords_in_discription_keyword=[<span style="color: #2544bb;">"short 
 </div>
 </div>
 </div>
-<div id="outline-container-orgc75cf1d" class="outline-2">
-<h2 id="orgc75cf1d"><span class="section-number-2">5.</span> Cleaning the data</h2>
-<div class="outline-text-2" id="text-5">
+<div id="outline-container-orga02c151" class="outline-2">
+<h2 id="orga02c151"><span class="section-number-2">6.</span> Cleaning the data</h2>
+<div class="outline-text-2" id="text-6">
 <p>
 This is the result: <a href="https://drive.google.com/drive/folders/1-CPoKUJ_YtwDHa1WixN7eBGaVvbHHrAb?usp=share_link">Link</a><br />
 In this section, I have added a score metric to assess a channel potential to be a good fit for the sponsorship and not being approached already by another influencer marketing agency.<br />
@@ -668,9 +700,9 @@ If a channel is not worth, meaning have content for kids, music, animation, or a
 </div>
 </div>
 </div>
-<div id="outline-container-orgdff1742" class="outline-2">
-<h2 id="orgdff1742"><span class="section-number-2">6.</span> Combining the data</h2>
-<div class="outline-text-2" id="text-6">
+<div id="outline-container-orgaea53f0" class="outline-2">
+<h2 id="orgaea53f0"><span class="section-number-2">7.</span> Combining the data</h2>
+<div class="outline-text-2" id="text-7">
 <p>
 This is the result: <a href="https://drive.google.com/drive/folders/1-AOB_LgcKwXpTA5IqGIzYd0XxYlmlYIe?usp=share_link">Link</a><br />
 </p>
@@ -693,7 +725,7 @@ df.to_excel(work+<span style="color: #2544bb;">"/10000-100000.xlsx"</span>,index
 </div>
 <div id="postamble" class="status">
 <p class="date">Date: 2023-03-08 Wed 20:54</p>
-<p class="date">Created: 2023-03-18 Sat 10:25</p>
+<p class="date">Created: 2023-03-27 Mon 21:50</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

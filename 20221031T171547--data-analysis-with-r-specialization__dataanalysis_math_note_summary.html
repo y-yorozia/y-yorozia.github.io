@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-03-18 Sat 10:16 -->
+<!-- 2023-03-27 Mon 16:23 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Data Analysis with R Specialization Summary Notes</title>
@@ -43,243 +43,250 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org0f8c6bf">1. Introduction to probability and data</a>
+<li><a href="#orge754896">1. Workflow</a>
 <ul>
-<li><a href="#org0c8049f">1.1. About</a></li>
-<li><a href="#org64ece94">1.2. Introduction to data</a>
-<ul>
-<li><a href="#org91ac8fb">1.2.1. Data basics</a></li>
-<li><a href="#org23c2cc6">1.2.2. Introduction</a></li>
-<li><a href="#org31431ea">1.2.3. Statistica studys</a></li>
-<li><a href="#orgfd67766">1.2.4. Experimental design</a></li>
-<li><a href="#org38beb54">1.2.5. Sampling</a></li>
+<li><a href="#org51bd245">1.1. Data collection</a></li>
+<li><a href="#org6a5df5c">1.2. Exploring data</a></li>
+<li><a href="#org35f37cb">1.3. Hypothesize</a></li>
 </ul>
 </li>
-<li><a href="#org59407e4">1.3. Exploratory data analysisand introduction no inference</a>
+<li><a href="#org00a54fd">2. Introduction to probability and data</a>
 <ul>
-<li><a href="#org2cd5446">1.3.1. Visualizing Numerical Data</a></li>
-<li><a href="#org4d69460">1.3.2. Measures of Center</a></li>
-<li><a href="#org0c8fd6a">1.3.3. Measures of Spread</a></li>
-<li><a href="#org03bb7e1">1.3.4. Symbols</a></li>
-<li><a href="#orge045a79">1.3.5. Robust Statistics</a></li>
-<li><a href="#org8bec227">1.3.6. Transforming Data</a></li>
-<li><a href="#orgf7ad897">1.3.7. Exploring Categorical Variables</a></li>
-<li><a href="#org0ee8b95">1.3.8. Introduction to Inference</a></li>
+<li><a href="#org5f9fee2">2.1. About</a></li>
+<li><a href="#orgcd85275">2.2. Introduction to data</a>
+<ul>
+<li><a href="#org6a243d4">2.2.1. Data basics</a></li>
+<li><a href="#org674eb1b">2.2.2. Introduction</a></li>
+<li><a href="#orgc932cf4">2.2.3. Statistica studys</a></li>
+<li><a href="#org2edd2a3">2.2.4. Experimental design</a></li>
+<li><a href="#org0532234">2.2.5. Sampling</a></li>
 </ul>
 </li>
-<li><a href="#org12b83fd">1.4. Introduction to probability</a>
+<li><a href="#org3831cb1">2.3. Exploratory data analysisand introduction no inference</a>
 <ul>
-<li><a href="#orga45a267">1.4.1. Introduction</a></li>
-<li><a href="#org5656d61">1.4.2. theoratical probablity vs experimental probablity</a></li>
-<li><a href="#org6a58105">1.4.3. common probability sumbols</a></li>
-<li><a href="#org1449a59">1.4.4. Probability of an event A</a></li>
-<li><a href="#org10fd01c">1.4.5. Probability of A and B</a></li>
-<li><a href="#org6fa7bc2">1.4.6. Probability of event B giving A</a></li>
-<li><a href="#org472f136">1.4.7. Probability of events A or B</a></li>
-<li><a href="#orga166e6a">1.4.8. Example1</a></li>
-<li><a href="#orgdcd03f6">1.4.9. Sample space</a></li>
-<li><a href="#org8d7e17e">1.4.10. Probability distribution</a></li>
-<li><a href="#org3ee2833">1.4.11. Complementary event</a></li>
-<li><a href="#org1349ba4">1.4.12. Example 2</a></li>
-<li><a href="#org24fbfc8">1.4.13. (Spotlight) Disjoint vs. Independent</a></li>
-<li><a href="#org041c750">1.4.14. Probability Trees</a>
-<ul>
-<li><a href="#orgbf3367a">1.4.14.1. Example (working with counts):</a></li>
-<li><a href="#orgaa6eae4">1.4.14.2. Example (working with probabilites):</a></li>
+<li><a href="#org959535e">2.3.1. Visualizing Numerical Data</a></li>
+<li><a href="#orgd3b0a5a">2.3.2. Measures of Center</a></li>
+<li><a href="#org9963246">2.3.3. Measures of Spread</a></li>
+<li><a href="#org22aed8c">2.3.4. Symbols</a></li>
+<li><a href="#org06a260e">2.3.5. Robust Statistics</a></li>
+<li><a href="#orgdf10646">2.3.6. Transforming Data</a></li>
+<li><a href="#org45799d7">2.3.7. Exploring Categorical Variables</a></li>
+<li><a href="#org69d1767">2.3.8. Introduction to Inference</a></li>
 </ul>
 </li>
-<li><a href="#org2fc6864">1.4.15. Bayesian Inference</a></li>
-<li><a href="#orgda2813b">1.4.16. Examples of Bayesian Inference</a></li>
+<li><a href="#org5ffa894">2.4. Introduction to probability</a>
+<ul>
+<li><a href="#orgfe6a829">2.4.1. Introduction</a></li>
+<li><a href="#org4a35e27">2.4.2. theoratical probablity vs experimental probablity</a></li>
+<li><a href="#orgf36e900">2.4.3. common probability sumbols</a></li>
+<li><a href="#org43e5141">2.4.4. Probability of an event A</a></li>
+<li><a href="#orga1c4d93">2.4.5. Probability of A and B</a></li>
+<li><a href="#org4d36d68">2.4.6. Probability of event B giving A</a></li>
+<li><a href="#org3c17c6e">2.4.7. Probability of events A or B</a></li>
+<li><a href="#orgc009b5e">2.4.8. Example1</a></li>
+<li><a href="#org10a4cb1">2.4.9. Sample space</a></li>
+<li><a href="#orgd796d2d">2.4.10. Probability distribution</a></li>
+<li><a href="#orgfb9f836">2.4.11. Complementary event</a></li>
+<li><a href="#orgecb4eae">2.4.12. Example 2</a></li>
+<li><a href="#orgf7a4ddb">2.4.13. (Spotlight) Disjoint vs. Independent</a></li>
+<li><a href="#org8a0a7c9">2.4.14. Probability Trees</a>
+<ul>
+<li><a href="#orgc7e30a7">2.4.14.1. Example (working with counts):</a></li>
+<li><a href="#org44060b5">2.4.14.2. Example (working with probabilites):</a></li>
 </ul>
 </li>
-<li><a href="#org2959d73">1.5. Probability distribution</a>
-<ul>
-<li><a href="#org82919b1">1.5.1. Normal Distribution</a></li>
-<li><a href="#orga042d04">1.5.2. Working with the Normal Distribution</a>
-<ul>
-<li><a href="#orgda548da">1.5.2.1. Problem 1</a></li>
-<li><a href="#org6935587">1.5.2.2. Problem 2</a></li>
+<li><a href="#org1689e1a">2.4.15. Bayesian Inference</a></li>
+<li><a href="#orga9e3737">2.4.16. Examples of Bayesian Inference</a></li>
 </ul>
 </li>
-<li><a href="#orgf0c671b">1.5.3. Evaluating the Normal Distribution</a></li>
-<li><a href="#org625b35c">1.5.4. Binomial Distribution</a>
+<li><a href="#org215cbac">2.5. Probability distribution</a>
 <ul>
-<li><a href="#orgfd45431">1.5.4.1. Example:</a></li>
+<li><a href="#org0162f03">2.5.1. Normal Distribution</a></li>
+<li><a href="#org19d7cbb">2.5.2. Working with the Normal Distribution</a>
+<ul>
+<li><a href="#orga4758a7">2.5.2.1. Problem 1</a></li>
+<li><a href="#org60f5f38">2.5.2.2. Problem 2</a></li>
 </ul>
 </li>
-<li><a href="#orgbf6c7b5">1.5.5. Normal Approximation to Binomial</a>
+<li><a href="#orgd1e870e">2.5.3. Evaluating the Normal Distribution</a></li>
+<li><a href="#org2cf665d">2.5.4. Binomial Distribution</a>
 <ul>
-<li><a href="#orgb4229a0">1.5.5.1. Example:</a></li>
+<li><a href="#orgd4342f7">2.5.4.1. Example:</a></li>
 </ul>
 </li>
-<li><a href="#org41f25be">1.5.6. determinig trial size</a>
+<li><a href="#orgbce01c7">2.5.5. Normal Approximation to Binomial</a>
 <ul>
-<li><a href="#org217c3c5">1.5.6.1. Example:</a></li>
+<li><a href="#org77954a6">2.5.5.1. Example:</a></li>
 </ul>
 </li>
-<li><a href="#orgcfa21f1">1.5.7. Working with the Binomial Distribution</a></li>
-<li><a href="#orgbfe142a">1.5.8. t-distribution</a></li>
+<li><a href="#orgd8d792f">2.5.6. determinig trial size</a>
+<ul>
+<li><a href="#org901828e">2.5.6.1. Example:</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li><a href="#orgfb8acb5">2. Inferential Statistic</a>
-<ul>
-<li><a href="#org7dd97db">2.1. The central limit theorom</a>
-<ul>
-<li><a href="#org1786e6c">2.1.1. Summary</a>
-<ul>
-<li><a href="#org8315ed2">2.1.1.1. terminology</a></li>
-<li><a href="#org485667b">2.1.1.2. The formula</a></li>
-<li><a href="#orgc1eac04">2.1.1.3. using the CLT with only one sample</a></li>
-<li><a href="#orgd4454b1">2.1.1.4. CLT conditions</a></li>
-<li><a href="#org6be4f9f">2.1.1.5. The standard error</a></li>
-</ul>
-</li>
-<li><a href="#orga12fd7d">2.1.2. Details</a>
-<ul>
-<li><a href="#orgc014bad">2.1.2.1. Sampling Variability and CLT</a></li>
-<li><a href="#org3209604">2.1.2.2. CLT (for the mean) examples</a></li>
+<li><a href="#org9c538f1">2.5.7. Working with the Binomial Distribution</a></li>
+<li><a href="#org0f24966">2.5.8. t-distribution</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org0a6c895">2.2. Methods of inference</a>
+<li><a href="#orgea8126d">3. Inferential Statistic</a>
 <ul>
-<li><a href="#org78a60c5">2.2.1. Confidence interval</a>
+<li><a href="#orgbf225fa">3.1. The central limit theorom</a>
 <ul>
-<li><a href="#org4ac9744">2.2.1.1. Summary</a>
+<li><a href="#org523a9e5">3.1.1. Summary</a>
 <ul>
-<li><a href="#org49ff300">2.2.1.1.1. The confidence interval formula</a></li>
-<li><a href="#org528fda6">2.2.1.1.2. Calculating CI with R</a></li>
-<li><a href="#org78b6f85">2.2.1.1.3. Accuracy vs. Precision</a></li>
-<li><a href="#orgcdbff44">2.2.1.1.4. Calculating the sample size</a></li>
+<li><a href="#org74cdf3b">3.1.1.1. terminology</a></li>
+<li><a href="#org32f08e8">3.1.1.2. The formula</a></li>
+<li><a href="#org57e6f84">3.1.1.3. using the CLT with only one sample</a></li>
+<li><a href="#org4098508">3.1.1.4. CLT conditions</a></li>
+<li><a href="#org12bb232">3.1.1.5. The standard error</a></li>
 </ul>
 </li>
-<li><a href="#org57bc3f1">2.2.1.2. Details</a></li>
-<li><a href="#org2ac1b95">2.2.1.3. Hypothesis testing</a>
+<li><a href="#org00af35f">3.1.2. Details</a>
 <ul>
-<li><a href="#org668e878">2.2.1.3.1. summary</a>
-<ul>
-<li><a href="#orge5a04c7">2.2.1.3.1.1. Terminologie</a></li>
-<li><a href="#orga56b925">2.2.1.3.1.2. Hypothesis steps</a></li>
-<li><a href="#org1567684">2.2.1.3.1.3. Power</a></li>
-<li><a href="#org84ba290">2.2.1.3.1.4. Desicion error</a></li>
-<li><a href="#org59ec3f7">2.2.1.3.1.5. Calculating the sample size</a></li>
-</ul>
-</li>
-<li><a href="#org5a2d501">2.2.1.3.2. Details</a>
-<ul>
-<li><a href="#org4b4a111">2.2.1.3.2.1. Hypothesis Testing (for a mean)</a></li>
-<li><a href="#org5dfbbff">2.2.1.3.2.2. HT (for the mean) examples</a>
-<ul>
-<li><a href="#orgf794cb5">2.2.1.3.2.2.1. Example1</a></li>
-<li><a href="#orgc5477bc">2.2.1.3.2.2.2. Example 2</a></li>
-</ul>
-</li>
-<li><a href="#org77cc4d1">2.2.1.3.2.3. Decision Errors</a></li>
-<li><a href="#org4c8e63b">2.2.1.3.2.4. Significance vs. Confidence Level</a></li>
-<li><a href="#org3455f4b">2.2.1.3.2.5. Statistical vs. Practical Significance</a></li>
+<li><a href="#org8bc5c10">3.1.2.1. Sampling Variability and CLT</a></li>
+<li><a href="#orgc578d00">3.1.2.2. CLT (for the mean) examples</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org3926982">2.2.1.4. Boostraping/simulation</a>
+<li><a href="#org2a00afc">3.2. Methods of inference</a>
 <ul>
-<li><a href="#org1e0d7d6">2.2.1.4.1. Steps</a></li>
+<li><a href="#orgb80596e">3.2.1. Confidence interval</a>
+<ul>
+<li><a href="#org3e7a751">3.2.1.1. Summary</a>
+<ul>
+<li><a href="#orgdf5466b">3.2.1.1.1. The confidence interval formula</a></li>
+<li><a href="#org756bf64">3.2.1.1.2. Calculating CI with R</a></li>
+<li><a href="#orgfe49bf0">3.2.1.1.3. Accuracy vs. Precision</a></li>
+<li><a href="#org6d10bb9">3.2.1.1.4. Calculating the sample size</a></li>
+</ul>
+</li>
+<li><a href="#org3e3a1cd">3.2.1.2. Details</a></li>
+<li><a href="#org9e7df8a">3.2.1.3. Hypothesis testing</a>
+<ul>
+<li><a href="#org63b4bf6">3.2.1.3.1. summary</a>
+<ul>
+<li><a href="#orgfe14366">3.2.1.3.1.1. Terminologie</a></li>
+<li><a href="#org2945876">3.2.1.3.1.2. Hypothesis steps</a></li>
+<li><a href="#orgf0662a3">3.2.1.3.1.3. Power</a></li>
+<li><a href="#orgb588bc2">3.2.1.3.1.4. Desicion error</a></li>
+<li><a href="#org118a41f">3.2.1.3.1.5. Calculating the sample size</a></li>
+</ul>
+</li>
+<li><a href="#orgf2968b6">3.2.1.3.2. Details</a>
+<ul>
+<li><a href="#org8f97105">3.2.1.3.2.1. Hypothesis Testing (for a mean)</a></li>
+<li><a href="#org00b1667">3.2.1.3.2.2. HT (for the mean) examples</a>
+<ul>
+<li><a href="#org4fcd755">3.2.1.3.2.2.1. Example1</a></li>
+<li><a href="#org7fef884">3.2.1.3.2.2.2. Example 2</a></li>
+</ul>
+</li>
+<li><a href="#org0c22e7c">3.2.1.3.2.3. Decision Errors</a></li>
+<li><a href="#orgaf7c922">3.2.1.3.2.4. Significance vs. Confidence Level</a></li>
+<li><a href="#org5e38e8f">3.2.1.3.2.5. Statistical vs. Practical Significance</a></li>
 </ul>
 </li>
 </ul>
 </li>
-</ul>
-</li>
-<li><a href="#orgb4ee0f1">2.3. Inference for numerical variables</a>
+<li><a href="#orgbc86fac">3.2.1.4. Boostraping/simulation</a>
 <ul>
-<li><a href="#org3f2cd51">2.3.1. one numerical variable mean</a></li>
-<li><a href="#org67b75ae">2.3.2. two numerical variable means/diffirence between two numerical variables</a>
-<ul>
-<li><a href="#orge5f1dea">2.3.2.1. Two independent numerical</a></li>
-<li><a href="#org8553ce9">2.3.2.2. Two dependent numerical variables</a></li>
-</ul>
-</li>
-<li><a href="#org86b0851">2.3.3. three or more numerical variable means</a>
-<ul>
-<li><a href="#org3cd1e20">2.3.3.1. ANOVA</a></li>
-<li><a href="#orga0cf3b9">2.3.3.2. Conditions for ANOVA</a></li>
-<li><a href="#org391c470">2.3.3.3. Multiple comparisons</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#orgcfe3b7e">2.4. Inference for catogorical variables</a>
-<ul>
-<li><a href="#org1032c30">2.4.1. one categorical variable proportion</a>
-<ul>
-<li><a href="#org52636f0">2.4.1.1. one categorical variable proportion with two levels.</a>
-<ul>
-<li><a href="#org127da64">2.4.1.1.1. Sampling Variability and CLT for Proportions</a></li>
-<li><a href="#orga2494bb">2.4.1.1.2. Confidence Interval for a Proportion</a></li>
-<li><a href="#org79c2d56">2.4.1.1.3. Hypothesis Test for a Proportion</a></li>
-<li><a href="#org22fe646">2.4.1.1.4. Small Sample Proportions</a></li>
-</ul>
-</li>
-<li><a href="#org9f4893a">2.4.1.2. one categorical variable proportion with three or more levels.</a>
-<ul>
-<li><a href="#orge81b83b">2.4.1.2.1. Chi-Square GOF Test</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#org54db401">2.4.2. two categorical variable proportions</a>
-<ul>
-<li><a href="#orged0fcea">2.4.2.1. two categorical variable proportions with two levels.</a>
-<ul>
-<li><a href="#org447e218">2.4.2.1.1. Estimating the Difference Between Two Proportions</a></li>
-<li><a href="#orgaf2c509">2.4.2.1.2. Hypothesis Test for Comparing Two Proportions</a></li>
-<li><a href="#org9898331">2.4.2.1.3. Comparing Two Small Sample Proportions</a></li>
-</ul>
-</li>
-<li><a href="#orga95dbd2">2.4.2.2. two categorical variable proportions with three or more levels.</a>
-<ul>
-<li><a href="#org1103303">2.4.2.2.1. The Chi-Square Independence Test</a></li>
+<li><a href="#org0a72a7d">3.2.1.4.1. Steps</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 </li>
+<li><a href="#orgc1df28d">3.3. Inference for numerical variables</a>
+<ul>
+<li><a href="#orgd1d35c9">3.3.1. one numerical variable mean</a></li>
+<li><a href="#orgc140c74">3.3.2. two numerical variable means/diffirence between two numerical variables</a>
+<ul>
+<li><a href="#orgcfc60ec">3.3.2.1. Two independent numerical</a></li>
+<li><a href="#org94e0dc1">3.3.2.2. Two dependent numerical variables</a></li>
 </ul>
 </li>
-<li><a href="#orga0b798e">3. Linear regression and modeling</a>
+<li><a href="#org34786a3">3.3.3. three or more numerical variable means</a>
 <ul>
-<li><a href="#org177aa8e">3.1. Linear Regression</a>
-<ul>
-<li><a href="#orgc4b6959">3.1.1. Correlation</a></li>
-<li><a href="#org5e9e31c">3.1.2. Residuals</a></li>
-<li><a href="#org6b48f6a">3.1.3. Least Squares Line</a></li>
-<li><a href="#org091f60b">3.1.4. Prediction and Extrapolation</a></li>
-<li><a href="#org80fca41">3.1.5. Conditions for Linear Regression</a></li>
-<li><a href="#orge09aa48">3.1.6. R Squared</a></li>
-<li><a href="#orgb1cc1ca">3.1.7. Regression with Categorical Explanatory Variables</a></li>
+<li><a href="#orgbfae2a1">3.3.3.1. ANOVA</a></li>
+<li><a href="#org0ba6373">3.3.3.2. Conditions for ANOVA</a></li>
+<li><a href="#orgf391d7e">3.3.3.3. Multiple comparisons</a></li>
 </ul>
 </li>
-<li><a href="#org9570ef1">3.2. More about Linear Regression</a>
-<ul>
-<li><a href="#orgca822ab">3.2.1. Outliers in Regression</a></li>
-<li><a href="#org3ef130e">3.2.2. Inference for Linear Regression</a></li>
-<li><a href="#org01fbecc">3.2.3. Variability Partitioning</a></li>
 </ul>
 </li>
-<li><a href="#org8da0f09">3.3. Multiple Regression</a>
+<li><a href="#orgf31612e">3.4. Inference for catogorical variables</a>
 <ul>
-<li><a href="#org6af5d32">3.3.1. Introduction</a></li>
-<li><a href="#org6b1f870">3.3.2. Multiple Predictors</a></li>
-<li><a href="#org212ea57">3.3.3. Variable interaction</a></li>
-<li><a href="#orge2ff854">3.3.4. Adjusted R Squared</a></li>
-<li><a href="#org3773588">3.3.5. Collinearity and Parsimony</a></li>
-<li><a href="#org4808a4b">3.3.6. Inference for MLR</a></li>
-<li><a href="#org1c21640">3.3.7. Model Selection</a></li>
-<li><a href="#orga9d8083">3.3.8. Diagnostics for MLR</a></li>
+<li><a href="#org8abde4f">3.4.1. one categorical variable proportion</a>
+<ul>
+<li><a href="#org48e3d8d">3.4.1.1. one categorical variable proportion with two levels.</a>
+<ul>
+<li><a href="#orgbf50681">3.4.1.1.1. Sampling Variability and CLT for Proportions</a></li>
+<li><a href="#org422cc6b">3.4.1.1.2. Confidence Interval for a Proportion</a></li>
+<li><a href="#org4c58e43">3.4.1.1.3. Hypothesis Test for a Proportion</a></li>
+<li><a href="#orgb729ef0">3.4.1.1.4. Small Sample Proportions</a></li>
+</ul>
+</li>
+<li><a href="#org03b88de">3.4.1.2. one categorical variable proportion with three or more levels.</a>
+<ul>
+<li><a href="#org2b94c4b">3.4.1.2.1. Chi-Square GOF Test</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org85b0766">3.4.2. two categorical variable proportions</a>
+<ul>
+<li><a href="#org75a42ea">3.4.2.1. two categorical variable proportions with two levels.</a>
+<ul>
+<li><a href="#org3b28d49">3.4.2.1.1. Estimating the Difference Between Two Proportions</a></li>
+<li><a href="#org793aa61">3.4.2.1.2. Hypothesis Test for Comparing Two Proportions</a></li>
+<li><a href="#org539f971">3.4.2.1.3. Comparing Two Small Sample Proportions</a></li>
+</ul>
+</li>
+<li><a href="#org5d46412">3.4.2.2. two categorical variable proportions with three or more levels.</a>
+<ul>
+<li><a href="#org009620f">3.4.2.2.1. The Chi-Square Independence Test</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org4a2d46a">4. Linear regression and modeling</a>
+<ul>
+<li><a href="#org269f0a7">4.1. Linear Regression</a>
+<ul>
+<li><a href="#org65a7721">4.1.1. Correlation</a></li>
+<li><a href="#org4dda6c8">4.1.2. Residuals</a></li>
+<li><a href="#org8a8dac3">4.1.3. Least Squares Line</a></li>
+<li><a href="#org0190d06">4.1.4. Prediction and Extrapolation</a></li>
+<li><a href="#orgb785181">4.1.5. Conditions for Linear Regression</a></li>
+<li><a href="#org8bdc600">4.1.6. R Squared</a></li>
+<li><a href="#orgeddcc4d">4.1.7. Regression with Categorical Explanatory Variables</a></li>
+</ul>
+</li>
+<li><a href="#org91ea7f1">4.2. More about Linear Regression</a>
+<ul>
+<li><a href="#org2c33235">4.2.1. Outliers in Regression</a></li>
+<li><a href="#org65ea5d9">4.2.2. Inference for Linear Regression</a></li>
+<li><a href="#org3763aae">4.2.3. Variability Partitioning</a></li>
+</ul>
+</li>
+<li><a href="#org5b616be">4.3. Multiple Regression</a>
+<ul>
+<li><a href="#org5ed50c6">4.3.1. Introduction</a></li>
+<li><a href="#orge894f8c">4.3.2. Multiple Predictors</a></li>
+<li><a href="#org7d49f4f">4.3.3. Variable interaction</a></li>
+<li><a href="#org4dd69f4">4.3.4. Adjusted R Squared</a></li>
+<li><a href="#org1196576">4.3.5. Collinearity and Parsimony</a></li>
+<li><a href="#org0e3f015">4.3.6. Inference for MLR</a></li>
+<li><a href="#org5efa111">4.3.7. Model Selection</a></li>
+<li><a href="#orgac680b4">4.3.8. Diagnostics for MLR</a></li>
 </ul>
 </li>
 </ul>
@@ -298,20 +305,55 @@
   gtag('config', 'G-Z0T1EQTBKL');
 </script>
 
-<div id="outline-container-org0f8c6bf" class="outline-2">
-<h2 id="org0f8c6bf"><span class="section-number-2">1.</span> Introduction to probability and data</h2>
+<div id="outline-container-orge754896" class="outline-2">
+<h2 id="orge754896"><span class="section-number-2">1.</span> Workflow</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-org0c8049f" class="outline-3">
-<h3 id="org0c8049f"><span class="section-number-3">1.1.</span> About</h3>
+<div id="outline-container-org51bd245" class="outline-3">
+<h3 id="org51bd245"><span class="section-number-3">1.1.</span> Data collection</h3>
+<div class="outline-text-3" id="text-1-1">
+
+<div id="org471663a" class="figure">
+<p><img src="img/svg/Data_Analysis_with_R_Data_collection.svg" alt="Data_Analysis_with_R_Data_collection.svg" class="org-svg" /><br />
+</p>
 </div>
-<div id="outline-container-org64ece94" class="outline-3">
-<h3 id="org64ece94"><span class="section-number-3">1.2.</span> Introduction to data</h3>
+</div>
+</div>
+<div id="outline-container-org6a5df5c" class="outline-3">
+<h3 id="org6a5df5c"><span class="section-number-3">1.2.</span> Exploring data</h3>
 <div class="outline-text-3" id="text-1-2">
+
+<div id="org2e0f142" class="figure">
+<p><img src="img/svg/Data_Analysis_with_R_Exploring.svg" alt="Data_Analysis_with_R_Exploring.svg" class="org-svg" /><br />
+</p>
 </div>
-<div id="outline-container-org91ac8fb" class="outline-4">
-<h4 id="org91ac8fb"><span class="section-number-4">1.2.1.</span> Data basics</h4>
-<div class="outline-text-4" id="text-1-2-1">
+</div>
+</div>
+<div id="outline-container-org35f37cb" class="outline-3">
+<h3 id="org35f37cb"><span class="section-number-3">1.3.</span> Hypothesize</h3>
+<div class="outline-text-3" id="text-1-3">
+
+<div id="org1244351" class="figure">
+<p><img src="img/svg/Data_Analysis_with_R_Hypothesis.svg" alt="Data_Analysis_with_R_Hypothesis.svg" class="org-svg" /><br />
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org00a54fd" class="outline-2">
+<h2 id="org00a54fd"><span class="section-number-2">2.</span> Introduction to probability and data</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-org5f9fee2" class="outline-3">
+<h3 id="org5f9fee2"><span class="section-number-3">2.1.</span> About</h3>
+</div>
+<div id="outline-container-orgcd85275" class="outline-3">
+<h3 id="orgcd85275"><span class="section-number-3">2.2.</span> Introduction to data</h3>
+<div class="outline-text-3" id="text-2-2">
+</div>
+<div id="outline-container-org6a243d4" class="outline-4">
+<h4 id="org6a243d4"><span class="section-number-4">2.2.1.</span> Data basics</h4>
+<div class="outline-text-4" id="text-2-2-1">
 <ul class="org-ul">
 <li>Data can be organized in a matrix where each <b>row is an observation</b> and each <b>column is a variable</b>.<br /></li>
 <li>In exploratory data analysis, we investigate the <b>relationship between variables</b> to determine whether they are <b>dependent</b> on one another.<br /></li>
@@ -341,9 +383,9 @@ The important part is to know if the variable have a true zero to use multiplica
 </ul>
 </div>
 </div>
-<div id="outline-container-org23c2cc6" class="outline-4">
-<h4 id="org23c2cc6"><span class="section-number-4">1.2.2.</span> Introduction</h4>
-<div class="outline-text-4" id="text-1-2-2">
+<div id="outline-container-org674eb1b" class="outline-4">
+<h4 id="org674eb1b"><span class="section-number-4">2.2.2.</span> Introduction</h4>
+<div class="outline-text-4" id="text-2-2-2">
 <ul class="org-ul">
 <li>A conclusion, that came from analysis of sample data, that only be generalized if the sample is representative of the population.<br /></li>
 <li>When analyzing a sample data, there are questions that need to be asked:<br />
@@ -364,9 +406,9 @@ The important part is to know if the variable have a true zero to use multiplica
 </div>
 </div>
 
-<div id="outline-container-org31431ea" class="outline-4">
-<h4 id="org31431ea"><span class="section-number-4">1.2.3.</span> Statistica studys</h4>
-<div class="outline-text-4" id="text-1-2-3">
+<div id="outline-container-orgc932cf4" class="outline-4">
+<h4 id="orgc932cf4"><span class="section-number-4">2.2.3.</span> Statistica studys</h4>
+<div class="outline-text-4" id="text-2-2-3">
 <p>
 In statistic, we collect, organize, analyze data to determing relaitonship between variables.<br />
 </p>
@@ -391,9 +433,9 @@ An observational study's data can only be used to estimate averages or correlati
 </div>
 </div>
 
-<div id="outline-container-orgfd67766" class="outline-4">
-<h4 id="orgfd67766"><span class="section-number-4">1.2.4.</span> Experimental design</h4>
-<div class="outline-text-4" id="text-1-2-4">
+<div id="outline-container-org2edd2a3" class="outline-4">
+<h4 id="org2edd2a3"><span class="section-number-4">2.2.4.</span> Experimental design</h4>
+<div class="outline-text-4" id="text-2-2-4">
 <ul class="org-ul">
 <li>Experiment terminology<br />
 <ul class="org-ul">
@@ -472,9 +514,9 @@ Conclusion type base on sampling and assignment<br />
 </ul>
 </div>
 </div>
-<div id="outline-container-org38beb54" class="outline-4">
-<h4 id="org38beb54"><span class="section-number-4">1.2.5.</span> Sampling</h4>
-<div class="outline-text-4" id="text-1-2-5">
+<div id="outline-container-org0532234" class="outline-4">
+<h4 id="org0532234"><span class="section-number-4">2.2.5.</span> Sampling</h4>
+<div class="outline-text-4" id="text-2-2-5">
 <p>
 Studying the entire population is time-consuming, expensive, and nearly impossible to be precise due to population change. This is why we chose sampling.<br />
 </p>
@@ -503,13 +545,13 @@ Before starting with sampling, we should determine a sample size, a sampling met
 </div>
 </div>
 
-<div id="outline-container-org59407e4" class="outline-3">
-<h3 id="org59407e4"><span class="section-number-3">1.3.</span> Exploratory data analysisand introduction no inference</h3>
-<div class="outline-text-3" id="text-1-3">
+<div id="outline-container-org3831cb1" class="outline-3">
+<h3 id="org3831cb1"><span class="section-number-3">2.3.</span> Exploratory data analysisand introduction no inference</h3>
+<div class="outline-text-3" id="text-2-3">
 </div>
-<div id="outline-container-org2cd5446" class="outline-4">
-<h4 id="org2cd5446"><span class="section-number-4">1.3.1.</span> Visualizing Numerical Data</h4>
-<div class="outline-text-4" id="text-1-3-1">
+<div id="outline-container-org959535e" class="outline-4">
+<h4 id="org959535e"><span class="section-number-4">2.3.1.</span> Visualizing Numerical Data</h4>
+<div class="outline-text-4" id="text-2-3-1">
 <ul class="org-ul">
 <li>Visualizing one numerical variable<br />
 <ul class="org-ul">
@@ -556,9 +598,9 @@ The x-axis should represent the explanatory variable, and y-axis should represen
 </ul>
 </div>
 </div>
-<div id="outline-container-org4d69460" class="outline-4">
-<h4 id="org4d69460"><span class="section-number-4">1.3.2.</span> Measures of Center</h4>
-<div class="outline-text-4" id="text-1-3-2">
+<div id="outline-container-orgd3b0a5a" class="outline-4">
+<h4 id="orgd3b0a5a"><span class="section-number-4">2.3.2.</span> Measures of Center</h4>
+<div class="outline-text-4" id="text-2-3-2">
 <ul class="org-ul">
 <li>mean: arithmetic average<br /></li>
 <li>median: midpoint of the distribution ( 50th percentile)<br /></li>
@@ -572,9 +614,9 @@ The x-axis should represent the explanatory variable, and y-axis should represen
 </ul>
 </div>
 </div>
-<div id="outline-container-org0c8fd6a" class="outline-4">
-<h4 id="org0c8fd6a"><span class="section-number-4">1.3.3.</span> Measures of Spread</h4>
-<div class="outline-text-4" id="text-1-3-3">
+<div id="outline-container-org9963246" class="outline-4">
+<h4 id="org9963246"><span class="section-number-4">2.3.3.</span> Measures of Spread</h4>
+<div class="outline-text-4" id="text-2-3-3">
 <ul class="org-ul">
 <li>range(max - min): unreliable in the present of outliers<br /></li>
 <li>standard diviation: measure how the data is spread from the mean, one standard deviation from the mean tells use that from the mean value to the standard deviation value, there lies \(34\%\) of the data, assuming the data is normally distributed. unreliable in the present of outliers.<br /></li>
@@ -583,9 +625,9 @@ The x-axis should represent the explanatory variable, and y-axis should represen
 </div>
 </div>
 
-<div id="outline-container-org03bb7e1" class="outline-4">
-<h4 id="org03bb7e1"><span class="section-number-4">1.3.4.</span> Symbols</h4>
-<div class="outline-text-4" id="text-1-3-4">
+<div id="outline-container-org22aed8c" class="outline-4">
+<h4 id="org22aed8c"><span class="section-number-4">2.3.4.</span> Symbols</h4>
+<div class="outline-text-4" id="text-2-3-4">
 <p>
 when working with population we use greek alphabet and when working with sample we use latin alphabet<br />
 </p>
@@ -621,9 +663,9 @@ when working with population we use greek alphabet and when working with sample 
 </table>
 </div>
 </div>
-<div id="outline-container-orge045a79" class="outline-4">
-<h4 id="orge045a79"><span class="section-number-4">1.3.5.</span> Robust Statistics</h4>
-<div class="outline-text-4" id="text-1-3-5">
+<div id="outline-container-org06a260e" class="outline-4">
+<h4 id="org06a260e"><span class="section-number-4">2.3.5.</span> Robust Statistics</h4>
+<div class="outline-text-4" id="text-2-3-5">
 <p>
 robust statistic are measures where extreme observation have little effect<br />
 </p>
@@ -659,9 +701,9 @@ robust statistic are measures where extreme observation have little effect<br />
 </table>
 </div>
 </div>
-<div id="outline-container-org8bec227" class="outline-4">
-<h4 id="org8bec227"><span class="section-number-4">1.3.6.</span> Transforming Data</h4>
-<div class="outline-text-4" id="text-1-3-6">
+<div id="outline-container-orgdf10646" class="outline-4">
+<h4 id="orgdf10646"><span class="section-number-4">2.3.6.</span> Transforming Data</h4>
+<div class="outline-text-4" id="text-2-3-6">
 <ul class="org-ul">
 <li>some statistical models lite z-test, t-test, and ANOVA asumes normality in the data, this is why non normaly distributed data is often transformed.<br /></li>
 <li>type of transformation<br />
@@ -676,9 +718,9 @@ robust statistic are measures where extreme observation have little effect<br />
 </ul>
 </div>
 </div>
-<div id="outline-container-orgf7ad897" class="outline-4">
-<h4 id="orgf7ad897"><span class="section-number-4">1.3.7.</span> Exploring Categorical Variables</h4>
-<div class="outline-text-4" id="text-1-3-7">
+<div id="outline-container-org45799d7" class="outline-4">
+<h4 id="org45799d7"><span class="section-number-4">2.3.7.</span> Exploring Categorical Variables</h4>
+<div class="outline-text-4" id="text-2-3-7">
 <p>
 Example used: <a href="https://www.surveyusa.com/client/PollReport.aspx?g=473bae83-4de2-4016-8f5e-e69064a6e31a">https://www.surveyusa.com/client/PollReport.aspx?g=473bae83-4de2-4016-8f5e-e69064a6e31a</a><br />
 </p>
@@ -938,9 +980,9 @@ if income and answer werent related we would se a 0.2 across all observation, si
 </ul>
 </div>
 </div>
-<div id="outline-container-org0ee8b95" class="outline-4">
-<h4 id="org0ee8b95"><span class="section-number-4">1.3.8.</span> Introduction to Inference</h4>
-<div class="outline-text-4" id="text-1-3-8">
+<div id="outline-container-org69d1767" class="outline-4">
+<h4 id="org69d1767"><span class="section-number-4">2.3.8.</span> Introduction to Inference</h4>
+<div class="outline-text-4" id="text-2-3-8">
 <ul class="org-ul">
 <li>hypothesis testing<br />
 <ul class="org-ul">
@@ -955,13 +997,13 @@ if income and answer werent related we would se a 0.2 across all observation, si
 </div>
 </div>
 </div>
-<div id="outline-container-org12b83fd" class="outline-3">
-<h3 id="org12b83fd"><span class="section-number-3">1.4.</span> Introduction to probability</h3>
-<div class="outline-text-3" id="text-1-4">
+<div id="outline-container-org5ffa894" class="outline-3">
+<h3 id="org5ffa894"><span class="section-number-3">2.4.</span> Introduction to probability</h3>
+<div class="outline-text-3" id="text-2-4">
 </div>
-<div id="outline-container-orga45a267" class="outline-4">
-<h4 id="orga45a267"><span class="section-number-4">1.4.1.</span> Introduction</h4>
-<div class="outline-text-4" id="text-1-4-1">
+<div id="outline-container-orgfe6a829" class="outline-4">
+<h4 id="orgfe6a829"><span class="section-number-4">2.4.1.</span> Introduction</h4>
+<div class="outline-text-4" id="text-2-4-1">
 <ul class="org-ul">
 <li>A probability is a value between zero and one \(\left(0 \leq P(condition) \leq 1\right)\), made this way to ease arithmetic, that gives an idea about how often an event that meet a condition happen.<br /></li>
 </ul>
@@ -978,9 +1020,9 @@ There is two types of probability, theoratical and experimental.<br />
 </ul>
 </div>
 </div>
-<div id="outline-container-org5656d61" class="outline-4">
-<h4 id="org5656d61"><span class="section-number-4">1.4.2.</span> theoratical probablity vs experimental probablity</h4>
-<div class="outline-text-4" id="text-1-4-2">
+<div id="outline-container-org4a35e27" class="outline-4">
+<h4 id="org4a35e27"><span class="section-number-4">2.4.2.</span> theoratical probablity vs experimental probablity</h4>
+<div class="outline-text-4" id="text-2-4-2">
 <p>
 A classic example of theoratical vs experimental probablity would be coin toss.<br />
 </p>
@@ -1025,9 +1067,9 @@ What is the probability of winning "3 Rolls to ten"?<br />
 </p>
 </div>
 </div>
-<div id="outline-container-org6a58105" class="outline-4">
-<h4 id="org6a58105"><span class="section-number-4">1.4.3.</span> common probability sumbols</h4>
-<div class="outline-text-4" id="text-1-4-3">
+<div id="outline-container-orgf36e900" class="outline-4">
+<h4 id="orgf36e900"><span class="section-number-4">2.4.3.</span> common probability sumbols</h4>
+<div class="outline-text-4" id="text-2-4-3">
 <ul class="org-ul">
 <li><p>
 Here are some probability symbols and definitions<br />
@@ -1079,9 +1121,9 @@ Here are some probability symbols and definitions<br />
 </div>
 </div>
 
-<div id="outline-container-org1449a59" class="outline-4">
-<h4 id="org1449a59"><span class="section-number-4">1.4.4.</span> Probability of an event A</h4>
-<div class="outline-text-4" id="text-1-4-4">
+<div id="outline-container-org43e5141" class="outline-4">
+<h4 id="org43e5141"><span class="section-number-4">2.4.4.</span> Probability of an event A</h4>
+<div class="outline-text-4" id="text-2-4-4">
 <ul class="org-ul">
 <li>The probabiliy of an event A can be calculated either by:<br />
 <ul class="org-ul">
@@ -1093,9 +1135,9 @@ Here are some probability symbols and definitions<br />
 </ul>
 </div>
 </div>
-<div id="outline-container-org10fd01c" class="outline-4">
-<h4 id="org10fd01c"><span class="section-number-4">1.4.5.</span> Probability of A and B</h4>
-<div class="outline-text-4" id="text-1-4-5">
+<div id="outline-container-orga1c4d93" class="outline-4">
+<h4 id="orga1c4d93"><span class="section-number-4">2.4.5.</span> Probability of A and B</h4>
+<div class="outline-text-4" id="text-2-4-5">
 <ul class="org-ul">
 <li>The probabiliy of an event A and B occure together can be calculated either by:<br />
 <ul class="org-ul">
@@ -1155,9 +1197,9 @@ P(A \cap B)&=P(A)*P(B \mid A)\\
 </ul>
 </div>
 </div>
-<div id="outline-container-org6fa7bc2" class="outline-4">
-<h4 id="org6fa7bc2"><span class="section-number-4">1.4.6.</span> Probability of event B giving A</h4>
-<div class="outline-text-4" id="text-1-4-6">
+<div id="outline-container-org4d36d68" class="outline-4">
+<h4 id="org4d36d68"><span class="section-number-4">2.4.6.</span> Probability of event B giving A</h4>
+<div class="outline-text-4" id="text-2-4-6">
 <ul class="org-ul">
 <li>The probabiliy of an event A can be calculated either by:<br />
 <ul class="org-ul">
@@ -1171,9 +1213,9 @@ P(A \cap B)&=P(A)*P(B \mid A)\\
 </div>
 </div>
 
-<div id="outline-container-org472f136" class="outline-4">
-<h4 id="org472f136"><span class="section-number-4">1.4.7.</span> Probability of events A or B</h4>
-<div class="outline-text-4" id="text-1-4-7">
+<div id="outline-container-org3c17c6e" class="outline-4">
+<h4 id="org3c17c6e"><span class="section-number-4">2.4.7.</span> Probability of events A or B</h4>
+<div class="outline-text-4" id="text-2-4-7">
 <ul class="org-ul">
 <li><p>
 The probability of event A or B can be calculated using one formula:<br />
@@ -1183,7 +1225,7 @@ To avoid double counting we substract the probability of A and B accuring togeth
 In joint event \(P(A \cap B) \neq 0\), in dijoint event \(P(A \cap B)=0\)<br />
 </p>
 
-<div id="org9d2dc8a" class="figure">
+<div id="org6982427" class="figure">
 <p><img src="tikz/DAwRSs1.svg" alt="DAwRSs1.svg" class="org-svg" /><br />
 </p>
 </div></li>
@@ -1191,9 +1233,9 @@ In joint event \(P(A \cap B) \neq 0\), in dijoint event \(P(A \cap B)=0\)<br />
 </div>
 </div>
 
-<div id="outline-container-orga166e6a" class="outline-4">
-<h4 id="orga166e6a"><span class="section-number-4">1.4.8.</span> Example1</h4>
-<div class="outline-text-4" id="text-1-4-8">
+<div id="outline-container-orgc009b5e" class="outline-4">
+<h4 id="orgc009b5e"><span class="section-number-4">2.4.8.</span> Example1</h4>
+<div class="outline-text-4" id="text-2-4-8">
 <ul class="org-ul">
 <li><p>
 Example study: <a href="https://www.surveyusa.com/client/PollReport.aspx?g=a5f460ef-bba9-484b-8579-1101ea26421b">https://www.surveyusa.com/client/PollReport.aspx?g=a5f460ef-bba9-484b-8579-1101ea26421b</a><br />
@@ -1320,9 +1362,9 @@ From this table, the variability of the conditional probability of answering "Pr
 </div>
 </div>
 
-<div id="outline-container-orgdcd03f6" class="outline-4">
-<h4 id="orgdcd03f6"><span class="section-number-4">1.4.9.</span> Sample space</h4>
-<div class="outline-text-4" id="text-1-4-9">
+<div id="outline-container-org10a4cb1" class="outline-4">
+<h4 id="org10a4cb1"><span class="section-number-4">2.4.9.</span> Sample space</h4>
+<div class="outline-text-4" id="text-2-4-9">
 <ul class="org-ul">
 <li>Sample space is a collection of all the possible outcome of a process<br />
 Example: What are all the possible outcomes that can result on tossing a coin two times.<br />
@@ -1330,9 +1372,9 @@ Example: What are all the possible outcomes that can result on tossing a coin tw
 </ul>
 </div>
 </div>
-<div id="outline-container-org8d7e17e" class="outline-4">
-<h4 id="org8d7e17e"><span class="section-number-4">1.4.10.</span> Probability distribution</h4>
-<div class="outline-text-4" id="text-1-4-10">
+<div id="outline-container-orgd796d2d" class="outline-4">
+<h4 id="orgd796d2d"><span class="section-number-4">2.4.10.</span> Probability distribution</h4>
+<div class="outline-text-4" id="text-2-4-10">
 <ul class="org-ul">
 <li><p>
 Probability distribution is a list of the sample space and the probablity with which they accure<br />
@@ -1393,9 +1435,9 @@ P(X=2)&=0.25
 </ul>
 </div>
 </div>
-<div id="outline-container-org3ee2833" class="outline-4">
-<h4 id="org3ee2833"><span class="section-number-4">1.4.11.</span> Complementary event</h4>
-<div class="outline-text-4" id="text-1-4-11">
+<div id="outline-container-orgfb9f836" class="outline-4">
+<h4 id="orgfb9f836"><span class="section-number-4">2.4.11.</span> Complementary event</h4>
+<div class="outline-text-4" id="text-2-4-11">
 <p>
 A complementary event is the probability of all possible outputs except the one we are interested in.<br />
 \[P(A')=\frac{\text{The number all possible events except event A}}{\text{Number of all possibilities}}\]<br />
@@ -1418,9 +1460,9 @@ P(HH)+P(HH')&=1\\
 </ul>
 </div>
 </div>
-<div id="outline-container-org1349ba4" class="outline-4">
-<h4 id="org1349ba4"><span class="section-number-4">1.4.12.</span> Example 2</h4>
-<div class="outline-text-4" id="text-1-4-12">
+<div id="outline-container-orgecb4eae" class="outline-4">
+<h4 id="orgecb4eae"><span class="section-number-4">2.4.12.</span> Example 2</h4>
+<div class="outline-text-4" id="text-2-4-12">
 <p>
 The world Values Survey is an ongoing worldwide survey that pools the world population about perceptions of life, work, family, politics, etc.<br />
 The most recent phase of the survey that polled 77882 people from 57 countries estimated that \(36.2\%\) of the world's population agree with the statment "Men should have more right to a job that women."<br />
@@ -1529,24 +1571,24 @@ P(\text{at least one out of five agree}) &= 1 - P(\text{all five disagree}) \\
 </div>
 </div>
 
-<div id="outline-container-org24fbfc8" class="outline-4">
-<h4 id="org24fbfc8"><span class="section-number-4">1.4.13.</span> (Spotlight) Disjoint vs. Independent</h4>
-<div class="outline-text-4" id="text-1-4-13">
+<div id="outline-container-orgf7a4ddb" class="outline-4">
+<h4 id="orgf7a4ddb"><span class="section-number-4">2.4.13.</span> (Spotlight) Disjoint vs. Independent</h4>
+<div class="outline-text-4" id="text-2-4-13">
 <p>
 A disjoin probability means that \(P(A \cap B) = 0\), while independency mean that \(P(A \mid B) = P(A)\)<br />
 </p>
 </div>
 </div>
-<div id="outline-container-org041c750" class="outline-4">
-<h4 id="org041c750"><span class="section-number-4">1.4.14.</span> Probability Trees</h4>
-<div class="outline-text-4" id="text-1-4-14">
+<div id="outline-container-org8a0a7c9" class="outline-4">
+<h4 id="org8a0a7c9"><span class="section-number-4">2.4.14.</span> Probability Trees</h4>
+<div class="outline-text-4" id="text-2-4-14">
 <p>
 Probability tree is a method that is useful to solve for a conditional probability giving the oposide<br />
 </p>
 </div>
-<div id="outline-container-orgbf3367a" class="outline-5">
-<h5 id="orgbf3367a"><span class="section-number-5">1.4.14.1.</span> Example (working with counts):</h5>
-<div class="outline-text-5" id="text-1-4-14-1">
+<div id="outline-container-orgc7e30a7" class="outline-5">
+<h5 id="orgc7e30a7"><span class="section-number-5">2.4.14.1.</span> Example (working with counts):</h5>
+<div class="outline-text-5" id="text-2-4-14-1">
 <p>
 you have 100 emails in your inbox: 60 are spam, 40 are not spam. out of the 60 spam emails, 35 contain the word "free". of the rest, 3 contain the word "free".<br />
 if an email contain the word free, what is the probability thar it is a spam?<br />
@@ -1554,7 +1596,7 @@ if an email contain the word free, what is the probability thar it is a spam?<br
 
 
 
-<div id="orgbef63b6" class="figure">
+<div id="org1221a77" class="figure">
 <p><img src="tikz/DAwRSs2.svg" alt="DAwRSs2.svg" class="org-svg" /><br />
 </p>
 </div>
@@ -1568,9 +1610,9 @@ P(\text{spam} \mid \text{free}) &= \frac{P(\text{spam} \cap \text{free})}{P(\tex
 \end{equation*}
 </div>
 </div>
-<div id="outline-container-orgaa6eae4" class="outline-5">
-<h5 id="orgaa6eae4"><span class="section-number-5">1.4.14.2.</span> Example (working with probabilites):</h5>
-<div class="outline-text-5" id="text-1-4-14-2">
+<div id="outline-container-org44060b5" class="outline-5">
+<h5 id="org44060b5"><span class="section-number-5">2.4.14.2.</span> Example (working with probabilites):</h5>
+<div class="outline-text-5" id="text-2-4-14-2">
 <p>
 As of 2009, Swaziland had the highest HIV prevalence in the world. \(25.9\%\) of this country's population is infected with HIV. The ELISA test in one of the first and most accurate tests for HIV. For those who carry HIV, The ELISA test is \(99.7\%\) accurate. For those who do not carrt HIV, the test is \(92.6\%\) accurate. If an individual from Swaziland has tested positive, what is the probabilirt that he carries HIV?<br />
 </p>
@@ -1585,7 +1627,7 @@ since \(P( \text{A} \cap \text{B} ) = P( \text{B} \cap \text{A}), P( \text{HIV} 
 </ul>
 
 
-<div id="org558f68d" class="figure">
+<div id="orgd17012e" class="figure">
 <p><img src="tikz/DAwRSs3.svg" alt="DAwRSs3.svg" class="org-svg" /><br />
 </p>
 </div>
@@ -1644,9 +1686,9 @@ there is an \(82\%\) chance that someone have HIV giving that he tested positive
 </div>
 </div>
 </div>
-<div id="outline-container-org2fc6864" class="outline-4">
-<h4 id="org2fc6864"><span class="section-number-4">1.4.15.</span> Bayesian Inference</h4>
-<div class="outline-text-4" id="text-1-4-15">
+<div id="outline-container-org1689e1a" class="outline-4">
+<h4 id="org1689e1a"><span class="section-number-4">2.4.15.</span> Bayesian Inference</h4>
+<div class="outline-text-4" id="text-2-4-15">
 <ul class="org-ul">
 <li>bayesian approach to infrence<br /></li>
 <li>the set up: we have two dice, one of them is a six sided dice, and the other is a 12 sided dice<br />
@@ -1672,17 +1714,17 @@ P(\text{12S} \mid \geq 4) &= \frac{P(\text{12S } \cap \geq 4)}{P( \geq 4)}\\
 </div>
 </div>
 
-<div id="outline-container-orgda2813b" class="outline-4">
-<h4 id="orgda2813b"><span class="section-number-4">1.4.16.</span> Examples of Bayesian Inference</h4>
+<div id="outline-container-orga9e3737" class="outline-4">
+<h4 id="orga9e3737"><span class="section-number-4">2.4.16.</span> Examples of Bayesian Inference</h4>
 </div>
 </div>
-<div id="outline-container-org2959d73" class="outline-3">
-<h3 id="org2959d73"><span class="section-number-3">1.5.</span> Probability distribution</h3>
-<div class="outline-text-3" id="text-1-5">
+<div id="outline-container-org215cbac" class="outline-3">
+<h3 id="org215cbac"><span class="section-number-3">2.5.</span> Probability distribution</h3>
+<div class="outline-text-3" id="text-2-5">
 </div>
-<div id="outline-container-org82919b1" class="outline-4">
-<h4 id="org82919b1"><span class="section-number-4">1.5.1.</span> Normal Distribution</h4>
-<div class="outline-text-4" id="text-1-5-1">
+<div id="outline-container-org0162f03" class="outline-4">
+<h4 id="org0162f03"><span class="section-number-4">2.5.1.</span> Normal Distribution</h4>
+<div class="outline-text-4" id="text-2-5-1">
 <p>
 probability for continus variables<br />
 </p>
@@ -1733,7 +1775,7 @@ After calculating \(z_{x_i}\) we look in the table for the corisponding value.<b
 </div>
 
 
-<div id="org4dd831b" class="figure">
+<div id="org49e6b2d" class="figure">
 <p><img src="ggplot/dawrss-plot1.svg" alt="dawrss-plot1.svg" class="org-svg" /><br />
 </p>
 </div></li>
@@ -1757,7 +1799,7 @@ $P(x &gt; x_i)=1-$P(x &lt; x_i)$$<br />
 </div>
 
 
-<div id="org75602c8" class="figure">
+<div id="orgc5f17f0" class="figure">
 <p><img src="ggplot/dawrss-plot2.svg" alt="dawrss-plot2.svg" class="org-svg" /><br />
 </p>
 </div></li>
@@ -1781,7 +1823,7 @@ $P(x &gt; x_i)=1-$P(x &lt; x_i)$$<br />
 </div>
 
 
-<div id="orgb5ea678" class="figure">
+<div id="orga85255b" class="figure">
 <p><img src="ggplot/dawrss-plot3.svg" alt="dawrss-plot3.svg" class="org-svg" /><br />
 </p>
 </div></li>
@@ -1805,7 +1847,7 @@ $P(x &gt; x_i)=1-$P(x &lt; x_i)$$<br />
 </div>
 
 
-<div id="orga2b08d0" class="figure">
+<div id="orgb49d2f4" class="figure">
 <p><img src="ggplot/dawrss-plot4.svg" alt="dawrss-plot4.svg" class="org-svg" /><br />
 </p>
 </div></li>
@@ -1830,7 +1872,7 @@ calculating value \(x_i\) based on \(P,\mu,\sigma\) in R using <b>qnorm</b>:<br 
 </div>
 
 
-<div id="org083a27e" class="figure">
+<div id="org2f0d5b5" class="figure">
 <p><img src="ggplot/dawrss-plot5.svg" alt="dawrss-plot5.svg" class="org-svg" /><br />
 </p>
 </div></li>
@@ -1838,13 +1880,13 @@ calculating value \(x_i\) based on \(P,\mu,\sigma\) in R using <b>qnorm</b>:<br 
 </div>
 </div>
 
-<div id="outline-container-orga042d04" class="outline-4">
-<h4 id="orga042d04"><span class="section-number-4">1.5.2.</span> Working with the Normal Distribution</h4>
-<div class="outline-text-4" id="text-1-5-2">
+<div id="outline-container-org19d7cbb" class="outline-4">
+<h4 id="org19d7cbb"><span class="section-number-4">2.5.2.</span> Working with the Normal Distribution</h4>
+<div class="outline-text-4" id="text-2-5-2">
 </div>
-<div id="outline-container-orgda548da" class="outline-5">
-<h5 id="orgda548da"><span class="section-number-5">1.5.2.1.</span> Problem 1</h5>
-<div class="outline-text-5" id="text-1-5-2-1">
+<div id="outline-container-orga4758a7" class="outline-5">
+<h5 id="orga4758a7"><span class="section-number-5">2.5.2.1.</span> Problem 1</h5>
+<div class="outline-text-5" id="text-2-5-2-1">
 <p>
 Suppose weights of checked baggage of airlines passangers follow a nearly normal distribution with mean 45 pounds and standard deviation 3.2 pounds. Most airlines charge a fee for baggage that weigh in excess of 50 punds.<br />
 What percent of airlines passangers are expected to incur this fee?<br />
@@ -1883,7 +1925,7 @@ Visualizing<br />
 </div>
 
 
-<div id="orga64b776" class="figure">
+<div id="org727ab11" class="figure">
 <p><img src="ggplot/dawrss-plot6.svg" alt="dawrss-plot6.svg" class="org-svg" /><br />
 </p>
 </div></li>
@@ -1914,7 +1956,7 @@ In vusialization we need to change the region from "below" to "above"<br />
 </div>
 
 
-<div id="org465720c" class="figure">
+<div id="org7df0199" class="figure">
 <p><img src="ggplot/dawrss-plot7.svg" alt="dawrss-plot7.svg" class="org-svg" /><br />
 </p>
 </div></li>
@@ -1922,9 +1964,9 @@ In vusialization we need to change the region from "below" to "above"<br />
 </div>
 </div>
 
-<div id="outline-container-org6935587" class="outline-5">
-<h5 id="org6935587"><span class="section-number-5">1.5.2.2.</span> Problem 2</h5>
-<div class="outline-text-5" id="text-1-5-2-2">
+<div id="outline-container-org60f5f38" class="outline-5">
+<h5 id="org60f5f38"><span class="section-number-5">2.5.2.2.</span> Problem 2</h5>
+<div class="outline-text-5" id="text-2-5-2-2">
 <p>
 The average daily hight temperature in June in LA is 77 ${^&circ;}\(F with a standard deviation if 5\)^{&circ;}$F. Suppose that the temperature in June closely follow a normal distribution.<br />
 How cold are the coldest 20\(\%\) of the days durring June in LA?<br />
@@ -1964,7 +2006,7 @@ Visualizing<br />
 </div>
 
 
-<div id="org171247c" class="figure">
+<div id="org5a223c1" class="figure">
 <p><img src="ggplot/dawrss-plot8.svg" alt="dawrss-plot8.svg" class="org-svg" /><br />
 </p>
 </div></li>
@@ -1973,9 +2015,9 @@ Visualizing<br />
 </div>
 </div>
 
-<div id="outline-container-orgf0c671b" class="outline-4">
-<h4 id="orgf0c671b"><span class="section-number-4">1.5.3.</span> Evaluating the Normal Distribution</h4>
-<div class="outline-text-4" id="text-1-5-3">
+<div id="outline-container-orgd1e870e" class="outline-4">
+<h4 id="orgd1e870e"><span class="section-number-4">2.5.3.</span> Evaluating the Normal Distribution</h4>
+<div class="outline-text-4" id="text-2-5-3">
 <p>
 The purpose of the QQ plot is to give us a visual confirmation about the data normality.<br />
 If the data points fall into a line, this mean that the data is normally distributed.<br />
@@ -1988,16 +2030,16 @@ If the data points fall into a line, this mean that the data is normally distrib
 </div>
 
 
-<div id="org1298831" class="figure">
+<div id="org31d39a4" class="figure">
 <p><img src="ggplot/dawrss-plot9.svg" alt="dawrss-plot9.svg" class="org-svg" /><br />
 </p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org625b35c" class="outline-4">
-<h4 id="org625b35c"><span class="section-number-4">1.5.4.</span> Binomial Distribution</h4>
-<div class="outline-text-4" id="text-1-5-4">
+<div id="outline-container-org2cf665d" class="outline-4">
+<h4 id="org2cf665d"><span class="section-number-4">2.5.4.</span> Binomial Distribution</h4>
+<div class="outline-text-4" id="text-2-5-4">
 <p>
 Probability for discrete variables<br />
 </p>
@@ -2143,7 +2185,7 @@ The probability that exactly one of the four people will refuse to shock is 38.4
 </div>
 
 
-<div id="orgdf6e4d5" class="figure">
+<div id="org97f149f" class="figure">
 <p><img src="ggplot/dawrss-plot10.svg" alt="dawrss-plot10.svg" class="org-svg" /><br />
 </p>
 </div></li>
@@ -2190,9 +2232,9 @@ in r you can calculate number of scenarios with the choose function : choose(n ,
 \[s=\sqrt{np(1-p)}\]<br /></li>
 </ul>
 </div>
-<div id="outline-container-orgfd45431" class="outline-5">
-<h5 id="orgfd45431"><span class="section-number-5">1.5.4.1.</span> Example:</h5>
-<div class="outline-text-5" id="text-1-5-4-1">
+<div id="outline-container-orgd4342f7" class="outline-5">
+<h5 id="orgd4342f7"><span class="section-number-5">2.5.4.1.</span> Example:</h5>
+<div class="outline-text-5" id="text-2-5-4-1">
 <p>
 According to a pool done in 2013, 13\(\%\) of employees are engaged at work, among a sample of 10 empleyees<br />
 </p>
@@ -2238,7 +2280,7 @@ Using visualiaztion<br />
 </div>
 
 
-<div id="org705a9de" class="figure">
+<div id="orgdfb8c25" class="figure">
 <p><img src="ggplot/dawrss-plot11.svg" alt="dawrss-plot11.svg" class="org-svg" /><br />
 </p>
 </div></li>
@@ -2276,17 +2318,17 @@ s&=\sqrt{np(1-p)}\\
 </div>
 </div>
 </div>
-<div id="outline-container-orgbf6c7b5" class="outline-4">
-<h4 id="orgbf6c7b5"><span class="section-number-4">1.5.5.</span> Normal Approximation to Binomial</h4>
-<div class="outline-text-4" id="text-1-5-5">
+<div id="outline-container-orgbce01c7" class="outline-4">
+<h4 id="orgbce01c7"><span class="section-number-4">2.5.5.</span> Normal Approximation to Binomial</h4>
+<div class="outline-text-4" id="text-2-5-5">
 <ul class="org-ul">
 <li>Adjusting \(n\) and \(p\) can make a binomial distribution resembel a normal distribution and make easiyer to use z-score to get the probabilit of a range<br /></li>
 </ul>
 </div>
 
-<div id="outline-container-orgb4229a0" class="outline-5">
-<h5 id="orgb4229a0"><span class="section-number-5">1.5.5.1.</span> Example:</h5>
-<div class="outline-text-5" id="text-1-5-5-1">
+<div id="outline-container-org77954a6" class="outline-5">
+<h5 id="org77954a6"><span class="section-number-5">2.5.5.1.</span> Example:</h5>
+<div class="outline-text-5" id="text-2-5-5-1">
 <p>
 If the probability of someone bieng a facebook power user is 25\(\%\), what is the probability of someone who have 245 friends have 70 power user or more.<br />
 </p>
@@ -2352,7 +2394,7 @@ Using visualiaztion note( to calculate starting from 70 we need to substract one
 </div>
 
 
-<div id="org46826bf" class="figure">
+<div id="org1607c82" class="figure">
 <p><img src="ggplot/dawrss-plot12.svg" alt="dawrss-plot12.svg" class="org-svg" /><br />
 </p>
 </div></li>
@@ -2374,9 +2416,9 @@ P(X \geq x_i) &=1-0.888\\
 </div>
 </div>
 
-<div id="outline-container-org41f25be" class="outline-4">
-<h4 id="org41f25be"><span class="section-number-4">1.5.6.</span> determinig trial size</h4>
-<div class="outline-text-4" id="text-1-5-6">
+<div id="outline-container-orgd8d792f" class="outline-4">
+<h4 id="orgd8d792f"><span class="section-number-4">2.5.6.</span> determinig trial size</h4>
+<div class="outline-text-4" id="text-2-5-6">
 <ul class="org-ul">
 <li>to determin whether the number of trial and the probability of sucess is large enough for the data to be close to a norman distribution we can follow the role that say: a binomial sitribution with at least 10 expected sucess and 10 expected falier will clossly follow a normal distribution<br /></li>
 </ul>
@@ -2393,9 +2435,9 @@ if the sucess to failier hold, we can say:<br />
   \[B(n,p) \approx N(\bar{x},s)\]<br />
 </p>
 </div>
-<div id="outline-container-org217c3c5" class="outline-5">
-<h5 id="org217c3c5"><span class="section-number-5">1.5.6.1.</span> Example:</h5>
-<div class="outline-text-5" id="text-1-5-6-1">
+<div id="outline-container-org901828e" class="outline-5">
+<h5 id="org901828e"><span class="section-number-5">2.5.6.1.</span> Example:</h5>
+<div class="outline-text-5" id="text-2-5-6-1">
 <p>
 What is the minimim required \(n\) for a binomial distribution with \(p=0.25\) to closely follow a normal distribution?<br />
 </p>
@@ -2430,12 +2472,12 @@ n &\geq 13\\
 </div>
 </div>
 </div>
-<div id="outline-container-orgcfa21f1" class="outline-4">
-<h4 id="orgcfa21f1"><span class="section-number-4">1.5.7.</span> Working with the Binomial Distribution</h4>
+<div id="outline-container-org9c538f1" class="outline-4">
+<h4 id="org9c538f1"><span class="section-number-4">2.5.7.</span> Working with the Binomial Distribution</h4>
 </div>
-<div id="outline-container-orgbfe142a" class="outline-4">
-<h4 id="orgbfe142a"><span class="section-number-4">1.5.8.</span> t-distribution</h4>
-<div class="outline-text-4" id="text-1-5-8">
+<div id="outline-container-org0f24966" class="outline-4">
+<h4 id="org0f24966"><span class="section-number-4">2.5.8.</span> t-distribution</h4>
+<div class="outline-text-4" id="text-2-5-8">
 <ul class="org-ul">
 <li>the t-distribution is useful for describing the distribution of the sample mean \(s\) when the population standard deviation, \(\sigma\), is unknown, which is almost always.<br /></li>
 <li>What is the purpuse does a large sample serve?<br />
@@ -2467,7 +2509,7 @@ legend(-5, .4, legend=c(<span style="color: #2544bb;">"Normal"</span>,<span styl
 </div>
 
 
-<div id="org97662b7" class="figure">
+<div id="org7709eaf" class="figure">
 <p><img src="ggplot/dawrss-plot13.svg" alt="dawrss-plot13.svg" class="org-svg" /><br />
 </p>
 </div></li>
@@ -2530,9 +2572,9 @@ or using pt() function in R<br /></li>
 </div>
 </div>
 </div>
-<div id="outline-container-orgfb8acb5" class="outline-2">
-<h2 id="orgfb8acb5"><span class="section-number-2">2.</span> Inferential Statistic</h2>
-<div class="outline-text-2" id="text-2">
+<div id="outline-container-orgea8126d" class="outline-2">
+<h2 id="orgea8126d"><span class="section-number-2">3.</span> Inferential Statistic</h2>
+<div class="outline-text-2" id="text-3">
 <p>
 Inferential statistic is a field of statistic that helps us estimate the population parameter from one or multiple samples.<br />
 </p>
@@ -2599,17 +2641,17 @@ Since we cannot survey the whole population, we use sample statistics as a point
 </p></li>
 </ul>
 </div>
-<div id="outline-container-org7dd97db" class="outline-3">
-<h3 id="org7dd97db"><span class="section-number-3">2.1.</span> The central limit theorom</h3>
-<div class="outline-text-3" id="text-2-1">
+<div id="outline-container-orgbf225fa" class="outline-3">
+<h3 id="orgbf225fa"><span class="section-number-3">3.1.</span> The central limit theorom</h3>
+<div class="outline-text-3" id="text-3-1">
 </div>
-<div id="outline-container-org1786e6c" class="outline-4">
-<h4 id="org1786e6c"><span class="section-number-4">2.1.1.</span> Summary</h4>
-<div class="outline-text-4" id="text-2-1-1">
+<div id="outline-container-org523a9e5" class="outline-4">
+<h4 id="org523a9e5"><span class="section-number-4">3.1.1.</span> Summary</h4>
+<div class="outline-text-4" id="text-3-1-1">
 </div>
-<div id="outline-container-org8315ed2" class="outline-5">
-<h5 id="org8315ed2"><span class="section-number-5">2.1.1.1.</span> terminology</h5>
-<div class="outline-text-5" id="text-2-1-1-1">
+<div id="outline-container-org74cdf3b" class="outline-5">
+<h5 id="org74cdf3b"><span class="section-number-5">3.1.1.1.</span> terminology</h5>
+<div class="outline-text-5" id="text-3-1-1-1">
 <ul class="org-ul">
 <li>Before going into the result of the central limit theorem, let's set some terminologies.<br />
 <ul class="org-ul">
@@ -2619,9 +2661,9 @@ Since we cannot survey the whole population, we use sample statistics as a point
 </ul>
 </div>
 </div>
-<div id="outline-container-org485667b" class="outline-5">
-<h5 id="org485667b"><span class="section-number-5">2.1.1.2.</span> The formula</h5>
-<div class="outline-text-5" id="text-2-1-1-2">
+<div id="outline-container-org32f08e8" class="outline-5">
+<h5 id="org32f08e8"><span class="section-number-5">3.1.1.2.</span> The formula</h5>
+<div class="outline-text-5" id="text-3-1-1-2">
 <ul class="org-ul">
 <li>The central limit theorom tells us that the <b>sampling distribution</b>, that is gotten from any population, is similar to a normal distribution, therefore, we can use its parameters, \(\mu_{\bar{X}}\) and \(\sigma_{\bar{X}}\), to estimate the mean of the population and how much that mean can vary. As long as some conditions are met.<br />
 \[\bar{X} \sim N (\mu_{\bar{X}}=\mu, SE=\sigma_{\bar{X}}=\frac{\sigma}{\sqrt{n}})\]<br />
@@ -2633,9 +2675,9 @@ Since we cannot survey the whole population, we use sample statistics as a point
 </ul>
 </div>
 </div>
-<div id="outline-container-orgc1eac04" class="outline-5">
-<h5 id="orgc1eac04"><span class="section-number-5">2.1.1.3.</span> using the CLT with only one sample</h5>
-<div class="outline-text-5" id="text-2-1-1-3">
+<div id="outline-container-org57e6f84" class="outline-5">
+<h5 id="org57e6f84"><span class="section-number-5">3.1.1.3.</span> using the CLT with only one sample</h5>
+<div class="outline-text-5" id="text-3-1-1-3">
 <ul class="org-ul">
 <li><p>
 We won't be always able to collect multiple samples, nor having the population parameters at hand. A solution is to collect one sample and use its parameter as the population parameter.<br />
@@ -2655,9 +2697,9 @@ The central limit theoerem formula become:<br />
 </ul>
 </div>
 </div>
-<div id="outline-container-orgd4454b1" class="outline-5">
-<h5 id="orgd4454b1"><span class="section-number-5">2.1.1.4.</span> CLT conditions</h5>
-<div class="outline-text-5" id="text-2-1-1-4">
+<div id="outline-container-org4098508" class="outline-5">
+<h5 id="org4098508"><span class="section-number-5">3.1.1.4.</span> CLT conditions</h5>
+<div class="outline-text-5" id="text-3-1-1-4">
 <ul class="org-ul">
 <li>The central limit theorom conditions:<br />
 <ul class="org-ul">
@@ -2676,9 +2718,9 @@ The central limit theoerem formula become:<br />
 </ul>
 </div>
 </div>
-<div id="outline-container-org6be4f9f" class="outline-5">
-<h5 id="org6be4f9f"><span class="section-number-5">2.1.1.5.</span> The standard error</h5>
-<div class="outline-text-5" id="text-2-1-1-5">
+<div id="outline-container-org12bb232" class="outline-5">
+<h5 id="org12bb232"><span class="section-number-5">3.1.1.5.</span> The standard error</h5>
+<div class="outline-text-5" id="text-3-1-1-5">
 <p>
 The formula of the standard error change base on the number of variables and their types.<br />
 </p>
@@ -2719,13 +2761,13 @@ More details in the Methods section.<br />
 </div>
 </div>
 </div>
-<div id="outline-container-orga12fd7d" class="outline-4">
-<h4 id="orga12fd7d"><span class="section-number-4">2.1.2.</span> Details</h4>
-<div class="outline-text-4" id="text-2-1-2">
+<div id="outline-container-org00af35f" class="outline-4">
+<h4 id="org00af35f"><span class="section-number-4">3.1.2.</span> Details</h4>
+<div class="outline-text-4" id="text-3-1-2">
 </div>
-<div id="outline-container-orgc014bad" class="outline-5">
-<h5 id="orgc014bad"><span class="section-number-5">2.1.2.1.</span> Sampling Variability and CLT</h5>
-<div class="outline-text-5" id="text-2-1-2-1">
+<div id="outline-container-org8bc5c10" class="outline-5">
+<h5 id="org8bc5c10"><span class="section-number-5">3.1.2.1.</span> Sampling Variability and CLT</h5>
+<div class="outline-text-5" id="text-3-1-2-1">
 <p>
 Our goal is to estimate the population parameters when the population distribution is unknown or not normal. usualy we estimate the mean.<br />
 </p>
@@ -2821,9 +2863,9 @@ If those condition are true, we can use z-score formula to calculate the probabi
 </p>
 </div>
 </div>
-<div id="outline-container-org3209604" class="outline-5">
-<h5 id="org3209604"><span class="section-number-5">2.1.2.2.</span> CLT (for the mean) examples</h5>
-<div class="outline-text-5" id="text-2-1-2-2">
+<div id="outline-container-orgc578d00" class="outline-5">
+<h5 id="orgc578d00"><span class="section-number-5">3.1.2.2.</span> CLT (for the mean) examples</h5>
+<div class="outline-text-5" id="text-3-1-2-2">
 <p>
 Let's assume we have data about 3000 songs duration with a mean of 3.45 minutes and a standard deviation of 1.63 minutes.<br />
 in this case we can consider this data as a population. \(\mu =3.45\) and \(\sigma =1.63\)<br />
@@ -2955,7 +2997,7 @@ With R<br />
 </div>
 
 
-<div id="org15015c9" class="figure">
+<div id="orgc9fb7b9" class="figure">
 <p><img src="ggplot/dawrss-plot14.svg" alt="dawrss-plot14.svg" class="org-svg" /><br />
 </p>
 </div></li>
@@ -2967,24 +3009,24 @@ With R<br />
 </div>
 </div>
 
-<div id="outline-container-org0a6c895" class="outline-3">
-<h3 id="org0a6c895"><span class="section-number-3">2.2.</span> Methods of inference</h3>
-<div class="outline-text-3" id="text-2-2">
+<div id="outline-container-org2a00afc" class="outline-3">
+<h3 id="org2a00afc"><span class="section-number-3">3.2.</span> Methods of inference</h3>
+<div class="outline-text-3" id="text-3-2">
 </div>
-<div id="outline-container-org78a60c5" class="outline-4">
-<h4 id="org78a60c5"><span class="section-number-4">2.2.1.</span> Confidence interval</h4>
-<div class="outline-text-4" id="text-2-2-1">
+<div id="outline-container-orgb80596e" class="outline-4">
+<h4 id="orgb80596e"><span class="section-number-4">3.2.1.</span> Confidence interval</h4>
+<div class="outline-text-4" id="text-3-2-1">
 </div>
-<div id="outline-container-org4ac9744" class="outline-5">
-<h5 id="org4ac9744"><span class="section-number-5">2.2.1.1.</span> Summary</h5>
-<div class="outline-text-5" id="text-2-2-1-1">
+<div id="outline-container-org3e7a751" class="outline-5">
+<h5 id="org3e7a751"><span class="section-number-5">3.2.1.1.</span> Summary</h5>
+<div class="outline-text-5" id="text-3-2-1-1">
 <p>
 The confidence interval CI is a range consisting of two values, x1 and x2, where a random observation has a certain probability to be within.<br />
 </p>
 </div>
-<div id="outline-container-org49ff300" class="outline-6">
-<h6 id="org49ff300"><span class="section-number-6">2.2.1.1.1.</span> The confidence interval formula</h6>
-<div class="outline-text-6" id="text-2-2-1-1-1">
+<div id="outline-container-orgdf5466b" class="outline-6">
+<h6 id="orgdf5466b"><span class="section-number-6">3.2.1.1.1.</span> The confidence interval formula</h6>
+<div class="outline-text-6" id="text-3-2-1-1-1">
 <p>
 \[CI=\text{point estimate} \pm \text{margin of error}\]<br />
 </p>
@@ -3007,25 +3049,25 @@ And \(\alpha\) is the significant level that is the complementary event of the c
 </ul>
 </div>
 </div>
-<div id="outline-container-org528fda6" class="outline-6">
-<h6 id="org528fda6"><span class="section-number-6">2.2.1.1.2.</span> Calculating CI with R</h6>
-<div class="outline-text-6" id="text-2-2-1-1-2">
+<div id="outline-container-org756bf64" class="outline-6">
+<h6 id="org756bf64"><span class="section-number-6">3.2.1.1.2.</span> Calculating CI with R</h6>
+<div class="outline-text-6" id="text-3-2-1-1-2">
 <div class="org-src-container">
 <pre class="src src-R">qnormGC(0.95,region=<span style="color: #2544bb;">"between"</span>,graph=<span style="color: #005a5f; font-weight: bold;">TRUE</span>,mean=0,sd=1)
 </pre>
 </div>
 
 
-<div id="orgb2d2586" class="figure">
+<div id="org05b6b2c" class="figure">
 <p><img src="ggplot/dawrss-plot15.svg" alt="dawrss-plot15.svg" class="org-svg" /><br />
 </p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org78b6f85" class="outline-6">
-<h6 id="org78b6f85"><span class="section-number-6">2.2.1.1.3.</span> Accuracy vs. Precision</h6>
-<div class="outline-text-6" id="text-2-2-1-1-3">
+<div id="outline-container-orgfe49bf0" class="outline-6">
+<h6 id="orgfe49bf0"><span class="section-number-6">3.2.1.1.3.</span> Accuracy vs. Precision</h6>
+<div class="outline-text-6" id="text-3-2-1-1-3">
 <ul class="org-ul">
 <li>Accuracy describe if the CI contain the population parameter<br /></li>
 <li>Precision relate to the width of the CI, and weither it is informative<br />
@@ -3034,9 +3076,9 @@ Example: saying that a package witll arive withnin 2 to 90 days isent informativ
 </ul>
 </div>
 </div>
-<div id="outline-container-orgcdbff44" class="outline-6">
-<h6 id="orgcdbff44"><span class="section-number-6">2.2.1.1.4.</span> Calculating the sample size</h6>
-<div class="outline-text-6" id="text-2-2-1-1-4">
+<div id="outline-container-org6d10bb9" class="outline-6">
+<h6 id="org6d10bb9"><span class="section-number-6">3.2.1.1.4.</span> Calculating the sample size</h6>
+<div class="outline-text-6" id="text-3-2-1-1-4">
 <p>
 requirment:<br />
 </p>
@@ -3050,9 +3092,9 @@ n = \left ( \frac{z^{1-\frac{\alpha}{2}}*s}{ME} \right )^2<br />
 </div>
 </div>
 </div>
-<div id="outline-container-org57bc3f1" class="outline-5">
-<h5 id="org57bc3f1"><span class="section-number-5">2.2.1.2.</span> Details</h5>
-<div class="outline-text-5" id="text-2-2-1-2">
+<div id="outline-container-org3e3a1cd" class="outline-5">
+<h5 id="org3e3a1cd"><span class="section-number-5">3.2.1.2.</span> Details</h5>
+<div class="outline-text-5" id="text-3-2-1-2">
 <ul class="org-ul">
 <li>The confidence interval \(CI\) is a range consisting of two values, \(x_1\) and \(x_2\), where a random observation has a certain probability to be within.<br />
 That probability is set by a confidence level.<br />
@@ -3132,13 +3174,13 @@ since we want the minimum sample size, we cannot round normaly and have \(n=55\)
 </ul>
 </div>
 </div>
-<div id="outline-container-org2ac1b95" class="outline-5">
-<h5 id="org2ac1b95"><span class="section-number-5">2.2.1.3.</span> Hypothesis testing</h5>
-<div class="outline-text-5" id="text-2-2-1-3">
+<div id="outline-container-org9e7df8a" class="outline-5">
+<h5 id="org9e7df8a"><span class="section-number-5">3.2.1.3.</span> Hypothesis testing</h5>
+<div class="outline-text-5" id="text-3-2-1-3">
 </div>
-<div id="outline-container-org668e878" class="outline-6">
-<h6 id="org668e878"><span class="section-number-6">2.2.1.3.1.</span> summary</h6>
-<div class="outline-text-6" id="text-2-2-1-3-1">
+<div id="outline-container-org63b4bf6" class="outline-6">
+<h6 id="org63b4bf6"><span class="section-number-6">3.2.1.3.1.</span> summary</h6>
+<div class="outline-text-6" id="text-3-2-1-3-1">
 <p>
 Hypothesis testing is a series of steps that leads to a conclusion about a hypothesis.<br />
 We either reject or fail to reject a hypothesis at the end of a hypothesis test.<br />
@@ -3147,9 +3189,9 @@ The black swan is a well-known example. People hold the belief that "all swans a
 Because of this incident, they devised a method for scientifically determining whether or not to accept a hypothesis without claiming truth.<br />
 </p>
 </div>
-<div id="outline-container-orge5a04c7" class="outline-7">
-<h7 id="orge5a04c7"><span class="section-number-7">2.2.1.3.1.1.</span> Terminologie</h7>
-<div class="outline-text-7" id="text-2-2-1-3-1-1">
+<div id="outline-container-orgfe14366" class="outline-7">
+<h7 id="orgfe14366"><span class="section-number-7">3.2.1.3.1.1.</span> Terminologie</h7>
+<div class="outline-text-7" id="text-3-2-1-3-1-1">
 <ul class="org-ul">
 <li><b>Observed value</b>: is the point estimate from the variable we are intresting is studying, it can be a mean \(\bar{x}\), proportion \(p\), diffirence between two mean \(\bar{x_1}-\bar{x_2}\), diffirence between two proportion \(p_1-p_2\)<br /></li>
 <li><b>Population parameter</b>: is the parameter of the variable we are intresting is studying, it can be a mean \(\mu\), proportion \(\hat{p}\), diffirence between two mean \(\mu_1-\mu_2\), diffirence between two proportion \(\hat{p_1}-\hat{p_2}\)<br /></li>
@@ -3169,9 +3211,9 @@ Because of this incident, they devised a method for scientifically determining w
 </p>
 </div>
 </div>
-<div id="outline-container-orga56b925" class="outline-7">
-<h7 id="orga56b925"><span class="section-number-7">2.2.1.3.1.2.</span> Hypothesis steps</h7>
-<div class="outline-text-7" id="text-2-2-1-3-1-2">
+<div id="outline-container-org2945876" class="outline-7">
+<h7 id="org2945876"><span class="section-number-7">3.2.1.3.1.2.</span> Hypothesis steps</h7>
+<div class="outline-text-7" id="text-3-2-1-3-1-2">
 <ul class="org-ul">
 <li>Set the <b>observed value</b>, the <b>population parameter</b>, the standard error, and significant level \(\alpha\).<br /></li>
 <li>Set the <b>null hypothesis</b> and the <b>alternative hypothesis</b><br /></li>
@@ -3195,9 +3237,9 @@ Calculating the p-value, example with \(H_A: \mu \neq \text{Null value}\) and as
 </ul>
 </div>
 </div>
-<div id="outline-container-org1567684" class="outline-7">
-<h7 id="org1567684"><span class="section-number-7">2.2.1.3.1.3.</span> Power</h7>
-<div class="outline-text-7" id="text-2-2-1-3-1-3">
+<div id="outline-container-orgf0662a3" class="outline-7">
+<h7 id="orgf0662a3"><span class="section-number-7">3.2.1.3.1.3.</span> Power</h7>
+<div class="outline-text-7" id="text-3-2-1-3-1-3">
 <ul class="org-ul">
 <li>we want to collect enough data to detenc an effect<br /></li>
 <li>there are some cases where collecting data is expensive.<br /></li>
@@ -3266,7 +3308,7 @@ Visually<br />
 </div>
 
 
-<div id="orgd23cb62" class="figure">
+<div id="org0efc18e" class="figure">
 <p><img src="ggplot/dawrss-plot16.svg" alt="dawrss-plot16.svg" class="org-svg" /><br />
 </p>
 </div></li>
@@ -3295,7 +3337,7 @@ P(x\gt z)&=0.58
 </div>
 
 
-<div id="orgc07ef69" class="figure">
+<div id="org25e640f" class="figure">
 <p><img src="ggplot/dawrss-plot17.svg" alt="dawrss-plot17.svg" class="org-svg" /><br />
 </p>
 </div>
@@ -3340,9 +3382,9 @@ k&=\frac{n_2}{n_1}=1\\
 </div>
 
 
-<div id="outline-container-org84ba290" class="outline-7">
-<h7 id="org84ba290"><span class="section-number-7">2.2.1.3.1.4.</span> Desicion error</h7>
-<div class="outline-text-7" id="text-2-2-1-3-1-4">
+<div id="outline-container-orgb588bc2" class="outline-7">
+<h7 id="orgb588bc2"><span class="section-number-7">3.2.1.3.1.4.</span> Desicion error</h7>
+<div class="outline-text-7" id="text-3-2-1-3-1-4">
 <p>
 we cannot make a desicion base on a p-value and be a \(100\%\) unless we have the whole population, and in most cases we don't.<br />
 There for there will be some cases where we will make the wrong desicion even if we folowe what the p-value sucegest<br />
@@ -3389,9 +3431,9 @@ There for there will be some cases where we will make the wrong desicion even if
 </table>
 </div>
 </div>
-<div id="outline-container-org59ec3f7" class="outline-7">
-<h7 id="org59ec3f7"><span class="section-number-7">2.2.1.3.1.5.</span> Calculating the sample size</h7>
-<div class="outline-text-7" id="text-2-2-1-3-1-5">
+<div id="outline-container-org118a41f" class="outline-7">
+<h7 id="org118a41f"><span class="section-number-7">3.2.1.3.1.5.</span> Calculating the sample size</h7>
+<div class="outline-text-7" id="text-3-2-1-3-1-5">
 <ul class="org-ul">
 <li><p>
 For Experiment with two groups:<br />
@@ -3409,13 +3451,13 @@ we need to determin the:<br />
 </div>
 </div>
 </div>
-<div id="outline-container-org5a2d501" class="outline-6">
-<h6 id="org5a2d501"><span class="section-number-6">2.2.1.3.2.</span> Details</h6>
-<div class="outline-text-6" id="text-2-2-1-3-2">
+<div id="outline-container-orgf2968b6" class="outline-6">
+<h6 id="orgf2968b6"><span class="section-number-6">3.2.1.3.2.</span> Details</h6>
+<div class="outline-text-6" id="text-3-2-1-3-2">
 </div>
-<div id="outline-container-org4b4a111" class="outline-7">
-<h7 id="org4b4a111"><span class="section-number-7">2.2.1.3.2.1.</span> Hypothesis Testing (for a mean)</h7>
-<div class="outline-text-7" id="text-2-2-1-3-2-1">
+<div id="outline-container-org8f97105" class="outline-7">
+<h7 id="org8f97105"><span class="section-number-7">3.2.1.3.2.1.</span> Hypothesis Testing (for a mean)</h7>
+<div class="outline-text-7" id="text-3-2-1-3-2-1">
 <ul class="org-ul">
 <li><p>
 Hypotheses<br />
@@ -3462,7 +3504,7 @@ Visually with R<br />
 </div>
 
 
-<div id="org934de87" class="figure">
+<div id="orgf125a33" class="figure">
 <p><img src="ggplot/dawrss-plot18.svg" alt="dawrss-plot18.svg" class="org-svg" /><br />
 </p>
 </div></li>
@@ -3491,7 +3533,7 @@ Visually with R<br />
 </div>
 
 
-<div id="org91cfe5b" class="figure">
+<div id="org2ddf2ef" class="figure">
 <p><img src="ggplot/dawrss-plot19.svg" alt="dawrss-plot19.svg" class="org-svg" /><br />
 </p>
 </div></li>
@@ -3527,13 +3569,13 @@ H_A&:\mu \lt \text{ or } \gt \text{ or } \neq \ null \ value
 </ul>
 </div>
 </div>
-<div id="outline-container-org5dfbbff" class="outline-7">
-<h7 id="org5dfbbff"><span class="section-number-7">2.2.1.3.2.2.</span> HT (for the mean) examples</h7>
-<div class="outline-text-7" id="text-2-2-1-3-2-2">
+<div id="outline-container-org00b1667" class="outline-7">
+<h7 id="org00b1667"><span class="section-number-7">3.2.1.3.2.2.</span> HT (for the mean) examples</h7>
+<div class="outline-text-7" id="text-3-2-1-3-2-2">
 </div>
-<div id="outline-container-orgf794cb5" class="outline-8">
-<h8 id="orgf794cb5"><span class="section-number-8">2.2.1.3.2.2.1.</span> Example1</h8>
-<div class="outline-text-8" id="text-2-2-1-3-2-2-1">
+<div id="outline-container-org4fcd755" class="outline-8">
+<h8 id="org4fcd755"><span class="section-number-8">3.2.1.3.2.2.1.</span> Example1</h8>
+<div class="outline-text-8" id="text-3-2-1-3-2-2-1">
 <p>
 Researchers investigating characteristics of gifted children collected data from schools in a large city on a random sample of thirty-six children who were identified as gifted children soon after they reached the age of four.<br />
 In this study along with variables on the children, the researchers alse collected data on their mothers IQ scores.<br />
@@ -3609,7 +3651,7 @@ Visually with R:<br />
 </div>
 
 
-<div id="org9e8e66a" class="figure">
+<div id="orgd93d580" class="figure">
 <p><img src="ggplot/dawrss-plot20.svg" alt="dawrss-plot20.svg" class="org-svg" /><br />
 </p>
 </div></li>
@@ -3625,9 +3667,9 @@ The mean of IQ score of mothers that have a gifted child is not the same as the 
 </ul>
 </div>
 </div>
-<div id="outline-container-orgc5477bc" class="outline-8">
-<h8 id="orgc5477bc"><span class="section-number-8">2.2.1.3.2.2.2.</span> Example 2</h8>
-<div class="outline-text-8" id="text-2-2-1-3-2-2-2">
+<div id="outline-container-org7fef884" class="outline-8">
+<h8 id="org7fef884"><span class="section-number-8">3.2.1.3.2.2.2.</span> Example 2</h8>
+<div class="outline-text-8" id="text-3-2-1-3-2-2-2">
 <p>
 A statistics student intrested in sleep habit of domestic cats took a random sample of 144 cats and monitored their sleep.<br />
 The cats sleps an average of 16 hours per day. According to online resources, sleep, on average, 14 hours per day.<br />
@@ -3652,7 +3694,7 @@ The test statistic result can be visualize and calculated in R, using a normal d
 </div>
 
 
-<div id="orgd4056ba" class="figure">
+<div id="orgc357dec" class="figure">
 <p><img src="ggplot/dawrss-plot21.svg" alt="dawrss-plot21.svg" class="org-svg" /><br />
 </p>
 </div></li>
@@ -3664,9 +3706,9 @@ The probability of observing cats sleeping 16 hours on average if they only slee
 </div>
 </div>
 </div>
-<div id="outline-container-org77cc4d1" class="outline-7">
-<h7 id="org77cc4d1"><span class="section-number-7">2.2.1.3.2.3.</span> Decision Errors</h7>
-<div class="outline-text-7" id="text-2-2-1-3-2-3">
+<div id="outline-container-org0c22e7c" class="outline-7">
+<h7 id="org0c22e7c"><span class="section-number-7">3.2.1.3.2.3.</span> Decision Errors</h7>
+<div class="outline-text-7" id="text-3-2-1-3-2-3">
 <ul class="org-ul">
 <li>There are two scenarios regarding making a wrong desicion<br />
 <ul class="org-ul">
@@ -3738,12 +3780,12 @@ Pwer of a test is the probability of correctly rejecting \(H_0\), and the probab
 </ul>
 </div>
 </div>
-<div id="outline-container-org4c8e63b" class="outline-7">
-<h7 id="org4c8e63b"><span class="section-number-7">2.2.1.3.2.4.</span> Significance vs. Confidence Level</h7>
+<div id="outline-container-orgaf7c922" class="outline-7">
+<h7 id="orgaf7c922"><span class="section-number-7">3.2.1.3.2.4.</span> Significance vs. Confidence Level</h7>
 </div>
-<div id="outline-container-org3455f4b" class="outline-7">
-<h7 id="org3455f4b"><span class="section-number-7">2.2.1.3.2.5.</span> Statistical vs. Practical Significance</h7>
-<div class="outline-text-7" id="text-2-2-1-3-2-5">
+<div id="outline-container-org5e38e8f" class="outline-7">
+<h7 id="org5e38e8f"><span class="section-number-7">3.2.1.3.2.5.</span> Statistical vs. Practical Significance</h7>
+<div class="outline-text-7" id="text-3-2-1-3-2-5">
 <p>
 the higher the sample size, the lower the p-value. but also the higher the chances that the statistical significance is meaningless.<br />
 if rejecting the null hypothesis will result in a change, we need to make sure that that change is meaningfull.<br />
@@ -3753,17 +3795,17 @@ Effect size<br />
 </div>
 </div>
 </div>
-<div id="outline-container-org3926982" class="outline-5">
-<h5 id="org3926982"><span class="section-number-5">2.2.1.4.</span> Boostraping/simulation</h5>
-<div class="outline-text-5" id="text-2-2-1-4">
+<div id="outline-container-orgbc86fac" class="outline-5">
+<h5 id="orgbc86fac"><span class="section-number-5">3.2.1.4.</span> Boostraping/simulation</h5>
+<div class="outline-text-5" id="text-3-2-1-4">
 <p>
 Bootstrapping o r the simulation base is a method that uses computing to generate multiple scenarios using one sample to get an idea of how much a point estimate can vary.<br />
 Unlike the central limit theorem, this method can estimate the mean, the proportion, the median, and even a percentile.<br />
 </p>
 </div>
-<div id="outline-container-org1e0d7d6" class="outline-6">
-<h6 id="org1e0d7d6"><span class="section-number-6">2.2.1.4.1.</span> Steps</h6>
-<div class="outline-text-6" id="text-2-2-1-4-1">
+<div id="outline-container-org0a72a7d" class="outline-6">
+<h6 id="org0a72a7d"><span class="section-number-6">3.2.1.4.1.</span> Steps</h6>
+<div class="outline-text-6" id="text-3-2-1-4-1">
 <ul class="org-ul">
 <li>bootstraping is made using an algorthitm:<br />
 <ul class="org-ul">
@@ -3780,13 +3822,13 @@ Unlike the central limit theorem, this method can estimate the mean, the proport
 </div>
 </div>
 </div>
-<div id="outline-container-orgb4ee0f1" class="outline-3">
-<h3 id="orgb4ee0f1"><span class="section-number-3">2.3.</span> Inference for numerical variables</h3>
-<div class="outline-text-3" id="text-2-3">
+<div id="outline-container-orgc1df28d" class="outline-3">
+<h3 id="orgc1df28d"><span class="section-number-3">3.3.</span> Inference for numerical variables</h3>
+<div class="outline-text-3" id="text-3-3">
 </div>
-<div id="outline-container-org3f2cd51" class="outline-4">
-<h4 id="org3f2cd51"><span class="section-number-4">2.3.1.</span> one numerical variable mean</h4>
-<div class="outline-text-4" id="text-2-3-1">
+<div id="outline-container-orgd1d35c9" class="outline-4">
+<h4 id="orgd1d35c9"><span class="section-number-4">3.3.1.</span> one numerical variable mean</h4>
+<div class="outline-text-4" id="text-3-3-1">
 <ul class="org-ul">
 <li>Study: Playing a computer game during lunch affects fullness, memory for lunch, and later snack intake.<br />
 In this studdy researches hypothesized that failure to recal food consumed might lead to increased snacking later on.<br /></li>
@@ -3932,13 +3974,13 @@ finding the p-value in R<br />
 </ul>
 </div>
 </div>
-<div id="outline-container-org67b75ae" class="outline-4">
-<h4 id="org67b75ae"><span class="section-number-4">2.3.2.</span> two numerical variable means/diffirence between two numerical variables</h4>
-<div class="outline-text-4" id="text-2-3-2">
+<div id="outline-container-orgc140c74" class="outline-4">
+<h4 id="orgc140c74"><span class="section-number-4">3.3.2.</span> two numerical variable means/diffirence between two numerical variables</h4>
+<div class="outline-text-4" id="text-3-3-2">
 </div>
-<div id="outline-container-orge5f1dea" class="outline-5">
-<h5 id="orge5f1dea"><span class="section-number-5">2.3.2.1.</span> Two independent numerical</h5>
-<div class="outline-text-5" id="text-2-3-2-1">
+<div id="outline-container-orgcfc60ec" class="outline-5">
+<h5 id="orgcfc60ec"><span class="section-number-5">3.3.2.1.</span> Two independent numerical</h5>
+<div class="outline-text-5" id="text-3-3-2-1">
 <ul class="org-ul">
 <li>Study: Playing a computer game during lunch affects fullness, memory for lunch, and later snack intake.<br />
 In this studdy researches hypothesized that failure to recal food consumed might lead to increased snacking later on.<br /></li>
@@ -4054,9 +4096,9 @@ finding the p-value in R<br />
 </div>
 </div>
 
-<div id="outline-container-org8553ce9" class="outline-5">
-<h5 id="org8553ce9"><span class="section-number-5">2.3.2.2.</span> Two dependent numerical variables</h5>
-<div class="outline-text-5" id="text-2-3-2-2">
+<div id="outline-container-org94e0dc1" class="outline-5">
+<h5 id="org94e0dc1"><span class="section-number-5">3.3.2.2.</span> Two dependent numerical variables</h5>
+<div class="outline-text-5" id="text-3-3-2-2">
 <ul class="org-ul">
 <li>Study: high school and beyond<br />
 200 observations were randomly sampled from the high school and beyond servey.<br />
@@ -4277,13 +4319,13 @@ The probabliliy of obtaining a random sample of 200 student where the average di
 </div>
 </div>
 
-<div id="outline-container-org86b0851" class="outline-4">
-<h4 id="org86b0851"><span class="section-number-4">2.3.3.</span> three or more numerical variable means</h4>
-<div class="outline-text-4" id="text-2-3-3">
+<div id="outline-container-org34786a3" class="outline-4">
+<h4 id="org34786a3"><span class="section-number-4">3.3.3.</span> three or more numerical variable means</h4>
+<div class="outline-text-4" id="text-3-3-3">
 </div>
-<div id="outline-container-org3cd1e20" class="outline-5">
-<h5 id="org3cd1e20"><span class="section-number-5">2.3.3.1.</span> ANOVA</h5>
-<div class="outline-text-5" id="text-2-3-3-1">
+<div id="outline-container-orgbfae2a1" class="outline-5">
+<h5 id="orgbfae2a1"><span class="section-number-5">3.3.3.1.</span> ANOVA</h5>
+<div class="outline-text-5" id="text-3-3-3-1">
 <ul class="org-ul">
 <li>\(H_0:\) The mean outcome is the same across all categories.<br />
 \(\mu_{1}=\mu_{2}=\dots=\mu_{k-1}=\mu_{k}\)<br />
@@ -4610,9 +4652,9 @@ There for we reject \(H_0\)<br /></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orga0cf3b9" class="outline-5">
-<h5 id="orga0cf3b9"><span class="section-number-5">2.3.3.2.</span> Conditions for ANOVA</h5>
-<div class="outline-text-5" id="text-2-3-3-2">
+<div id="outline-container-org0ba6373" class="outline-5">
+<h5 id="org0ba6373"><span class="section-number-5">3.3.3.2.</span> Conditions for ANOVA</h5>
+<div class="outline-text-5" id="text-3-3-3-2">
 <ul class="org-ul">
 <li>There are three main conditions in ANOVA:<br />
 <ul class="org-ul">
@@ -4641,9 +4683,9 @@ There for we reject \(H_0\)<br /></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org391c470" class="outline-5">
-<h5 id="org391c470"><span class="section-number-5">2.3.3.3.</span> Multiple comparisons</h5>
-<div class="outline-text-5" id="text-2-3-3-3">
+<div id="outline-container-orgf391d7e" class="outline-5">
+<h5 id="orgf391d7e"><span class="section-number-5">3.3.3.3.</span> Multiple comparisons</h5>
+<div class="outline-text-5" id="text-3-3-3-3">
 <ul class="org-ul">
 <li>ANOVA only tells us that at least one pair is diffirent but not which one.<br /></li>
 <li>We want to know which means are diffirent?, What should the type 1 error rate, significant level \(\alpha\), be?<br /></li>
@@ -4729,21 +4771,21 @@ calculating \(P(5.365<-T \text{ or } 5.365>T)\) with R<br />
 </div>
 </div>
 
-<div id="outline-container-orgcfe3b7e" class="outline-3">
-<h3 id="orgcfe3b7e"><span class="section-number-3">2.4.</span> Inference for catogorical variables</h3>
-<div class="outline-text-3" id="text-2-4">
+<div id="outline-container-orgf31612e" class="outline-3">
+<h3 id="orgf31612e"><span class="section-number-3">3.4.</span> Inference for catogorical variables</h3>
+<div class="outline-text-3" id="text-3-4">
 </div>
-<div id="outline-container-org1032c30" class="outline-4">
-<h4 id="org1032c30"><span class="section-number-4">2.4.1.</span> one categorical variable proportion</h4>
-<div class="outline-text-4" id="text-2-4-1">
+<div id="outline-container-org8abde4f" class="outline-4">
+<h4 id="org8abde4f"><span class="section-number-4">3.4.1.</span> one categorical variable proportion</h4>
+<div class="outline-text-4" id="text-3-4-1">
 </div>
-<div id="outline-container-org52636f0" class="outline-5">
-<h5 id="org52636f0"><span class="section-number-5">2.4.1.1.</span> one categorical variable proportion with two levels.</h5>
-<div class="outline-text-5" id="text-2-4-1-1">
+<div id="outline-container-org48e3d8d" class="outline-5">
+<h5 id="org48e3d8d"><span class="section-number-5">3.4.1.1.</span> one categorical variable proportion with two levels.</h5>
+<div class="outline-text-5" id="text-3-4-1-1">
 </div>
-<div id="outline-container-org127da64" class="outline-6">
-<h6 id="org127da64"><span class="section-number-6">2.4.1.1.1.</span> Sampling Variability and CLT for Proportions</h6>
-<div class="outline-text-6" id="text-2-4-1-1-1">
+<div id="outline-container-orgbf50681" class="outline-6">
+<h6 id="orgbf50681"><span class="section-number-6">3.4.1.1.1.</span> Sampling Variability and CLT for Proportions</h6>
+<div class="outline-text-6" id="text-3-4-1-1-1">
 <ul class="org-ul">
 <li>reminder of sample distribution and sampling distribution<br /></li>
 <li>Case<br />
@@ -4840,7 +4882,7 @@ Using r visualization<br />
 </div>
 
 
-<div id="orge92b3c9" class="figure">
+<div id="org5ac3336" class="figure">
 <p><img src="ggplot/dawrss-plot22.svg" alt="dawrss-plot22.svg" class="org-svg" /><br />
 </p>
 </div></li>
@@ -4872,7 +4914,7 @@ Using r visualization<br />
 </div>
 
 
-<div id="org41a4ade" class="figure">
+<div id="org7231816" class="figure">
 <p><img src="ggplot/dawrss-plot23.svg" alt="dawrss-plot23.svg" class="org-svg" /><br />
 </p>
 </div></li>
@@ -4893,7 +4935,7 @@ Example using r visualization<br />
 </div>
 
 
-<div id="org4633dac" class="figure">
+<div id="org6eaa58b" class="figure">
 <p><img src="ggplot/dawrss-plot24.svg" alt="dawrss-plot24.svg" class="org-svg" /><br />
 </p>
 </div></li>
@@ -4902,9 +4944,9 @@ Example using r visualization<br />
 </div>
 </div>
 
-<div id="outline-container-orga2494bb" class="outline-6">
-<h6 id="orga2494bb"><span class="section-number-6">2.4.1.1.2.</span> Confidence Interval for a Proportion</h6>
-<div class="outline-text-6" id="text-2-4-1-1-2">
+<div id="outline-container-org422cc6b" class="outline-6">
+<h6 id="org422cc6b"><span class="section-number-6">3.4.1.1.2.</span> Confidence Interval for a Proportion</h6>
+<div class="outline-text-6" id="text-3-4-1-1-2">
 <ul class="org-ul">
 <li>standard error of proportion<br />
 The population proportion \(p\) wont be always giving, some times we might use proportion from a study.<br />
@@ -4964,9 +5006,9 @@ using \(\hat{p}=0.5\) gives the highest posible sample size<br /></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org79c2d56" class="outline-6">
-<h6 id="org79c2d56"><span class="section-number-6">2.4.1.1.3.</span> Hypothesis Test for a Proportion</h6>
-<div class="outline-text-6" id="text-2-4-1-1-3">
+<div id="outline-container-org4c58e43" class="outline-6">
+<h6 id="org4c58e43"><span class="section-number-6">3.4.1.1.3.</span> Hypothesis Test for a Proportion</h6>
+<div class="outline-text-6" id="text-3-4-1-1-3">
 <ul class="org-ul">
 <li>Steps for hypothesis:<br />
 <ul class="org-ul">
@@ -5049,22 +5091,22 @@ p-value\(=0\), reject \(H_0\); the data provide convincing evidence for \(H_A\).
 </div>
 </div>
 
-<div id="outline-container-org22fe646" class="outline-6">
-<h6 id="org22fe646"><span class="section-number-6">2.4.1.1.4.</span> Small Sample Proportions</h6>
-<div class="outline-text-6" id="text-2-4-1-1-4">
+<div id="outline-container-orgb729ef0" class="outline-6">
+<h6 id="orgb729ef0"><span class="section-number-6">3.4.1.1.4.</span> Small Sample Proportions</h6>
+<div class="outline-text-6" id="text-3-4-1-1-4">
 <ul class="org-ul">
 <li>When the amount of faluire to sucess, \(np\gt10\) and \(n(1-p)\gt10\), is not meet we can do simulation base statistic.<br /></li>
 </ul>
 </div>
 </div>
 </div>
-<div id="outline-container-org9f4893a" class="outline-5">
-<h5 id="org9f4893a"><span class="section-number-5">2.4.1.2.</span> one categorical variable proportion with three or more levels.</h5>
-<div class="outline-text-5" id="text-2-4-1-2">
+<div id="outline-container-org03b88de" class="outline-5">
+<h5 id="org03b88de"><span class="section-number-5">3.4.1.2.</span> one categorical variable proportion with three or more levels.</h5>
+<div class="outline-text-5" id="text-3-4-1-2">
 </div>
-<div id="outline-container-orge81b83b" class="outline-6">
-<h6 id="orge81b83b"><span class="section-number-6">2.4.1.2.1.</span> Chi-Square GOF Test</h6>
-<div class="outline-text-6" id="text-2-4-1-2-1">
+<div id="outline-container-org2b94c4b" class="outline-6">
+<h6 id="org2b94c4b"><span class="section-number-6">3.4.1.2.1.</span> Chi-Square GOF Test</h6>
+<div class="outline-text-6" id="text-3-4-1-2-1">
 <ul class="org-ul">
 <li>goodness of fit test<br /></li>
 <li>one categorie variable and two level<br /></li>
@@ -5352,17 +5394,17 @@ Using R<br />
 </div>
 </div>
 
-<div id="outline-container-org54db401" class="outline-4">
-<h4 id="org54db401"><span class="section-number-4">2.4.2.</span> two categorical variable proportions</h4>
-<div class="outline-text-4" id="text-2-4-2">
+<div id="outline-container-org85b0766" class="outline-4">
+<h4 id="org85b0766"><span class="section-number-4">3.4.2.</span> two categorical variable proportions</h4>
+<div class="outline-text-4" id="text-3-4-2">
 </div>
-<div id="outline-container-orged0fcea" class="outline-5">
-<h5 id="orged0fcea"><span class="section-number-5">2.4.2.1.</span> two categorical variable proportions with two levels.</h5>
-<div class="outline-text-5" id="text-2-4-2-1">
+<div id="outline-container-org75a42ea" class="outline-5">
+<h5 id="org75a42ea"><span class="section-number-5">3.4.2.1.</span> two categorical variable proportions with two levels.</h5>
+<div class="outline-text-5" id="text-3-4-2-1">
 </div>
-<div id="outline-container-org447e218" class="outline-6">
-<h6 id="org447e218"><span class="section-number-6">2.4.2.1.1.</span> Estimating the Difference Between Two Proportions</h6>
-<div class="outline-text-6" id="text-2-4-2-1-1">
+<div id="outline-container-org3b28d49" class="outline-6">
+<h6 id="org3b28d49"><span class="section-number-6">3.4.2.1.1.</span> Estimating the Difference Between Two Proportions</h6>
+<div class="outline-text-6" id="text-3-4-2-1-1">
 <ul class="org-ul">
 <li>Two categorical variables<br /></li>
 <li>What we will do is calculating the confidence interval for the diffirence between two proportion<br /></li>
@@ -5507,9 +5549,9 @@ since 0 is outside the confidence interval, we can reject the \(H_0\)<br /></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgaf2c509" class="outline-6">
-<h6 id="orgaf2c509"><span class="section-number-6">2.4.2.1.2.</span> Hypothesis Test for Comparing Two Proportions</h6>
-<div class="outline-text-6" id="text-2-4-2-1-2">
+<div id="outline-container-org793aa61" class="outline-6">
+<h6 id="org793aa61"><span class="section-number-6">3.4.2.1.2.</span> Hypothesis Test for Comparing Two Proportions</h6>
+<div class="outline-text-6" id="text-3-4-2-1-2">
 <ul class="org-ul">
 <li><p>
 Hypothesus setup<br />
@@ -5680,7 +5722,7 @@ Using r visualization<br />
 </div>
 
 
-<div id="org94d7f04" class="figure">
+<div id="org0ee138f" class="figure">
 <p><img src="ggplot/dawrss-plot25.svg" alt="dawrss-plot25.svg" class="org-svg" /><br />
 </p>
 </div></li>
@@ -5692,9 +5734,9 @@ The diffirence proportion observe dosent give enough evidence to support \(H_A\)
 </div>
 </div>
 
-<div id="outline-container-org9898331" class="outline-6">
-<h6 id="org9898331"><span class="section-number-6">2.4.2.1.3.</span> Comparing Two Small Sample Proportions</h6>
-<div class="outline-text-6" id="text-2-4-2-1-3">
+<div id="outline-container-org539f971" class="outline-6">
+<h6 id="org539f971"><span class="section-number-6">3.4.2.1.3.</span> Comparing Two Small Sample Proportions</h6>
+<div class="outline-text-6" id="text-3-4-2-1-3">
 <ul class="org-ul">
 <li>Study: do people know the back of theire hand as good as the palm of their hand<br /></li>
 <li><p>
@@ -5768,13 +5810,13 @@ Study summary:<br />
 </div>
 </div>
 
-<div id="outline-container-orga95dbd2" class="outline-5">
-<h5 id="orga95dbd2"><span class="section-number-5">2.4.2.2.</span> two categorical variable proportions with three or more levels.</h5>
-<div class="outline-text-5" id="text-2-4-2-2">
+<div id="outline-container-org5d46412" class="outline-5">
+<h5 id="org5d46412"><span class="section-number-5">3.4.2.2.</span> two categorical variable proportions with three or more levels.</h5>
+<div class="outline-text-5" id="text-3-4-2-2">
 </div>
-<div id="outline-container-org1103303" class="outline-6">
-<h6 id="org1103303"><span class="section-number-6">2.4.2.2.1.</span> The Chi-Square Independence Test</h6>
-<div class="outline-text-6" id="text-2-4-2-2-1">
+<div id="outline-container-org009620f" class="outline-6">
+<h6 id="org009620f"><span class="section-number-6">3.4.2.2.1.</span> The Chi-Square Independence Test</h6>
+<div class="outline-text-6" id="text-3-4-2-2-1">
 <ul class="org-ul">
 <li>two categorical variables with more than two levels<br /></li>
 <li>Study: Obesity and marital status<br />
@@ -6037,20 +6079,20 @@ Using R<br />
 </div>
 </div>
 
-<div id="outline-container-orga0b798e" class="outline-2">
-<h2 id="orga0b798e"><span class="section-number-2">3.</span> Linear regression and modeling</h2>
-<div class="outline-text-2" id="text-3">
+<div id="outline-container-org4a2d46a" class="outline-2">
+<h2 id="org4a2d46a"><span class="section-number-2">4.</span> Linear regression and modeling</h2>
+<div class="outline-text-2" id="text-4">
 </div>
-<div id="outline-container-org177aa8e" class="outline-3">
-<h3 id="org177aa8e"><span class="section-number-3">3.1.</span> Linear Regression</h3>
-<div class="outline-text-3" id="text-3-1">
+<div id="outline-container-org269f0a7" class="outline-3">
+<h3 id="org269f0a7"><span class="section-number-3">4.1.</span> Linear Regression</h3>
+<div class="outline-text-3" id="text-4-1">
 <p>
 Linear regression gives us a function to better estimate a value instead of using plain mean value.<br />
 </p>
 </div>
-<div id="outline-container-orgc4b6959" class="outline-4">
-<h4 id="orgc4b6959"><span class="section-number-4">3.1.1.</span> Correlation</h4>
-<div class="outline-text-4" id="text-3-1-1">
+<div id="outline-container-org65a7721" class="outline-4">
+<h4 id="org65a7721"><span class="section-number-4">4.1.1.</span> Correlation</h4>
+<div class="outline-text-4" id="text-4-1-1">
 <ul class="org-ul">
 <li>correlation is the mesure of strenght of the linear relationship between two numerical variables<br /></li>
 <li>When we compare two numerical variables we look for:<br />
@@ -6078,9 +6120,9 @@ Linear regression gives us a function to better estimate a value instead of usin
 </ul>
 </div>
 </div>
-<div id="outline-container-org5e9e31c" class="outline-4">
-<h4 id="org5e9e31c"><span class="section-number-4">3.1.2.</span> Residuals</h4>
-<div class="outline-text-4" id="text-3-1-2">
+<div id="outline-container-org4dda6c8" class="outline-4">
+<h4 id="org4dda6c8"><span class="section-number-4">4.1.2.</span> Residuals</h4>
+<div class="outline-text-4" id="text-4-1-2">
 <ul class="org-ul">
 <li>residuals are leftovers from the model fit<br />
 \[\text{data}=\text{fit}+\text{residual}\]<br /></li>
@@ -6089,9 +6131,9 @@ Linear regression gives us a function to better estimate a value instead of usin
 </ul>
 </div>
 </div>
-<div id="outline-container-org6b48f6a" class="outline-4">
-<h4 id="org6b48f6a"><span class="section-number-4">3.1.3.</span> Least Squares Line</h4>
-<div class="outline-text-4" id="text-3-1-3">
+<div id="outline-container-org8a8dac3" class="outline-4">
+<h4 id="org8a8dac3"><span class="section-number-4">4.1.3.</span> Least Squares Line</h4>
+<div class="outline-text-4" id="text-4-1-3">
 <ul class="org-ul">
 <li>A measure of the best line<br />
 <ul class="org-ul">
@@ -6229,9 +6271,9 @@ States with no high school graduates are expected on average to have \(64.68\%\)
 </ul>
 </div>
 </div>
-<div id="outline-container-org091f60b" class="outline-4">
-<h4 id="org091f60b"><span class="section-number-4">3.1.4.</span> Prediction and Extrapolation</h4>
-<div class="outline-text-4" id="text-3-1-4">
+<div id="outline-container-org0190d06" class="outline-4">
+<h4 id="org0190d06"><span class="section-number-4">4.1.4.</span> Prediction and Extrapolation</h4>
+<div class="outline-text-4" id="text-4-1-4">
 <ul class="org-ul">
 <li><p>
 Prediction:<br />
@@ -6262,9 +6304,9 @@ What is the predicting percentage living in poverty in states where the high sch
 </ul>
 </div>
 </div>
-<div id="outline-container-org80fca41" class="outline-4">
-<h4 id="org80fca41"><span class="section-number-4">3.1.5.</span> Conditions for Linear Regression</h4>
-<div class="outline-text-4" id="text-3-1-5">
+<div id="outline-container-orgb785181" class="outline-4">
+<h4 id="orgb785181"><span class="section-number-4">4.1.5.</span> Conditions for Linear Regression</h4>
+<div class="outline-text-4" id="text-4-1-5">
 <p>
 Most of them can be chechek using plots<br />
 <b>Note</b>: in linearitiny condition is not met there is other non-liear regression models<br />
@@ -6281,9 +6323,9 @@ This can be checked using a histogram or a normal q-q plot<br /></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orge09aa48" class="outline-4">
-<h4 id="orge09aa48"><span class="section-number-4">3.1.6.</span> R Squared</h4>
-<div class="outline-text-4" id="text-3-1-6">
+<div id="outline-container-org8bdc600" class="outline-4">
+<h4 id="org8bdc600"><span class="section-number-4">4.1.6.</span> R Squared</h4>
+<div class="outline-text-4" id="text-4-1-6">
 <p>
 \(R^2\) measure the strenght of the fit of a linear model, it value is between 0 and 1.<br />
 \(R^2\) tells us what <b>percent</b> of variability in the <b>response variable</b> is explained by the model.<br />
@@ -6298,9 +6340,9 @@ The relationship betwen the graduation and poverty level is accounted for \(56.2
 </ul>
 </div>
 </div>
-<div id="outline-container-orgb1cc1ca" class="outline-4">
-<h4 id="orgb1cc1ca"><span class="section-number-4">3.1.7.</span> Regression with Categorical Explanatory Variables</h4>
-<div class="outline-text-4" id="text-3-1-7">
+<div id="outline-container-orgeddcc4d" class="outline-4">
+<h4 id="orgeddcc4d"><span class="section-number-4">4.1.7.</span> Regression with Categorical Explanatory Variables</h4>
+<div class="outline-text-4" id="text-4-1-7">
 <p>
 When working with a categorical <b>explanatory</b> variable, we do a one hot encoding, meaning we replace the levels with numbers where in the formula, the first level in called the reference and is not shown, while the other present and can be either one or zero.<br />
 </p>
@@ -6318,13 +6360,13 @@ We use a new region variable with frou levels, [northeast, midwest, west, south]
 </div>
 </div>
 </div>
-<div id="outline-container-org9570ef1" class="outline-3">
-<h3 id="org9570ef1"><span class="section-number-3">3.2.</span> More about Linear Regression</h3>
-<div class="outline-text-3" id="text-3-2">
+<div id="outline-container-org91ea7f1" class="outline-3">
+<h3 id="org91ea7f1"><span class="section-number-3">4.2.</span> More about Linear Regression</h3>
+<div class="outline-text-3" id="text-4-2">
 </div>
-<div id="outline-container-orgca822ab" class="outline-4">
-<h4 id="orgca822ab"><span class="section-number-4">3.2.1.</span> Outliers in Regression</h4>
-<div class="outline-text-4" id="text-3-2-1">
+<div id="outline-container-org2c33235" class="outline-4">
+<h4 id="org2c33235"><span class="section-number-4">4.2.1.</span> Outliers in Regression</h4>
+<div class="outline-text-4" id="text-4-2-1">
 <p>
 Outliers are point that fall away from a cluster of points.<br />
 </p>
@@ -6347,9 +6389,9 @@ Outliers are point that fall away from a cluster of points.<br />
 </ul>
 </div>
 </div>
-<div id="outline-container-org3ef130e" class="outline-4">
-<h4 id="org3ef130e"><span class="section-number-4">3.2.2.</span> Inference for Linear Regression</h4>
-<div class="outline-text-4" id="text-3-2-2">
+<div id="outline-container-org65ea5d9" class="outline-4">
+<h4 id="org65ea5d9"><span class="section-number-4">4.2.2.</span> Inference for Linear Regression</h4>
+<div class="outline-text-4" id="text-4-2-2">
 <ul class="org-ul">
 <li>Inference in linear model is done to the slope, we want to know:<br />
 <ul class="org-ul">
@@ -6458,9 +6500,9 @@ We are \(95\%\) confident that for each additional point on the biological twins
 </ul>
 </div>
 </div>
-<div id="outline-container-org01fbecc" class="outline-4">
-<h4 id="org01fbecc"><span class="section-number-4">3.2.3.</span> Variability Partitioning</h4>
-<div class="outline-text-4" id="text-3-2-3">
+<div id="outline-container-org3763aae" class="outline-4">
+<h4 id="org3763aae"><span class="section-number-4">4.2.3.</span> Variability Partitioning</h4>
+<div class="outline-text-4" id="text-4-2-3">
 <ul class="org-ul">
 <li><p>
 Doing anova anaylsis will yield this result<br />
@@ -6554,21 +6596,21 @@ If the p-value is small, we can say that the data provide convincing evidence th
 </div>
 </div>
 </div>
-<div id="outline-container-org8da0f09" class="outline-3">
-<h3 id="org8da0f09"><span class="section-number-3">3.3.</span> Multiple Regression</h3>
-<div class="outline-text-3" id="text-3-3">
+<div id="outline-container-org5b616be" class="outline-3">
+<h3 id="org5b616be"><span class="section-number-3">4.3.</span> Multiple Regression</h3>
+<div class="outline-text-3" id="text-4-3">
 </div>
-<div id="outline-container-org6af5d32" class="outline-4">
-<h4 id="org6af5d32"><span class="section-number-4">3.3.1.</span> Introduction</h4>
-<div class="outline-text-4" id="text-3-3-1">
+<div id="outline-container-org5ed50c6" class="outline-4">
+<h4 id="org5ed50c6"><span class="section-number-4">4.3.1.</span> Introduction</h4>
+<div class="outline-text-4" id="text-4-3-1">
 <ul class="org-ul">
 <li>we will try to predict a response variable from multiple "potential" explanatory variables<br /></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org6b1f870" class="outline-4">
-<h4 id="org6b1f870"><span class="section-number-4">3.3.2.</span> Multiple Predictors</h4>
-<div class="outline-text-4" id="text-3-3-2">
+<div id="outline-container-orge894f8c" class="outline-4">
+<h4 id="orge894f8c"><span class="section-number-4">4.3.2.</span> Multiple Predictors</h4>
+<div class="outline-text-4" id="text-4-3-2">
 <ul class="org-ul">
 <li>Case study<br />
 Data about the physical caracteristic of books, thier volume, type of cover (hardback, paperback), and the area of the hardback cover.<br />
@@ -6582,7 +6624,7 @@ Data<br />
 </pre>
 </div>
 
-<pre class="example" id="orge6cdcf1">
+<pre class="example" id="orgb1114bd">
    volume area weight cover
 1     885  382    800    hb
 2    1016  468    950    hb
@@ -6611,7 +6653,7 @@ geom_point(size=6,alpha=0.8)
 </div>
 
 
-<div id="org445add8" class="figure">
+<div id="orgde3366b" class="figure">
 <p><img src="ggplot/dawrss-plot26.svg" alt="dawrss-plot26.svg" class="org-svg" /><br />
 </p>
 </div>
@@ -6628,7 +6670,7 @@ summary(book_mlr)
 </pre>
 </div>
 
-<pre class="example" id="org1c54f3e">
+<pre class="example" id="org492dfe6">
 
 Call:
 lm(formula = weight ~ volume + cover, data = allbacks)
@@ -6691,7 +6733,7 @@ Graph<br />
 </div>
 
 
-<div id="org5265a5b" class="figure">
+<div id="org9f40f9c" class="figure">
 <p><img src="ggplot/dawrss-plot27.svg" alt="dawrss-plot27.svg" class="org-svg" /><br />
 </p>
 </div></li>
@@ -6722,9 +6764,9 @@ Predict the weight of a paperback book that have 600 in volume<br />
 </ul>
 </div>
 </div>
-<div id="outline-container-org212ea57" class="outline-4">
-<h4 id="org212ea57"><span class="section-number-4">3.3.3.</span> Variable interaction</h4>
-<div class="outline-text-4" id="text-3-3-3">
+<div id="outline-container-org7d49f4f" class="outline-4">
+<h4 id="org7d49f4f"><span class="section-number-4">4.3.3.</span> Variable interaction</h4>
+<div class="outline-text-4" id="text-4-3-3">
 <p>
 It state that the predictiong variable will have a diffirent line for each level, but they wont be parallel to each other<br />
 </p>
@@ -6767,7 +6809,7 @@ Data from penguins dataset<br />
 </pre>
 </div>
 
-<pre class="example" id="orgd7c5c62">
+<pre class="example" id="orgd089c61">
 [90m# A tibble: 344 × 8[39m
    species island    bill_length_mm bill_depth_mm flipper_…¹ body_…² sex    year
    [3m[90m&lt;fct&gt;[39m[23m   [3m[90m&lt;fct&gt;[39m[23m              [3m[90m&lt;dbl&gt;[39m[23m         [3m[90m&lt;dbl&gt;[39m[23m      [3m[90m&lt;int&gt;[39m[23m   [3m[90m&lt;int&gt;[39m[23m [3m[90m&lt;fct&gt;[39m[23m [3m[90m&lt;int&gt;[39m[23m
@@ -6795,7 +6837,7 @@ summary(book_mlr)
 </pre>
 </div>
 
-<pre class="example" id="org1dc45fd">
+<pre class="example" id="orgcddc459">
 
 Call:
 lm(formula = body_mass_g ~ flipper_length_mm + species, data = penguins)
@@ -6829,7 +6871,7 @@ F-statistic: 405.7 on 3 and 338 DF,  p-value: &lt; 2.2e-16
 </div>
 
 
-<div id="org4d98854" class="figure">
+<div id="org9a7abaf" class="figure">
 <p><img src="ggplot/dawrss-plot28.svg" alt="dawrss-plot28.svg" class="org-svg" /><br />
 </p>
 </div></li>
@@ -6843,7 +6885,7 @@ summary(book_mlr)
 </pre>
 </div>
 
-<pre class="example" id="orgda027b8">
+<pre class="example" id="orgc29074b">
 
 Call:
 lm(formula = body_mass_g ~ flipper_length_mm * species, data = penguins)
@@ -6879,7 +6921,7 @@ F-statistic: 252.2 on 5 and 336 DF,  p-value: &lt; 2.2e-16
 </div>
 
 
-<div id="orgcf0bca0" class="figure">
+<div id="orgfb714b6" class="figure">
 <p><img src="ggplot/dawrss-plot29.svg" alt="dawrss-plot29.svg" class="org-svg" /><br />
 </p>
 </div></li>
@@ -6900,7 +6942,7 @@ Comparing the two linear models<br />
 </div>
 
 
-<div id="org3c04064" class="figure">
+<div id="orgac785f4" class="figure">
 <p><img src="ggplot/dawrss-plot30.svg" alt="dawrss-plot30.svg" class="org-svg" /><br />
 </p>
 </div></li>
@@ -6910,9 +6952,9 @@ Comparing the two linear models<br />
 </div>
 </div>
 
-<div id="outline-container-orge2ff854" class="outline-4">
-<h4 id="orge2ff854"><span class="section-number-4">3.3.4.</span> Adjusted R Squared</h4>
-<div class="outline-text-4" id="text-3-3-4">
+<div id="outline-container-org4dd69f4" class="outline-4">
+<h4 id="org4dd69f4"><span class="section-number-4">4.3.4.</span> Adjusted R Squared</h4>
+<div class="outline-text-4" id="text-4-3-4">
 <p>
 R square is:<br />
 \[R^2=\frac{\text{Explained variability}}{\text{Total variability}}\]<br />
@@ -6941,7 +6983,7 @@ pv_df
 </pre>
 </div>
 
-<pre class="example" id="org021668d">
+<pre class="example" id="orgf342bf0">
 [1mRows: [22m[34m51[39m [1mColumns: [22m[34m6[39m
 [36m──[39m [1mColumn specification[22m [36m────────────────────────────────────────────────────────[39m
 [1mDelimiter:[22m ","
@@ -6976,7 +7018,7 @@ Exploratory data analysis<br />
 </div>
 
 
-<div id="org199c631" class="figure">
+<div id="org508d2e7" class="figure">
 <p><img src="ggplot/dawrss-plot31.svg" alt="dawrss-plot31.svg" class="org-svg" /><br />
 </p>
 </div></li>
@@ -6993,7 +7035,7 @@ summary(m)
 </pre>
 </div>
 
-<pre class="example" id="org6d3a3e5">
+<pre class="example" id="org2bb5e64">
 
 Call:
 lm(formula = poverty ~ female_house, data = pv_df)
@@ -7066,7 +7108,7 @@ summary(m)
 </pre>
 </div>
 
-<pre class="example" id="org6b26256">
+<pre class="example" id="org9f56018">
 
 Call:
 lm(formula = poverty ~ female_house + white, data = pv_df)
@@ -7177,9 +7219,9 @@ We can notice that using \(R^2\) is shown as \(\approx8.5\) times biger that \(A
 </ul>
 </div>
 </div>
-<div id="outline-container-org3773588" class="outline-4">
-<h4 id="org3773588"><span class="section-number-4">3.3.5.</span> Collinearity and Parsimony</h4>
-<div class="outline-text-4" id="text-3-3-5">
+<div id="outline-container-org1196576" class="outline-4">
+<h4 id="org1196576"><span class="section-number-4">4.3.5.</span> Collinearity and Parsimony</h4>
+<div class="outline-text-4" id="text-4-3-5">
 <ul class="org-ul">
 <li>Collinearity<br />
 <ul class="org-ul">
@@ -7200,7 +7242,7 @@ The model2 include "female_house" predictor and "white" predictor, and there two
 </div>
 
 
-<div id="org863a339" class="figure">
+<div id="orgc9b9851" class="figure">
 <p><img src="ggplot/dawrss-plot32.svg" alt="dawrss-plot32.svg" class="org-svg" /><br />
 </p>
 </div>
@@ -7281,9 +7323,9 @@ Adding multiple predictors that are collinear will only complicate the model wit
 </ul>
 </div>
 </div>
-<div id="outline-container-org4808a4b" class="outline-4">
-<h4 id="org4808a4b"><span class="section-number-4">3.3.6.</span> Inference for MLR</h4>
-<div class="outline-text-4" id="text-3-3-6">
+<div id="outline-container-org0e3f015" class="outline-4">
+<h4 id="org0e3f015"><span class="section-number-4">4.3.6.</span> Inference for MLR</h4>
+<div class="outline-text-4" id="text-4-3-6">
 <ul class="org-ul">
 <li><p>
 Using infrencial technique we can determin which variables in the model are significant predictors, we can find the hypothesis result in the model summary, but will do it by hand the first time.<br />
@@ -7294,7 +7336,7 @@ summary(m)
 </pre>
 </div>
 
-<pre class="example" id="org17e0852">
+<pre class="example" id="org3eb2137">
 
 Call:
 lm(formula = poverty ~ female_house, data = pv_df)
@@ -7433,9 +7475,9 @@ Holding all other variables constand, we are \(95\%\) confident that one point i
 </ul>
 </div>
 </div>
-<div id="outline-container-org1c21640" class="outline-4">
-<h4 id="org1c21640"><span class="section-number-4">3.3.7.</span> Model Selection</h4>
-<div class="outline-text-4" id="text-3-3-7">
+<div id="outline-container-org5efa111" class="outline-4">
+<h4 id="org5efa111"><span class="section-number-4">4.3.7.</span> Model Selection</h4>
+<div class="outline-text-4" id="text-4-3-7">
 <ul class="org-ul">
 <li>Best model selection can be either with:<br />
 <ul class="org-ul">
@@ -7568,7 +7610,7 @@ summary(m)
 </pre>
 </div>
 
-<pre class="example" id="org02d7d0f">
+<pre class="example" id="org1d0e059">
 
 Call:
 lm(formula = poverty ~ female_house + white + hs_grad + metro_res, 
@@ -7605,7 +7647,7 @@ summary(m)
 </pre>
 </div>
 
-<pre class="example" id="org6028d82">
+<pre class="example" id="org3683029">
 
 Call:
 lm(formula = poverty ~ white + hs_grad + metro_res, data = pv_df)
@@ -7641,9 +7683,9 @@ sometimes the two methods will yield in a diffirent model<br /></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orga9d8083" class="outline-4">
-<h4 id="orga9d8083"><span class="section-number-4">3.3.8.</span> Diagnostics for MLR</h4>
-<div class="outline-text-4" id="text-3-3-8">
+<div id="outline-container-orgac680b4" class="outline-4">
+<h4 id="orgac680b4"><span class="section-number-4">4.3.8.</span> Diagnostics for MLR</h4>
+<div class="outline-text-4" id="text-4-3-8">
 <ul class="org-ul">
 <li>Conditions for the multiple linear model to be mapped valid, These conditions can be checked with a plot<br />
 <ul class="org-ul">
@@ -7665,7 +7707,7 @@ From out previous model, poverty~white+hs_grad+metro_res, we'll check each varai
 </ul>
 
 
-<div id="org34f808d" class="figure">
+<div id="orga08805a" class="figure">
 <p><img src="ggplot/dawrss-plot33.svg" alt="dawrss-plot33.svg" class="org-svg" /><br />
 </p>
 </div>
@@ -7681,7 +7723,7 @@ meet for varaible: hs_grad<br />
 </ul>
 
 
-<div id="orgba17e7b" class="figure">
+<div id="org343b151" class="figure">
 <p><img src="ggplot/dawrss-plot34.svg" alt="dawrss-plot34.svg" class="org-svg" /><br />
 </p>
 </div>
@@ -7697,7 +7739,7 @@ meet for varaible: metro_res<br />
 </ul>
 
 
-<div id="org6c5bd0b" class="figure">
+<div id="orgffd53d5" class="figure">
 <p><img src="ggplot/dawrss-plot35.svg" alt="dawrss-plot35.svg" class="org-svg" /><br />
 </p>
 </div></li>
@@ -7714,7 +7756,7 @@ Histogram plot<br />
 </div>
 
 
-<div id="orge576d38" class="figure">
+<div id="orgce955df" class="figure">
 <p><img src="ggplot/dawrss-plot36.svg" alt="dawrss-plot36.svg" class="org-svg" /><br />
 </p>
 </div></li>
@@ -7728,7 +7770,7 @@ QQ plot (ouff)<br />
 </div>
 
 
-<div id="orgf36bcf0" class="figure">
+<div id="org2f84a82" class="figure">
 <p><img src="ggplot/dawrss-plot37.svg" alt="dawrss-plot37.svg" class="org-svg" /><br />
 </p>
 </div></li>
@@ -7744,7 +7786,7 @@ We are looking for a random scatter around 0<br />
 </div>
 
 
-<div id="orgd544fd6" class="figure">
+<div id="org726bab9" class="figure">
 <p><img src="ggplot/dawrss-plot38.svg" alt="dawrss-plot38.svg" class="org-svg" /><br />
 </p>
 </div></li>
@@ -7759,7 +7801,7 @@ We need to check how the data is sampled, else, if time series structures is sus
 </div>
 
 
-<div id="org7d67da7" class="figure">
+<div id="org3c4d82b" class="figure">
 <p><img src="ggplot/dawrss-plot39.svg" alt="dawrss-plot39.svg" class="org-svg" /><br />
 </p>
 </div></li>
@@ -7772,7 +7814,7 @@ We need to check how the data is sampled, else, if time series structures is sus
 </div>
 <div id="postamble" class="status">
 <p class="date">Date: 2022-10-31 Mon 17:15</p>
-<p class="date">Created: 2023-03-18 Sat 10:16</p>
+<p class="date">Created: 2023-03-27 Mon 16:23</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
