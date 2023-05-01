@@ -50,6 +50,7 @@ My last projects involve scraping and developing a metric to ease decision-makin
     - Scrape and get all feature from each apartment
     - Decide which apparent I should rent base on low price and high number of features.
   [[file:20230320T132120--finding-a-rental-apartment__script.html][Project link]]
+- My old project are found here [[https://y-yorozia.github.io/projects/][Link]]
 * Workflow
 ** Data Analysis
 [[file:img/svg/Google_data_analysis_summary.svg]]
@@ -108,3 +109,4 @@ I only audited courses on Coursera, All I have are notes to prove it.
 - [[https://github.com/photosynthesis-team/piq][PIQ]] used in my latest project
 * Contact
 Email: [[mailto:yoroziano.youssef@gmail.com][yoroziano.youssef@gmail.com]]
+Phone: 0713617633
